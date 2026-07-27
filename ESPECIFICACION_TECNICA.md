@@ -144,6 +144,30 @@ CREATE TABLE user_favorite_pairings (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (user_id, pairing_id)
 );
+
+-- 5. Caché e Indexación Permanente de Recetas en el Servidor
+CREATE TABLE recipes (
+    id SERIAL PRIMARY KEY,
+    external_id INT UNIQUE, -- ID devuelto por Spoonacular (opcional)
+    title VARCHAR(255) NOT NULL,
+    image_url TEXT,
+    source_url TEXT,
+    ready_in_minutes INT,
+    servings INT,
+    raw_json JSONB NOT NULL, -- Datos completos de la receta (ingredientes, pasos, nutrición)
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE recipe_search_cache (
+    id SERIAL PRIMARY KEY,
+    cache_key VARCHAR(64) UNIQUE NOT NULL, -- Hash SHA-256 de los ingredient_ids ordenados (ej: hash("12,45,88"))
+    ingredient_ids INT[] NOT NULL,
+    recipe_ids INT[] NOT NULL, -- Arreglo de IDs de la tabla 'recipes'
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    last_accessed_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_recipe_search_hash ON recipe_search_cache(cache_key);
 ```
 
 ### 4.2 Lógica de Consulta Bidireccional
@@ -230,6 +254,36 @@ Es importante destacar que **NO es necesario tipear datos a mano ni comprar libr
   "clashing_ingredients": ["Chocolate"], // Elemento identificativo que rompe la armonía
   "recommendation": "El Chocolate presenta baja compatibilidad con el Tomate. Se sugiere reemplazar por Queso Mozzarella."
 }
+```
+
+### 6.4 Servicio de Recetas y Estrategia de Caché Permanente (`/api/v1/recipes`)
+* `GET /api/v1/recipes/search?ingredient_ids=12,45,88`: Recibe una lista de ingredientes y busca recetas coincidentes.
+
+#### 📦 ¿La información es temporal (usuario) o permanente (servidor)?
+La información **QUEDA GUARDADA DE FORMA PERMANENTE EN EL SERVIDOR (Base de Datos PostgreSQL)**. No es temporal del navegador del usuario.
+
+#### 💡 Razones Técnicas de esta Decisión:
+1. **Ahorro de Cuota de API (Límite Spoonacular):** La cuota gratuita de Spoonacular ofrece solo 150 puntos/día. Guardar las recetas en el servidor evita agotar la cuota con búsquedas repetidas.
+2. **Velocidad Sub-10ms (Rendimiento Extremo):** Una búsqueda a Spoonacular tarda entre 800ms y 2000ms. Al consultar recetas cacheadas en PostgreSQL, la respuesta es inmediata (< 10ms).
+3. **Construcción Progresiva del Dataset:** Con el uso diario de los usuarios, el servidor va construyendo automáticamente su propio repositorio enriquecido de recetas.
+
+#### 🔄 Flujo de Obtención e Indexación (FastAPI Backend):
+```
+[ Usuario consulta: Tomate (12) + Albahaca (45) + Queso (88) ]
+                               │
+                               ▼
+        Calcular Hash de Búsqueda: SHA256("12,45,88")
+                               │
+            ¿Existe `cache_key` en `recipe_search_cache`?
+                     /                   \
+                 SÍ                       NO
+                /                           \
+   Obtener `recipe_ids` de DB      Llamar API Spoonacular (`findByIngredients`)
+   Cargar recetas desde `recipes`           │
+   Retornar inmediatamente (<10ms)  Guardar cada receta en tabla `recipes`
+                                    Guardar Hash + IDs en `recipe_search_cache`
+                                            │
+                                    Retornar resultados al usuario
 ```
 
 ---
