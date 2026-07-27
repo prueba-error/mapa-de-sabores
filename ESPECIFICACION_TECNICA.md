@@ -282,7 +282,16 @@ La información **QUEDA GUARDADA DE FORMA PERMANENTE EN EL SERVIDOR (Base de Dat
 2. **Reducción de Latencia:** Una búsqueda a Spoonacular tarda entre 800ms y 2000ms. Consultar recetas ya cacheadas en PostgreSQL es sensiblemente más rápido, al tratarse de una lectura local sin llamada HTTP externa.
 3. **Construcción Progresiva del Dataset:** Con el uso diario de los usuarios, el servidor va construyendo automáticamente su propio repositorio enriquecido de recetas.
 
-#### Flujo de Obtención e Indexación (FastAPI Backend):
+#### 🌐 Idioma de las Recetas y Traducción Automática al Español
+La base de datos original de **Spoonacular está principalmente en inglés**. Para ofrecer una experiencia 100% nativa en español:
+
+1. **Pipeline de Traducción al Cachear (Translation-on-Cache):**
+   * Cuando FastAPI recupera una receta nueva de Spoonacular (en inglés), **antes de guardarla en PostgreSQL**, el backend realiza un pase automático rápido por el servicio de LLM (Gemini Flash / GPT-4o-mini) con el prompt: *"Traduce al español neutro el título, ingredientes e instrucciones de preparación manteniendo la estructura JSON"*.
+2. **Cero Latencia Adicional para el Usuario:**
+   * La traducción ocurre **una sola vez por receta** (al momento de ser descubierta e ingresada a la tabla `recipes`).
+   * Todas las consultas posteriores leen el texto traducido directamente desde PostgreSQL en < 10ms.
+
+#### Flujo de Obtención, Traducción e Indexación (FastAPI Backend):
 ```
 [ Usuario consulta: Tomate (12) + Albahaca (45) + Queso (88) ]
                                │
@@ -293,12 +302,14 @@ La información **QUEDA GUARDADA DE FORMA PERMANENTE EN EL SERVIDOR (Base de Dat
                      /                   \
                  SÍ                       NO
                 /                           \
-   Obtener `recipe_ids` de DB      Llamar API Spoonacular (`findByIngredients`)
+   Obtener `recipe_ids` de DB      Llamar API Spoonacular (`findByIngredients`) [EN]
    Cargar recetas desde `recipes`           │
-   Retornar sin llamada externa     Guardar cada receta en tabla `recipes`
-                                    Guardar Hash + IDs en `recipe_search_cache`
+   Retornar en español (<10ms)     Traducir al Español vía LLM (Gemini/OpenAI)
                                             │
-                                    Retornar resultados al usuario
+                                   Guardar receta traducida en tabla `recipes`
+                                   Guardar Hash + IDs en `recipe_search_cache`
+                                            │
+                                   Retornar resultados al usuario en Español
 ```
 
 ---
