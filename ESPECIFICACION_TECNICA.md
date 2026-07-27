@@ -1,10 +1,8 @@
-# Documento de Especificación Técnica y Propuesta de Proyecto de Grado
-## **Mapa de Sabores con IA (Flavor Map AI)**
+# Mapa de Sabores - Propuesta de Proyecto y Especificación Técnica
 
-**Carrera / Materia:** Desarrollo de Sistemas Web / Proyecto Final de Carrera  
-**Estado:** Propuesta Aprobada y Especificación Técnica Definitiva  
-**Versión:** 1.0.0  
-**Fecha:** Julio 2026  
+## Proyecto Final Desarrollo de Sistemas Web
+
+**Alumno:** Diego Rafael Guaraz
 
 ---
 
