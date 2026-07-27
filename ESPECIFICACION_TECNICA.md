@@ -171,17 +171,28 @@ ORDER BY p.affinity_score DESC;
 
 ---
 
-## ⚙️ 5. Pipeline Offline de Generación de Datos Sintéticos (Mes 1)
+## ⚙️ 5. Pipeline Offline y Origen del Dataset de Sabores (Mes 1)
 
-Para poblar el sistema sin necesidad de ingreso manual:
-1. **Semilla de Ingredientes:** Se define un listado semilla de 250 ingredientes comunes divididos por categorías culinarias.
-2. **Script de Generación en Python (`scripts/seed_flavor_network.py`):**
-   * Genera combinaciones lógicas de pares.
-   * Solicita a la API de LLM (usando salidas estructuradas en JSON) evaluar la afinidad del 0.00 al 1.00 y dar una razón organoléptica de 2 oraciones.
+### 5.1 Origen y Fuentes de la Información de Ingredientes y Afinidad
+Para garantizar la fidelidad culinaria y científica del dataset sin incurrir en costos excesivos o licencias restrictivas, los datos se obtienen mediante un enfoque **Triangulado e Híbrido**:
+
+1. **Fuentes Abiertas y Datasets Científico-Gastronómicos (Nombres y Taxonomía):**
+   * **Spoonacular Ingredient API & USDA FoodData Central:** Taxonomía estándar de ingredientes, nombres normalizados (en español e inglés) e imágenes/iconos representativos.
+   * **FlavorDB / Flavornet (Bases de datos de acceso público):** Referencia bibliográfica de perfilado químico (compuestos aromáticos volátiles como *eugenol, linalool, limoneno, pineno*).
+2. **Conocimiento Culinario Estructurado (Fundamentos Culinarios):**
+   * Reglas de afinidad derivadas de literatura gastronómica de referencia (*The Flavor Bible* de Karen Page & Andrew Dornenburg y *The Flavor Thesaurus* de Niki Segnit).
+3. **Pipeline de Generación Sintética y Enriquecimiento mediante LLM (Python):**
+   * Un script offline (`scripts/seed_flavor_network.py`) toma los ingredientes base y utiliza un LLM (vía API) con salida JSON estricta (Pydantic) para:
+     * Asignar la puntuación de afinidad numérica ($0.00$ a $1.00$).
+     * Generar la justificación organoléptica concisa en lenguaje natural (ej: *"El Tomate y la Albahaca comparten notas de eugenol..."*).
+
+### 5.2 Fases del Pipeline Offline (`scripts/seed_flavor_network.py`)
+1. **Semilla de Ingredientes:** Listado inicial normalizado de ~250 ingredientes clasificados por categorías (Frutas, Verduras, Carnes, Lácteos, Hierbas/Especias, Granos).
+2. **Generación y Evaluación de Pares:** Recorrido y consulta estructurada al LLM para evaluar la afinidad del maridaje y justificación en español.
 3. **Control de Calidad y Sanitización:**
    * Filtrado de pares con puntuación menor a 0.40 para evitar saturación del grafo.
-   * Validación del esquema JSON con Pydantic.
-   * Inserción ordenada en PostgreSQL.
+   * Validación estricta de esquemas JSON con Pydantic.
+   * Inserción en la base de datos PostgreSQL garantizando `ingredient_a_id < ingredient_b_id`.
 
 ---
 
@@ -269,7 +280,7 @@ El frontend se estructurará con **React (Vite)** y **Tailwind CSS**.
 
 ## 📅 8. Plan Global de Implementación y Cronograma (4 Meses)
 
-```mermaid
+<!-- ```mermaid
 gantt
     title Cronograma de Desarrollo - Mapa de Sabores con IA
     dateFormat  YYYY-MM-DD
@@ -292,7 +303,7 @@ gantt
     Feature Explicaciones IA en Tiempo Real:m4_1, 2026-11-01, 7d
     Testing, Pulido UX & Documentación     :m4_2, after m4_1, 14d
     Stretch Goal: Colab + Ollama (Local)   :m4_3, after m4_2, 9d
-```
+``` -->
 
 ### Detalle de Fases:
 
