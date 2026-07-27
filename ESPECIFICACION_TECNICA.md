@@ -173,26 +173,25 @@ ORDER BY p.affinity_score DESC;
 
 ## ⚙️ 5. Pipeline Offline y Origen del Dataset de Sabores (Mes 1)
 
-### 5.1 Origen y Fuentes de la Información de Ingredientes y Afinidad
-Para garantizar la fidelidad culinaria y científica del dataset sin incurrir en costos excesivos o licencias restrictivas, los datos se obtienen mediante un enfoque **Triangulado e Híbrido**:
+### 5.1 Origen y Fuentes Prácticas de la Información (¿Cómo conseguimos los datos?)
+Es importante destacar que **NO es necesario tipear datos a mano ni comprar libros físicos**. El dataset se compila combinando tres fuentes de acceso rápido e ingeniería de datos:
 
-1. **Fuentes Abiertas y Datasets Científico-Gastronómicos (Nombres y Taxonomía):**
-   * **Spoonacular Ingredient API & USDA FoodData Central:** Taxonomía estándar de ingredientes, nombres normalizados (en español e inglés) e imágenes/iconos representativos.
-   * **FlavorDB / Flavornet (Bases de datos de acceso público):** Referencia bibliográfica de perfilado químico (compuestos aromáticos volátiles como *eugenol, linalool, limoneno, pineno*).
-2. **Conocimiento Culinario Estructurado (Fundamentos Culinarios):**
-   * Reglas de afinidad derivadas de literatura gastronómica de referencia (*The Flavor Bible* de Karen Page & Andrew Dornenburg y *The Flavor Thesaurus* de Niki Segnit).
-3. **Pipeline de Generación Sintética y Enriquecimiento mediante LLM (Python):**
-   * Un script offline (`scripts/seed_flavor_network.py`) toma los ingredientes base y utiliza un LLM (vía API) con salida JSON estricta (Pydantic) para:
-     * Asignar la puntuación de afinidad numérica ($0.00$ a $1.00$).
-     * Generar la justificación organoléptica concisa en lenguaje natural (ej: *"El Tomate y la Albahaca comparten notas de eugenol..."*).
+1. **La IA como "Sintetizador y Destilador de Conocimiento" (Pipeline Offline - Método Principal):**
+   * Los modelos de lenguaje modernos (OpenAI GPT-4o, Google Gemini) fueron entrenados con millones de textos científicos, recetas globales y literatura gastronómica de referencia (incluyendo *The Flavor Bible*, *The Flavor Thesaurus* y artículos científicos de maridaje molecular).
+   * En lugar de descargar o transcribir libros, nuestro script en Python (`scripts/seed_flavor_network.py`) consulta en lote al LLM mediante solicitudes estructuradas (JSON Mode con Pydantic). La IA actúa como un "chef experto", evaluando cada par de ingredientes y generando la puntuación de afinidad (0.0 a 1.0) y la explicación culinaria.
+2. **Datasets Abiertos Académicos en GitHub y Kaggle (Fuentes Públicas Abiertas):**
+   * **FlavorDB / Flavornet:** Proyecto científico abierto de IIIT Delhi que mapea ~1,000 ingredientes a sus moléculas aromáticas volátiles (eugenol, linalool, etc.). Sus datasets son descargables públicamente en formato CSV/JSON.
+   * **Nature Scientific Reports - Dataset de "Flavor Network":** Dataset público del famoso estudio científico de Yong-Yeol Ahn (*"Flavor network and the principles of food pairing"*), disponible libremente en repositorios de GitHub.
+3. **Co-ocurrencia Estadística en Recetas (Spoonacular / RecipeDB):**
+   * Mapeo estadístico automático: Si dos ingredientes (ej: *Tomate* y *Albahaca*) aparecen juntos frecuentemente en miles de recetas procesadas, se refuerza la puntuación de afinidad.
 
 ### 5.2 Fases del Pipeline Offline (`scripts/seed_flavor_network.py`)
-1. **Semilla de Ingredientes:** Listado inicial normalizado de ~250 ingredientes clasificados por categorías (Frutas, Verduras, Carnes, Lácteos, Hierbas/Especias, Granos).
-2. **Generación y Evaluación de Pares:** Recorrido y consulta estructurada al LLM para evaluar la afinidad del maridaje y justificación en español.
+1. **Semilla de Ingredientes:** Listado inicial normalizado en JSON/CSV con ~250 ingredientes comunes clasificados por categorías (Frutas, Verduras, Carnes, Lácteos, Hierbas/Especias, Granos).
+2. **Generación Automatizada de Pares:** El script genera pares lógicos de ingredientes y consulta al LLM en lotes para extraer puntajes de afinidad y explicaciones en español.
 3. **Control de Calidad y Sanitización:**
-   * Filtrado de pares con puntuación menor a 0.40 para evitar saturación del grafo.
-   * Validación estricta de esquemas JSON con Pydantic.
-   * Inserción en la base de datos PostgreSQL garantizando `ingredient_a_id < ingredient_b_id`.
+   * Filtrado de pares con puntuación menor a 0.40 para evitar saturación visual en el grafo.
+   * Validación de tipos con Pydantic.
+   * Inserción ordenada en PostgreSQL (`ingredient_a_id < ingredient_b_id`).
 
 ---
 
