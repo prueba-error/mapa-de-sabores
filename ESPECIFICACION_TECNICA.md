@@ -56,27 +56,27 @@ El sistema utiliza un patrón de **Arquitectura Multicapa Desacoplada** (Fronten
 
 ```
 +-----------------------------------------------------------------------------------+
-| CAPA FRONTEND |
-| React (Vite) + Tailwind CSS + Context API + react-force-graph-2d |
+|                                  CAPA FRONTEND                                    |
+|         React (Vite) + Tailwind CSS + Context API + react-force-graph-2d          |
 +-----------------------------------------------------------------------------------+
                                          │
-                                   HTTP / REST (JWT)
+                                  HTTP / REST (JWT)
                                          ▼
 +-----------------------------------------------------------------------------------+
-| CAPA BACKEND |
-| FastAPI (Python) |
-| ├─ Auth Controller & Security (JWT / Passlib) |
-| ├─ Ingredients & Pairings Service (SQLAlchemy Core) |
-| ├─ LLM Provider Service Interface (Gemini / OpenAI / Ollama Adapter) |
-| └─ Recipe Integration Service (Spoonacular Client + Memory/DB Cache) |
+|                                  CAPA BACKEND                                     |
+|                                FastAPI (Python)                                   |
+|   ├─ Auth Controller & Security (JWT / Passlib)                                   |
+|   ├─ Ingredients & Pairings Service (SQLAlchemy Core)                             |
+|   ├─ LLM Provider Service Interface (Gemini / OpenAI / Ollama Adapter)            |
+|   └─ Recipe Integration Service (Spoonacular Client + DB Cache)                   |
 +-----------------------------------------------------------------------------------+
-               │                                   │                       │
-      SQL (SQLAlchemy/asyncpg)                 HTTP API                HTTP API
-               ▼                                   ▼                       ▼
-+-----------------------------+ +--------------------+ +----------------------+
-| PostgreSQL Database | | External LLM API | | Spoonacular API |
-| (Ingredients, Pairings, DB) | | (Gemini / OpenAI) | | (Recetas Culinarias) |
-+-----------------------------+ +--------------------+ +----------------------+
+               │                                 │                         │
+     SQL (SQLAlchemy/asyncpg)               HTTP API                  HTTP API
+               ▼                                 ▼                         ▼
++-----------------------------+   +--------------------+    +----------------------+
+|     PostgreSQL Database     |   |  External LLM API  |    |   Spoonacular API    |
+| (Ingredients, Pairings, DB) |   | (Gemini / OpenAI)  |    | (Recetas Culinarias) |
++-----------------------------+   +--------------------+    +----------------------+
 ```
 
 ### 3.1 Flujo de Datos Principal
@@ -293,23 +293,23 @@ La base de datos original de **Spoonacular está principalmente en inglés**. Pa
 
 #### Flujo de Obtención, Traducción e Indexación (FastAPI Backend):
 ```
-[ Usuario consulta: Tomate (12) + Albahaca (45) + Queso (88) ]
-                               │
-                               ▼
-        Calcular Hash de Búsqueda: SHA256("12,45,88")
-                               │
-            ¿Existe `cache_key` en `recipe_search_cache`?
-                     /                   \
-                 SÍ                       NO
-                /                           \
-   Obtener `recipe_ids` de DB      Llamar API Spoonacular (`findByIngredients`) [EN]
-   Cargar recetas desde `recipes`           │
-   Retornar en español (<10ms)     Traducir al Español vía LLM (Gemini/OpenAI)
-                                            │
-                                   Guardar receta traducida en tabla `recipes`
-                                   Guardar Hash + IDs en `recipe_search_cache`
-                                            │
-                                   Retornar resultados al usuario en Español
+       [ Usuario consulta: Tomate (12) + Albahaca (45) + Queso (88) ]
+                                      │
+                                      ▼
+                Calcular Hash de Búsqueda: SHA256("12,45,88")
+                                      │
+                  ¿Existe `cache_key` en `recipe_search_cache`?
+                           /                     \
+                       SÍ                         NO
+                      /                             \
+ Obtener `recipe_ids` de DB             Llamar API Spoonacular [EN]
+ Cargar recetas desde `recipes`                      │
+ Retornar en español (<10ms)            Traducir al Español vía LLM
+                                                     │
+                                        Guardar en DB `recipes`
+                                        Guardar Hash en `recipe_search_cache`
+                                                     │
+                                        Retornar al usuario en Español
 ```
 
 ---
@@ -320,20 +320,20 @@ El frontend se estructurará con **React (Vite)** y **Tailwind CSS**.
 
 ```
 +-----------------------------------------------------------------------------------+
-| Navbar: Logo | Buscador Multi-Ingrediente [Tomate x] [Albahaca x] | [ Evaluar ] |
+| Navbar: Logo  |  Buscador: [Tomate x] [Albahaca x]  |  Filtros  |  [ Evaluar ]    |
 +------------------------------------------------------+----------------------------+
-| | Panel Lateral (Drawer) |
-| ÁREA PRINCIPAL DEL GRAFO | |
-| (react-force-graph-2d) | Sinergia Global: 92% |
-| | [Barra de progreso 92%] |
-| (QUESO) | |
-| │ (Verde 92%) | Matriz de Compatibilidad: |
-| ▼ | • Tomate + Albahaca: 98% |
-| (TOMATE) ══════════════ (ALBAHACA) | • Tomate + Queso: 92% |
-| │ (Verde 98%) | |
-| ┊ (Rojo punteado 35%) | [ Explicación de Chef ] |
-| ▼ | [ 14 Recetas Halladas ] |
-| (CHOCOLATE) | |
+|                                                      |   Panel Lateral (Drawer)   |
+|               ÁREA PRINCIPAL DEL GRAFO               |                            |
+|                (react-force-graph-2d)                |  📊 Sinergia Global: 92%   |
+|                                                      |  [██████████████████░░]    |
+|              ( QUESO )                               |                            |
+|                  │ (Verde 92%)                       |  Matriz de Compatibilidad: |
+|                  ▼                                   |  • Tomate + Albahaca: 98%  |
+|             ( TOMATE ) ════════════ ( ALBAHACA )     |  • Tomate + Queso: 92%     |
+|                  │      (Verde 98%)                  |                            |
+|                  ┊ (Rojo punteado 35%)               |  [ ✨ Explicación de Chef ] |
+|                  ▼                                   |  [ 🍳 14 Recetas ]         |
+|            ( CHOCOLATE )                             |                            |
 +------------------------------------------------------+----------------------------+
 ```
 
@@ -394,9 +394,9 @@ El frontend se estructurará con **React (Vite)** y **Tailwind CSS**.
 
 ---
 
-## 💰 10. Análisis de Viabilidad Económica y Escalabilidad
+## 10. Análisis de Viabilidad Económica y Escalabilidad
 
-El diseño arquitectónico del proyecto garantiza una **alta eficiencia de costos y sostenibilidad financiera**, permitiendo operar a costo **$0.00 USD** durante toda la fase de desarrollo y defensa universitaria, manteniendo costos marginales mínimos ante un crecimiento de usuarios a escala.
+El diseño arquitectónico del proyecto garantiza una **alta eficiencia de costos y sostenibilidad financiera**, permitiendo operar a costo **$0.00 USD** durante toda la fase de desarrollo y defensa, manteniendo costos marginales mínimos ante un crecimiento de usuarios a escala.
 
 ### 10.1 Estrategia de Optimización de Costos de API
 1. **API de Recetas (Spoonacular) — Amortización por Caché Local:**
