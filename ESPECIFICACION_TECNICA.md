@@ -337,23 +337,48 @@ El frontend se estructurará con **React (Vite)** y **Tailwind CSS**.
 +------------------------------------------------------+----------------------------+
 ```
 
-### 7.1 Visualización de Compatibilidad Multi-Ingrediente
-1. **Modo Grafo Enfocado (Sub-graph Spotlight):**
-   * Al seleccionar 2 o más ingredientes, el grafo atenúa los nodos no relacionados (*dimming*) y resalta el subgrafo formado por los ingredientes seleccionados.
-   * **Codificación de Colores de Aristas (Enlaces):**
-     * **Verde esmeralda ($> 75\%$):** Maridaje armónico/excelente.
-     * **Amarillo / Naranja ($45\% - 74\%$):** Afinidad neutra o secundaria.
-     * **Rojo Punteado ($< 45\%$):** Choque de sabor / baja incompatibilidad (*clash*).
-2. **Medidor Visual de Sinergia (Synergy Gauge):**
-   * Un indicador visual (barras de porcentaje o medidor semicircular) en el panel lateral que indica el score de maridaje del plato/receta completa.
-3. **Matriz Interactiva $N \times N$:**
-   * Una micro-tabla o mapa de calor (*heatmap*) en el panel lateral que permite tocar cualquier par para ver su justificación organoléptica individual.
-4. **Detector del Elemento Discordante (*Clashing Ingredient Alert*):**
-   * Si el usuario ingresa 3 ingredientes que combinan bien (ej: *Tomate, Queso, Albahaca*) y 1 que desentona (ej: *Café*), el sistema resalta visualmente el nodo discordante en rojo con una alerta: *"El ingrediente Café disminuye la sinergia general en un 35%"*.
-5. **Interacciones:**
-   * Click en nodo: Aplica zoom suave y abre el Drawer con detalles del ingrediente.
-   * Hover en arista: Muestra tooltip con el % de afinidad.
-   * Selector de Categorías: Filtra y destaca nodos por color en tiempo real.
+### 7.1 Landing Page y Experiencia de Búsqueda Inicial
+1. **Buscador Central con Sugerencias Rápidas:**
+   * La pantalla de inicio presenta una barra de búsqueda centrada y limpia con sugerencias o etiquetas de tendencias debajo (ej: `[Tomate y Albahaca]`, `[Palta y Limón]`, `[Chocolate y Naranja]`, `[Café y Vainilla]`).
+   * Al seleccionar o tipear una sugerencia, la interfaz realiza la transición suave hacia la vista del grafo interactivo.
+
+### 7.2 Lógica Dinámica y Progresiva del Grafo (1, 2 y N Ingredientes)
+El renderizado del grafo responde en tiempo real a medida que el usuario agrega o remueve ingredientes:
+
+1. **Selección de 1 Ingrediente (ej: *Tomate*):**
+   * El ingrediente seleccionado se ubica en el centro del lienzo.
+   * Se despliegan aristas radiales conectándolo exclusivamente con sus **Top 5-8 ingredientes de mayor afinidad** (ej: *Albahaca, Ajo, Queso Mozzarella, Orégano, Aceite de Oliva*).
+2. **Selección de 2 Ingredientes (ej: *Tomate + Albahaca*):**
+   * Se dibuja una arista principal entre ambos nodos con un color que representa su nivel de afinidad (ej: Verde Esmeralda para afinidad alta $> 75\%$).
+   * **Resaltado por Intensidad Armónica:** Los ingredientes vecinos conectados que presentan alta afinidad **con AMBOS ingredientes seleccionados a la vez** se iluminan con **mayor intensidad visual (brillo/opacidad 100%)**, destacando la verdadera sinergia gastronómica.
+3. **Incorporación de un Ingrediente Incompatible (ej: *Tomate + Albahaca + Chocolate*):**
+   * La arista que conecta el ingrediente discordante (*Chocolate*) se grafica en **ROJO destellante o punteado** (indicando choque de sabor / incompatibilidad $< 45\%$).
+   * Los ingredientes vecinos alrededor del grupo se atenúan con **menor intensidad visual (opacidad reducida al 30%)**, señalando que la combinación global ha perdido armonía.
+4. **Escala Progresiva a N Ingredientes:**
+   * La matriz de intensidad y colores de aristas se recalculan dinámicamente en < 16ms (60 FPS) a medida que se suman más ingredientes a la receta.
+
+### 7.3 Panel Lateral (Drawer) e Interacciones
+* **Medidor Visual de Sinergia (Synergy Gauge):** Indicador porcentual de maridaje global del plato.
+* **Matriz Interactiva $N \times N$:** Tabla de afinidades cruzadas para inspección rápida de pares.
+* **Detector del Elemento Discordante (*Clashing Alert*):** Alerta en rojo identificando el ingrediente desentonante y habilitando la opción de sugerir reemplazo.
+
+---
+
+## 💎 11. Niveles de Suscripción y Modelo Freemium (Tiers de Servicio)
+
+Para garantizar la viabilidad comercial y el control de recursos del servidor, el sistema implementa una estructura de cuentas dividida en dos niveles:
+
+| Característica / Funcionalidad | Tier Gratuito (Free) | Tier Pago (Pro / Premium) |
+| :--- | :--- | :--- |
+| **Límite de Ingredientes por Búsqueda** | **Hasta 3 ingredientes** (ideal para tríadas gastronómicas) | **Hasta 10 ingredientes** (platos complejos / recetas completas) |
+| **Visualización de Grafo y Sinergia** | ✅ Acceso Completo | ✅ Acceso Completo |
+| **Explicación de Chef con IA** | ✅ Incluido (Límite diario) | ✅ Ilimitado |
+| **Búsqueda de Recetas** | ✅ Incluido | ✅ Incluido |
+| **Guardado en Servidor (Workspace)** | ✅ Solo Combinaciones Favoritas | ✅ **Combinaciones Favoritas + Recetas Completas con Notas** |
+| **Exportación de Datos (Export & API)** | ❌ No disponible | ✅ **Exportar a Texto Plano, JSON y Acceso a API Key** |
+
+### 💡 Justificación del Límite de 3 Ingredientes en el Tier Gratuito:
+Un límite de 3 ingredientes en el plan gratuito permite a los usuarios experimentar tríadas culinarias icónicas (ej: *Mirepoix*, *Tríada Caprese: Tomate + Albahaca + Mozzarella*), comprobando el valor de la sinergia y la IA. Para chefs profesionales, sommeliers o mixólogos que diseñan recetas complejas de 5 a 8 componentes, el **Tier Pro** desbloquea la capacidad total y la exportación de datos en JSON.
 
 ---
 
@@ -415,5 +440,5 @@ El diseño arquitectónico del proyecto garantiza una **alta eficiencia de costo
 | **Producción Inicial** | 1,000 | **$0.00** (Caché DB absorbe 95%) | ~$0.15 USD | $0 – $5.00 USD | **~$0.15 – $5.00 USD / mes** |
 | **Escala Media** | 25,000 | ~$29.00 USD (Spoonacular Builder) | ~$2.50 USD | ~$10.00 USD (DB 5GB) | **~$41.50 USD / mes** |
 
-### 10.3 Argumentación de Viabilidad para la Defensa Academic
+### 10.3 Argumentación de Viabilidad para la Defensa Academica
 Este análisis demuestra criterio de ingeniería de software enfocado en la **economía de recursos y optimización operativa**, probando que el sistema no solo es funcional y estéticamente atractivo, sino también **financieramente viable y preparado para producción real**.
