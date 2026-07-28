@@ -282,7 +282,7 @@ La información **QUEDA GUARDADA DE FORMA PERMANENTE EN EL SERVIDOR (Base de Dat
 2. **Reducción de Latencia:** Una búsqueda a Spoonacular tarda entre 800ms y 2000ms. Consultar recetas ya cacheadas en PostgreSQL es sensiblemente más rápido, al tratarse de una lectura local sin llamada HTTP externa.
 3. **Construcción Progresiva del Dataset:** Con el uso diario de los usuarios, el servidor va construyendo automáticamente su propio repositorio enriquecido de recetas.
 
-#### 🌐 Idioma de las Recetas y Traducción Automática al Español
+#### Idioma de las Recetas y Traducción Automática al Español
 La base de datos original de **Spoonacular está principalmente en inglés**. Para ofrecer una experiencia 100% nativa en español:
 
 1. **Pipeline de Traducción al Cachear (Translation-on-Cache):**
