@@ -188,8 +188,14 @@ FROM flavor_pairings p
 JOIN ingredients i1 ON p.ingredient_a_id = i1.id
 JOIN ingredients i2 ON p.ingredient_b_id = i2.id
 WHERE p.ingredient_a_id = :ingredient_id OR p.ingredient_b_id = :ingredient_id
-ORDER BY p.affinity_score DESC;
 ```
+
+### 4.3 Estrategia de Migraciones y Versionado de Base de Datos (Alembic)
+Para garantizar la evolución controlada del esquema sin pérdida de datos ni discrepancias entre entornos (desarrollo, testing, producción), el proyecto utiliza **Alembic** integrado con **SQLAlchemy Core**:
+
+1. **Control de Versiones del Esquema:** Cada cambio en la estructura DDL se registra como un script de migración versionado en `backend/alembic/versions/` etiquetado con hashes secuenciales y mensajes descriptivos.
+2. **Ejecución Automatizada:** En el arranque del contenedor/servidor FastAPI, se ejecuta automáticamente `alembic upgrade head` para garantizar que la base de datos se encuentre sincronizada con la versión más reciente del código.
+3. **Rollback Seguro:** Todos los scripts de migración incluyen métodos explícitos `upgrade()` y `downgrade()` para permitir la reversión limpia de cambios en caso de contingencia.
 
 ---
 
@@ -309,8 +315,51 @@ La base de datos original de **Spoonacular está principalmente en inglés**. Pa
                                         Guardar en DB `recipes`
                                         Guardar Hash en `recipe_search_cache`
                                                      │
-                                        Retornar al usuario en Español
+                                         Retornar al usuario en Español
 ```
+
+### 6.5 Contratos de Entrada/Salida y Esquemas de Validación (Pydantic v2)
+Todos los datos procesados por FastAPI son estrictamente validados mediante modelos **Pydantic v2**:
+
+```python
+# Ejemplo de Esquema de Validación de Evaluación Multi-Ingrediente
+class PairingEvaluationRequest(BaseModel):
+    ingredient_ids: List[int] = Field(..., min_items=2, max_items=10, description="Lista de IDs de ingredientes a evaluar")
+
+class PairwiseStatus(str, Enum):
+    EXCELLENT = "excellent"  # > 0.75
+    NEUTRAL = "neutral"      # 0.45 - 0.74
+    CLASH = "clash"          # < 0.45
+
+class PairwiseDetail(BaseModel):
+    pair: Tuple[str, str]
+    affinity: float = Field(..., ge=0.0, le=1.0)
+    status: PairwiseStatus
+
+class PairingEvaluationResponse(BaseModel):
+    overall_synergy_score: float = Field(..., ge=0.0, le=100.0)
+    synergy_label: str
+    pairwise_matrix: List[PairwiseDetail]
+    clashing_ingredients: List[str]
+```
+
+### 6.6 Especificación de Seguridad, Autenticación y Control de Tasa (Hardening)
+1. **Hashing de Contraseñas:** Se utiliza **Passlib** con el algoritmo **Argon2id** (o `bcrypt` con factor de costo 12), garantizando resistencia contra ataques de fuerza bruta y Rainbow Tables.
+2. **Ciclo de Vida de Tokens JWT:**
+   * `access_token`: Firma HMAC-SHA256 con tiempo de expiración corto de **30 minutos**.
+   * `refresh_token`: Almacenado en galleta de solo lectura HTTP-Only y SameSite=Strict con validez de **7 días**.
+3. **Control de Tasa de Peticiones (Rate Limiting con `slowapi`):**
+   * Endpoints generales de consulta: Máximo **60 req/min** por IP.
+   * Endpoints de IA generativa online (`/api/v1/ai/*`): Máximo **10 req/min** para prevenir abuso de la API cloud.
+
+### 6.7 Resiliencia del Servicio de IA (Timeout, Retries & Fallback Hierarchy)
+Para evitar que problemas de red o latencia en los proveedores cloud de IA afecten la experiencia del usuario:
+1. **Timeout Estricto:** Peticiones HTTP a proveedores de IA (Gemini/OpenAI) configuradas con un tiempo límite máximo de **3.0 segundos**.
+2. **Reintentos Exponenciales:** En caso de error de red 5xx, se ejecuta como máximo **1 reintento** con *backoff* exponencial.
+3. **Jerarquía de Fallback (Degradación Grácil):**
+   * *Nivel 1 (Cloud Principal):* Google Gemini 1.5 Flash.
+   * *Nivel 2 (Cloud Secundario):* OpenAI GPT-4o-mini.
+   * *Nivel 3 (Fallback Local inmutable):* Si ambos servicios fallan o sobrepasan los 3 segundos, la API responde utilizando la justificación prediseñada almacenada en PostgreSQL durante el pipeline offline (`ai_rationale`), garantizando disponibilidad del 100%.
 
 ---
 
@@ -382,29 +431,73 @@ Un límite de 3 ingredientes en el plan gratuito permite a los usuarios experime
 
 ---
 
-## 8. Plan Global de Implementación y Cronograma (4 Meses)
+## 8. Estrategia de Pruebas Automatizadas y Metodología TDD (Test-Driven Development)
 
-### Detalle de Fases:
+El proyecto adopta una disciplina estricta de **Desarrollo Guiado por Pruebas (TDD)** siguiendo el ciclo continuo **Red ➔ Green ➔ Refactor**. Toda funcionalidad del backend y del frontend debe contar con sus correspondientes pruebas automatizadas escritas *antes* del código de producción.
 
-#### Mes 1: Data Science y Cimientos
-* Creación de base de datos en PostgreSQL.
-* Desarrollo del script `seed_flavor_network.py` con integración de API de IA.
-* Carga de dataset validado (~250 ingredientes, ~1,500 relaciones).
+```
+       ┌────────────────────────────────────────────────────────┐
+       │                 CICLO TDD (Red-Green-Refactor)         │
+       └────────────────────────────────────────────────────────┘
+            1. RED ──► Escribir prueba fallida que define el requisito
+            2. GREEN ─► Escribir el código mínimo para pasar la prueba
+            3. REFACTOR ► Limpiar y optimizar el código manteniendo la prueba en verde
+```
 
-#### Mes 2: Backend Core y Servicios
-* Implementación de endpoints REST en FastAPI.
-* Seguridad con JWT (login/registro).
-* Cliente de Spoonacular con almacenamiento en caché Postgres para proteger cuota de uso.
+### 8.1 Stack de Pruebas en Backend (Python / FastAPI)
+* **Framework Principal:** `pytest` + `pytest-asyncio` para la ejecución asíncrona de pruebas en FastAPI.
+* **Cliente HTTP de Pruebas:** `httpx.AsyncClient` para testear endpoints REST sin levantar un servidor real.
+* **Acceso a Base de Datos en Tests:** Base de datos PostgreSQL aislada de testing en contenedor Docker con `alembic` ejecutado previo a cada suite de pruebas.
+* **Cobertura Mínima Exigida:** **85% de cobertura de código** medida con `pytest-cov`.
+* **Pruebas Unitarias Clave (TDD):**
+  * Verificación determinística de la matriz de sinergia $N \times N$, cálculo del score global y detección del ingrediente discordante.
+  * Verificación de la restricción `ingredient_a_id < ingredient_b_id` y ordenamiento de pares.
+  * Verificación del pipeline de hashing SHA-256 para `cache_key` de recetas.
+* **Pruebas de Integración y Mocks:**
+  * Inyección de *Mocks* para llamadas a Spoonacular y LLM (Gemini/OpenAI) simulando respuestas exitosas, respuestas traducidas, timeouts (3s) y fallbacks a la DB.
 
-#### Mes 3: Frontend y Grafo Interactivo
-* Integración de `react-force-graph-2d` en React.
-* Implementación de filtros dinámicos por categoría y rango de afinidad.
-* Paneles laterales (drawers) de información y favoritos del usuario.
+### 8.2 Stack de Pruebas en Frontend (React / Vite)
+* **Runner de Pruebas:** `Vitest` (ejecución ultrarrápida nativa de Vite).
+* **Renderizado y Aseveraciones UI:** `React Testing Library` (@testing-library/react) enfocada en testear comportamiento de usuario y accesibilidad.
+* **Mock de Respuestas API HTTP:** `MSW` (Mock Service Worker) para interceptar peticiones de red y testear estados de carga, error y renderizado de recetas.
+* **Pruebas de Componentes Clave (TDD):**
+  * Renderizado del componente buscador central y sugerencias de etiquetas.
+  * Comportamiento del panel lateral (Drawer) al recibir datos de sinergia ($N \times N$) e indicador de porcentaje.
+  * Activación del modo de visualización de ingredientes discordantes en rojo y atenuación de nodos.
 
-#### Mes 4: Integración Online de IA, Testing y Defensa
-* Botón de explicación en vivo con LLMs (Gemini/OpenAI).
-* Pruebas de integración, optimización de velocidad de carga de la base de datos y UI.
-* **Stretch Goal (Opcional):** Fine-tuning liviano de Llama 3.2 3B en Google Colab con exportación a GGUF para demostración local en Ollama.
+---
+
+## 9. Plan Global de Implementación Ágil (8 Sprints de 2 Semanas)
+
+Para mitigar riesgos y asegurar la entrega en tiempo, el plan de 4 meses se divide en **8 Sprints ágiles de 2 semanas** con *Criterios de Aceptación (Definition of Done)* explícitos por Sprint:
+
+### 🚀 Fase 1: Arquitectura, Data Pipeline y Prototipado Temprano (Mes 1)
+* **Sprint 1 (Sem. 1-2) — Cimientos, DDL y Migraciones Alembic:**
+  * *Entregable:* Base de datos PostgreSQL configurada en Docker con esquemas relacionales, índices compuestos y migraciones iniciales de `Alembic`.
+  * *Criterios TDD:* Tests en `pytest` pasando para restricciones DDL y funciones de consulta bidireccional.
+* **Sprint 2 (Sem. 3-4) — Pipeline Offline de Datos + Prototipo Temprano del Grafo (Spike):**
+  * *Entregable Backend:* Script `seed_flavor_network.py` con LLM generando el dataset inicial (~250 ingredientes y ~1,500 relaciones).
+  * *Entregable Frontend (Spike):* Prototipo temprano en React con `react-force-graph-2d` renderizando datos estáticos mock para evaluar rendimiento y usabilidad.
+
+### ⚙️ Fase 2: Backend Core, Autenticación y Caché Permanente (Mes 2)
+* **Sprint 3 (Sem. 5-6) — Endpoints REST de Grafo y Sinergia Determinística:**
+  * *Entregable:* Endpoints `GET /api/v1/graph`, `GET /api/v1/ingredients` y `POST /api/v1/pairings/evaluate` (cálculo de sinergia y detección de elemento discordante 100% en DB).
+  * *Criterios TDD:* Cobertura de tests unitarios al 90% para la matemática de sinergia y ordenamiento.
+* **Sprint 4 (Sem. 7-8) — Autenticación JWT, Seguridad y Caché de Recetas:**
+  * *Entregable:* Sistema de Auth (Argon2id + JWT `access_token` y `refresh_token`), control de tasa `slowapi` y cliente de Spoonacular con almacenamiento permanente en PostgreSQL.
+
+### 🎨 Fase 3: Frontend Interactivo, Visualización Progresiva e IA Online (Mes 3)
+* **Sprint 5 (Sem. 9-10) — Frontend Grafo Progresivo e Intensidad Armónica:**
+  * *Entregable:* Buscador central con etiquetas de sugerencia y renderizado dinámico del grafo (nodos radiales para 1 ingrediente, aristas verdes/amarillas/rojas y resaltado por intensidad armónica).
+* **Sprint 6 (Sem. 11-12) — Integración de Drawers, Recetas Traducidas e IA Online:**
+  * *Entregable:* Panel lateral de sinergia, visualización de matriz $N \times N$, tarjetas de recetas traducidas automáticamente al español e integración del endpoint de explicaciones generativas en vivo (`/api/v1/ai/explain-pairing`).
+
+### 🛡️ Fase 4: Resiliencia, Pruebas E2E, QA y Defensa Académica (Mes 4)
+* **Sprint 7 (Sem. 13-14) — Tiers de Suscripción, Resiliencia de IA y Fallbacks:**
+  * *Entregable:* Control de límites por Tier (Free: 3 ingredientes, Pro: 10 ingredientes), timeout de 3s en llamadas a la IA y fallback automático a la justificación inmutable de PostgreSQL.
+* **Sprint 8 (Sem. 15-16) — Buffer de QA, Pruebas E2E, Refactor TDD y Memoria de Tesis:**
+  * *Entregable:* Suite completa de pruebas TDD ejecutándose en verde (`pytest` + `Vitest`), optimización de velocidad de carga, documentación final y preparación de la defensa ante el tribunal.
+  * *Stretch Goal (Opcional):* Demostración experimental en apéndice de tesis con Llama 3.2 3B local en Ollama.
 
 ---
 
