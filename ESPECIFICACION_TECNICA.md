@@ -115,9 +115,82 @@ SPOONACULAR_API_KEY=tu_spoonacular_api_key
 ```
 
 2. **Orquestación con Docker Compose (`docker-compose.yml`):**
-   * Servicio `db`: Contenedor `postgres:16-alpine` con volumen persistente.
-   * Servicio `backend`: Contenedor Python FastAPI ejecutando `alembic upgrade head` seguido de `uvicorn main:app`.
-   * Servicio `frontend`: Contenedor Node.js Vite en desarrollo o servidor Nginx en producción.
+
+```yaml
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: mapa_sabores_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_secret
+      POSTGRES_DB: mapa_sabores
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: mapa_sabores_redis
+    ports:
+      - "6379:6379"
+
+  backend:
+    build: ./backend
+    container_name: mapa_sabores_backend
+    restart: always
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+    command: >
+      sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
+
+volumes:
+  postgres_data:
+```
+
+### 3.3 Script de Respaldo y Restauración de Base de Datos (`scripts/backup.sh`)
+
+```bash
+#!/usr/bin/env bash
+# scripts/backup.sh - Utilidad de Snapshot pg_dump / pg_restore
+set -euo pipefail
+
+BACKUP_DIR="./backups"
+TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+FILENAME="${BACKUP_DIR}/snapshot_${TIMESTAMP}.sql"
+
+mkdir -p "$BACKUP_DIR"
+
+case "${1:-backup}" in
+  backup)
+    echo "📦 Generando snapshot de base de datos..."
+    docker exec -t mapa_sabores_db pg_dump -U postgres -d mapa_sabores > "$FILENAME"
+    echo "✅ Snapshot guardado exitosamente en: $FILENAME"
+    ;;
+  restore)
+    if [ -z "${2:-}" ]; then
+      echo "❌ Error: Debe especificar la ruta del archivo SQL a restaurar."
+      echo "Uso: ./scripts/backup.sh restore ./backups/snapshot_YYYYMMDD_HHMMSS.sql"
+      exit 1
+    fi
+    echo "⚠️ Restaurando base de datos desde $2..."
+    docker exec -i mapa_sabores_db psql -U postgres -d mapa_sabores < "$2"
+    echo "✅ Base de datos restaurada correctamente."
+    ;;
+  *)
+    echo "Uso: ./scripts/backup.sh [backup|restore <archivo.sql>]"
+    ;;
+esac
+```
 
 ---
 
@@ -143,13 +216,16 @@ CREATE TABLE ingredients (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- 3. Tabla de Afinidad de Maridaje (Grafo de Aristas)
+-- 3. Tabla de Afinidad de Maridaje (Grafo de Aristas con Provenance)
 CREATE TABLE flavor_pairings (
     id SERIAL PRIMARY KEY,
     ingredient_a_id INT NOT NULL REFERENCES ingredients(id) ON DELETE CASCADE,
     ingredient_b_id INT NOT NULL REFERENCES ingredients(id) ON DELETE CASCADE,
     affinity_score NUMERIC(3,2) NOT NULL CHECK (affinity_score BETWEEN 0.00 AND 1.00),
     ai_rationale VARCHAR(300), -- Explicación prediseñada acotada a máx 300 caracteres
+    source_type VARCHAR(30) DEFAULT 'llm_synthesis', -- 'llm_synthesis', 'flavordb_chemical', 'recipe_cooccurrence'
+    confidence_score NUMERIC(3,2) DEFAULT 0.85 CHECK (confidence_score BETWEEN 0.00 AND 1.00),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 
     -- Restricción para garantizar que ingredient_a_id siempre sea menor que ingredient_b_id
     CONSTRAINT chk_ordered_pair CHECK (ingredient_a_id < ingredient_b_id),
@@ -162,7 +238,7 @@ CREATE INDEX idx_pairings_a ON flavor_pairings(ingredient_a_id);
 CREATE INDEX idx_pairings_b ON flavor_pairings(ingredient_b_id);
 CREATE INDEX idx_pairings_score ON flavor_pairings(affinity_score DESC);
 
--- 4. Usuarios y Favoritos
+-- 4. Usuarios, Favoritos y Revocación de Tokens
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE,
@@ -170,6 +246,16 @@ CREATE TABLE users (
     full_name VARCHAR(100),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE revoked_tokens (
+    id SERIAL PRIMARY KEY,
+    jti VARCHAR(255) UNIQUE NOT NULL, -- JWT ID único
+    user_id INT REFERENCES users(id) ON DELETE CASCADE,
+    revoked_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    expires_at TIMESTAMP WITH TIME ZONE NOT NULL
+);
+
+CREATE INDEX idx_revoked_jti ON revoked_tokens(jti);
 
 CREATE TABLE user_favorite_pairings (
     user_id INT REFERENCES users(id) ON DELETE CASCADE,
@@ -511,11 +597,77 @@ El proyecto adopta una disciplina estricta de **Desarrollo Guiado por Pruebas (T
 ### 8.2 Stack de Pruebas en Frontend (React / Vite)
 * **Runner de Pruebas:** `Vitest` (ejecución ultrarrápida nativa de Vite).
 * **Renderizado y Aseveraciones UI:** `React Testing Library` (@testing-library/react) enfocada en testear comportamiento de usuario y accesibilidad.
-* **Mock de Respuestas API HTTP:** `MSW` (Mock Service Worker) para interceptar peticiones de red y testear estados de carga, error y renderizado de recetas.
-* **Pruebas de Componentes Clave (TDD):**
-  * Renderizado del componente buscador central y sugerencias de etiquetas.
-  * Comportamiento del panel lateral (Drawer) al recibir datos de sinergia ($N \times N$) e indicador de porcentaje.
-  * Activación del modo de visualización de ingredientes discordantes en rojo y atenuación de nodos.
+### 8.3 Workflow de Integración Continua (CI/CD con GitHub Actions)
+Para automatizar el control de calidad en cada Pull Request o Commit a la rama principal:
+
+```yaml
+# .github/workflows/ci.yml
+name: CI / Integration Pipeline
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  test-backend:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres_secret
+          POSTGRES_DB: mapa_sabores_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Dependencies
+        run: |
+          cd backend
+          pip install -r requirements.txt
+      - name: Run Alembic Migrations Check
+        run: |
+          cd backend
+          alembic upgrade head
+        env:
+          DATABASE_URL: postgresql+asyncpg://postgres:postgres_secret@localhost:5432/mapa_sabores_test
+      - name: Run Pytest with Coverage
+        run: |
+          cd backend
+          pytest --cov=app --cov-report=term-missing
+        env:
+          DATABASE_URL: postgresql+asyncpg://postgres:postgres_secret@localhost:5432/mapa_sabores_test
+
+  test-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Frontend Dependencies
+        run: |
+          cd frontend
+          npm ci
+      - name: Run Vitest Tests
+        run: |
+          cd frontend
+          npm run test:run
+```
 
 ---
 
