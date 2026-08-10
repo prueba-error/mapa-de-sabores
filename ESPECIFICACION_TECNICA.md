@@ -372,6 +372,9 @@ Para evitar que el LLM genere puntuaciones de afinidad ilógicas o razones inver
    * Se define un listado de ~50 pares gastronómicos antagónicos conocidos (ej: *Pescado Blanco + Dulce de Leche*, *Leche + Jugo de Limón puro*). Si la evaluación del LLM asigna una afinidad $> 0.35$ a cualquiera de estos pares, el script falla y marca la ejecución para revisión.
 3. **Control de Varianza respecto a FlavorDB:**
    * Si un par posee datos en FlavorDB de compuestos moleculares volátiles compartidos pero el LLM devuelve una puntuación con una varianza mayor a $\pm 0.40$ respecto al score químico escalado, se emite una alerta de divergencia (*Divergence Warning*) para arbitraje manual.
+4. **Workflow de Arbitraje Manual y Cola de Revisión:**
+   * Los pares etiquetados con advertencias no se insertan directamente en `flavor_pairings`. Se registran en la tabla `pairing_review_queue` con estado `'pending_review'`.
+   * **Comando de Curado CLI (`./scripts/curate.py`):** Un script CLI interactivo permite al administrador/desarrollador listar los pares pendientes de arbitraje, revisar el fundamento del LLM y aprobar (`--approve`) o descartar (`--reject`) cada par con un solo comando.
 
 ---
 
@@ -441,6 +444,38 @@ La información **QUEDA GUARDADA DE FORMA PERMANENTE EN EL SERVIDOR (Base de Dat
 Para evitar el almacenamiento de blobs innecesarios de datos publicitarios o metadatos irrelevantes devueltos por Spoonacular:
 1. **Normalización del Payload:** Antes de insertar en la columna `raw_json` de PostgreSQL, un middleware de FastAPI remueve atributos prescindibles (ej: widgets HTML, promociones de sponsors, URLs de video pesadas, banners).
 2. **Límite Estricto de Tamaño:** El objeto JSON sanitizado se acota a un tamaño máximo de **30 KB por receta**, preservando únicamente: `title`, `readyInMinutes`, `servings`, `extendedIngredients` (normalizados) y `analyzedInstructions`.
+
+```python
+# Ejemplo de rutina de sanitización en Python (app/services/recipe_sanitizer.py)
+import json
+
+def sanitize_recipe_payload(raw_data: dict) -> dict:
+    sanitized = {
+        "id": raw_data.get("id"),
+        "title": raw_data.get("title", "").strip(),
+        "readyInMinutes": raw_data.get("readyInMinutes"),
+        "servings": raw_data.get("servings"),
+        "image": raw_data.get("image"),
+        "summary": (raw_data.get("summary") or "")[:500], # Resumen truncado a 500 chars
+        "extendedIngredients": [
+            {
+                "id": ing.get("id"),
+                "name": ing.get("name"),
+                "amount": ing.get("amount"),
+                "unit": ing.get("unit")
+            }
+            for ing in raw_data.get("extendedIngredients", [])
+        ],
+        "analyzedInstructions": raw_data.get("analyzedInstructions", [])
+    }
+    
+    # Verificación de cota de tamaño (máx 30 KB)
+    payload_str = json.dumps(sanitized, ensure_ascii=False)
+    if len(payload_str.encode('utf-8')) > 30720:
+        sanitized["summary"] = sanitized["summary"][:200]
+        
+    return sanitized
+```
 
 #### Flujo de Obtención, Traducción e Indexación (FastAPI Backend):
 ```
