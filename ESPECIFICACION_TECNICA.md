@@ -8,11 +8,12 @@
 
 ## 1. Resumen
 
-**Mapa de Sabores con IA** es un sistema web interactivo de descubrimiento gastronómico basado en una arquitectura híbrida de **Base de Datos Relacional + Inteligencia Artificial (IA)**.
+**Mapa de Sabores** es un sistema web interactivo de descubrimiento gastronómico basado en una arquitectura híbrida de _Base de Datos Relacional + Inteligencia Artificial (IA)_.
 
-El proyecto resuelve el problema del maridaje e innovación culinaria mediante una representación en forma de **Grafo de Sabores** interactivo y dinámico. Permite a profesionales de la cocina y aficionados explorar combinaciones de ingredientes basados en afinidad química y culinaria, consultar recetas reales integradas y recibir justificaciones organolépticas generadas por modelos de lenguaje (LLM).
+El proyecto resuelve el problema del maridaje e innovación culinaria mediante una representación en forma de un _Grafo de Sabores_ interactivo y dinámico. Permite a profesionales de la cocina y aficionados explorar combinaciones de ingredientes basados en afinidad química y culinaria, consultar recetas reales integradas y recibir justificaciones organolépticas generadas por modelos de lenguaje (LLM).
 
 ### Principales pilares de ingeniería:
+
 1. **Certeza en el Core (Base Relacional Estable):** La red de sabores reside en una base de datos PostgreSQL optimizada con índices compuestos bidireccionales. La estructura del grafo se define por datos curados y validados, no por generación en tiempo real de un modelo de lenguaje.
 2. **Pipeline de Datos Sintéticos Offline:** Un pipeline de ingeniería de prompts sobre LLMs compila y cura un dataset inicial de 200–300 ingredientes y miles de pares de afinidad.
 3. **Capa de IA Desacoplada e Intercambiable:** Un servicio backend agnóstico en FastAPI permite alternar entre proveedores cloud (Google Gemini, OpenAI) y ejecución 100% local (Ollama / Llama 3.2 3B).
@@ -20,7 +21,7 @@ El proyecto resuelve el problema del maridaje e innovación culinaria mediante u
 
 ---
 
-## 2. Marco Académico y Planteamiento del Problema
+## 2. Planteamiento del Problema
 
 ### 2.1 Problema Identificado
 
@@ -33,6 +34,7 @@ El descubrimiento de combinaciones de ingredientes (maridaje o *flavor pairing*)
 ### 2.2 Objetivos del Proyecto
 
 * **Objetivo General:** Desarrollar una aplicación web full-stack funcional y escalable que permita explorar redes de sabores e interacciones de ingredientes asistida por Inteligencia Artificial.
+
 * **Objetivos Específicos:**
   1. Diseñar un esquema relacional optimizado en PostgreSQL para modelar grafos bidireccionales de afinidad, con consultas de vecinos resueltas mediante índices compuestos.
   2. Implementar un pipeline offline en Python para la generación, validación y sanitización de un dataset sintético de afinidades culinarias.
@@ -40,7 +42,7 @@ El descubrimiento de combinaciones de ingredientes (maridaje o *flavor pairing*)
   4. Desarrollar una interfaz de usuario interactiva en React utilizando la librería `react-force-graph-2d`.
   5. Integrar autenticación JWT para áreas personalizadas de usuarios (guardar combinaciones favoritas y recetas).
 
-### 2.3 Defensa
+### 2.3 Decisiones de Diseño y Arquitectura
 
 Las decisiones de diseño se fundamentan en criterios estratégicos de ingeniería de software:
 
@@ -80,6 +82,7 @@ El sistema utiliza un patrón de **Arquitectura Multicapa Desacoplada** (Fronten
 ```
 
 ### 3.1 Flujo de Datos Principal
+
 1. **Carga Inicial del Grafo:** El cliente React solicita `GET /api/v1/graph`. FastAPI consulta PostgreSQL y retorna los nodos y enlaces activos.
 2. **Exploración y Filtrado:** El usuario selecciona un nodo (ej: *Tomate*). El frontend resalta vecinos y solicita `GET /api/v1/ingredients/{id}/pairings`.
 3. **Explicación con IA (Online):** Al presionar "¿Por qué combinan?", el frontend invoca `POST /api/v1/ai/explain-pairing`. FastAPI utiliza la interfaz `LLMProvider` para generar un párrafo descriptivo con tono gastronómico.
@@ -324,7 +327,7 @@ Para garantizar la evolución controlada del esquema sin pérdida de datos ni di
 
 ### 5.1 Origen y Fuentes Prácticas de la Información
 
-El dataset no se construye por relevamiento manual, sino combinando tres fuentes complementarias:
+El dataset no se construye por relevamiento manual sino combinando tres fuentes complementarias:
 
 1. **La IA como "Sintetizador y Destilador de Conocimiento" (Pipeline Offline - Método Principal):**
    * Los modelos de lenguaje modernos (OpenAI GPT-4o, Google Gemini) fueron entrenados con millones de textos científicos, recetas globales y literatura gastronómica de referencia (incluyendo *The Flavor Bible*, *The Flavor Thesaurus* y artículos científicos de maridaje molecular).
@@ -338,6 +341,7 @@ El dataset no se construye por relevamiento manual, sino combinando tres fuentes
 **Nota metodológica sobre la normalización del score:** las fuentes anteriores no son directamente comparables entre sí. FlavorDB/Flavornet expresan afinidad como cantidad de compuestos aromáticos volátiles compartidos (un número entero, no un score de 0 a 1), mientras que el LLM devuelve directamente un puntaje 0.0–1.0 y la co-ocurrencia en recetas es una frecuencia relativa. El pipeline define una fórmula explícita de normalización (por ejemplo, escalar la cantidad de compuestos compartidos contra el máximo observado en el dataset) para llevar todas las fuentes a la misma escala antes de promediarlas o combinarlas. Esta fórmula y su justificación deben documentarse como una decisión metodológica propia del proyecto.
 
 ### 5.2 Fases del Pipeline Offline (`scripts/seed_flavor_network.py`)
+
 1. **Semilla de Ingredientes:** Listado inicial normalizado en JSON/CSV con ~250 ingredientes comunes clasificados por categorías (Frutas, Verduras, Carnes, Lácteos, Hierbas/Especias, Granos).
 2. **Generación Automatizada de Pares:** El script genera pares lógicos de ingredientes y consulta al LLM en lotes para extraer puntajes de afinidad y explicaciones en español. Soporta el flag `--dry-run` para validar prompts y esquemas JSON sin escribir en la base de datos ni gastar créditos de API.
 3. **Control de Calidad y Sanitización:**
@@ -346,6 +350,7 @@ El dataset no se construye por relevamiento manual, sino combinando tres fuentes
    * Inserción ordenada en PostgreSQL (`ingredient_a_id < ingredient_b_id`).
 
 ### 5.3 Diseño de Prompts, Criterios de Curado y Respaldos
+
 1. **Ejemplo de Prompt Estructurado (JSON Mode):**
    > *"Eres un chef ejecutivo y científico gastronómico experto en maridajes moleculares. Evalúa la afinidad organoléptica entre [Ingrediente A] y [Ingrediente B]. Responde estrictamente en JSON con la siguiente estructura: `{"affinity_score": float (0.00 a 1.00), "ai_rationale": string (máximo 250 caracteres en español explicativo)}`."*
 2. **Criterios de Curado Manual y Mapeo Culinario:**
@@ -357,6 +362,16 @@ El dataset no se construye por relevamiento manual, sino combinando tres fuentes
 4. **Métricas de Calidad del Dataset (Acceptance Metrics):**
    * **Cobertura:** Al menos el 80% de los 250 ingredientes deben contar con un mínimo de 4 conexiones activas ($>0.40$).
    * **Consistencia Sintáctica:** 100% de cumplimiento del esquema Pydantic y límite de 300 caracteres en `ai_rationale`.
+
+### 5.4 Plan Automático de Detección y Control de Alucinaciones del LLM
+Para evitar que el LLM genere puntuaciones de afinidad ilógicas o razones inverosímiles durante la ejecución del pipeline offline:
+
+1. **Suite de Verificación Automatizada (`scripts/verify_coherence.py`):**
+   * Un script automatizado en Python ejecuta aserciones de validación cruzada antes de autorizar la inserción en la base de datos de producción.
+2. **Matriz de Incompatibilidad Prohibida (Baseline Antagónico):**
+   * Se define un listado de ~50 pares gastronómicos antagónicos conocidos (ej: *Pescado Blanco + Dulce de Leche*, *Leche + Jugo de Limón puro*). Si la evaluación del LLM asigna una afinidad $> 0.35$ a cualquiera de estos pares, el script falla y marca la ejecución para revisión.
+3. **Control de Varianza respecto a FlavorDB:**
+   * Si un par posee datos en FlavorDB de compuestos moleculares volátiles compartidos pero el LLM devuelve una puntuación con una varianza mayor a $\pm 0.40$ respecto al score químico escalado, se emite una alerta de divergencia (*Divergence Warning*) para arbitraje manual.
 
 ---
 
@@ -422,14 +437,10 @@ La información **QUEDA GUARDADA DE FORMA PERMANENTE EN EL SERVIDOR (Base de Dat
 2. **Reducción de Latencia:** Una búsqueda a Spoonacular tarda entre 800ms y 2000ms. Consultar recetas ya cacheadas en PostgreSQL es sensiblemente más rápido, al tratarse de una lectura local sin llamada HTTP externa.
 3. **Construcción Progresiva del Dataset:** Con el uso diario de los usuarios, el servidor va construyendo automáticamente su propio repositorio enriquecido de recetas.
 
-#### Idioma de las Recetas y Traducción Automática al Español
-La base de datos original de **Spoonacular está principalmente en inglés**. Para ofrecer una experiencia 100% nativa en español:
-
-1. **Pipeline de Traducción al Cachear (Translation-on-Cache):**
-   * Cuando FastAPI recupera una receta nueva de Spoonacular (en inglés), **antes de guardarla en PostgreSQL**, el backend realiza un pase automático rápido por el servicio de LLM (Gemini Flash / GPT-4o-mini) con el prompt: *"Traduce al español neutro el título, ingredientes e instrucciones de preparación manteniendo la estructura JSON"*.
-2. **Cero Latencia Adicional para el Usuario:**
-   * La traducción ocurre **una sola vez por receta** (al momento de ser descubierta e ingresada a la tabla `recipes`).
-   * Todas las consultas posteriores leen el texto traducido directamente desde PostgreSQL en < 10ms.
+#### 🧹 Depuración, Sanitización y Límite de Tamaño de `raw_json`
+Para evitar el almacenamiento de blobs innecesarios de datos publicitarios o metadatos irrelevantes devueltos por Spoonacular:
+1. **Normalización del Payload:** Antes de insertar en la columna `raw_json` de PostgreSQL, un middleware de FastAPI remueve atributos prescindibles (ej: widgets HTML, promociones de sponsors, URLs de video pesadas, banners).
+2. **Límite Estricto de Tamaño:** El objeto JSON sanitizado se acota a un tamaño máximo de **30 KB por receta**, preservando únicamente: `title`, `readyInMinutes`, `servings`, `extendedIngredients` (normalizados) y `analyzedInstructions`.
 
 #### Flujo de Obtención, Traducción e Indexación (FastAPI Backend):
 ```
@@ -479,10 +490,10 @@ class PairingEvaluationResponse(BaseModel):
 
 ### 6.6 Especificación de Seguridad, Autenticación y Control de Tasa (Hardening)
 1. **Hashing de Contraseñas:** Se utiliza **Passlib** con el algoritmo **Argon2id** (o `bcrypt` con factor de costo 12), garantizando resistencia contra ataques de fuerza bruta y Rainbow Tables.
-2. **Ciclo de Vida, Rotación y Revocación de Tokens JWT:**
+2. **Ciclo de Vida, Rotación y Revocación de Tokens JWT (Redis Blacklist):**
    * `access_token`: Firma HMAC-SHA256 con tiempo de expiración corto de **30 minutos**.
    * `refresh_token`: Almacenado en galleta de solo lectura HTTP-Only y SameSite=Strict con validez de **7 días**.
-   * **Rotación y Revocación:** Al refrescar o cerrar sesión (`POST /api/v1/auth/logout`), el `refresh_token` utilizado se invalida registrando su `jti` (JWT ID) en la tabla `revoked_tokens` en PostgreSQL (o caché en memoria Redis) evitando su reutilización.
+   * **Almacenamiento Ultra-rápido en Redis:** Al refrescar o cerrar sesión (`POST /api/v1/auth/logout`), el `refresh_token` utilizado se invalida guardando la clave `revoked_token:<jti>` en **Redis en memoria** con un TTL ajustado exactamente a los 7 días restantes. El middleware de FastAPI verifica la validez contra Redis en **< 1ms**, evitando consultas pesadas a la base de datos PostgreSQL en cada petición autenticada. La tabla `revoked_tokens` en Postgres actúa como respaldo persistente asíncrono.
 3. **Control Dual de Tasa de Peticiones (Rate Limiting con `slowapi`):**
    * Peticiones anónimas: Limitadas por Dirección IP (**60 req/min**).
    * Peticiones autenticadas: Limitadas por **`user_id`** (**120 req/min** para endpoints REST de lectura, **10 req/min** para IA generativa en Tier Free y **30 req/min** en Tier Pro).
