@@ -85,6 +85,40 @@ El sistema utiliza un patrón de **Arquitectura Multicapa Desacoplada** (Fronten
 3. **Explicación con IA (Online):** Al presionar "¿Por qué combinan?", el frontend invoca `POST /api/v1/ai/explain-pairing`. FastAPI utiliza la interfaz `LLMProvider` para generar un párrafo descriptivo con tono gastronómico.
 4. **Recetas Relacionadas:** Al solicitar recetas para una combinación (ej: *Tomate + Albahaca + Ajo*), FastAPI consulta la caché local. Si no existe en caché, llama a la API de Spoonacular y guarda el resultado.
 
+### 3.2 Configuración de Entorno (.env.example) y Orquestación Local (Docker Compose)
+Para asegurar que cualquier desarrollador o evaluador pueda clonar e iniciar el entorno en local de manera reproducible:
+
+1. **Estructura del archivo `.env.example`:**
+```ini
+# Base de Datos
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres_secret
+POSTGRES_DB=mapa_sabores
+POSTGRES_HOST=db
+POSTGRES_PORT=5432
+DATABASE_URL=postgresql+asyncpg://postgres:postgres_secret@db:5432/mapa_sabores
+
+# Seguridad & Autenticación
+JWT_SECRET_KEY=super_secret_jwt_key_min_32_chars
+JWT_ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+REFRESH_TOKEN_EXPIRE_DAYS=7
+
+# Servicios de IA Externa
+GEMINI_API_KEY=tu_google_gemini_api_key
+OPENAI_API_KEY=tu_openai_api_key
+LLM_PRIMARY_PROVIDER=gemini # "gemini" | "openai" | "ollama"
+LLM_TIMEOUT_SECONDS=3.0
+
+# API de Recetas
+SPOONACULAR_API_KEY=tu_spoonacular_api_key
+```
+
+2. **Orquestación con Docker Compose (`docker-compose.yml`):**
+   * Servicio `db`: Contenedor `postgres:16-alpine` con volumen persistente.
+   * Servicio `backend`: Contenedor Python FastAPI ejecutando `alembic upgrade head` seguido de `uvicorn main:app`.
+   * Servicio `frontend`: Contenedor Node.js Vite en desarrollo o servidor Nginx en producción.
+
 ---
 
 ## 4. Especificaciones del Modelo de Datos y Estrategia de Grafos
@@ -115,11 +149,12 @@ CREATE TABLE flavor_pairings (
     ingredient_a_id INT NOT NULL REFERENCES ingredients(id) ON DELETE CASCADE,
     ingredient_b_id INT NOT NULL REFERENCES ingredients(id) ON DELETE CASCADE,
     affinity_score NUMERIC(3,2) NOT NULL CHECK (affinity_score BETWEEN 0.00 AND 1.00),
-    ai_rationale TEXT, -- Explicación prediseñada durante el pipeline offline
+    ai_rationale VARCHAR(300), -- Explicación prediseñada acotada a máx 300 caracteres
 
     -- Restricción para garantizar que ingredient_a_id siempre sea menor que ingredient_b_id
     CONSTRAINT chk_ordered_pair CHECK (ingredient_a_id < ingredient_b_id),
-    CONSTRAINT uq_ingredient_pair UNIQUE (ingredient_a_id, ingredient_b_id)
+    CONSTRAINT uq_ingredient_pair UNIQUE (ingredient_a_id, ingredient_b_id),
+    CONSTRAINT chk_rationale_len CHECK (length(ai_rationale) <= 300)
 );
 
 -- Índices optimizados para búsquedas bidireccionales inmediatas
@@ -218,11 +253,24 @@ El dataset no se construye por relevamiento manual, sino combinando tres fuentes
 
 ### 5.2 Fases del Pipeline Offline (`scripts/seed_flavor_network.py`)
 1. **Semilla de Ingredientes:** Listado inicial normalizado en JSON/CSV con ~250 ingredientes comunes clasificados por categorías (Frutas, Verduras, Carnes, Lácteos, Hierbas/Especias, Granos).
-2. **Generación Automatizada de Pares:** El script genera pares lógicos de ingredientes y consulta al LLM en lotes para extraer puntajes de afinidad y explicaciones en español.
+2. **Generación Automatizada de Pares:** El script genera pares lógicos de ingredientes y consulta al LLM en lotes para extraer puntajes de afinidad y explicaciones en español. Soporta el flag `--dry-run` para validar prompts y esquemas JSON sin escribir en la base de datos ni gastar créditos de API.
 3. **Control de Calidad y Sanitización:**
    * Filtrado de pares con puntuación menor a 0.40 para evitar saturación visual en el grafo.
    * Validación de tipos con Pydantic.
    * Inserción ordenada en PostgreSQL (`ingredient_a_id < ingredient_b_id`).
+
+### 5.3 Diseño de Prompts, Criterios de Curado y Respaldos
+1. **Ejemplo de Prompt Estructurado (JSON Mode):**
+   > *"Eres un chef ejecutivo y científico gastronómico experto en maridajes moleculares. Evalúa la afinidad organoléptica entre [Ingrediente A] y [Ingrediente B]. Responde estrictamente en JSON con la siguiente estructura: `{"affinity_score": float (0.00 a 1.00), "ai_rationale": string (máximo 250 caracteres en español explicativo)}`."*
+2. **Criterios de Curado Manual y Mapeo Culinario:**
+   * Revisión por muestreo aleatorio (mínimo el 10% del dataset o 150 pares) verificando coherencia gastronómica.
+   * Eliminación manual de alucinaciones o justificaciones redundantes antes de la inserción final.
+3. **Estrategia de Snapshot y Backup de Base de Datos:**
+   * Previo a ejecutar la carga masiva del dataset en PostgreSQL, el pipeline invoca automáticamente una salva de respaldo mediante `pg_dump`:
+     `pg_dump -U postgres -d mapa_sabores -f backups/pre_seed_snapshot.sql`
+4. **Métricas de Calidad del Dataset (Acceptance Metrics):**
+   * **Cobertura:** Al menos el 80% de los 250 ingredientes deben contar con un mínimo de 4 conexiones activas ($>0.40$).
+   * **Consistencia Sintáctica:** 100% de cumplimiento del esquema Pydantic y límite de 300 caracteres en `ai_rationale`.
 
 ---
 
@@ -234,10 +282,10 @@ El dataset no se construye por relevamiento manual, sino combinando tres fuentes
 * `GET /api/v1/auth/me`: Perfil del usuario autenticado.
 
 ### 6.2 Red y Grafo (`/api/v1/graph`)
-* `GET /api/v1/graph`: Retorna la estructura global de nodos y enlaces para `react-force-graph`.
-  * **QueryParams:** `min_affinity` (default: 0.50), `category_id` (opcional).
+* `GET /api/v1/graph`: Retorna una estructura paginada o acotada de subgrafo para `react-force-graph` evitando saturar el navegador.
+  * **QueryParams:** `limit` (default: 50, max: 100), `offset` (default: 0), `min_affinity` (default: 0.50), `category_id` (opcional).
 * `GET /api/v1/ingredients`: Lista paginada con filtro de búsqueda de ingredientes.
-* `GET /api/v1/ingredients/{id}/pairings`: Obtiene los ingredientes vecinos y sus afinidades.
+* `GET /api/v1/ingredients/{id}/pairings`: Obtiene los ingredientes vecinos directos (Top-N) y sus afinidades.
 
 ### 6.3 Servicio de Evaluación Multi-Ingrediente e IA (`/api/v1/pairings`, `/api/v1/ai`)
 
@@ -345,12 +393,16 @@ class PairingEvaluationResponse(BaseModel):
 
 ### 6.6 Especificación de Seguridad, Autenticación y Control de Tasa (Hardening)
 1. **Hashing de Contraseñas:** Se utiliza **Passlib** con el algoritmo **Argon2id** (o `bcrypt` con factor de costo 12), garantizando resistencia contra ataques de fuerza bruta y Rainbow Tables.
-2. **Ciclo de Vida de Tokens JWT:**
+2. **Ciclo de Vida, Rotación y Revocación de Tokens JWT:**
    * `access_token`: Firma HMAC-SHA256 con tiempo de expiración corto de **30 minutos**.
    * `refresh_token`: Almacenado en galleta de solo lectura HTTP-Only y SameSite=Strict con validez de **7 días**.
-3. **Control de Tasa de Peticiones (Rate Limiting con `slowapi`):**
-   * Endpoints generales de consulta: Máximo **60 req/min** por IP.
-   * Endpoints de IA generativa online (`/api/v1/ai/*`): Máximo **10 req/min** para prevenir abuso de la API cloud.
+   * **Rotación y Revocación:** Al refrescar o cerrar sesión (`POST /api/v1/auth/logout`), el `refresh_token` utilizado se invalida registrando su `jti` (JWT ID) en la tabla `revoked_tokens` en PostgreSQL (o caché en memoria Redis) evitando su reutilización.
+3. **Control Dual de Tasa de Peticiones (Rate Limiting con `slowapi`):**
+   * Peticiones anónimas: Limitadas por Dirección IP (**60 req/min**).
+   * Peticiones autenticadas: Limitadas por **`user_id`** (**120 req/min** para endpoints REST de lectura, **10 req/min** para IA generativa en Tier Free y **30 req/min** en Tier Pro).
+4. **Monitoreo de SLAs y Alertas Operativas:**
+   * Registro estructurado en consola (JSON Logs) midiendo tiempos de respuesta de llamadas externas.
+   * Disparo de métrica/alerta si la tasa de fallback a la DB sobrepasa el **5% de las solicitudes** en un intervalo de 15 minutos.
 
 ### 6.7 Resiliencia del Servicio de IA (Timeout, Retries & Fallback Hierarchy)
 Para evitar que problemas de red o latencia en los proveedores cloud de IA afecten la experiencia del usuario:
@@ -497,7 +549,14 @@ Para mitigar riesgos y asegurar la entrega en tiempo, el plan de 4 meses se divi
   * *Entregable:* Control de límites por Tier (Free: 3 ingredientes, Pro: 10 ingredientes), timeout de 3s en llamadas a la IA y fallback automático a la justificación inmutable de PostgreSQL.
 * **Sprint 8 (Sem. 15-16) — Buffer de QA, Pruebas E2E, Refactor TDD y Memoria de Tesis:**
   * *Entregable:* Suite completa de pruebas TDD ejecutándose en verde (`pytest` + `Vitest`), optimización de velocidad de carga, documentación final y preparación de la defensa ante el tribunal.
-  * *Stretch Goal (Opcional):* Demostración experimental en apéndice de tesis con Llama 3.2 3B local en Ollama.
+### 9.1 Prioridad de Siguientes Acciones Rápida (Kickoff del Código - Sprint 1)
+Para iniciar la fase de desarrollo sin fricción, se establece la siguiente secuencia de ejecución ordenada:
+
+1. **Configuración de Entorno Local:** Crear `.env.example` y la infraestructura base de `docker-compose.yml` (PostgreSQL + FastAPI).
+2. **Migración Inicial de Base de Datos:** Inicializar `Alembic` y generar el script de migración inicial `001_initial_schema.py` con el DDL completo.
+3. **Scaffolding del Data Pipeline:** Estructurar `scripts/seed_flavor_network.py` implementando el soporte del flag `--dry-run` para validar esquemas Pydantic y prompts sin consumir API.
+4. **Implementación del Servicio de IA:** Crear la interfaz `LLMProvider` con los adaptadores (Gemini / OpenAI), manejando timeouts (3s), retries y el fallback a la DB.
+5. **Primeras Pruebas Unitarias TDD:** Escribir las pruebas con `pytest` para la matemática determinística del endpoint `POST /api/v1/pairings/evaluate`.
 
 ---
 
