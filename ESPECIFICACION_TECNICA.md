@@ -25,7 +25,7 @@ El proyecto resuelve el problema del maridaje e innovación culinaria mediante u
 
 ### 2.1 Problema Identificado
 
-El descubrimiento de combinaciones de ingredientes (maridaje o *flavor pairing*) tradicionalmente ha dependido de la intuición empírica o de enciclopedias culinarias estáticas. Aunque existen teorías científicas de maridaje de sabores (compartir compuestos aromáticos clave), no existen herramientas web abiertas e interactivas en español que combinen:
+El descubrimiento de combinaciones de ingredientes (maridaje o _flavor pairing_) tradicionalmente ha dependido de la intuición empírica o de enciclopedias culinarias estáticas. Aunque existen teorías científicas de maridaje de sabores (compartir compuestos aromáticos clave), no existen herramientas web abiertas e interactivas en español que combinen:
 
 * Exploración visual intuitiva en forma de grafo dinámico.
 * Explicaciones organolépticas personalizadas en lenguaje natural.
@@ -46,7 +46,7 @@ El descubrimiento de combinaciones de ingredientes (maridaje o *flavor pairing*)
 
 Las decisiones de diseño se fundamentan en criterios estratégicos de ingeniería de software:
 
-* **PostgreSQL vs. Neo4j:** Se optó por PostgreSQL debido a que en una red de 300 a 1,000 ingredientes las consultas de 1 o 2 saltos (*hops*) no justifican la sobrecarga operativa y de consumo de memoria de un motor de grafos nativo como Neo4j. Mediante índices compuestos y ordenamiento de IDs, Postgres resuelve estas consultas de forma directa (sin recorridos recursivos), con un costo operativo y de despliegue significativamente menor.
+* **PostgreSQL vs. Neo4j:** Se optó por PostgreSQL debido a que en una red de 300 a 1,000 ingredientes las consultas de 1 o 2 saltos (_hops_) no justifican la sobrecarga operativa y de consumo de memoria de un motor de grafos nativo como Neo4j. Mediante índices compuestos y ordenamiento de IDs, Postgres resuelve estas consultas de forma directa (sin recorridos recursivos), con un costo operativo y de despliegue significativamente menor.
 
 * **Arquitectura Híbrida de IA:** La IA no actúa como la base de datos (evitando alucinaciones o respuestas lentas en navegación UI), sino como un potenciador en dos fases: compilación de dataset en pipeline offline y generación de prosa culinaria en línea.
 
@@ -54,7 +54,7 @@ Las decisiones de diseño se fundamentan en criterios estratégicos de ingenier�
 
 ## 3. Arquitectura General del Sistema
 
-El sistema utiliza un patrón de **Arquitectura Multicapa Desacoplada** (Frontend Client, Backend API, Relational Storage & External Services).
+El sistema utiliza un patrón de _Arquitectura Multicapa Desacoplada_ (Frontend Client, Backend API, Relational Storage & External Services).
 
 ```
 +-----------------------------------------------------------------------------------+
@@ -84,9 +84,9 @@ El sistema utiliza un patrón de **Arquitectura Multicapa Desacoplada** (Fronten
 ### 3.1 Flujo de Datos Principal
 
 1. **Carga Inicial del Grafo:** El cliente React solicita `GET /api/v1/graph`. FastAPI consulta PostgreSQL y retorna los nodos y enlaces activos.
-2. **Exploración y Filtrado:** El usuario selecciona un nodo (ej: *Tomate*). El frontend resalta vecinos y solicita `GET /api/v1/ingredients/{id}/pairings`.
+2. **Exploración y Filtrado:** El usuario selecciona un nodo (ej: _Tomate_). El frontend resalta vecinos y solicita `GET /api/v1/ingredients/{id}/pairings`.
 3. **Explicación con IA (Online):** Al presionar "¿Por qué combinan?", el frontend invoca `POST /api/v1/ai/explain-pairing`. FastAPI utiliza la interfaz `LLMProvider` para generar un párrafo descriptivo con tono gastronómico.
-4. **Recetas Relacionadas:** Al solicitar recetas para una combinación (ej: *Tomate + Albahaca + Ajo*), FastAPI consulta la caché local. Si no existe en caché, llama a la API de Spoonacular y guarda el resultado.
+4. **Recetas Relacionadas:** Al solicitar recetas para una combinación (ej: _Tomate + Albahaca + Ajo_), FastAPI consulta la caché local. Si no existe en caché, llama a la API de Spoonacular y guarda el resultado.
 
 ### 3.2 Configuración de Entorno (.env.example) y Orquestación Local (Docker Compose)
 Para asegurar que cualquier desarrollador o evaluador pueda clonar e iniciar el entorno en local de manera reproducible:
@@ -315,7 +315,7 @@ WHERE p.ingredient_a_id = :ingredient_id OR p.ingredient_b_id = :ingredient_id
 ```
 
 ### 4.3 Estrategia de Migraciones y Versionado de Base de Datos (Alembic)
-Para garantizar la evolución controlada del esquema sin pérdida de datos ni discrepancias entre entornos (desarrollo, testing, producción), el proyecto utiliza **Alembic** integrado con **SQLAlchemy Core**:
+Para garantizar la evolución controlada del esquema sin pérdida de datos ni discrepancias entre entornos (desarrollo, testing, producción), el proyecto utiliza _Alembic_ integrado con _SQLAlchemy Core_:
 
 1. **Control de Versiones del Esquema:** Cada cambio en la estructura DDL se registra como un script de migración versionado en `backend/alembic/versions/` etiquetado con hashes secuenciales y mensajes descriptivos.
 2. **Ejecución Automatizada:** En el arranque del contenedor/servidor FastAPI, se ejecuta automáticamente `alembic upgrade head` para garantizar que la base de datos se encuentre sincronizada con la versión más reciente del código.
@@ -330,13 +330,13 @@ Para garantizar la evolución controlada del esquema sin pérdida de datos ni di
 El dataset no se construye por relevamiento manual sino combinando tres fuentes complementarias:
 
 1. **La IA como "Sintetizador y Destilador de Conocimiento" (Pipeline Offline - Método Principal):**
-   * Los modelos de lenguaje modernos (OpenAI GPT-4o, Google Gemini) fueron entrenados con millones de textos científicos, recetas globales y literatura gastronómica de referencia (incluyendo *The Flavor Bible*, *The Flavor Thesaurus* y artículos científicos de maridaje molecular).
+   * Los modelos de lenguaje modernos (OpenAI GPT-4o, Google Gemini) fueron entrenados con millones de textos científicos, recetas globales y literatura gastronómica de referencia (incluyendo _The Flavor Bible_, _The Flavor Thesaurus_ y artículos científicos de maridaje molecular).
    * En lugar de descargar o transcribir libros, nuestro script en Python (`scripts/seed_flavor_network.py`) consulta en lote al LLM mediante solicitudes estructuradas (JSON Mode con Pydantic). La IA actúa como un "chef experto", evaluando cada par de ingredientes y generando la puntuación de afinidad (0.0 a 1.0) y la explicación culinaria.
 2. **Datasets Abiertos Académicos en GitHub y Kaggle (Fuentes Públicas Abiertas):**
    * **FlavorDB / Flavornet:** Proyecto científico abierto de IIIT Delhi que mapea ~1,000 ingredientes a sus moléculas aromáticas volátiles (eugenol, linalool, etc.). Sus datasets son descargables públicamente en formato CSV/JSON.
-   * **Nature Scientific Reports - Dataset de "Flavor Network":** Dataset público del famoso estudio científico de Yong-Yeol Ahn (*"Flavor network and the principles of food pairing"*), disponible libremente en repositorios de GitHub.
+   * **Nature Scientific Reports - Dataset de "Flavor Network":** Dataset público del famoso estudio científico de Yong-Yeol Ahn (_"Flavor network and the principles of food pairing"_), disponible libremente en repositorios de GitHub.
 3. **Co-ocurrencia Estadística en Recetas (Spoonacular / RecipeDB):**
-   * Mapeo estadístico automático: Si dos ingredientes (ej: *Tomate* y *Albahaca*) aparecen juntos frecuentemente en miles de recetas procesadas, se refuerza la puntuación de afinidad.
+   * Mapeo estadístico automático: Si dos ingredientes (ej: _Tomate_ y _Albahaca_) aparecen juntos frecuentemente en miles de recetas procesadas, se refuerza la puntuación de afinidad.
 
 **Nota metodológica sobre la normalización del score:** las fuentes anteriores no son directamente comparables entre sí. FlavorDB/Flavornet expresan afinidad como cantidad de compuestos aromáticos volátiles compartidos (un número entero, no un score de 0 a 1), mientras que el LLM devuelve directamente un puntaje 0.0–1.0 y la co-ocurrencia en recetas es una frecuencia relativa. El pipeline define una fórmula explícita de normalización (por ejemplo, escalar la cantidad de compuestos compartidos contra el máximo observado en el dataset) para llevar todas las fuentes a la misma escala antes de promediarlas o combinarlas. Esta fórmula y su justificación deben documentarse como una decisión metodológica propia del proyecto.
 
@@ -352,7 +352,7 @@ El dataset no se construye por relevamiento manual sino combinando tres fuentes 
 ### 5.3 Diseño de Prompts, Criterios de Curado y Respaldos
 
 1. **Ejemplo de Prompt Estructurado (JSON Mode):**
-   > *"Eres un chef ejecutivo y científico gastronómico experto en maridajes moleculares. Evalúa la afinidad organoléptica entre [Ingrediente A] y [Ingrediente B]. Responde estrictamente en JSON con la siguiente estructura: `{"affinity_score": float (0.00 a 1.00), "ai_rationale": string (máximo 250 caracteres en español explicativo)}`."*
+   > _"Eres un chef ejecutivo y científico gastronómico experto en maridajes moleculares. Evalúa la afinidad organoléptica entre [Ingrediente A] y [Ingrediente B]. Responde estrictamente en JSON con la siguiente estructura: `{"affinity_score": float (0.00 a 1.00), "ai_rationale": string (máximo 250 caracteres en español explicativo)}`."_
 2. **Criterios de Curado Manual y Mapeo Culinario:**
    * Revisión por muestreo aleatorio (mínimo el 10% del dataset o 150 pares) verificando coherencia gastronómica.
    * Eliminación manual de alucinaciones o justificaciones redundantes antes de la inserción final.
@@ -369,9 +369,9 @@ Para evitar que el LLM genere puntuaciones de afinidad ilógicas o razones inver
 1. **Suite de Verificación Automatizada (`scripts/verify_coherence.py`):**
    * Un script automatizado en Python ejecuta aserciones de validación cruzada antes de autorizar la inserción en la base de datos de producción.
 2. **Matriz de Incompatibilidad Prohibida (Baseline Antagónico):**
-   * Se define un listado de ~50 pares gastronómicos antagónicos conocidos (ej: *Pescado Blanco + Dulce de Leche*, *Leche + Jugo de Limón puro*). Si la evaluación del LLM asigna una afinidad $> 0.35$ a cualquiera de estos pares, el script falla y marca la ejecución para revisión.
+   * Se define un listado de ~50 pares gastronómicos antagónicos conocidos (ej: _Pescado Blanco + Dulce de Leche_, _Leche + Jugo de Limón puro_). Si la evaluación del LLM asigna una afinidad $> 0.35$ a cualquiera de estos pares, el script falla y marca la ejecución para revisión.
 3. **Control de Varianza respecto a FlavorDB:**
-   * Si un par posee datos en FlavorDB de compuestos moleculares volátiles compartidos pero el LLM devuelve una puntuación con una varianza mayor a $\pm 0.40$ respecto al score químico escalado, se emite una alerta de divergencia (*Divergence Warning*) para arbitraje manual.
+   * Si un par posee datos en FlavorDB de compuestos moleculares volátiles compartidos pero el LLM devuelve una puntuación con una varianza mayor a $\pm 0.40$ respecto al score químico escalado, se emite una alerta de divergencia (_Divergence Warning_) para arbitraje manual.
 4. **Workflow de Arbitraje Manual y Cola de Revisión:**
    * Los pares etiquetados con advertencias no se insertan directamente en `flavor_pairings`. Se registran en la tabla `pairing_review_queue` con estado `'pending_review'`.
    * **Comando de Curado CLI (`./scripts/curate.py`):** Un script CLI interactivo permite al administrador/desarrollador listar los pares pendientes de arbitraje, revisar el fundamento del LLM y aprobar (`--approve`) o descartar (`--reject`) cada par con un solo comando.
@@ -393,9 +393,9 @@ Para evitar que el LLM genere puntuaciones de afinidad ilógicas o razones inver
 
 ### 6.3 Servicio de Evaluación Multi-Ingrediente e IA (`/api/v1/pairings`, `/api/v1/ai`)
 
-Este servicio separa explícitamente dos responsabilidades: el cálculo de sinergia es **determinístico** (se resuelve enteramente contra los datos de `flavor_pairings`, sin invocar un LLM), mientras que la sugerencia de reemplazo es **generativa** (requiere una llamada a IA, ya que implica razonar sobre qué ingrediente alternativo mejoraría la combinación, algo que no se desprende directamente de la matriz de puntajes).
+Este servicio separa explícitamente dos responsabilidades: el cálculo de sinergia es _determinístico_ (se resuelve enteramente contra los datos de `flavor_pairings`, sin invocar un LLM), mientras que la sugerencia de reemplazo es _generativa_ (requiere una llamada a IA, ya que implica razonar sobre qué ingrediente alternativo mejoraría la combinación, algo que no se desprende directamente de la matriz de puntajes).
 
-* `POST /api/v1/pairings/evaluate`: Recibe un arreglo de 2 o más `ingredient_ids`. Calcula, únicamente a partir de la base de datos, la matriz de afinidades cruzadas, el **Índice de Sinergia Global (0-100%)** y el o los ingredientes discordantes (*clashing elements*, definidos como el ingrediente con menor afinidad promedio respecto al resto del grupo).
+* `POST /api/v1/pairings/evaluate`: Recibe un arreglo de 2 o más `ingredient_ids`. Calcula, únicamente a partir de la base de datos, la matriz de afinidades cruzadas, el _Índice de Sinergia Global (0-100%)_ y el o los ingredientes discordantes (_clashing elements_, definidos como el ingrediente con menor afinidad promedio respecto al resto del grupo).
 * `POST /api/v1/ai/suggest-replacement`: Recibe el resultado de `evaluate` cuando se detecta un ingrediente discordante. Invoca al LLM con ese contexto (afinidades ya calculadas) para sugerir un reemplazo con sentido gastronómico y redactar la justificación. Se llama solo bajo demanda del usuario (botón explícito), no automáticamente en cada evaluación.
 * `POST /api/v1/ai/explain-pairing`: Recibe `[ingredient_id_1, ingredient_id_2, ...]`. Invoca la interfaz de LLM y devuelve la explicación organoléptica en tiempo real.
 
@@ -433,7 +433,7 @@ Este servicio separa explícitamente dos responsabilidades: el cálculo de siner
 * `GET /api/v1/recipes/search?ingredient_ids=12,45,88`: Recibe una lista de ingredientes y busca recetas coincidentes.
 
 #### ¿La información es temporal (usuario) o permanente (servidor)?
-La información **QUEDA GUARDADA DE FORMA PERMANENTE EN EL SERVIDOR (Base de Datos PostgreSQL)**. No es temporal del navegador del usuario.
+La información _QUEDA GUARDADA DE FORMA PERMANENTE EN EL SERVIDOR (Base de Datos PostgreSQL)_. No es temporal del navegador del usuario.
 
 #### Razones Técnicas de esta Decisión:
 1. **Ahorro de Cuota de API (Límite Spoonacular):** La cuota gratuita de Spoonacular ofrece solo 150 puntos/día. Guardar las recetas en el servidor evita agotar la cuota con búsquedas repetidas.
@@ -443,7 +443,7 @@ La información **QUEDA GUARDADA DE FORMA PERMANENTE EN EL SERVIDOR (Base de Dat
 #### 🧹 Depuración, Sanitización y Límite de Tamaño de `raw_json`
 Para evitar el almacenamiento de blobs innecesarios de datos publicitarios o metadatos irrelevantes devueltos por Spoonacular:
 1. **Normalización del Payload:** Antes de insertar en la columna `raw_json` de PostgreSQL, un middleware de FastAPI remueve atributos prescindibles (ej: widgets HTML, promociones de sponsors, URLs de video pesadas, banners).
-2. **Límite Estricto de Tamaño:** El objeto JSON sanitizado se acota a un tamaño máximo de **30 KB por receta**, preservando únicamente: `title`, `readyInMinutes`, `servings`, `extendedIngredients` (normalizados) y `analyzedInstructions`.
+2. **Límite Estricto de Tamaño:** El objeto JSON sanitizado se acota a un tamaño máximo de _30 KB por receta_, preservando únicamente: `title`, `readyInMinutes`, `servings`, `extendedIngredients` (normalizados) y `analyzedInstructions`.
 
 ```python
 # Ejemplo de rutina de sanitización en Python (app/services/recipe_sanitizer.py)
@@ -499,7 +499,7 @@ def sanitize_recipe_payload(raw_data: dict) -> dict:
 ```
 
 ### 6.5 Contratos de Entrada/Salida y Esquemas de Validación (Pydantic v2)
-Todos los datos procesados por FastAPI son estrictamente validados mediante modelos **Pydantic v2**:
+Todos los datos procesados por FastAPI son estrictamente validados mediante modelos _Pydantic v2_:
 
 ```python
 # Ejemplo de Esquema de Validación de Evaluación Multi-Ingrediente
@@ -524,22 +524,22 @@ class PairingEvaluationResponse(BaseModel):
 ```
 
 ### 6.6 Especificación de Seguridad, Autenticación y Control de Tasa (Hardening)
-1. **Hashing de Contraseñas:** Se utiliza **Passlib** con el algoritmo **Argon2id** (o `bcrypt` con factor de costo 12), garantizando resistencia contra ataques de fuerza bruta y Rainbow Tables.
+1. **Hashing de Contraseñas:** Se utiliza _Passlib_ con el algoritmo _Argon2id_ (o `bcrypt` con factor de costo 12), garantizando resistencia contra ataques de fuerza bruta y Rainbow Tables.
 2. **Ciclo de Vida, Rotación y Revocación de Tokens JWT (Redis Blacklist):**
-   * `access_token`: Firma HMAC-SHA256 con tiempo de expiración corto de **30 minutos**.
-   * `refresh_token`: Almacenado en galleta de solo lectura HTTP-Only y SameSite=Strict con validez de **7 días**.
-   * **Almacenamiento Ultra-rápido en Redis:** Al refrescar o cerrar sesión (`POST /api/v1/auth/logout`), el `refresh_token` utilizado se invalida guardando la clave `revoked_token:<jti>` en **Redis en memoria** con un TTL ajustado exactamente a los 7 días restantes. El middleware de FastAPI verifica la validez contra Redis en **< 1ms**, evitando consultas pesadas a la base de datos PostgreSQL en cada petición autenticada. La tabla `revoked_tokens` en Postgres actúa como respaldo persistente asíncrono.
+   * `access_token`: Firma HMAC-SHA256 con tiempo de expiración corto de _30 minutos_.
+   * `refresh_token`: Almacenado en galleta de solo lectura HTTP-Only y SameSite=Strict con validez de _7 días_.
+   * **Almacenamiento Ultra-rápido en Redis:** Al refrescar o cerrar sesión (`POST /api/v1/auth/logout`), el `refresh_token` utilizado se invalida guardando la clave `revoked_token:<jti>` en _Redis en memoria_ con un TTL ajustado exactamente a los 7 días restantes. El middleware de FastAPI verifica la validez contra Redis en _< 1ms_, evitando consultas pesadas a la base de datos PostgreSQL en cada petición autenticada. La tabla `revoked_tokens` en Postgres actúa como respaldo persistente asíncrono.
 3. **Control Dual de Tasa de Peticiones (Rate Limiting con `slowapi`):**
-   * Peticiones anónimas: Limitadas por Dirección IP (**60 req/min**).
-   * Peticiones autenticadas: Limitadas por **`user_id`** (**120 req/min** para endpoints REST de lectura, **10 req/min** para IA generativa en Tier Free y **30 req/min** en Tier Pro).
+   * Peticiones anónimas: Limitadas por Dirección IP (_60 req/min_).
+   * Peticiones autenticadas: Limitadas por _`user_id`_ (_120 req/min_ para endpoints REST de lectura, _10 req/min_ para IA generativa en Tier Free y _30 req/min_ en Tier Pro).
 4. **Monitoreo de SLAs y Alertas Operativas:**
    * Registro estructurado en consola (JSON Logs) midiendo tiempos de respuesta de llamadas externas.
-   * Disparo de métrica/alerta si la tasa de fallback a la DB sobrepasa el **5% de las solicitudes** en un intervalo de 15 minutos.
+   * Disparo de métrica/alerta si la tasa de fallback a la DB sobrepasa el _5% de las solicitudes_ en un intervalo de 15 minutos.
 
 ### 6.7 Resiliencia del Servicio de IA (Timeout, Retries & Fallback Hierarchy)
 Para evitar que problemas de red o latencia en los proveedores cloud de IA afecten la experiencia del usuario:
-1. **Timeout Estricto:** Peticiones HTTP a proveedores de IA (Gemini/OpenAI) configuradas con un tiempo límite máximo de **3.0 segundos**.
-2. **Reintentos Exponenciales:** En caso de error de red 5xx, se ejecuta como máximo **1 reintento** con *backoff* exponencial.
+1. **Timeout Estricto:** Peticiones HTTP a proveedores de IA (Gemini/OpenAI) configuradas con un tiempo límite máximo de _3.0 segundos_.
+2. **Reintentos Exponenciales:** En caso de error de red 5xx, se ejecuta como máximo _1 reintento_ con _backoff_ exponencial.
 3. **Jerarquía de Fallback (Degradación Grácil):**
    * *Nivel 1 (Cloud Principal):* Google Gemini 1.5 Flash.
    * *Nivel 2 (Cloud Secundario):* OpenAI GPT-4o-mini.
@@ -549,7 +549,7 @@ Para evitar que problemas de red o latencia en los proveedores cloud de IA afect
 
 ## 7. Diseño Frontend y Experiencia Visual
 
-El frontend se estructurará con **React (Vite)** y **Tailwind CSS**.
+El frontend se estructurará con _React (Vite)_ y _Tailwind CSS_.
 
 ```
 +-----------------------------------------------------------------------------------+
@@ -580,13 +580,13 @@ El renderizado del grafo responde en tiempo real a medida que el usuario agrega 
 
 1. **Selección de 1 Ingrediente (ej: *Tomate*):**
    * El ingrediente seleccionado se ubica en el centro del lienzo.
-   * Se despliegan aristas radiales conectándolo exclusivamente con sus **Top 5-8 ingredientes de mayor afinidad** (ej: *Albahaca, Ajo, Queso Mozzarella, Orégano, Aceite de Oliva*).
-2. **Selección de 2 Ingredientes (ej: *Tomate + Albahaca*):**
+   * Se despliegan aristas radiales conectándolo exclusivamente con sus _Top 5-8 ingredientes de mayor afinidad_ (ej: _Albahaca, Ajo, Queso Mozzarella, Orégano, Aceite de Oliva_).
+2. **Selección de 2 Ingredientes (ej: _Tomate + Albahaca_):**
    * Se dibuja una arista principal entre ambos nodos con un color que representa su nivel de afinidad (ej: Verde Esmeralda para afinidad alta $> 75\%$).
-   * **Resaltado por Intensidad Armónica:** Los ingredientes vecinos conectados que presentan alta afinidad **con AMBOS ingredientes seleccionados a la vez** se iluminan con **mayor intensidad visual (brillo/opacidad 100%)**, destacando la verdadera sinergia gastronómica.
+   * **Resaltado por Intensidad Armónica:** Los ingredientes vecinos conectados que presentan alta afinidad _con AMBOS ingredientes seleccionados a la vez_ se iluminan con _mayor intensidad visual (brillo/opacidad 100%)_, destacando la verdadera sinergia gastronómica.
 3. **Incorporación de un Ingrediente Incompatible (ej: *Tomate + Albahaca + Chocolate*):**
-   * La arista que conecta el ingrediente discordante (*Chocolate*) se grafica en **ROJO destellante o punteado** (indicando choque de sabor / incompatibilidad $< 45\%$).
-   * Los ingredientes vecinos alrededor del grupo se atenúan con **menor intensidad visual (opacidad reducida al 30%)**, señalando que la combinación global ha perdido armonía.
+   * La arista que conecta el ingrediente discordante (_Chocolate_) se grafica en _ROJO destellante o punteado_ (indicando choque de sabor / incompatibilidad $< 45\%$).
+   * Los ingredientes vecinos alrededor del grupo se atenúan con _menor intensidad visual (opacidad reducida al 30%)_, señalando que la combinación global ha perdido armonía.
 4. **Escala Progresiva a N Ingredientes:**
    * La matriz de intensidad y colores de aristas se recalculan dinámicamente en < 16ms (60 FPS) a medida que se suman más ingredientes a la receta.
 
@@ -611,13 +611,13 @@ Para garantizar la viabilidad comercial y el control de recursos del servidor, e
 | **Exportación de Datos (Export & API)** | ❌ No disponible | ✅ **Exportar a Texto Plano, JSON y Acceso a API Key** |
 
 ### 💡 Justificación del Límite de 3 Ingredientes en el Tier Gratuito:
-Un límite de 3 ingredientes en el plan gratuito permite a los usuarios experimentar tríadas culinarias icónicas (ej: *Mirepoix*, *Tríada Caprese: Tomate + Albahaca + Mozzarella*), comprobando el valor de la sinergia y la IA. Para chefs profesionales, sommeliers o mixólogos que diseñan recetas complejas de 5 a 8 componentes, el **Tier Pro** desbloquea la capacidad total y la exportación de datos en JSON.
+Un límite de 3 ingredientes en el plan gratuito permite a los usuarios experimentar tríadas culinarias icónicas (ej: _Mirepoix_, _Tríada Caprese: Tomate + Albahaca + Mozzarella_), comprobando el valor de la sinergia y la IA. Para chefs profesionales, sommeliers o mixólogos que diseñan recetas complejas de 5 a 8 componentes, el _Tier Pro_ desbloquea la capacidad total y la exportación de datos en JSON.
 
 ---
 
 ## 8. Estrategia de Pruebas Automatizadas y Metodología TDD (Test-Driven Development)
 
-El proyecto adopta una disciplina estricta de **Desarrollo Guiado por Pruebas (TDD)** siguiendo el ciclo continuo **Red ➔ Green ➔ Refactor**. Toda funcionalidad del backend y del frontend debe contar con sus correspondientes pruebas automatizadas escritas *antes* del código de producción.
+El proyecto adopta una disciplina estricta de _Desarrollo Guiado por Pruebas (TDD)_ siguiendo el ciclo continuo _Red ➔ Green ➔ Refactor_. Toda funcionalidad del backend y del frontend debe contar con sus correspondientes pruebas automatizadas escritas _antes_ del código de producción.
 
 ```
        ┌────────────────────────────────────────────────────────┐
@@ -632,13 +632,13 @@ El proyecto adopta una disciplina estricta de **Desarrollo Guiado por Pruebas (T
 * **Framework Principal:** `pytest` + `pytest-asyncio` para la ejecución asíncrona de pruebas en FastAPI.
 * **Cliente HTTP de Pruebas:** `httpx.AsyncClient` para testear endpoints REST sin levantar un servidor real.
 * **Acceso a Base de Datos en Tests:** Base de datos PostgreSQL aislada de testing en contenedor Docker con `alembic` ejecutado previo a cada suite de pruebas.
-* **Cobertura Mínima Exigida:** **85% de cobertura de código** medida con `pytest-cov`.
+* **Cobertura Mínima Exigida:** _85% de cobertura de código_ medida con `pytest-cov`.
 * **Pruebas Unitarias Clave (TDD):**
   * Verificación determinística de la matriz de sinergia $N \times N$, cálculo del score global y detección del ingrediente discordante.
   * Verificación de la restricción `ingredient_a_id < ingredient_b_id` y ordenamiento de pares.
   * Verificación del pipeline de hashing SHA-256 para `cache_key` de recetas.
 * **Pruebas de Integración y Mocks:**
-  * Inyección de *Mocks* para llamadas a Spoonacular y LLM (Gemini/OpenAI) simulando respuestas exitosas, respuestas traducidas, timeouts (3s) y fallbacks a la DB.
+  * Inyección de _Mocks_ para llamadas a Spoonacular y LLM (Gemini/OpenAI) simulando respuestas exitosas, respuestas traducidas, timeouts (3s) y fallbacks a la DB.
 
 ### 8.2 Stack de Pruebas en Frontend (React / Vite)
 * **Runner de Pruebas:** `Vitest` (ejecución ultrarrápida nativa de Vite).
@@ -719,34 +719,34 @@ jobs:
 
 ## 9. Plan Global de Implementación Ágil (8 Sprints de 2 Semanas)
 
-Para mitigar riesgos y asegurar la entrega en tiempo, el plan de 4 meses se divide en **8 Sprints ágiles de 2 semanas** con *Criterios de Aceptación (Definition of Done)* explícitos por Sprint:
+Para mitigar riesgos y asegurar la entrega en tiempo, el plan de 4 meses se divide en _8 Sprints ágiles de 2 semanas_ con _Criterios de Aceptación (Definition of Done)_ explícitos por Sprint:
 
 ### 🚀 Fase 1: Arquitectura, Data Pipeline y Prototipado Temprano (Mes 1)
 * **Sprint 1 (Sem. 1-2) — Cimientos, DDL y Migraciones Alembic:**
-  * *Entregable:* Base de datos PostgreSQL configurada en Docker con esquemas relacionales, índices compuestos y migraciones iniciales de `Alembic`.
-  * *Criterios TDD:* Tests en `pytest` pasando para restricciones DDL y funciones de consulta bidireccional.
+  * _Entregable:_ Base de datos PostgreSQL configurada en Docker con esquemas relacionales, índices compuestos y migraciones iniciales de `Alembic`.
+  * _Criterios TDD:_ Tests en `pytest` pasando para restricciones DDL y funciones de consulta bidireccional.
 * **Sprint 2 (Sem. 3-4) — Pipeline Offline de Datos + Prototipo Temprano del Grafo (Spike):**
-  * *Entregable Backend:* Script `seed_flavor_network.py` con LLM generando el dataset inicial (~250 ingredientes y ~1,500 relaciones).
-  * *Entregable Frontend (Spike):* Prototipo temprano en React con `react-force-graph-2d` renderizando datos estáticos mock para evaluar rendimiento y usabilidad.
+  * _Entregable Backend:_ Script `seed_flavor_network.py` con LLM generando el dataset inicial (~250 ingredientes y ~1,500 relaciones).
+  * _Entregable Frontend (Spike):_ Prototipo temprano en React con `react-force-graph-2d` renderizando datos estáticos mock para evaluar rendimiento y usabilidad.
 
 ### ⚙️ Fase 2: Backend Core, Autenticación y Caché Permanente (Mes 2)
 * **Sprint 3 (Sem. 5-6) — Endpoints REST de Grafo y Sinergia Determinística:**
-  * *Entregable:* Endpoints `GET /api/v1/graph`, `GET /api/v1/ingredients` y `POST /api/v1/pairings/evaluate` (cálculo de sinergia y detección de elemento discordante 100% en DB).
-  * *Criterios TDD:* Cobertura de tests unitarios al 90% para la matemática de sinergia y ordenamiento.
+  * _Entregable:_ Endpoints `GET /api/v1/graph`, `GET /api/v1/ingredients` y `POST /api/v1/pairings/evaluate` (cálculo de sinergia y detección de elemento discordante 100% en DB).
+  * _Criterios TDD:_ Cobertura de tests unitarios al 90% para la matemática de sinergia y ordenamiento.
 * **Sprint 4 (Sem. 7-8) — Autenticación JWT, Seguridad y Caché de Recetas:**
-  * *Entregable:* Sistema de Auth (Argon2id + JWT `access_token` y `refresh_token`), control de tasa `slowapi` y cliente de Spoonacular con almacenamiento permanente en PostgreSQL.
+  * _Entregable:_ Sistema de Auth (Argon2id + JWT `access_token` y `refresh_token`), control de tasa `slowapi` y cliente de Spoonacular con almacenamiento permanente en PostgreSQL.
 
 ### 🎨 Fase 3: Frontend Interactivo, Visualización Progresiva e IA Online (Mes 3)
 * **Sprint 5 (Sem. 9-10) — Frontend Grafo Progresivo e Intensidad Armónica:**
-  * *Entregable:* Buscador central con etiquetas de sugerencia y renderizado dinámico del grafo (nodos radiales para 1 ingrediente, aristas verdes/amarillas/rojas y resaltado por intensidad armónica).
+  * _Entregable:_ Buscador central con etiquetas de sugerencia y renderizado dinámico del grafo (nodos radiales para 1 ingrediente, aristas verdes/amarillas/rojas y resaltado por intensidad armónica).
 * **Sprint 6 (Sem. 11-12) — Integración de Drawers, Recetas Traducidas e IA Online:**
-  * *Entregable:* Panel lateral de sinergia, visualización de matriz $N \times N$, tarjetas de recetas traducidas automáticamente al español e integración del endpoint de explicaciones generativas en vivo (`/api/v1/ai/explain-pairing`).
+  * _Entregable:_ Panel lateral de sinergia, visualización de matriz $N \times N$, tarjetas de recetas traducidas automáticamente al español e integración del endpoint de explicaciones generativas en vivo (`/api/v1/ai/explain-pairing`).
 
 ### 🛡️ Fase 4: Resiliencia, Pruebas E2E, QA y Defensa Académica (Mes 4)
 * **Sprint 7 (Sem. 13-14) — Tiers de Suscripción, Resiliencia de IA y Fallbacks:**
-  * *Entregable:* Control de límites por Tier (Free: 3 ingredientes, Pro: 10 ingredientes), timeout de 3s en llamadas a la IA y fallback automático a la justificación inmutable de PostgreSQL.
+  * _Entregable:_ Control de límites por Tier (Free: 3 ingredientes, Pro: 10 ingredientes), timeout de 3s en llamadas a la IA y fallback automático a la justificación inmutable de PostgreSQL.
 * **Sprint 8 (Sem. 15-16) — Buffer de QA, Pruebas E2E, Refactor TDD y Memoria de Tesis:**
-  * *Entregable:* Suite completa de pruebas TDD ejecutándose en verde (`pytest` + `Vitest`), optimización de velocidad de carga, documentación final y preparación de la defensa ante el tribunal.
+  * _Entregable:_ Suite completa de pruebas TDD ejecutándose en verde (`pytest` + `Vitest`), optimización de velocidad de carga, documentación final y preparación de la defensa ante el tribunal.
 ### 9.1 Prioridad de Siguientes Acciones Rápida (Kickoff del Código - Sprint 1)
 Para iniciar la fase de desarrollo sin fricción, se establece la siguiente secuencia de ejecución ordenada:
 
@@ -771,16 +771,16 @@ Para iniciar la fase de desarrollo sin fricción, se establece la siguiente secu
 
 ## 10. Análisis de Viabilidad Económica y Escalabilidad
 
-El diseño arquitectónico del proyecto garantiza una **alta eficiencia de costos y sostenibilidad financiera**, permitiendo operar a costo **$0.00 USD** durante toda la fase de desarrollo y defensa, manteniendo costos marginales mínimos ante un crecimiento de usuarios a escala.
+El diseño arquitectónico del proyecto garantiza una _alta eficiencia de costos y sostenibilidad financiera_, permitiendo operar a costo _$0.00 USD_ durante toda la fase de desarrollo y defensa, manteniendo costos marginales mínimos ante un crecimiento de usuarios a escala.
 
 ### 10.1 Estrategia de Optimización de Costos de API
 1. **API de Recetas (Spoonacular) — Amortización por Caché Local:**
    * La cuota gratuita ofrece 150 puntos/día. 
-   * Gracias al **Caché Progresivo en PostgreSQL (`recipe_search_cache`)**, la dependencia de la API disminuye asintóticamente con el uso: más del 90% de las búsquedas frecuentes de usuarios leen directamente de la base de datos local (< 10ms) sin consumir cuota externa.
+   * Gracias al _Caché Progresivo en PostgreSQL (`recipe_search_cache`)_, la dependencia de la API disminuye asintóticamente con el uso: más del 90% de las búsquedas frecuentes de usuarios leen directamente de la base de datos local (< 10ms) sin consumir cuota externa.
 2. **APIs de Inteligencia Artificial (LLM) — Modelos de Alta Eficiencia:**
    * Se utilizan modelos de última generación ultralivianos (Google Gemini 1.5 Flash / OpenAI GPT-4o-mini).
    * **Generación en tiempo real:** $0.075 USD por millón de tokens en Gemini Flash (~$0.00005 USD por explicación de chef).
-   * **Pipeline Offline (Mes 1):** Compilación inicial del grafo de 1,500 afinidades por **~$0.30 USD por única vez**.
+   * **Pipeline Offline (Mes 1):** Compilación inicial del grafo de 1,500 afinidades por _~$0.30 USD por única vez_.
 
 ### 10.2 Cuadro Comparativo de Proyección de Costos por Nivel de Escala
 
@@ -791,4 +791,4 @@ El diseño arquitectónico del proyecto garantiza una **alta eficiencia de costo
 | **Escala Media** | 25,000 | ~$29.00 USD (Spoonacular Builder) | ~$2.50 USD | ~$10.00 USD (DB 5GB) | **~$41.50 USD / mes** |
 
 ### 10.3 Argumentación de Viabilidad para la Defensa Academica
-Este análisis demuestra criterio de ingeniería de software enfocado en la **economía de recursos y optimización operativa**, probando que el sistema no solo es funcional y estéticamente atractivo, sino también **financieramente viable y preparado para producción real**.
+Este análisis demuestra criterio de ingeniería de software enfocado en la _economía de recursos y optimización operativa_, probando que el sistema no solo es funcional y estéticamente atractivo, sino también _financieramente viable y preparado para producción real_.
