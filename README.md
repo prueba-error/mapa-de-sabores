@@ -1,6 +1,6 @@
 # Mapa de Sabores
 
-> **Sistema Web Interactivo de Descubrimiento Gastronómico asistido por Inteligencia Artificial y Grafos de Sabores.**
+**Sistema Web Interactivo de Descubrimiento Gastronómico mediante Grafos de Sabores asistido por Inteligencia Artificial**
 
 **Proyecto Final - Desarrollo de Sistemas Web**  
 **Alumno:** Diego Rafael Guaraz  

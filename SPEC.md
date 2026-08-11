@@ -1,13 +1,9 @@
 # Mapa de Sabores - Especificación Técnica Detallada (SPEC.md)
 
-**Proyecto Final - Desarrollo de Sistemas Web**  
-**Alumno:** Diego Rafael Guaraz  
-
----
-
 ## 1. Modelo de Datos y Estrategia de Grafos (PostgreSQL)
 
 ### 1.1 Esquema Relacional de Base de Datos (DDL)
+
 ```sql
 -- 1. Tabla de Categorías de Ingredientes
 CREATE TABLE categories (
@@ -112,6 +108,7 @@ CREATE TABLE pairing_review_queue (
 ```
 
 ### 1.2 Lógica de Consulta Bidireccional
+
 Dado que un par (ej: _Tomate_, _Albahaca_) es equivalente a (_Albahaca_, _Tomate_), la restricción `ingredient_a_id < ingredient_b_id` evita duplicados.
 
 Para obtener todas las afinidades de un ingrediente `:ingredient_id`:
@@ -134,6 +131,7 @@ WHERE p.ingredient_a_id = :ingredient_id OR p.ingredient_a_id = :ingredient_id
 ```
 
 ### 1.3 Estrategia de Migraciones con Alembic
+
 * **Control de Versiones:** Cambios DDL registrados en `backend/alembic/versions/` con hashes secuenciales.
 * **Ejecución Automática:** En el arranque del backend se invoca `alembic upgrade head`.
 * **Rollback Seguro:** Métodos explícitos `upgrade()` y `downgrade()`.
@@ -143,16 +141,19 @@ WHERE p.ingredient_a_id = :ingredient_id OR p.ingredient_a_id = :ingredient_id
 ## 2. Pipeline Offline y Origen del Dataset de Sabores
 
 ### 2.1 Fuentes Prácticas de Información
+
 1. **La IA como Sintetizador de Conocimiento (Pipeline Offline):** Solicitudes en lote sobre LLMs (JSON Mode con Pydantic) evaluando combinaciones mediante `scripts/seed_flavor_network.py`.
 2. **Datasets Abiertos Académicos:** FlavorDB / Flavornet (compuestos moleculares volátiles) y dataset del estudio de Yong-Yeol Ahn (_Nature Flavor Network_).
 3. **Co-ocurrencia Estadística en Recetas:** Frecuencia de aparición conjunta en recetas procesadas.
 
 ### 2.2 Fases del Pipeline Offline
+
 1. **Semilla de Ingredientes:** JSON/CSV con ~250 ingredientes clasificados por categoría.
 2. **Generación Automatizada:** Ejecución en lotes con soporte del flag `--dry-run` para validar prompts sin escribir en DB ni gastar créditos.
 3. **Sanitización y Filtrado:** Exclusión de pares $<0.40$, validación Pydantic e inserción ordenada `ingredient_a_id < ingredient_b_id`.
 
 ### 2.3 Prompts, Criterios de Curado y Respaldos
+
 1. **Prompt Estructurado (JSON Mode):**
    > _"Eres un chef ejecutivo y científico gastronómico experto en maridajes moleculares. Evalúa la afinidad organoléptica entre [Ingrediente A] y [Ingrediente B]. Responde strictly en JSON con la siguiente estructura: `{"affinity_score": float (0.00 a 1.00), "ai_rationale": string (máximo 250 caracteres en español explicativo)}`."_
 2. **Curado Manual:** Muestreo aleatorio del 10% del dataset verificando coherencia gastronómica.
@@ -160,6 +161,7 @@ WHERE p.ingredient_a_id = :ingredient_id OR p.ingredient_a_id = :ingredient_id
 4. **Métricas de Aceptación:** Cobertura de al menos 80% con 4+ conexiones y 100% consistencia sintáctica.
 
 ### 2.4 Control de Alucinaciones y Workflow de Arbitraje
+
 1. **Suite de Verificación (`scripts/verify_coherence.py`):** Pruebas de validación cruzada antes de autorizar la carga en producción.
 2. **Matriz de Incompatibilidad Prohibida:** Listado de ~50 pares antagónicos conocidos (ej: _Pescado Blanco + Dulce de Leche_). Puntuaciones $>0.35$ en estos pares fallan automáticamente.
 3. **Control de Varianza:** Alerta de divergencia si la nota del LLM discrepa en $>\pm 0.40$ con FlavorDB.
@@ -170,17 +172,20 @@ WHERE p.ingredient_a_id = :ingredient_id OR p.ingredient_a_id = :ingredient_id
 ## 3. Especificación de la API REST (FastAPI)
 
 ### 3.1 Autenticación (`/api/v1/auth`)
+
 * `POST /api/v1/auth/register`: Registro de nuevo usuario.
 * `POST /api/v1/auth/login`: Autenticación y retorno de Access Token JWT.
 * `POST /api/v1/auth/logout`: Revocación del refresh token.
 * `GET /api/v1/auth/me`: Perfil del usuario autenticado.
 
 ### 3.2 Red y Grafo (`/api/v1/graph`)
+
 * `GET /api/v1/graph`: Subgrafo paginado para `react-force-graph` (`limit` default 50, max 100, `offset`, `min_affinity`).
 * `GET /api/v1/ingredients`: Lista paginada con filtro de búsqueda.
 * `GET /api/v1/ingredients/{id}/pairings`: Vecinos directos (Top-N) y afinidades.
 
 ### 3.3 Evaluación Multi-Ingrediente e IA (`/api/v1/pairings`, `/api/v1/ai`)
+
 * `POST /api/v1/pairings/evaluate`: Cálculo **determinístico** (matriz $N \times N$, índice de sinergia 0-100% y elementos discordantes).
 * `POST /api/v1/ai/suggest-replacement`: Sugerencia **generativa** de reemplazo para ingredientes discordantes.
 * `POST /api/v1/ai/explain-pairing`: Explicación generativa organoléptica en vivo.
@@ -203,6 +208,7 @@ WHERE p.ingredient_a_id = :ingredient_id OR p.ingredient_a_id = :ingredient_id
 ```
 
 ### 3.4 Servicio de Recetas y Sanitización de Payload
+
 * `GET /api/v1/recipes/search?ingredient_ids=12,45,88`: Búsqueda con almacenamiento permanente en servidor y traducción al cachear (_Translation-on-Cache_).
 
 ```python
@@ -235,6 +241,7 @@ def sanitize_recipe_payload(raw_data: dict) -> dict:
 ```
 
 ### 3.5 Contratos Pydantic v2
+
 ```python
 class PairingEvaluationRequest(BaseModel):
     ingredient_ids: List[int] = Field(..., min_items=2, max_items=10)
@@ -261,11 +268,13 @@ class PairingEvaluationResponse(BaseModel):
 ## 4. Seguridad, Autenticación y Resiliencia Operativa
 
 ### 4.1 Hardening de Seguridad
+
 1. **Hashing de Contraseñas:** Passlib con **Argon2id** (o `bcrypt` costo 12).
 2. **Tokens JWT & Redis Blacklist:** `access_token` (30 min) y `refresh_token` HTTP-Only (7 días). Invalidation mediante Redis `revoked_token:<jti>` con TTL de 7 días (< 1ms latencia).
 3. **Control Dual de Tasa (`slowapi`):** 60 req/min por IP anónima; 120 req/min por `user_id` autenticado (10 req/min para IA Free, 30 req/min Pro).
 
 ### 4.2 Resiliencia del Servicio de IA
+
 1. **Timeout Estricto:** 3.0 segundos en llamadas HTTP a LLMs cloud.
 2. **Reintentos Exponenciales:** Máximo 1 reintento en errores 5xx.
 3. **Jerarquía de Fallback:** Gemini 1.5 Flash ➔ OpenAI GPT-4o-mini ➔ Fallback local a PostgreSQL `ai_rationale` (100% disponibilidad).
@@ -295,12 +304,14 @@ class PairingEvaluationResponse(BaseModel):
 ```
 
 ### 5.1 Landing Search y Visualización Progresiva
+
 1. **Landing de Búsqueda:** Buscador central con etiquetas de tendencias (`[Tomate y Albahaca]`, `[Palta y Limón]`).
 2. **Grafo con 1 Ingrediente:** Nodo en el centro con aristas radiales a sus Top 5-8 vecinos de mayor afinidad.
 3. **Grafo con 2 Ingredientes:** Arista de afinidad coloreada (Verde $>75\%$) e iluminación intensa (100% opacidad) en los ingredientes vecinos que combinan bien con ambos.
 4. **Ingrediente Discordante:** Arista en **ROJO punteado** ($<45\%$) y atenuación visual (30% opacidad) en los nodos periféricos.
 
 ### 5.2 Componentes del Panel Lateral (Drawer)
+
 * Medidor Porcentual de Sinergia Global (Synergy Gauge).
 * Matriz de afinidades cruzadas $N \times N$.
 * Alerta de elemento discordante con botón de sugerencia de reemplazo con IA.
@@ -323,10 +334,12 @@ class PairingEvaluationResponse(BaseModel):
 ## 7. Estrategia de Pruebas (TDD) y Pipeline CI/CD
 
 ### 7.1 Testing TDD (Red ➔ Green ➔ Refactor)
+
 * **Backend:** `pytest` + `pytest-asyncio` + `httpx` (cobertura mínima 85%).
 * **Frontend:** `Vitest` + `React Testing Library` + `MSW`.
 
 ### 7.2 GitHub Actions CI/CD (`.github/workflows/ci.yml`)
+
 ```yaml
 name: CI / Integration Pipeline
 
@@ -394,22 +407,3 @@ jobs:
           cd frontend
           npm run test:run
 ```
-
----
-
-## 8. Matriz de Riesgos y Análisis de Viabilidad Económica
-
-### 8.1 Matriz de Riesgos
-| Riesgo Identificado | Impacto | Mitigación Planificada |
-| :--- | :--- | :--- |
-| **Agotamiento de cuota en API de Recetas** | Medio | Tabla caché en PostgreSQL (`recipe_search_cache`); depuración a 30 KB. |
-| **Saturación visual en el grafo** | Alto | Subgrafo paginado (`GET /graph?limit=50`) y `min_affinity` por defecto en 0.50. |
-| **Alucinaciones o latencia de IA** | Medio | Prompting estructurado, suite `verify_coherence.py`, cola de revisión `pairing_review_queue` y fallback a `ai_rationale`. |
-| **Demoras en modelo local (Ollama)** | Bajo | El modelo local es un _Stretch Goal_ opcional; la arquitectura cloud se mantiene 100% funcional. |
-
-### 8.2 Viabilidad Económica
-| Nivel de Escala | Usuarios Activos / Mes | API Recetas (Con Caché DB) | API IA (Gemini Flash / GPT-4o-mini) | Hosting & PostgreSQL | **Costo Total Estimado** |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **MVP / Defensa Tesis** | 1 – 100 | **$0.00** (Free Tier) | **$0.00** (Free Tier) | **$0.00** (Render / Supabase Free) | **$0.00 USD / mes** |
-| **Producción Inicial** | 1,000 | **$0.00** (Caché DB absorbe 95%) | ~$0.15 USD | $0 – $5.00 USD | **~$0.15 – $5.00 USD / mes** |
-| **Escala Media** | 25,000 | ~$29.00 USD (Spoonacular Builder) | ~$2.50 USD | ~$10.00 USD (DB 5GB) | **~$41.50 USD / mes** |

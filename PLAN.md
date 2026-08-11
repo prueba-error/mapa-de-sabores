@@ -1,10 +1,5 @@
 # Mapa de Sabores - Plan de Implementación Ágil (PLAN.md)
 
-**Proyecto Final - Desarrollo de Sistemas Web**  
-**Alumno:** Diego Rafael Guaraz  
-**Duración Total:** 3 Meses (12 Semanas) / 6 Sprints de 2 Semanas  
-
----
 
 ## 📅 1. Hoja de Ruta Global en 6 Sprints (3 Meses)
 
