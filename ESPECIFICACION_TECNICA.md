@@ -3,7 +3,6 @@
 ## Proyecto Final Desarrollo de Sistemas Web
 
 **Alumno:** Diego Rafael Guaraz  
-**Documento de Arquitectura y Especificación Técnica para Pares**
 
 ---
 
@@ -582,17 +581,17 @@ jobs:
 
 ---
 
-## 11. Plan de Implementación Ágil (8 Sprints) y Kickoff
+## 11. Plan de Implementación Ágil (3 Meses / 6 Sprints) y Kickoff
+
+Para acelerar la entrega y asegurar la defensa académica a tiempo, el plan se estructura en **3 Meses (12 Semanas)** divididos en **6 Sprints ágiles de 2 Semanas** con *Criterios de Aceptación (Definition of Done)* explícitos por Sprint:
 
 ### 11.1 Plan Global de Sprints (2 Semanas c/u)
-* **Sprint 1 (Sem. 1-2):** Cimientos, DDL Postgres, Redis, Docker Compose y Alembic.
-* **Sprint 2 (Sem. 3-4):** Pipeline Offline (`seed_flavor_network.py` con `--dry-run`) y Spike temprano del Grafo React 2D.
-* **Sprint 3 (Sem. 5-6):** Endpoints REST de Grafo y Evaluación Determinística $N \times N$.
-* **Sprint 4 (Sem. 7-8):** Auth JWT (Argon2id + Redis Blacklist), `slowapi` y Caché de Recetas con sanitización 30 KB.
-* **Sprint 5 (Sem. 9-10):** Frontend Grafo Progresivo e Intensidad Armónica (nodos 1, 2 y N).
-* **Sprint 6 (Sem. 11-12):** Drawers, Recetas traducidas e integración online de LLMs.
-* **Sprint 7 (Sem. 13-14):** Tiers Freemium, resiliencia 3s y fallbacks a DB.
-* **Sprint 8 (Sem. 15-16):** QA, Pruebas E2E, memoria de tesis y preparación de defensa.
+* **Sprint 1 (Sem. 1-2) — Cimientos, DDL y Entorno Local:** Base de datos PostgreSQL configurada en Docker, Redis, DDL relacional, índices compuestos y migraciones iniciales con `Alembic`. Pruebas unitarias TDD en `pytest` pasando para restricciones y consultas bidireccionales.
+* **Sprint 2 (Sem. 3-4) — Pipeline Offline de Datos y Spike Frontend:** Script `seed_flavor_network.py` con `--dry-run`, prompts estructurados en JSON Mode, suite `verify_coherence.py` y prototipo temprano en React con `react-force-graph-2d` renderizando datos mock.
+* **Sprint 3 (Sem. 5-6) — Endpoints REST y Sinergia Determinística:** Endpoints `GET /api/v1/graph`, `GET /api/v1/ingredients` y `POST /api/v1/pairings/evaluate` (cálculo determinístico de matriz $N \times N$, score global y elementos discordantes). Cobertura TDD al 85%+.
+* **Sprint 4 (Sem. 7-8) — Autenticación, Redis Blacklist y Caché de Recetas:** Auth con Argon2id + JWT `access_token` / `refresh_token`, lista negra en Redis (< 1ms), control de tasa `slowapi` y cliente Spoonacular con caché permanente en PostgreSQL e inyección de `sanitize_recipe_payload` (máx 30 KB).
+* **Sprint 5 (Sem. 9-10) — Frontend Grafo Progresivo, Intensidad Armónica y Drawers:** Landing page de búsqueda con sugerencias, renderizado dinámico del grafo (nodos radiales para 1 ingrediente, aristas de color para 2 ingredientes e iluminación armónica), y Drawer lateral con matriz $N \times N$ y medidor de sinergia.
+* **Sprint 6 (Sem. 11-12) — IA Online, Tiers Freemium, CI/CD y Defensa Académica:** Explicaciones en vivo con LLM (`/ai/explain-pairing`), reemplazo generativo con fallback a DB (3s timeout), control de límites por Tier (Free: 3 ingred, Pro: 10 ingred), pipeline CI/CD en GitHub Actions (`.github/workflows/ci.yml`), suite completa de pruebas TDD (`pytest` + `Vitest`), memoria de tesis y preparación de la defensa ante el tribunal.
 
 ### 11.2 Secuencia de Kickoff del Código (Sprint 1)
 1. **Entorno Local:** Crear `.env.example`, `docker-compose.yml` y `scripts/backup.sh`.
