@@ -7,7 +7,7 @@
 
 ---
 
-## 📌 1. Visión General del Proyecto
+## 1. Visión General del Proyecto
 
 **Mapa de Sabores** es una plataforma web que resuelve el desafío de la innovación y el maridaje culinario (_flavor pairing_) mediante una representación visual en forma de **Grafo de Sabores** interactivo y dinámico.
 
@@ -15,7 +15,7 @@ Permite a chefs, aficionados, sommeliers y mixólogos explorar combinaciones de 
 
 ---
 
-## 🎯 2. El Problema y la Solución
+## 2. El Problema y la Solución
 
 ### El Problema
 Tradicionalmente, el maridaje de ingredientes ha dependido de la intuición empírica o de enciclopedias culinarias estáticas. Aunque existen teorías científicas de maridaje de sabores (compartir compuestos aromáticos clave), no existen herramientas web abiertas e interactivas en español que combinen:
@@ -28,7 +28,7 @@ Una aplicación web *Full-Stack* con arquitectura híbrida donde **la certeza de
 
 ---
 
-## 🛠️ 3. Stack Tecnológico
+## 3. Stack Tecnológico
 
 | Capa / Componente | Tecnología Seleccionada | Justificación Técnica |
 | :--- | :--- | :--- |
@@ -45,7 +45,7 @@ Una aplicación web *Full-Stack* con arquitectura híbrida donde **la certeza de
 
 ---
 
-## 🏗️ 4. Arquitectura de Alto Nivel
+## 4. Arquitectura de Alto Nivel
 
 El sistema utiliza un patrón de **Arquitectura Multicapa Desacoplada**:
 
@@ -54,20 +54,20 @@ El sistema utiliza un patrón de **Arquitectura Multicapa Desacoplada**:
 |                                  CAPA FRONTEND                                    |
 |         React (Vite) + Tailwind CSS + Context API + react-force-graph-2d          |
 +-----------------------------------------------------------------------------------+
-                                         │
+                                         |
                                   HTTP / REST (JWT)
-                                         ▼
+                                         v
 +-----------------------------------------------------------------------------------+
 |                                  CAPA BACKEND                                     |
 |                                FastAPI (Python)                                   |
-|   ├─ Auth Controller & Security (JWT / Passlib / Redis Blacklist)                 |
-|   ├─ Ingredients & Pairings Service (SQLAlchemy Core)                             |
-|   ├─ LLM Provider Service Interface (Gemini / OpenAI / Ollama Adapter)            |
-|   └─ Recipe Integration Service (Spoonacular Client + DB Cache)                   |
+|   |- Auth Controller & Security (JWT / Passlib / Redis Blacklist)                 |
+|   |- Ingredients & Pairings Service (SQLAlchemy Core)                             |
+|   |- LLM Provider Service Interface (Gemini / OpenAI / Ollama Adapter)            |
+|   |- Recipe Integration Service (Spoonacular Client + DB Cache)                   |
 +-----------------------------------------------------------------------------------+
-               │                                 │                         │
+               |                                 |                         |
      SQL (SQLAlchemy/asyncpg)               HTTP API                  HTTP API
-               ▼                                 ▼                         ▼
+               v                                 v                         v
 +-----------------------------+   +--------------------+    +----------------------+
 |     PostgreSQL Database     |   |  External LLM API  |    |   Spoonacular API    |
 | (Ingredients, Pairings, DB) |   | (Gemini / OpenAI)  |    | (Recetas Culinarias) |
@@ -79,11 +79,11 @@ Se optó por PostgreSQL debido a que en una red de 300 a 1,000 ingredientes las 
 
 ---
 
-## 📚 5. Documentación del Proyecto
+## 5. Documentación del Proyecto
 
 El proyecto cuenta con dos documentos técnicos detallados:
 
-1. **📄 [SPEC.md](./SPEC.md) — Especificación Técnica Detallada:**
+1. **[SPEC.md](./SPEC.md) - Especificación Técnica Detallada:**
    * Esquema relacional DDL completo y migraciones con Alembic.
    * Pipeline offline de datos, prompts en JSON Mode y suite anti-alucinaciones (`verify_coherence.py` y `./scripts/curate.py`).
    * Especificación de endpoints REST, contratos Pydantic v2 y función de sanitización de recetas (`sanitize_recipe_payload`).
@@ -91,14 +91,14 @@ El proyecto cuenta con dos documentos técnicos detallados:
    * Lógica visual del grafo (1, 2 y N ingredientes, intensidad armónica) y Modelo Freemium.
    * Estrategia TDD, CI/CD en GitHub Actions y análisis de viabilidad económica.
 
-2. **📅 [PLAN.md](./PLAN.md) — Plan de Implementación Ágil (3 Meses / 6 Sprints):**
+2. **[PLAN.md](./PLAN.md) - Plan de Implementación Ágil (3 Meses / 6 Sprints):**
    * Cronograma detallado en 6 Sprints de 2 semanas con *Definition of Done*.
    * Secuencia inmediata de Kickoff en 5 pasos.
    * Configuración completa de entorno (`.env.example`, `docker-compose.yml`, `scripts/backup.sh`).
 
 ---
 
-## 🚀 6. Inicio Rápido (Desarrollo Local)
+## 6. Inicio Rápido (Desarrollo Local)
 
 ```bash
 # 1. Clonar el repositorio
