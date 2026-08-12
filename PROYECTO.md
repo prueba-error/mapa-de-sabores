@@ -3,8 +3,6 @@
 ## Proyecto Final Desarrollo de Sistemas Web
 
 **Alumno:** Diego Rafael Guaraz  
-**Docente / Cátedra:** Proyecto Final Desarrollo de Sistemas Web  
-**Documento de Presentación Académica del Proyecto**  
 
 ---
 
@@ -233,15 +231,26 @@ El desarrollo del proyecto se estructura en **3 Meses (12 Semanas)** divididos e
 | **Alucinaciones o latencia en respuestas de IA** | Medio | Prompting estructurado, suite `verify_coherence.py`, cola de revisión `pairing_review_queue` y fallback a `ai_rationale`. |
 | **Demoras en el objetivo opcional (Modelo Local)** | Bajo | El modelo local es un *Stretch Goal* opcional; la arquitectura cloud se mantiene 100% funcional. |
 
-### 9.2 Viabilidad Económica
+## 10. Análisis de Viabilidad Económica y Escalabilidad
+
+El diseño arquitectónico del proyecto garantiza una **alta eficiencia de costos y sostenibilidad financiera**, permitiendo operar a costo **$0.00 USD** durante toda la fase de desarrollo y defensa, manteniendo costos marginales mínimos ante un crecimiento de usuarios a escala.
+
+### 10.1 Estrategia de Optimización de Costos de API
+1. **API de Recetas (Spoonacular) — Amortización por Caché Local:**
+   * La cuota gratuita ofrece 150 puntos/día. 
+   * Gracias al **Caché Progresivo en PostgreSQL (`recipe_search_cache`)**, la dependencia de la API disminuye asintóticamente con el uso: más del 90% de las búsquedas frecuentes de usuarios leen directamente de la base de datos local (< 10ms) sin consumir cuota externa.
+2. **APIs de Inteligencia Artificial (LLM) — Modelos de Alta Eficiencia:**
+   * Se utilizan modelos de última generación ultralivianos (Google Gemini 1.5 Flash / OpenAI GPT-4o-mini).
+   * **Generación en tiempo real:** $0.075 USD por millón de tokens en Gemini Flash (~$0.00005 USD por explicación de chef).
+   * **Pipeline Offline (Mes 1):** Compilación inicial del grafo de 1,500 afinidades por **~$0.30 USD por única vez**.
+
+### 10.2 Cuadro Comparativo de Proyección de Costos por Nivel de Escala
+
 | Nivel de Escala | Usuarios Activos / Mes | API Recetas (Con Caché DB) | API IA (Gemini Flash / GPT-4o-mini) | Hosting & PostgreSQL | **Costo Total Estimado** |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **MVP / Defensa Tesis** | 1 - 100 | **$0.00** (Free Tier) | **$0.00** (Free Tier) | **$0.00** (Render / Supabase Free) | **$0.00 USD / mes** |
-| **Producción Inicial** | 1,000 | **$0.00** (Caché DB absorbe 95%) | ~$0.15 USD | $0 - $5.00 USD | **~$0.15 - $5.00 USD / mes** |
+| **MVP / Defensa Tesis** | 1 – 100 | **$0.00** (Free Tier) | **$0.00** (Free Tier) | **$0.00** (Render / Supabase Free) | **$0.00 USD / mes** |
+| **Producción Inicial** | 1,000 | **$0.00** (Caché DB absorbe 95%) | ~$0.15 USD | $0 – $5.00 USD | **~$0.15 – $5.00 USD / mes** |
 | **Escala Media** | 25,000 | ~$29.00 USD (Spoonacular Builder) | ~$2.50 USD | ~$10.00 USD (DB 5GB) | **~$41.50 USD / mes** |
-
-### 9.3 Argumentación de Viabilidad para la Defensa Académica
-Este análisis demuestra criterio de ingeniería de software enfocado en la **economía de recursos y optimización operativa**, probando que el sistema no solo es funcional y estéticamente atractivo, sino también **financieramente viable y preparado para producción real**.
 
 ---
 
