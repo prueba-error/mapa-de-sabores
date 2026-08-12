@@ -257,7 +257,7 @@ class PairingEvaluationResponse(BaseModel):
 
 ### 4.1 Hardening de Seguridad
 1. **Hashing de Contraseñas:** Passlib con **Argon2id** (o `bcrypt` costo 12).
-2. **Tokens JWT & Redis Blacklist:** `access_token` (30 min) y `refresh_token` HTTP-Only (7 días). Invalidation mediante Redis `revoked_token:<jti>` con TTL de 7 días (< 1ms latencia).
+2. **Tokens JWT & Revocación en PostgreSQL:** `access_token` (30 min) y `refresh_token` HTTP-Only (7 días). Invalidación mediante la tabla indexada `revoked_tokens` en PostgreSQL (< 2ms latencia).
 3. **Control Dual de Tasa (`slowapi`):** 60 req/min por IP anónima; 120 req/min por `user_id` autenticado (10 req/min para IA Free, 30 req/min Pro).
 
 ### 4.2 Resiliencia del Servicio de IA
@@ -318,7 +318,7 @@ class PairingEvaluationResponse(BaseModel):
 ## 7. Estrategia de Pruebas (TDD) y Pipeline CI/CD
 
 ### 7.1 Testing TDD (Red -> Green -> Refactor)
-* **Backend:** `pytest` + `pytest-asyncio` + `httpx` (cobertura mínima 85%).
+* **Backend:** `pytest` + `pytest-asyncio` + `httpx` (cobertura concentrada en lógica de negocio crítica: sinergia N x N, auth y fallback de IA).
 * **Frontend:** `Vitest` + `React Testing Library` + `MSW`.
 
 ### 7.2 GitHub Actions CI/CD (`.github/workflows/ci.yml`)

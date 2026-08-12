@@ -3,6 +3,8 @@
 ## Proyecto Final Desarrollo de Sistemas Web
 
 **Alumno:** Diego Rafael Guaraz  
+**Docente / Cátedra:** Proyecto Final Desarrollo de Sistemas Web  
+**Documento de Presentación Académica del Proyecto**  
 
 ---
 
@@ -49,6 +51,8 @@ Las decisiones de diseño se fundamentan en criterios estratégicos de ingenier�
 
 * **Arquitectura Híbrida de IA:** La IA no actúa como la base de datos (evitando alucinaciones o respuestas lentas en navegación UI), sino como un potenciador en dos fases: compilación de dataset en pipeline offline y generación de prosa culinaria en línea bajo demanda del usuario.
 
+* **Persistencia Simple y Eficiente (PostgreSQL para Revocación de Tokens):** Se descartó la incorporación de Redis para el MVP por sobreingeniería. La invalidación de tokens JWT se resuelve con la tabla indexada `revoked_tokens` en PostgreSQL, ofreciendo tiempos de respuesta de **< 2ms** sin necesidad de agregar y mantener un motor de memoria adicional en el entorno Docker.
+
 ---
 
 ## 3. Arquitectura General del Sistema
@@ -66,7 +70,7 @@ El sistema utiliza un patrón de **Arquitectura Multicapa Desacoplada** (Fronten
 +-----------------------------------------------------------------------------------+
 |                                  CAPA BACKEND                                     |
 |                                FastAPI (Python)                                   |
-|   |- Auth Controller & Security (JWT / Passlib / Redis Blacklist)                 |
+|   |- Auth Controller & Security (JWT / Passlib / PostgreSQL Revoked Tokens)       |
 |   |- Ingredients & Pairings Service (SQLAlchemy Core)                             |
 |   |- LLM Provider Service Interface (Gemini / OpenAI / Ollama Adapter)            |
 |   |- Recipe Integration Service (Spoonacular Client + DB Cache)                   |
@@ -200,7 +204,7 @@ El desarrollo del proyecto se estructura en **3 Meses (12 Semanas)** divididos e
 ```
        +-----------------------------------------------------------------+
        |    MES 1: Cimientos, Pipeline de Datos & Prototipado            |
-       |    - Sprint 1: DDL Postgres, Redis, Alembic & Entorno Docker    |
+       |    - Sprint 1: DDL Postgres, Alembic & Entorno Docker           |
        |    - Sprint 2: Seed LLM (--dry-run) & Spike Grafo React 2D      |
        +------------------------------+----------------------------------+
                                       |
@@ -208,7 +212,7 @@ El desarrollo del proyecto se estructura en **3 Meses (12 Semanas)** divididos e
        +------------------------------------------------------------------+
        |    MES 2: Backend Core, Auth & Caché de Recetas                  |
        |    - Sprint 3: REST API Grafo, Sinergia N x N & Pytest TDD       |
-       |    - Sprint 4: Auth Argon2id, Redis Blacklist & Spoonacular 30k  |
+       |    - Sprint 4: Auth Argon2id, Postgres Revoked Tokens & 30k     |
        +------------------------------+-----------------------------------+
                                       |
                                       v
@@ -231,32 +235,20 @@ El desarrollo del proyecto se estructura en **3 Meses (12 Semanas)** divididos e
 | **Alucinaciones o latencia en respuestas de IA** | Medio | Prompting estructurado, suite `verify_coherence.py`, cola de revisión `pairing_review_queue` y fallback a `ai_rationale`. |
 | **Demoras en el objetivo opcional (Modelo Local)** | Bajo | El modelo local es un *Stretch Goal* opcional; la arquitectura cloud se mantiene 100% funcional. |
 
-## 10. Análisis de Viabilidad Económica y Escalabilidad
+### 9.2 Viabilidad Económica y Trabajo Futuro
+El diseño arquitectónico del proyecto garantiza una **alta eficiencia de costos**, permitiendo operar el MVP a costo **$0.00 USD** durante la fase de desarrollo y defensa académica (capas gratuitas de Render, Supabase y PostgreSQL).
 
-El diseño arquitectónico del proyecto garantiza una **alta eficiencia de costos y sostenibilidad financiera**, permitiendo operar a costo **$0.00 USD** durante toda la fase de desarrollo y defensa, manteniendo costos marginales mínimos ante un crecimiento de usuarios a escala.
+* **MVP / Defensa de Tesis (1-100 usuarios):** **$0.00 USD / mes** (Free Tier).
+* **Trabajo Futuro y Escalabilidad Teórica (Producción y Escala Media):** Las proyecciones de costos para escenarios hipotéticos a escala comercial (1,000 a 25,000 usuarios) se incluyen como análisis teórico en la memoria de tesis, amortizándose mediante la retención del caché local en PostgreSQL y suscripciones Pro.
 
-### 10.1 Estrategia de Optimización de Costos de API
-1. **API de Recetas (Spoonacular) — Amortización por Caché Local:**
-   * La cuota gratuita ofrece 150 puntos/día. 
-   * Gracias al **Caché Progresivo en PostgreSQL (`recipe_search_cache`)**, la dependencia de la API disminuye asintóticamente con el uso: más del 90% de las búsquedas frecuentes de usuarios leen directamente de la base de datos local (< 10ms) sin consumir cuota externa.
-2. **APIs de Inteligencia Artificial (LLM) — Modelos de Alta Eficiencia:**
-   * Se utilizan modelos de última generación ultralivianos (Google Gemini 1.5 Flash / OpenAI GPT-4o-mini).
-   * **Generación en tiempo real:** $0.075 USD por millón de tokens en Gemini Flash (~$0.00005 USD por explicación de chef).
-   * **Pipeline Offline (Mes 1):** Compilación inicial del grafo de 1,500 afinidades por **~$0.30 USD por única vez**.
-
-### 10.2 Cuadro Comparativo de Proyección de Costos por Nivel de Escala
-
-| Nivel de Escala | Usuarios Activos / Mes | API Recetas (Con Caché DB) | API IA (Gemini Flash / GPT-4o-mini) | Hosting & PostgreSQL | **Costo Total Estimado** |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **MVP / Defensa Tesis** | 1 – 100 | **$0.00** (Free Tier) | **$0.00** (Free Tier) | **$0.00** (Render / Supabase Free) | **$0.00 USD / mes** |
-| **Producción Inicial** | 1,000 | **$0.00** (Caché DB absorbe 95%) | ~$0.15 USD | $0 – $5.00 USD | **~$0.15 – $5.00 USD / mes** |
-| **Escala Media** | 25,000 | ~$29.00 USD (Spoonacular Builder) | ~$2.50 USD | ~$10.00 USD (DB 5GB) | **~$41.50 USD / mes** |
+### 9.3 Argumentación de Viabilidad para la Defensa Académica
+Este análisis demuestra criterio de ingeniería de software enfocado en la **economía de recursos y optimización operativa**, probando que el sistema no solo es funcional y estéticamente atractivo, sino también **financieramente viable y preparado para producción real**.
 
 ---
 
 ## Referencias a la Documentación Técnica Completa
 
 Para profundizar en los aspectos específicos de implementación y código:
-* **[SPEC.md](./SPEC.md):** Especificación técnica detallada con el DDL completo, scripts de sanitización (`sanitize_recipe_payload`), suite anti-alucinaciones (`verify_coherence.py`), Redis token revocation, contratos Pydantic v2 y pipeline de CI/CD en GitHub Actions.
+* **[SPEC.md](./SPEC.md):** Especificación técnica detallada con el DDL completo, scripts de sanitización (`sanitize_recipe_payload`), suite anti-alucinaciones (`verify_coherence.py`), contratos Pydantic v2 y pipeline de CI/CD en GitHub Actions.
 * **[PLAN.md](./PLAN.md):** Plan de implementación detallado sprint por sprint, secuencia de kickoff en 5 pasos y archivos de infraestructura (`.env.example`, `docker-compose.yml`, `scripts/backup.sh`).
 * **[README.md](./README.md):** Portada del repositorio y guía de arranque rápido para desarrollo local.

@@ -11,7 +11,7 @@
 ```
        +--------------------------------------------------------------+
        |   FASE 1: Cimientos, Pipeline de Datos & Prototipado (Mes 1)  |
-       |   * Sprint 1: DDL Postgres, Redis, Alembic & Entorno Docker  |
+       |   * Sprint 1: DDL Postgres, Alembic & Entorno Docker         |
        |   * Sprint 2: Seed LLM (--dry-run) & Spike Grafo React 2D    |
        +------------------------------+-------------------------------+
                                       |
@@ -19,7 +19,7 @@
        +--------------------------------------------------------------+
        |   FASE 2: Backend Core, Auth & Caché de Recetas (Mes 2)      |
        |   * Sprint 3: REST API Grafo, Sinergia N x N & Pytest TDD     |
-       |   * Sprint 4: Auth Argon2id, Redis Blacklist & Spoonacular 30k|
+       |   * Sprint 4: Auth Argon2id, Revoked Tokens DB & 30k Cache   |
        +------------------------------+-------------------------------+
                                       |
                                       v
@@ -39,7 +39,7 @@
 #### **Sprint 1 (Semanas 1-2) — Cimientos, DDL y Entorno Local**
 * **Objetivo:** Establecer la infraestructura base en contenedores y el esquema de base de datos relacional.
 * **Entregables:**
-  * Base de datos PostgreSQL 16 y Redis 7 configuradas en `docker-compose.yml`.
+  * Base de datos PostgreSQL 16 configurada en `docker-compose.yml`.
   * Esquema DDL aplicado con tablas `categories`, `ingredients`, `flavor_pairings` (con provenance), `users`, `revoked_tokens`, `recipes`, `recipe_search_cache` y `pairing_review_queue`.
   * Migración inicial de `Alembic` en `backend/alembic/versions/`.
 * **Criterios de Aceptación (TDD):** Tests unitarios en `pytest` verificando las restricciones DDL (`ingredient_a_id < ingredient_b_id`) y las consultas bidireccionales de vecinos resueltas en verde.
@@ -61,13 +61,13 @@
 * **Entregables:**
   * Endpoints REST: `GET /api/v1/graph` (paginado con `limit=50`), `GET /api/v1/ingredients` y `POST /api/v1/pairings/evaluate`.
   * Algoritmo determinístico de evaluación: cálculo del Índice de Sinergia Global (0-100%), matriz de pares cruzados N x N y detección del elemento discordante (_clashing element_).
-* **Criterios de Aceptación (TDD):** Cobertura de pruebas unitarias > 85% en `pytest` para la matemática de sinergia y el ordenamiento de respuestas Pydantic v2.
+* **Criterios de Aceptación (TDD):** Pruebas unitarias en `pytest` centradas en la lógica crítica de sinergia determinística y el ordenamiento de respuestas Pydantic v2.
 
-#### **Sprint 4 (Semanas 7-8) — Autenticación, Redis Blacklist y Caché de Recetas**
+#### **Sprint 4 (Semanas 7-8) — Autenticación, Revocación en DB y Caché de Recetas**
 * **Objetivo:** Asegurar la API con tokens JWT revocables y proteger la cuota externa de la API de recetas.
 * **Entregables:**
   * Autenticación segura: Passlib (Argon2id) + JWT `access_token` (30 min) y `refresh_token` (7 días en cookie HTTP-Only).
-  * Revocación ultra-rápida: Middleware en FastAPI comprobando la clave `revoked_token:<jti>` en Redis en **< 1ms**.
+  * Revocación eficiente en PostgreSQL: Middleware en FastAPI comprobando el token revocado en la tabla indexada `revoked_tokens` (< 2ms).
   * Control dual de tasa de peticiones con `slowapi` (por IP anónima y por `user_id` autenticado).
   * Cliente HTTP para Spoonacular con *Translation-on-Cache* (LLM traduce una sola vez al guardar) e inyección de la rutina `sanitize_recipe_payload` (recorte estricto a 30 KB por receta).
 
@@ -100,7 +100,7 @@
 
 Para arrancar el desarrollo del proyecto de forma inmediata y ordenada, seguir estos 5 pasos:
 
-1. **Configuración de Entorno Local:** Crear `.env.example` y la infraestructura base de `docker-compose.yml` (PostgreSQL + Redis + FastAPI).
+1. **Configuración de Entorno Local:** Crear `.env.example` y la infraestructura base de `docker-compose.yml` (PostgreSQL + FastAPI).
 2. **Migración Inicial de Base de Datos:** Inicializar `Alembic` y generar la migración DDL inicial (`001_initial_schema.py`).
 3. **Scaffolding del Data Pipeline:** Crear `scripts/seed_flavor_network.py` con el flag `--dry-run` para validar esquemas Pydantic sin gastar cuota de API.
 4. **Implementación de Servicio de IA:** Crear la interfaz agnóstica `LLMProvider` (adaptadores Gemini/OpenAI, timeout 3s, retries y fallback).
@@ -112,14 +112,13 @@ Para arrancar el desarrollo del proyecto de forma inmediata y ordenada, seguir e
 
 ### 4.1 Variables de Entorno (`.env.example`)
 ```ini
-# Base de Datos & Caché
+# Base de Datos
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres_secret
 POSTGRES_DB=mapa_sabores
 POSTGRES_HOST=db
 POSTGRES_PORT=5432
 DATABASE_URL=postgresql+asyncpg://postgres:postgres_secret@db:5432/mapa_sabores
-REDIS_URL=redis://redis:6379/0
 
 # Seguridad & Autenticación
 JWT_SECRET_KEY=super_secret_jwt_key_min_32_chars
@@ -155,12 +154,6 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  redis:
-    image: redis:7-alpine
-    container_name: mapa_sabores_redis
-    ports:
-      - "6379:6379"
-
   backend:
     build: ./backend
     container_name: mapa_sabores_backend
@@ -171,7 +164,6 @@ services:
       - .env
     depends_on:
       - db
-      - redis
     command: >
       sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
 

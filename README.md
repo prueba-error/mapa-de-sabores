@@ -36,10 +36,9 @@ Una aplicación web *Full-Stack* con arquitectura híbrida donde **la certeza de
 | **Grafo 2D** | **`react-force-graph-2d`** | Motor de simulación física en HTML5 Canvas (60 FPS) para visualización de nodos y aristas. |
 | **Backend REST** | **FastAPI (Python 3.11)** | Asincronía nativa (`async/await`), rendimiento cercano a Node/Go y documentación OpenAPI automática. |
 | **Base de Datos** | **PostgreSQL 16** | Modelo relacional robusto con índices compuestos bidireccionales (`ingredient_a_id < ingredient_b_id`). |
-| **Caché en Memoria** | **Redis 7** | Almacenamiento ultra-rápido (< 1ms) para la lista negra de revocación de tokens JWT (`revoked_token:<jti>`). |
 | **Migraciones DDL** | **Alembic + SQLAlchemy Core** | Control de versiones del esquema relacional y ejecución automática al desplegar. |
 | **Inteligencia Artificial** | **Google Gemini Flash / OpenAI GPT-4o-mini / Ollama** | Interfaz agnóstica desacoplada (`LLMProvider`) con timeouts (3s), retries y fallback a DB. |
-| **Testing Backend** | **Pytest + pytest-asyncio + httpx** | Pruebas unitarias TDD y de integración con cobertura mínima del 85%. |
+| **Testing Backend** | **Pytest + pytest-asyncio + httpx** | Pruebas unitarias TDD centradas en la lógica crítica de negocio (sinergia N x N, auth). |
 | **Testing Frontend** | **Vitest + React Testing Library + MSW** | Pruebas de componentes, accesibilidad e interceptación de llamadas HTTP. |
 | **CI/CD & DevOps** | **GitHub Actions + Docker Compose** | Integración continua automatizada y orquestación reproducible en contenedores. |
 
@@ -60,7 +59,7 @@ El sistema utiliza un patrón de **Arquitectura Multicapa Desacoplada**:
 +-----------------------------------------------------------------------------------+
 |                                  CAPA BACKEND                                     |
 |                                FastAPI (Python)                                   |
-|   |- Auth Controller & Security (JWT / Passlib / Redis Blacklist)                 |
+|   |- Auth Controller & Security (JWT / Passlib / PostgreSQL Revoked Tokens)       |
 |   |- Ingredients & Pairings Service (SQLAlchemy Core)                             |
 |   |- LLM Provider Service Interface (Gemini / OpenAI / Ollama Adapter)            |
 |   |- Recipe Integration Service (Spoonacular Client + DB Cache)                   |
@@ -87,7 +86,7 @@ El proyecto cuenta con dos documentos técnicos detallados:
    * Esquema relacional DDL completo y migraciones con Alembic.
    * Pipeline offline de datos, prompts en JSON Mode y suite anti-alucinaciones (`verify_coherence.py` y `./scripts/curate.py`).
    * Especificación de endpoints REST, contratos Pydantic v2 y función de sanitización de recetas (`sanitize_recipe_payload`).
-   * Hardening de seguridad (Argon2id, Redis Blacklist, Rate Limiting por `user_id` y resiliencia con fallbacks).
+   * Hardening de seguridad (Argon2id, Revocación en PostgreSQL, Rate Limiting por `user_id` y resiliencia con fallbacks).
    * Lógica visual del grafo (1, 2 y N ingredientes, intensidad armónica) y Modelo Freemium.
    * Estrategia TDD, CI/CD en GitHub Actions y análisis de viabilidad económica.
 
@@ -108,7 +107,7 @@ cd mapa-de-sabores
 # 2. Copiar archivo de variables de entorno (ver PLAN.md)
 cp .env.example .env
 
-# 3. Levantar servicios con Docker Compose (PostgreSQL + Redis + FastAPI)
+# 3. Levantar servicios con Docker Compose (PostgreSQL + FastAPI)
 docker compose up -d --build
 
 # 4. Verificar logs de migraciones y servidor backend
