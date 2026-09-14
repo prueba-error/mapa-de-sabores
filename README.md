@@ -59,9 +59,9 @@ El sistema utiliza un patrón de **Arquitectura Multicapa Desacoplada**:
 +-----------------------------------------------------------------------------------+
 |                                  CAPA BACKEND                                     |
 |                                FastAPI (Python)                                   |
-|   |- Auth Controller & Security (JWT / Passlib / PostgreSQL Revoked Tokens)       |
+|   |- Auth Controller & Security (JWT Session / Passlib)                          |
 |   |- Ingredients & Pairings Service (SQLAlchemy Core)                             |
-|   |- LLM Provider Service Interface (Gemini / OpenAI / Ollama Adapter)            |
+|   |- LLM Provider Service Interface (Gemini / OpenAI Adapter)                     |
 |   |- Recipe Integration Service (Spoonacular Client + DB Cache)                   |
 +-----------------------------------------------------------------------------------+
                |                                 |                         |
@@ -84,14 +84,14 @@ El proyecto cuenta con dos documentos técnicos detallados:
 
 1. **[SPEC.md](./SPEC.md) - Especificación Técnica Detallada:**
    * Esquema relacional DDL completo y migraciones con Alembic.
-   * Pipeline offline de datos, prompts en JSON Mode y suite anti-alucinaciones (`verify_coherence.py` y `./scripts/curate.py`).
+   * Pipeline offline de datos, prompts en JSON Mode y suite anti-alucinaciones (`verify_coherence.py`).
    * Especificación de endpoints REST, contratos Pydantic v2 y función de sanitización de recetas (`sanitize_recipe_payload`).
-   * Hardening de seguridad (Argon2id, Revocación en PostgreSQL, Rate Limiting por `user_id` y resiliencia con fallbacks).
-   * Lógica visual del grafo (1, 2 y N ingredientes, intensidad armónica) y Modelo Freemium.
+   * Hardening de seguridad (Argon2id, JWT de sesión, Rate Limiting y resiliencia con fallbacks).
+   * Lógica visual del grafo (1, 2 y N ingredientes, intensidad armónica) y Modelo Único de Accesibilidad.
    * Estrategia TDD, CI/CD en GitHub Actions y análisis de viabilidad económica.
 
-2. **[PLAN.md](./PLAN.md) - Plan de Implementación Ágil (3 Meses / 6 Sprints):**
-   * Cronograma detallado en 6 Sprints de 2 semanas con *Definition of Done*.
+2. **[PLAN.md](./PLAN.md) - Plan de Implementación Ágil (2 Meses / 4 Sprints):**
+   * Cronograma detallado en 4 Sprints de 2 semanas con *Definition of Done*.
    * Secuencia inmediata de Kickoff en 5 pasos.
    * Configuración completa de entorno (`.env.example`, `docker-compose.yml`, `scripts/backup.sh`).
 

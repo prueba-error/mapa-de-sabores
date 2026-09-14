@@ -43,7 +43,7 @@ CREATE INDEX idx_pairings_a ON flavor_pairings(ingredient_a_id);
 CREATE INDEX idx_pairings_b ON flavor_pairings(ingredient_b_id);
 CREATE INDEX idx_pairings_score ON flavor_pairings(affinity_score DESC);
 
--- 4. Usuarios, Favoritos y Revocación de Tokens
+-- 4. Usuarios y Favoritos
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE,
@@ -51,16 +51,6 @@ CREATE TABLE users (
     full_name VARCHAR(100),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
-
-CREATE TABLE revoked_tokens (
-    id SERIAL PRIMARY KEY,
-    jti VARCHAR(255) UNIQUE NOT NULL, -- JWT ID único
-    user_id INT REFERENCES users(id) ON DELETE CASCADE,
-    revoked_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    expires_at TIMESTAMP WITH TIME ZONE NOT NULL
-);
-
-CREATE INDEX idx_revoked_jti ON revoked_tokens(jti);
 
 CREATE TABLE user_favorite_pairings (
     user_id INT REFERENCES users(id) ON DELETE CASCADE,
@@ -166,8 +156,7 @@ WHERE p.ingredient_a_id = :ingredient_id OR p.ingredient_b_id = :ingredient_id
 
 ### 3.1 Autenticación (`/api/v1/auth`)
 * `POST /api/v1/auth/register`: Registro de nuevo usuario.
-* `POST /api/v1/auth/login`: Autenticación y retorno de Access Token JWT.
-* `POST /api/v1/auth/logout`: Revocación del refresh token.
+* `POST /api/v1/auth/login`: Autenticación y retorno de JWT de sesión único (Bearer).
 * `GET /api/v1/auth/me`: Perfil del usuario autenticado.
 
 ### 3.2 Red y Grafo (`/api/v1/graph`)
@@ -257,8 +246,8 @@ class PairingEvaluationResponse(BaseModel):
 
 ### 4.1 Hardening de Seguridad
 1. **Hashing de Contraseñas:** Passlib con **Argon2id** (o `bcrypt` costo 12).
-2. **Tokens JWT & Revocación en PostgreSQL:** `access_token` (30 min) y `refresh_token` HTTP-Only (7 días). Invalidación mediante la tabla indexada `revoked_tokens` en PostgreSQL (< 2ms latencia).
-3. **Control Dual de Tasa (`slowapi`):** 60 req/min por IP anónima; 120 req/min por `user_id` autenticado (10 req/min para IA Free, 30 req/min Pro).
+2. **Tokens JWT de Sesión (Simplificado):** Emisión de `access_token` JWT de sesión única (expiración 7 días). Almacenamiento en `localStorage` o Context API en el frontend, enviado vía header `Authorization: Bearer <token>`. Validación criptográfica en FastAPI sin consultas de revocación a base de datos.
+3. **Control de Tasa (`slowapi`):** Rate limiting de 60 req/min por IP anónima y 120 req/min para llamadas autenticadas.
 
 ### 4.2 Resiliencia del Servicio de IA
 1. **Timeout Estricto:** 3.0 segundos en llamadas HTTP a LLMs cloud.
@@ -302,16 +291,18 @@ class PairingEvaluationResponse(BaseModel):
 
 ---
 
-## 6. Modelo Freemium y Niveles de Suscripción
+## 6. Modelo de Usuario y Accesibilidad de la Plataforma
 
-| Característica / Funcionalidad | Tier Gratuito (Free) | Tier Pago (Pro / Premium) |
-| :--- | :--- | :--- |
-| **Límite de Ingredientes por Búsqueda** | **Hasta 3 ingredientes** (tríadas gastronómicas) | **Hasta 10 ingredientes** (platos complejos) |
-| **Visualización de Grafo y Sinergia** | Incluido Acceso Completo | Incluido Acceso Completo |
-| **Explicación de Chef con IA** | Incluido (Límite diario) | Ilimitado |
-| **Búsqueda de Recetas** | Incluido | Incluido |
-| **Guardado en Servidor (Workspace)** | Solo Combinaciones Favoritas | **Combinaciones + Recetas con Notas** |
-| **Exportación de Datos (Export & API)** | No disponible | **Exportar a Texto Plano, JSON y API Key** |
+Para agilizar el desarrollo y priorizar el núcleo funcional del proyecto, se ha simplificado la arquitectura eliminando esquemas de suscripciones comerciales (Freemium multi-tier):
+
+| Característica / Funcionalidad | Especificación Simplificada (Acceso Completo) |
+| :--- | :--- |
+| **Límite de Ingredientes por Búsqueda** | **Hasta 10 ingredientes** (evaluación completa de platos y combinaciones) |
+| **Visualización de Grafo y Sinergia** | Acceso completo interactivo en 2D |
+| **Explicación de Chef con IA** | Incluido en tiempo real con fallback a PostgreSQL |
+| **Búsqueda de Recetas** | Búsqueda integrada con caché en PostgreSQL |
+| **Guardado en Servidor** | Guardado de combinaciones y recetas favoritas por usuario autenticado |
+| **Autenticación** | Registro e Inicio de Sesión simplificado con JWT de sesión única |
 
 ---
 

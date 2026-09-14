@@ -1,32 +1,25 @@
-# Mapa de Sabores - Plan de Implementación Ágil (PLAN.md)
+# Mapa de Sabores - Plan de Implementación Ágil Acotado (PLAN.md)
 
 **Proyecto Final - Desarrollo de Sistemas Web**  
 **Alumno:** Diego Rafael Guaraz  
-**Duración Total:** 3 Meses (12 Semanas) / 6 Sprints de 2 Semanas  
+**Duración Total:** 2 Meses (8 Semanas) / 4 Sprints de 2 Semanas (Versión Acotada - Opción 2)  
 
 ---
 
-## 1. Hoja de Ruta Global en 6 Sprints (3 Meses)
+## 1. Hoja de Ruta Global en 4 Sprints (2 Meses)
 
 ```
        +--------------------------------------------------------------+
-       |   FASE 1: Cimientos, Pipeline de Datos & Prototipado (Mes 1)  |
+       |   FASE 1: Cimientos, Data Pipeline & Spike Frontend (Mes 1)  |
        |   * Sprint 1: DDL Postgres, Alembic & Entorno Docker         |
-       |   * Sprint 2: Seed LLM (--dry-run) & Spike Grafo React 2D    |
+       |   * Sprint 2: Seed LLM / JSON & Spike Grafo React 2D         |
        +------------------------------+-------------------------------+
                                       |
                                       v
        +--------------------------------------------------------------+
-       |   FASE 2: Backend Core, Auth & Caché de Recetas (Mes 2)      |
-       |   * Sprint 3: REST API Grafo, Sinergia N x N & Pytest TDD     |
-       |   * Sprint 4: Auth Argon2id, Revoked Tokens DB & 30k Cache   |
-       +------------------------------+-------------------------------+
-                                      |
-                                      v
-       +--------------------------------------------------------------+
-       |   FASE 3: Frontend Progresivo, IA Online & Defensa (Mes 3)   |
-       |   * Sprint 5: UI Grafo 2D, Intensidad Armónica & Drawers     |
-       |   * Sprint 6: IA Online Fallbacks, CI/CD, QA & Tesis         |
+       |   FASE 2: Backend Core, Auth Simplificada & Recetas (Mes 2)  |
+       |   * Sprint 3: REST API Grafo, Sinergia N x N, Auth JWT & Caché|
+       |   * Sprint 4: UI Grafo 2D, IA Online, CI/CD & Defensa        |
        +--------------------------------------------------------------+
 ```
 
@@ -40,7 +33,7 @@
 * **Objetivo:** Establecer la infraestructura base en contenedores y el esquema de base de datos relacional.
 * **Entregables:**
   * Base de datos PostgreSQL 16 configurada en `docker-compose.yml`.
-  * Esquema DDL aplicado con tablas `categories`, `ingredients`, `flavor_pairings` (con provenance), `users`, `revoked_tokens`, `recipes`, `recipe_search_cache` y `pairing_review_queue`.
+  * Esquema DDL aplicado con tablas `categories`, `ingredients`, `flavor_pairings` (con provenance), `users`, `user_favorite_pairings`, `recipes` y `recipe_search_cache`.
   * Migración inicial de `Alembic` en `backend/alembic/versions/`.
 * **Criterios de Aceptación (TDD):** Tests unitarios en `pytest` verificando las restricciones DDL (`ingredient_a_id < ingredient_b_id`) y las consultas bidireccionales de vecinos resueltas en verde.
 
@@ -48,35 +41,25 @@
 * **Objetivo:** Generar el dataset inicial de sabores asistido por IA y validar el motor de renderizado gráfico.
 * **Entregables:**
   * Script `scripts/seed_flavor_network.py` con soporte para el flag `--dry-run` y prompts estructurados en JSON Mode.
-  * Suite de control de calidad `scripts/verify_coherence.py` y script de arbitraje CLI `./scripts/curate.py`.
-  * Carga inicial del dataset curado (~250 ingredientes y ~1,500 relaciones).
+  * Suite de control de calidad `scripts/verify_coherence.py` para asegurar validez de scores (0.0 a 1.0) y coherencia gastronómica.
+  * Carga inicial del dataset curado (~200 ingredientes y ~1,000 relaciones).
   * Prototipo temprano (_Spike_) en React con `react-force-graph-2d` renderizando datos mock estáticos para evaluar velocidad en HTML5 Canvas.
 
 ---
 
-### Fase 2: Backend Core, Autenticación y Caché de Recetas (Mes 2)
+### Fase 2: Backend Core, Autenticación y Frontend Completo (Mes 2)
 
-#### **Sprint 3 (Semanas 5-6) — Endpoints REST y Sinergia Determinística N x N**
-* **Objetivo:** Implementar la lógica matemática de compatibilidad multi-ingrediente 100% resuelta en PostgreSQL.
+#### **Sprint 3 (Semanas 5-6) — REST API, Sinergia N x N, Auth JWT & Caché de Recetas**
+* **Objetivo:** Implementar la lógica matemática de sinergia, la autenticación simplificada y la gestión de recetas.
 * **Entregables:**
   * Endpoints REST: `GET /api/v1/graph` (paginado con `limit=50`), `GET /api/v1/ingredients` y `POST /api/v1/pairings/evaluate`.
   * Algoritmo determinístico de evaluación: cálculo del Índice de Sinergia Global (0-100%), matriz de pares cruzados N x N y detección del elemento discordante (_clashing element_).
-* **Criterios de Aceptación (TDD):** Pruebas unitarias en `pytest` centradas en la lógica crítica de sinergia determinística y el ordenamiento de respuestas Pydantic v2.
+  * Autenticación JWT de sesión única: Endpoints `/api/v1/auth/register`, `/api/v1/auth/login` y `/api/v1/auth/me` con hashing Argon2id/bcrypt.
+  * Cliente HTTP para Spoonacular con *Translation-on-Cache* (LLM traduce una sola vez al guardar) e inyección de `sanitize_recipe_payload` (recorte a 30 KB por receta).
+* **Criterios de Aceptación (TDD):** Pruebas unitarias en `pytest` para la matemática determinística de sinergia y la emisión/validación de tokens JWT.
 
-#### **Sprint 4 (Semanas 7-8) — Autenticación, Revocación en DB y Caché de Recetas**
-* **Objetivo:** Asegurar la API con tokens JWT revocables y proteger la cuota externa de la API de recetas.
-* **Entregables:**
-  * Autenticación segura: Passlib (Argon2id) + JWT `access_token` (30 min) y `refresh_token` (7 días en cookie HTTP-Only).
-  * Revocación eficiente en PostgreSQL: Middleware en FastAPI comprobando el token revocado en la tabla indexada `revoked_tokens` (< 2ms).
-  * Control dual de tasa de peticiones con `slowapi` (por IP anónima y por `user_id` autenticado).
-  * Cliente HTTP para Spoonacular con *Translation-on-Cache* (LLM traduce una sola vez al guardar) e inyección de la rutina `sanitize_recipe_payload` (recorte estricto a 30 KB por receta).
-
----
-
-### Fase 3: Frontend Interactivo, IA Online y Entrega Final (Mes 3)
-
-#### **Sprint 5 (Semanas 9-10) — Frontend Grafo Progresivo e Intensidad Armónica**
-* **Objetivo:** Construir la interfaz de usuario interactiva y reactiva en tiempo real.
+#### **Sprint 4 (Semanas 7-8) — Frontend Grafo Progresivo, IA Online, CI/CD y Defensa Académica**
+* **Objetivo:** Construir la interfaz interactiva completa, integrar fallbacks de IA, automatizar pruebas y presentar la tesis.
 * **Entregables:**
   * Landing page de búsqueda con sugerencias rápidas de tendencias (`[Tomate y Albahaca]`, `[Palta y Limón]`).
   * Visualización dinámica progresiva del grafo en React:
@@ -84,13 +67,7 @@
     * 2 Ingredientes: Arista coloreada por nivel de afinidad (Verde >75%) e iluminación intensa (opacidad 100%) en ingredientes vecinos que combinan con ambos.
     * Ingrediente discordante: Arista en ROJO punteado (<45%) y atenuación periférica (opacidad 30%).
   * Panel lateral (_Drawer_): Medidor porcentual de sinergia, matriz N x N y alerta de elemento discordante.
-
-#### **Sprint 6 (Semanas 11-12) — IA Online, Tiers Freemium, CI/CD y Defensa Académica**
-* **Objetivo:** Finalizar la resiliencia del sistema, automatizar el control de calidad y presentar la tesis.
-* **Entregables:**
-  * Endpoints generativos en tiempo real: `POST /api/v1/ai/explain-pairing` y `POST /api/v1/ai/suggest-replacement`.
-  * Resiliencia de IA: Timeout de 3.0s, máximo 1 reintento y fallback automático a PostgreSQL `ai_rationale`.
-  * Control de límites por Tier (Free: 3 ingredientes, Pro: 10 ingredientes).
+  * Endpoints generativos en tiempo real: `POST /api/v1/ai/explain-pairing` y `POST /api/v1/ai/suggest-replacement` con timeout de 3.0s y fallback a PostgreSQL `ai_rationale`.
   * Pipeline de CI/CD en GitHub Actions (`.github/workflows/ci.yml`) ejecutando `alembic upgrade head`, `pytest` y `Vitest`.
   * Memoria técnica final y preparación de la defensa ante el tribunal académico.
 
@@ -123,13 +100,12 @@ DATABASE_URL=postgresql+asyncpg://postgres:postgres_secret@db:5432/mapa_sabores
 # Seguridad & Autenticación
 JWT_SECRET_KEY=super_secret_jwt_key_min_32_chars
 JWT_ALGORITHM=HS256
-ACCESS_TOKEN_EXPIRE_MINUTES=30
-REFRESH_TOKEN_EXPIRE_DAYS=7
+ACCESS_TOKEN_EXPIRE_DAYS=7
 
 # Servicios de IA Externa
 GEMINI_API_KEY=tu_google_gemini_api_key
 OPENAI_API_KEY=tu_openai_api_key
-LLM_PRIMARY_PROVIDER=gemini # "gemini" | "openai" | "ollama"
+LLM_PRIMARY_PROVIDER=gemini # "gemini" | "openai"
 LLM_TIMEOUT_SECONDS=3.0
 
 # API de Recetas

@@ -51,7 +51,7 @@ Las decisiones de diseño se fundamentan en criterios estratégicos de ingenier�
 
 * **Arquitectura Híbrida de IA:** La IA no actúa como la base de datos (evitando alucinaciones o respuestas lentas en navegación UI), sino como un potenciador en dos fases: compilación de dataset en pipeline offline y generación de prosa culinaria en línea bajo demanda del usuario.
 
-* **Persistencia Simple y Eficiente (PostgreSQL para Revocación de Tokens):** Se descartó la incorporación de Redis para el MVP por sobreingeniería. La invalidación de tokens JWT se resuelve con la tabla indexada `revoked_tokens` en PostgreSQL, ofreciendo tiempos de respuesta de **< 2ms** sin necesidad de agregar y mantener un motor de memoria adicional en el entorno Docker.
+* **Autenticación Estateless Simplificada (JWT de Sesión):** Se optó por una autenticación JWT stateless de sesión única almacenada en el cliente. La validación se realiza criptográficamente en FastAPI sin consultas de revocación a base de datos, optimizando el desarrollo sin comprometer la seguridad funcional para usuarios autenticados.
 
 ---
 
@@ -179,48 +179,38 @@ El frontend se estructura con **React (Vite)** y **Tailwind CSS**.
 
 ---
 
-## 7. Niveles de Suscripción y Modelo Freemium
+## 7. Modelo de Usuario y Accesibilidad de la Plataforma
 
-Para garantizar la viabilidad comercial y el control de recursos del servidor, el sistema implementa dos niveles de cuenta:
+Para maximizar la agilidad en la implementación y concentrar el desarrollo en el núcleo funcional del proyecto, se ha simplificado la arquitectura eliminando la complejidad de niveles de suscripción comerciales (Freemium):
 
-| Característica / Funcionalidad | Tier Gratuito (Free) | Tier Pago (Pro / Premium) |
-| :--- | :--- | :--- |
-| **Límite de Ingredientes por Búsqueda** | **Hasta 3 ingredientes** (ideal para tríadas gastronómicas) | **Hasta 10 ingredientes** (platos complejos / recetas completas) |
-| **Visualización de Grafo y Sinergia** | Incluido Acceso Completo | Incluido Acceso Completo |
-| **Explicación de Chef con IA** | Incluido (Límite diario) | Ilimitado |
-| **Búsqueda de Recetas** | Incluido | Incluido |
-| **Guardado en Servidor (Workspace)** | Solo Combinaciones Favoritas | **Combinaciones Favoritas + Recetas con Notas** |
-| **Exportación de Datos (Export & API)** | No disponible | **Exportar a Texto Plano, JSON y Acceso a API Key** |
-
-### Justificación del Límite de 3 Ingredientes en el Tier Gratuito
-Permite a los usuarios experimentar tríadas culinarias icónicas (ej: *Mirepoix*, *Tríada Caprese: Tomate + Albahaca + Mozzarella*), comprobando el valor de la sinergia. Para chefs profesionales o mixólogos que diseñan recetas complejas de 5 a 8 componentes, el **Tier Pro** desbloquea la capacidad total y la exportación de datos.
+| Característica / Funcionalidad | Especificación Simplificada (Acceso Completo) |
+| :--- | :--- |
+| **Límite de Ingredientes por Búsqueda** | **Hasta 10 ingredientes** (evaluación de platos y recetas complejas) |
+| **Visualización de Grafo y Sinergia** | Acceso completo e interactivo en 2D |
+| **Explicación de Chef con IA** | Generación en tiempo real con fallback a PostgreSQL |
+| **Búsqueda de Recetas** | Búsqueda integrada con almacenamiento en caché local |
+| **Guardado en Servidor** | Guardado de combinaciones y recetas favoritas por usuario |
+| **Autenticación** | Registro e Inicio de Sesión simplificado mediante JWT de sesión única |
 
 ---
 
-## 8. Plan de Implementación Ágil (Resumen de 3 Meses)
+## 8. Plan de Implementación Ágil (Resumen de 2 Meses)
 
-El desarrollo del proyecto se estructura en **3 Meses (12 Semanas)** divididos en **6 Sprints ágiles de 2 Semanas** (ver mapa detallado y *Definition of Done* por Sprint en `PLAN.md`):
+El desarrollo del proyecto se estructura en **2 Meses (8 Semanas)** divididos en **4 Sprints ágiles de 2 Semanas** (ver mapa detallado y *Definition of Done* por Sprint en `PLAN.md`):
 
 ```
        +-----------------------------------------------------------------+
        |    MES 1: Cimientos, Pipeline de Datos & Prototipado            |
        |    - Sprint 1: DDL Postgres, Alembic & Entorno Docker           |
-       |    - Sprint 2: Seed LLM (--dry-run) & Spike Grafo React 2D      |
+       |    - Sprint 2: Seed LLM / JSON Mode & Spike Grafo React 2D      |
        +------------------------------+----------------------------------+
                                       |
                                       v
        +------------------------------------------------------------------+
-       |    MES 2: Backend Core, Auth & Caché de Recetas                  |
-       |    - Sprint 3: REST API Grafo, Sinergia N x N & Pytest TDD       |
-       |    - Sprint 4: Auth Argon2id, Postgres Revoked Tokens & 30k     |
-       +------------------------------+-----------------------------------+
-                                      |
-                                      v
-       +----------------------------------------------------------------+
-       |    MES 3: Frontend Progresivo, IA Online & Defensa Académica   |
-       |    - Sprint 5: UI Grafo 2D, Intensidad Armónica & Drawers      |
-       |    - Sprint 6: IA Online Fallbacks, CI/CD, QA & Tesis          |
-       +----------------------------------------------------------------+
+       |    MES 2: Backend Core, Auth Simplificada & Frontend Completo    |
+       |    - Sprint 3: REST API Grafo, Sinergia N x N, Auth JWT & Caché  |
+       |    - Sprint 4: UI Grafo 2D, IA Online, CI/CD, QA & Tesis         |
+       +------------------------------------------------------------------+
 ```
 
 ---
