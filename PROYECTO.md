@@ -109,17 +109,17 @@ La interfaz se estructura en **tres vistas principales dedicadas**, accesibles m
 
 ```
 +-----------------------------------------------------------------------------------+
-|  [Logo] Mapa de Sabores  |  [ 1. Explorar Grafo ]  [ 2. Ficha ]  [ 3. Laboratorio ]|
+| [Logo] Mapa de Sabores  |  [ 1. Explorar Grafo ] [ 2. Ficha ] [ 3. Laboratorio ]  |
 +-----------------------------------------------------------------------------------+
 |                                                                                   |
-|  VISTA 1: EXPLORAR            VISTA 2: FICHA                  VISTA 3: LABORATORIO|
-|  (Grafo 2D en Canvas)         (Perfil Sensorial & Ranking)    (Constructor Chips) |
+|  VISTA 1: EXPLORAR           VISTA 2: FICHA                 VISTA 3: LABORATORIO  |
+|  (Grafo 2D en Canvas)        (Perfil Sensorial & Ranking)   (Constructor Chips)   |
 |                                                                                   |
-|  - Buscador Central           - Barras de Perfil Sabor        - Chips [Tomate x]  |
-|  - Selector Mejores/Peores    - Tabla Comparativa de Par      - Sinergia (92%)    |
-|  - Slider de Nodos (5-20)     - Rankings Mejor / Peor          - Matriz Cruzada NxN|
-|  - Botón "Extremos"           - Botón "Agregar al Lab"        - Alerta Discordante|
-|                                                               - Sugerencias IA    |
+|  - Buscador Central          - Barras de Perfil Sabor       - Chips [Tomate x]    |
+|  - Selector Mejores/Peores   - Tabla Comparativa de Par     - Sinergia (92%)      |
+|  - Slider de Nodos (5-20)    - Rankings Mejor / Peor        - Matriz Cruzada NxN  |
+|  - Botón "Extremos"          - Botón "Agregar al Lab"       - Alerta Discordante  |
+|                                                             - Sugerencias IA      |
 +-----------------------------------------------------------------------------------+
 ```
 
