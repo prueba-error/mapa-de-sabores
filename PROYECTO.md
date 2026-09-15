@@ -119,7 +119,6 @@ La interfaz se estructura en **tres vistas principales dedicadas**, accesibles m
 |  - Selector Mejores/Peores   - Tabla Comparativa de Par     - Sinergia (92%)      |
 |  - Slider de Nodos (5-20)    - Rankings Mejor / Peor        - Matriz Cruzada NxN  |
 |  - Botón "Extremos"          - Botón "Agregar al Lab"       - Alerta Discordante  |
-|                                                             - Sugerencias IA      |
 +-----------------------------------------------------------------------------------+
 ```
 
@@ -144,12 +143,10 @@ La interfaz se estructura en **tres vistas principales dedicadas**, accesibles m
 ### 5.3 Vista 3: Laboratorio (Constructor de Combinaciones)
 * **Mesa de Trabajo por Chips:** El usuario construye y modifica combinaciones agregando o quitando ingredientes en forma de etiquetas interactivas (_chips_).
 * **Métricas y Análisis Determinístico:**
-  * Medidor de **Sinergia Culinaria Categórica (0 a 100%)** basado en `POST /pairings/evaluate`.
+  * Medidor de **Sinergia Global (0 a 100%)** basado en `POST /pairings/evaluate`.
   * Matriz cruzada $N \times N$ de compatibilidad de pares.
   * Alerta de ingrediente discordante con sugerencia de reemplazo asistida por IA.
-* **Sugerencias Inteligentes para Expandir el Plato:**
-  * Muestra dos listas de sugerencias para sumar a la combinación actual: **"Para aumentar sinergia"** (ingredientes de mayor afinidad con el grupo) y **"Para experimentar"** (ingredientes con contraste interesante).
-* *Nota de alcance:* Se preservan únicamente las métricas calculadas a partir del backend existente (`synergy_score`, matriz $N \times N$ y discordante), descartando métricas adicionales de "contraste" o "complejidad" para mantener acotado el desarrollo.
+* *Nota de alcance:* Se preservan únicamente las métricas calculadas a partir del backend existente (`synergy_score`, matriz $N \times N$ y discordante). Se descartan tanto métricas adicionales de "contraste" o "complejidad" como un sistema de sugerencias para expandir la combinación (qué ingrediente agregar a continuación), por requerir lógica de agregación nueva no cubierta por los endpoints actuales — ver `PROYECTO.md`, Sección 9 ("Trabajo Futuro").
 
 ---
 
@@ -181,7 +178,7 @@ El desarrollo se estructura en **4 sprints de 2 semanas**, con tiempo reservado 
                                       v
        +------------------------------------------------------------------+
        |    MES 2: Backend Core & Frontend Completo                       |
-       |    - Sprint 3: REST API Grafo, Sinergia N x N & Caché de Auth    |
+       |    - Sprint 3: REST API Grafo, Sinergia N x N & Favoritos        |
        |    - Sprint 4: UI Grafo 2D, IA Online, QA Manual & Defensa       |
        +------------------------------------------------------------------+
 ```
@@ -216,6 +213,7 @@ Como extensiones naturales del proyecto, quedan planteadas las siguientes línea
 1. **Integración con API externa de recetas (ej. Spoonacular):** permitiría mostrar recetas reales para una combinación de ingredientes evaluada por el sistema, enriqueciendo la propuesta de valor para el usuario final. Implica gestionar cuotas de uso, sanitización de payloads externos y una capa de caché.
 2. **Pipeline de CI/CD (GitHub Actions):** automatizaría la ejecución de tests y migraciones en cada push, aportando valor especialmente a medida que el proyecto escale a un equipo de más de un desarrollador.
 3. **Control de varianza del dataset contra fuentes académicas externas (FlavorDB/Flavornet):** cruzar los scores generados por el LLM contra un dataset académico externo permitiría detectar divergencias adicionales a las que ya cubren la matriz de incompatibilidades y la cola de revisión manual. Requiere resolver el *matching* de nombres de ingredientes entre idiomas y nomenclaturas.
+4. **Sugerencias para expandir una combinación en el Laboratorio:** dado un grupo de ingredientes ya seleccionado, sugerir qué ingrediente sumar a continuación (por mayor afinidad con el grupo, o por contraste interesante). A diferencia del resto de las funcionalidades del Laboratorio, esto no sale de un simple `ORDER BY` sobre datos existentes: requiere agregación sobre todos los pares posibles contra el conjunto seleccionado y un criterio propio de "mejor sugerencia". **Se marca como opcional para el Sprint 4** (ver `PLAN.md`, Sprint 4) en caso de llegar con tiempo sobrante, y no forma parte del *Definition of Done* del proyecto. Las dos decisiones de diseño que necesitaría, ya resueltas de antemano para no tener que definirlas sobre la marcha, están detalladas en `SPEC.md`, Sección 3.2.1.
 
 ---
 

@@ -69,10 +69,11 @@
   * **Navbar & Navegación Modular:** Barra superior con pestañas y estado compartido `LabContext` (Context API).
   * **Vista 1 (Explorar Grafo):** Visualización progresiva 2D con `react-force-graph-2d`, controles **Mejores / Todas / Peores**, slider de cantidad y botón **"Explorar extremos"**.
   * **Vista 2 (Ficha de Ingrediente):** Ficha sensorial con barras de `flavor_profile`, ranking de mejores/peores afinidades y **tabla comparativa de perfiles** para pares específicos.
-  * **Vista 3 (Laboratorio de Combinaciones):** Constructor por **chips** interactivos, medidor de sinergia $N \times N$, matriz cruzada, alerta de ingrediente discordante y sugerencias de ingredientes para sumar (afinidad/experimentación).
+  * **Vista 3 (Laboratorio de Combinaciones):** Constructor por **chips** interactivos, medidor de sinergia $N \times N$, matriz cruzada y alerta de ingrediente discordante.
   * Endpoints `POST /api/v1/ai/explain-pairing` y `POST /api/v1/ai/suggest-replacement`, con timeout de 3.0s y fallback a `ai_rationale`.
   * Suite de tests `pytest` + `Vitest` corriendo en verde localmente.
   * Memoria técnica final y preparación de la defensa ante el tribunal.
+* **Opcional (solo si sobra tiempo, no forma parte del Definition of Done):** endpoint `GET /api/v1/pairings/suggest-additions` y las dos listas correspondientes ("Para aumentar sinergia" / "Para experimentar") en la Vista 3, según la especificación ya resuelta en `SPEC.md`, Sección 3.2.1.
 * **Tiempo reservado:** ~2 días de margen sin entregables nuevos, dedicados exclusivamente a pulir UX del grafo y a repasar la justificación de cada decisión de diseño de cara a la defensa.
 
 ---

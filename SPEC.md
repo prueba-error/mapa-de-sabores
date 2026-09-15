@@ -152,6 +152,20 @@ WHERE p.ingredient_a_id = :ingredient_id OR p.ingredient_b_id = :ingredient_id
   * `pairwise_matrix`: afinidad cruzada NxN;
   * `clashing_ingredients`: ingredientes cuya afinidad promedio contra el resto del grupo es menor a 45% (el mínimo de esos promedios define el "ingrediente discordante" principal).
 
+#### 3.2.1 (Opcional / Stretch Goal) Sugerencias para Expandir una Combinación
+
+> Ver `PROYECTO.md`, Sección 9, ítem 4. No forma parte del *Definition of Done* del Sprint 4 — se implementa solo si sobra tiempo, y estas dos decisiones ya quedan resueltas de antemano para no tener que definirlas sobre la marcha.
+
+* `GET /api/v1/pairings/suggest-additions?ingredient_ids=12,45,88&mode=synergy|contrast` — dado el grupo de ingredientes ya seleccionado en el Laboratorio, devuelve candidatos para sumar, ordenados según `mode`.
+
+**Decisión 1 — Regla de cobertura mínima (el dataset es disperso):** con ~250 ingredientes y ~1.000-1.500 pares cargados, la mayoría de los candidatos no van a tener afinidad conocida contra *todos* los ingredientes del grupo. Un candidato solo entra al ranking si tiene `affinity_score` conocido contra al menos el 50% de los ingredientes seleccionados (redondeando hacia arriba, ej. 2 de 3), promediando únicamente sobre los pares que sí existen. Los candidatos que no alcanzan ese mínimo de cobertura se excluyen del todo, en vez de mostrarse con una afinidad parcial engañosa.
+
+**Decisión 2 — Definición de cada modo:**
+* `mode=synergy` ("Para aumentar sinergia"): candidatos ordenados por promedio de afinidad descendente, mostrando el Top 5 con promedio > 0.75.
+* `mode=contrast` ("Para experimentar"): candidatos con promedio de afinidad en la banda 0.35–0.55 (ligera afinidad, ni claramente compatible ni antagónico), ordenados de mayor a menor dentro de esa banda.
+
+Ambas reglas reutilizan `flavor_pairings.affinity_score` sin necesidad de una tabla o campo nuevo.
+
 ### 3.3 Inteligencia Artificial (`/api/v1/ai`)
 * `POST /api/v1/ai/explain-pairing` — genera (o recupera de fallback) una explicación en prosa para un par o grupo de ingredientes.
 * `POST /api/v1/ai/suggest-replacement` — sugiere un reemplazo para el ingrediente discordante detectado por `/pairings/evaluate`.
@@ -198,5 +212,5 @@ Notas técnicas adicionales de implementación:
 ## 6. Estrategia de Pruebas (TDD)
 
 * **Backend:** `pytest` + `pytest-asyncio` + `httpx`, con cobertura concentrada en lógica de negocio crítica: cálculo de sinergia NxN, emisión/validación de JWT, y el flujo de aprobación/rechazo de `pairing_review_queue`.
-* **Frontend:** `Vitest` + `React Testing Library` + `MSW` para componentes del grafo y del panel lateral.
+* **Frontend:** `Vitest` + `React Testing Library` + `MSW` para componentes del grafo, la ficha de ingrediente y el laboratorio de combinaciones.
 * **Ejecución:** local, vía `pytest` y `npm run test:run` antes de cada entrega de sprint. La automatización en un pipeline de CI/CD queda planteada como trabajo futuro (ver `PROYECTO.md`, Sección 9).
