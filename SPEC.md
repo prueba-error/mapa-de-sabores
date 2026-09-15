@@ -181,15 +181,17 @@ WHERE p.ingredient_a_id = :ingredient_id OR p.ingredient_b_id = :ingredient_id
 
 ## 5. Diseño Frontend (React / Vite)
 
-Ver el diagrama de layout y la lógica progresiva del grafo en **[PROYECTO.md, Sección 5](./PROYECTO.md#5-experiencia-de-usuario-y-diseño-frontend)**. Este documento no repite ese contenido.
+Ver la arquitectura de 3 Vistas Principales (Explorar / Ficha / Laboratorio) y el diagrama en **[PROYECTO.md, Sección 5](./PROYECTO.md#5-experiencia-de-usuario-y-diseño-frontend)**.
 
-Notas técnicas adicionales:
-* Motor de grafo: `react-force-graph-2d` sobre HTML5 Canvas, target de 60 FPS / < 16ms por recálculo.
-* Estado global de selección de ingredientes: Context API (sin librería externa de estado).
-* Colores de arista: verde (`affinity_score > 0.75`), amarillo (`0.45–0.75`), rojo punteado (`< 0.45`).
-* Control **Mejores / Todas / Peores** y slider de cantidad: mapean directamente a los parámetros `sort` y `limit` de `GET /api/v1/graph`, sin lógica de ordenamiento en el cliente.
-* Botón "Explorar extremos": pide a `GET /api/v1/ingredients/{id}/pairings` un vecino con `sort=best&limit=1` y otro con `sort=worst&limit=1`, y renderiza solo esos dos nodos.
-* Ficha de ingrediente: consume `flavor_profile` de `GET /api/v1/ingredients/{id}` para las barras de perfil de sabor.
+Notas técnicas adicionales de implementación:
+* **Arquitectura de 3 Vistas:** Enrutamiento modular por pestañas/rutas en React (`/explore`, `/ingredient/:id`, `/lab`).
+* **Estado Global Compartido (Context API):** `LabContext` gestiona los ingredientes seleccionados (mesa de chips del Laboratorio) permitiendo la acción *"Agregar al Laboratorio"* de forma transparente desde los nodos del Grafo en la Vista 1 y desde la Ficha en la Vista 2.
+* **Motor de Grafo:** `react-force-graph-2d` sobre HTML5 Canvas, target de 60 FPS / < 16ms por recálculo.
+* **Colores de Arista:** verde (`affinity_score > 0.75`), amarillo (`0.45–0.75`), rojo punteado (`< 0.45`).
+* **Mapeo de Filtros:** Controles **Mejores / Todas / Peores** y slider de cantidad mapean a los parámetros `sort` y `limit` de `GET /api/v1/graph`.
+* **Botón "Explorar Extremos":** Consume `GET /api/v1/ingredients/{id}/pairings` con `sort=best&limit=1` y `sort=worst&limit=1`.
+* **Tabla Comparativa de Perfiles (Vista 2):** Se construye al seleccionar una arista específica enfrentando los JSONB de `flavor_profile` de ambos ingredientes.
+* **Mesa del Laboratorio (Vista 3):** Renderizado de chips reactivos. Al modificar los chips se invoca en tiempo real `POST /api/v1/pairings/evaluate`.
 
 ---
 

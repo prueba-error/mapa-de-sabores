@@ -19,7 +19,7 @@ El proyecto resuelve el problema del maridaje e innovación culinaria mediante u
 1. **Certeza en el Core (Base Relacional Estable):** la red de sabores reside en PostgreSQL con índices compuestos bidireccionales. La estructura del grafo se define por datos curados y validados, garantizando consistencia, respuestas instantáneas (< 10ms) y cero alucinaciones en la navegación UI.
 2. **Pipeline de Datos Sintéticos Offline con Curación Humana:** un pipeline de ingeniería de prompts compila un dataset inicial de ~250 ingredientes y ~1.500 pares de afinidad, con una capa de validación automática y una **cola de revisión manual** para los pares dudosos antes de que entren al grafo.
 3. **Capa de IA Desacoplada e Intercambiable:** un servicio backend agnóstico en FastAPI permite alternar entre proveedores cloud (Google Gemini, OpenAI) con fallback a texto pre-generado en base.
-4. **Visualización React en 2D:** renderizado dinámico de nodos y aristas mediante HTML5 Canvas (`react-force-graph-2d`) con experiencia de usuario fluida y panel lateral descriptivo.
+4. **Interfaz React Estructurada en 3 Vistas:** experiencia de usuario modular dividida en tres pantallas principales (Explorar Grafo 2D, Ficha de Ingrediente y Laboratorio de Combinaciones) interconectadas mediante estado global compartido (Context API).
 
 ---
 
@@ -36,7 +36,7 @@ El descubrimiento de combinaciones de ingredientes (maridaje o _flavor pairing_)
   1. Diseñar un esquema relacional optimizado en PostgreSQL para modelar grafos bidireccionales de afinidad, con consultas de vecinos resueltas mediante índices compuestos.
   2. Implementar un pipeline offline en Python para la generación de un dataset sintético de afinidades culinarias, con validación automática y curación manual de casos dudosos.
   3. Crear una API REST en FastAPI con arquitectura limpia y abstracción del proveedor de LLM.
-  4. Desarrollar una interfaz de usuario interactiva en React utilizando `react-force-graph-2d`.
+  4. Desarrollar una interfaz de usuario interactiva en React estructurada en 3 vistas principales utilizando `react-force-graph-2d`.
   5. Integrar autenticación JWT para áreas personalizadas de usuarios (guardar combinaciones favoritas).
 
 ### 2.3 Defensa de Decisiones de Diseño y Arquitectura
@@ -58,7 +58,7 @@ El sistema utiliza un patrón de **Arquitectura Multicapa Desacoplada**:
 ```
 +-----------------------------------------------------------------------------------+
 |                                  CAPA FRONTEND                                    |
-|         React (Vite) + Tailwind CSS + Context API + react-force-graph-2d          |
+|   React (Vite) + Tailwind CSS + Context API (3 Vistas) + react-force-graph-2d     |
 +-----------------------------------------------------------------------------------+
                                          |
                                   HTTP / REST (JWT)
@@ -84,7 +84,7 @@ El sistema utiliza un patrón de **Arquitectura Multicapa Desacoplada**:
 
 1. **Carga Inicial del Grafo:** el cliente React solicita `GET /api/v1/graph`. FastAPI consulta PostgreSQL y retorna los nodos y enlaces activos (subgrafo paginado, ordenable por mayor o menor afinidad).
 2. **Exploración y Filtrado:** el usuario selecciona un nodo (ej: _Tomate_). El frontend resalta vecinos y solicita `GET /api/v1/ingredients/{id}/pairings`, pudiendo pedir el ranking de mejores o peores afinidades para ese ingrediente.
-3. **Evaluación de Sinergia:** al combinar varios ingredientes, el frontend invoca `POST /api/v1/pairings/evaluate`, que calcula el índice de sinergia global como el promedio de `affinity_score` de todos los pares del grupo, arma la matriz NxN de afinidades cruzadas, y señala como ingrediente discordante al que tiene menor afinidad promedio contra el resto del grupo.
+3. **Evaluación de Sinergia en el Laboratorio:** al combinar varios ingredientes en la vista de Laboratorio, el frontend invoca `POST /api/v1/pairings/evaluate`, que calcula el índice de sinergia global como el promedio de `affinity_score` de todos los pares del grupo, arma la matriz NxN de afinidades cruzadas, y señala como ingrediente discordante al que tiene menor afinidad promedio contra el resto del grupo.
 4. **Explicación con IA (Online):** al presionar "¿Por qué combinan?", el frontend invoca `POST /api/v1/ai/explain-pairing`. FastAPI utiliza la interfaz `LLMProvider` para generar un párrafo descriptivo con tono gastronómico.
 
 El detalle técnico completo de este flujo está en **[SPEC.md](./SPEC.md)**.
@@ -105,45 +105,51 @@ Este enfoque prioriza que ningún dato dudoso llegue al usuario final sin revisi
 
 ## 5. Experiencia de Usuario y Diseño Frontend
 
+La interfaz se estructura en **tres vistas principales dedicadas**, accesibles mediante una barra de navegación superior (_Navbar_):
+
 ```
 +-----------------------------------------------------------------------------------+
-| Navbar: Logo  |  Buscador: [Tomate x] [Albahaca x]  |  Filtros  |  [ Evaluar ]    |
-+------------------------------------------------------+----------------------------+
-|                                                      |   Panel Lateral (Drawer)   |
-|               AREA PRINCIPAL DEL GRAFO               |                            |
-|                (react-force-graph-2d)                |    Sinergia Global: 92%    |
-|                                                      |  [==================  ]    |
-|              ( QUESO )                               |                            |
-|                  | (Verde 92%)                       |  Matriz de Compatibilidad: |
-|                  v                                   |  * Tomate + Albahaca: 98%  |
-|             ( TOMATE ) ============= ( ALBAHACA )    |  * Tomate + Queso: 92%     |
-|                  |      (Verde 98%)                  |                            |
-|                  : (Rojo punteado 35%)               |  [ Explicación de Chef ]   |
-|                  v                                   |                            |
-|            ( CHOCOLATE )                             |                            |
-+------------------------------------------------------+----------------------------+
+|  [Logo] Mapa de Sabores  |  [ 1. Explorar Grafo ]  [ 2. Ficha ]  [ 3. Laboratorio ]|
++-----------------------------------------------------------------------------------+
+|                                                                                   |
+|  VISTA 1: EXPLORAR            VISTA 2: FICHA                  VISTA 3: LABORATORIO|
+|  (Grafo 2D en Canvas)         (Perfil Sensorial & Ranking)    (Constructor Chips) |
+|                                                                                   |
+|  - Buscador Central           - Barras de Perfil Sabor        - Chips [Tomate x]  |
+|  - Selector Mejores/Peores    - Tabla Comparativa de Par      - Sinergia (92%)    |
+|  - Slider de Nodos (5-20)     - Rankings Mejor / Peor          - Matriz Cruzada NxN|
+|  - Botón "Extremos"           - Botón "Agregar al Lab"        - Alerta Discordante|
+|                                                               - Sugerencias IA    |
++-----------------------------------------------------------------------------------+
 ```
 
-### 5.1 Landing y Búsqueda Inicial
-Buscador central con sugerencias de tendencias (`[Tomate y Albahaca]`, `[Palta y Limón]`, `[Chocolate y Naranja]`) y transición fluida hacia la vista de grafo.
+### 5.1 Vista 1: Explorar Grafo (Navegación Visual)
+* **Grafo 2D Interactivo:** Renderizado en HTML5 Canvas con `react-force-graph-2d` a 60 FPS.
+* **Lógica Progresiva:**
+  * 1 Ingrediente: Nodo central con aristas radiales a sus vecinos Top.
+  * 2 Ingredientes: Arista principal coloreada por afinidad (verde > 75%, rojo punteado < 45%).
+  * N Ingredientes: Recálculo en tiempo real al sumar componentes.
+* **Controles de Filtro:**
+  * Selector **Mejores / Todas / Peores** (`sort=best|worst|all`).
+  * Slider de cantidad de nodos (5 a 20) para evitar saturación visual.
+  * Botón **"Explorar extremos"**: Aisla el mejor y peor vecino del nodo activo.
+* **Acciones Directas sobre Nodos:** Al seleccionar un nodo, se puede presionar **"Ver Ficha"** o **"Agregar al Laboratorio"**.
 
-### 5.2 Lógica Progresiva del Grafo (1, 2 y N Ingredientes)
-1. **1 Ingrediente** (ej. _Tomate_): nodo central con aristas radiales a sus Top 5-8 vecinos de mayor afinidad.
-2. **2 Ingredientes** (ej. _Tomate + Albahaca_): arista principal coloreada por afinidad (verde si > 75%); los vecinos con alta afinidad con ambos se iluminan con mayor intensidad (opacidad 100%).
-3. **Ingrediente Incompatible** (ej. _+ Chocolate_): arista en **rojo punteado** (< 45%) y atenuación del resto del grupo (opacidad 30%).
-4. **Escala a N Ingredientes:** recálculo en tiempo real (< 16ms / 60 FPS) al sumar o restar componentes.
-5. **Control de orden y cantidad:** un selector **Mejores / Todas / Peores** sobre el nodo activo cambia qué vecinos trae el grafo (`sort=best|worst|all` en `GET /api/v1/graph`), combinado con un slider de cantidad (5 a 20 nodos) para no saturar la vista.
-6. **Botón "Explorar extremos":** reduce el grafo del nodo activo a un único vecino de mayor afinidad y uno de menor afinidad, para contrastar visualmente ambos casos sin navegar el resto de la red.
+### 5.2 Vista 2: Ficha de Ingrediente (Detalle Sensorial)
+* **Perfil de Sabor:** Gráficos de barras horizontales mostrando los ejes sensoriales (dulce, ácido, salado, amargo, umami, aromático) desde `ingredients.flavor_profile`.
+* **Rankings Directos:** Lista ordenada de mejores y peores combinaciones para ese ingrediente.
+* **Tabla Comparativa de Par:** Al examinar la conexión entre dos ingredientes específicos (ej. *Tomate + Albahaca*), muestra una tabla comparativa de perfiles sensoriales (*Acidez: Alta vs. Media*, *Aromático: Medio vs. Muy Alto*).
+* **Acción Principal:** Botón directo **"Agregar al Laboratorio"** para sumar el ingrediente a la mesa de trabajo.
 
-### 5.3 Panel Lateral (Drawer)
-* Medidor visual de sinergia global (_Synergy Gauge_).
-* Matriz interactiva NxN de afinidades cruzadas.
-* Detector de elemento discordante (_Clashing Alert_) con sugerencia de reemplazo vía IA.
-
-### 5.4 Vista de Detalle de Ingrediente
-Al seleccionar un nodo se puede abrir una ficha con:
-* **Perfil de sabor** del ingrediente (dulce, ácido, umami, amargo, aromático, etc.) como barras horizontales, usando el campo `flavor_profile` ya almacenado en `ingredients`.
-* **Ranking de mejores y peores afinidades** para ese ingrediente, obtenido ordenando `GET /api/v1/ingredients/{id}/pairings` por `affinity_score` ascendente o descendente — sin tablas ni cálculos adicionales sobre los ya existentes.
+### 5.3 Vista 3: Laboratorio (Constructor de Combinaciones)
+* **Mesa de Trabajo por Chips:** El usuario construye y modifica combinaciones agregando o quitando ingredientes en forma de etiquetas interactivas (_chips_).
+* **Métricas y Análisis Determinístico:**
+  * Medidor de **Sinergia Culinaria Categórica (0 a 100%)** basado en `POST /pairings/evaluate`.
+  * Matriz cruzada $N \times N$ de compatibilidad de pares.
+  * Alerta de ingrediente discordante con sugerencia de reemplazo asistida por IA.
+* **Sugerencias Inteligentes para Expandir el Plato:**
+  * Muestra dos listas de sugerencias para sumar a la combinación actual: **"Para aumentar sinergia"** (ingredientes de mayor afinidad con el grupo) y **"Para experimentar"** (ingredientes con contraste interesante).
+* *Nota de alcance:* Se preservan únicamente las métricas calculadas a partir del backend existente (`synergy_score`, matriz $N \times N$ y discordante), descartando métricas adicionales de "contraste" o "complejidad" para mantener acotado el desarrollo.
 
 ---
 

@@ -63,15 +63,15 @@
 * **Tiempo reservado:** ~1 día para verificar que los contratos Pydantic del backend coincidan exactamente con lo que consume el frontend (punto típico de fricción entre piezas generadas por separado).
 * **Criterios de Aceptación (TDD):** pruebas unitarias en `pytest` para la matemática de sinergia y para el guardado/recuperación de favoritos.
 
-#### **Sprint 4 (Semanas 7-8) — Frontend Grafo Progresivo, IA Online, QA y Defensa**
-* **Objetivo:** construir la interfaz interactiva completa, integrar la IA en línea, y preparar la defensa académica.
+#### **Sprint 4 (Semanas 7-8) — Frontend 3 Vistas (Explorar, Ficha, Laboratorio), IA Online y Defensa**
+* **Objetivo:** construir la interfaz interactiva completa dividida en 3 vistas principales, integrar la IA en línea y preparar la defensa académica.
 * **Entregables:**
-  * Landing page de búsqueda con sugerencias rápidas.
-  * Visualización progresiva del grafo (1, 2 y N ingredientes) según lo especificado en `PROYECTO.md`, Sección 5.2, incluyendo el control **Mejores / Todas / Peores** con slider de cantidad y el botón "Explorar extremos".
-  * Panel lateral (Drawer): medidor de sinergia, matriz NxN, alerta de elemento discordante.
-  * Ficha de detalle de ingrediente con perfil de sabor (`flavor_profile`) y ranking de mejores/peores afinidades (`PROYECTO.md`, Sección 5.4).
+  * **Navbar & Navegación Modular:** Barra superior con pestañas y estado compartido `LabContext` (Context API).
+  * **Vista 1 (Explorar Grafo):** Visualización progresiva 2D con `react-force-graph-2d`, controles **Mejores / Todas / Peores**, slider de cantidad y botón **"Explorar extremos"**.
+  * **Vista 2 (Ficha de Ingrediente):** Ficha sensorial con barras de `flavor_profile`, ranking de mejores/peores afinidades y **tabla comparativa de perfiles** para pares específicos.
+  * **Vista 3 (Laboratorio de Combinaciones):** Constructor por **chips** interactivos, medidor de sinergia $N \times N$, matriz cruzada, alerta de ingrediente discordante y sugerencias de ingredientes para sumar (afinidad/experimentación).
   * Endpoints `POST /api/v1/ai/explain-pairing` y `POST /api/v1/ai/suggest-replacement`, con timeout de 3.0s y fallback a `ai_rationale`.
-  * Suite de tests `pytest` + `Vitest` corriendo en verde localmente. La automatización de estos tests en un pipeline de CI/CD queda planteada como trabajo futuro (ver `PROYECTO.md`, Sección 9).
+  * Suite de tests `pytest` + `Vitest` corriendo en verde localmente.
   * Memoria técnica final y preparación de la defensa ante el tribunal.
 * **Tiempo reservado:** ~2 días de margen sin entregables nuevos, dedicados exclusivamente a pulir UX del grafo y a repasar la justificación de cada decisión de diseño de cara a la defensa.
 
