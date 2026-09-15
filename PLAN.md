@@ -4,8 +4,6 @@
 **Alumno:** Diego Rafael Guaraz
 **Duración Total:** 2 Meses (8 Semanas) / 4 Sprints de 2 Semanas
 
-> Código generado con asistencia de IA en el 100% de su volumen. Cada sprint reserva tiempo explícito para **integración y comprensión** (no solo generación).
-
 ---
 
 ## 1. Hoja de Ruta Global en 4 Sprints

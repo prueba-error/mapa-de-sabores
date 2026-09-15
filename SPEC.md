@@ -76,8 +76,6 @@ CREATE TABLE pairing_review_queue (
 CREATE INDEX idx_review_queue_status ON pairing_review_queue(status);
 ```
 
-> **Nota:** el control de varianza contra FlavorDB y la integración con APIs externas de recetas están planteados como trabajo futuro. Ver `PROYECTO.md`, Sección 9 ("Trabajo Futuro").
-
 ### 1.2 Lógica de Consulta Bidireccional
 
 Dado que un par (ej. _Tomate_, _Albahaca_) es equivalente a (_Albahaca_, _Tomate_), la restricción `ingredient_a_id < ingredient_b_id` evita duplicados. Para obtener todas las afinidades de un ingrediente `:ingredient_id`:
