@@ -2,9 +2,9 @@
 
 ## Proyecto Final Desarrollo de Sistemas Web
 
-**Alumno:** Diego Rafael Guaraz  
-**Docente / Cátedra:** Proyecto Final Desarrollo de Sistemas Web  
-**Documento de Presentación Académica del Proyecto**  
+**Alumno:** Diego Rafael Guaraz
+**Docente / Cátedra:** Proyecto Final Desarrollo de Sistemas Web
+**Documento de Presentación Académica del Proyecto**
 
 ---
 
@@ -12,14 +12,14 @@
 
 **Mapa de Sabores** es un sistema web interactivo de descubrimiento gastronómico basado en una arquitectura híbrida de **Base de Datos Relacional + Inteligencia Artificial (IA)**.
 
-El proyecto resuelve el problema del maridaje e innovación culinaria mediante una representación en forma de **Grafo de Sabores** interactivo y dinámico. Permite a profesionales de la cocina, estudiantes de gastronomía y aficionados explorar combinaciones de ingredientes basados en afinidad química y culinaria, consultar recetas reales integradas y recibir explicaciones organolépticas generadas por modelos de lenguaje (LLM).
+El proyecto resuelve el problema del maridaje e innovación culinaria mediante una representación en forma de **Grafo de Sabores** interactivo y dinámico. Permite a profesionales de la cocina, estudiantes de gastronomía y aficionados explorar combinaciones de ingredientes basados en afinidad química y culinaria, y recibir explicaciones organolépticas generadas por modelos de lenguaje (LLM).
 
-### Principales Pilares de Ingeniería:
+### Principales Pilares de Ingeniería
 
-1. **Certeza en el Core (Base Relacional Estable):** La red de sabores reside en una base de datos PostgreSQL optimizada con índices compuestos bidireccionales. La estructura del grafo se define por datos curados y validados, garantizando consistencia, respuestas instantáneas (< 10ms) y cero alucinaciones en la navegación UI.
-2. **Pipeline de Datos Sintéticos Offline:** Un pipeline de ingeniería de prompts sobre LLMs compila y cura un dataset inicial de ~250 ingredientes y ~1,500 pares de afinidad.
-3. **Capa de IA Desacoplada e Intercambiable:** Un servicio backend agnóstico en FastAPI permite alternar entre proveedores cloud (Google Gemini, OpenAI) y ejecución 100% local (Ollama / Llama 3.2 3B).
-4. **Visualización React en 2D:** Renderizado dinámico de nodos y aristas mediante HTML5 Canvas (`react-force-graph-2d`) con experiencia de usuario fluida y paneles laterales descriptivos.
+1. **Certeza en el Core (Base Relacional Estable):** la red de sabores reside en PostgreSQL con índices compuestos bidireccionales. La estructura del grafo se define por datos curados y validados, garantizando consistencia, respuestas instantáneas (< 10ms) y cero alucinaciones en la navegación UI.
+2. **Pipeline de Datos Sintéticos Offline con Curación Humana:** un pipeline de ingeniería de prompts compila un dataset inicial de ~250 ingredientes y ~1.500 pares de afinidad, con una capa de validación automática y una **cola de revisión manual** para los pares dudosos antes de que entren al grafo.
+3. **Capa de IA Desacoplada e Intercambiable:** un servicio backend agnóstico en FastAPI permite alternar entre proveedores cloud (Google Gemini, OpenAI) con fallback a texto pre-generado en base.
+4. **Visualización React en 2D:** renderizado dinámico de nodos y aristas mediante HTML5 Canvas (`react-force-graph-2d`) con experiencia de usuario fluida y panel lateral descriptivo.
 
 ---
 
@@ -27,37 +27,33 @@ El proyecto resuelve el problema del maridaje e innovación culinaria mediante u
 
 ### 2.1 Problema Identificado
 
-El descubrimiento de combinaciones de ingredientes (maridaje o _flavor pairing_) tradicionalmente ha dependido de la intuición empírica o de enciclopedias culinarias estáticas. Aunque existen teorías científicas de maridaje de sabores (compartir compuestos aromáticos clave), no existen herramientas web abiertas e interactivas en español que combinen:
-
-* Exploración visual intuitiva en forma de grafo dinámico.
-* Explicaciones organolépticas personalizadas en lenguaje natural.
-* Búsqueda en tiempo real de recetas aplicadas.
+El descubrimiento de combinaciones de ingredientes (maridaje o _flavor pairing_) tradicionalmente ha dependido de la intuición empírica o de enciclopedias culinarias estáticas. Aunque existen teorías científicas de maridaje de sabores (compartir compuestos aromáticos clave), no existen herramientas web abiertas e interactivas en español que combinen exploración visual intuitiva en forma de grafo dinámico con explicaciones organolépticas personalizadas en lenguaje natural.
 
 ### 2.2 Objetivos del Proyecto
 
-* **Objetivo General:** Desarrollar una aplicación web full-stack funcional y escalable que permita explorar redes de sabores e interacciones de ingredientes asistida por Inteligencia Artificial.
+* **Objetivo General:** desarrollar una aplicación web full-stack funcional que permita explorar redes de sabores e interacciones de ingredientes asistida por Inteligencia Artificial.
 * **Objetivos Específicos:**
   1. Diseñar un esquema relacional optimizado en PostgreSQL para modelar grafos bidireccionales de afinidad, con consultas de vecinos resueltas mediante índices compuestos.
-  2. Implementar un pipeline offline en Python para la generación, validación y sanitización de un dataset sintético de afinidades culinarias.
+  2. Implementar un pipeline offline en Python para la generación de un dataset sintético de afinidades culinarias, con validación automática y curación manual de casos dudosos.
   3. Crear una API REST en FastAPI con arquitectura limpia y abstracción del proveedor de LLM.
-  4. Desarrollar una interfaz de usuario interactiva en React utilizando la librería `react-force-graph-2d`.
-  5. Integrar autenticación JWT para áreas personalizadas de usuarios (guardar combinaciones favoritas y recetas).
+  4. Desarrollar una interfaz de usuario interactiva en React utilizando `react-force-graph-2d`.
+  5. Integrar autenticación JWT para áreas personalizadas de usuarios (guardar combinaciones favoritas).
 
 ### 2.3 Defensa de Decisiones de Diseño y Arquitectura
 
-Las decisiones de diseño se fundamentan en criterios estratégicos de ingeniería de software:
+* **PostgreSQL vs. Neo4j:** se optó por PostgreSQL debido a que en una red de 300 a 1.000 ingredientes las consultas de 1 o 2 saltos (_hops_) no justifican la sobrecarga operativa y de memoria de un motor de grafos nativo como Neo4j. Mediante índices compuestos y ordenamiento de IDs (`ingredient_a_id < ingredient_b_id`), Postgres resuelve estas consultas de forma directa (sin recorridos recursivos) en **< 10ms**, con un costo operativo y de despliegue significativamente menor.
 
-* **PostgreSQL vs. Neo4j:** Se optó por PostgreSQL debido a que en una red de 300 a 1,000 ingredientes las consultas de 1 o 2 saltos (_hops_) no justifican la sobrecarga operativa y de consumo de memoria de un motor de grafos nativo como Neo4j. Mediante índices compuestos y ordenamiento de IDs (`ingredient_a_id < ingredient_b_id`), Postgres resuelve estas consultas de forma directa (sin recorridos recursivos) en **< 10ms**, con un costo operativo y de despliegue significativamente menor.
+* **Arquitectura Híbrida de IA:** la IA no actúa como la base de datos (evitando alucinaciones o respuestas lentas en navegación UI), sino como un potenciador en dos fases: compilación de dataset en pipeline offline (con curación humana) y generación de prosa culinaria en línea bajo demanda del usuario.
 
-* **Arquitectura Híbrida de IA:** La IA no actúa como la base de datos (evitando alucinaciones o respuestas lentas en navegación UI), sino como un potenciador en dos fases: compilación de dataset en pipeline offline y generación de prosa culinaria en línea bajo demanda del usuario.
+* **Curación Humana como Salvaguarda, no como Automatismo:** en lugar de confiar ciegamente en el score que devuelve el LLM, los pares que caen en una matriz de incompatibilidades conocidas o presentan valores atípicos se enrutan a una cola de revisión (`pairing_review_queue`) y solo entran al grafo público tras aprobación manual. Esto prioriza la corrección editorial sobre la cobertura automática total del dataset.
 
-* **Autenticación Estateless Simplificada (JWT de Sesión):** Se optó por una autenticación JWT stateless de sesión única almacenada en el cliente. La validación se realiza criptográficamente en FastAPI sin consultas de revocación a base de datos, optimizando el desarrollo sin comprometer la seguridad funcional para usuarios autenticados.
+* **Autenticación Estateless Simplificada (JWT de Sesión):** se optó por una autenticación JWT stateless de sesión única almacenada en el cliente. La validación se realiza criptográficamente en FastAPI sin consultas de revocación a base de datos, optimizando el desarrollo sin comprometer la seguridad funcional para usuarios autenticados.
 
 ---
 
 ## 3. Arquitectura General del Sistema
 
-El sistema utiliza un patrón de **Arquitectura Multicapa Desacoplada** (Frontend Client, Backend API, Relational Storage & External Services).
+El sistema utiliza un patrón de **Arquitectura Multicapa Desacoplada**:
 
 ```
 +-----------------------------------------------------------------------------------+
@@ -70,72 +66,44 @@ El sistema utiliza un patrón de **Arquitectura Multicapa Desacoplada** (Fronten
 +-----------------------------------------------------------------------------------+
 |                                  CAPA BACKEND                                     |
 |                                FastAPI (Python)                                   |
-|   |- Auth Controller & Security (JWT / Passlib / PostgreSQL Revoked Tokens)       |
+|   |- Auth Controller & Security (JWT / Passlib)                                   |
 |   |- Ingredients & Pairings Service (SQLAlchemy Core)                             |
-|   |- LLM Provider Service Interface (Gemini / OpenAI / Ollama Adapter)            |
-|   |- Recipe Integration Service (Spoonacular Client + DB Cache)                   |
+|   |- LLM Provider Service Interface (Gemini / OpenAI Adapter)                     |
+|   |- Curation Service (Pairing Review Queue)                                      |
 +-----------------------------------------------------------------------------------+
-               |                                 |                         |
-     SQL (SQLAlchemy/asyncpg)               HTTP API                  HTTP API
-               v                                 v                         v
-+-----------------------------+   +--------------------+    +----------------------+
-|     PostgreSQL Database     |   |  External LLM API  |    |   Spoonacular API    |
-| (Ingredients, Pairings, DB) |   | (Gemini / OpenAI)  |    | (Recetas Culinarias) |
-+-----------------------------+   +--------------------+    +----------------------+
+               |                                 |
+     SQL (SQLAlchemy/asyncpg)               HTTP API
+               v                                 v
++-----------------------------+           +--------------------+
+|     PostgreSQL Database     |           |  External LLM API  |
+| (Ingredients, Pairings, DB) |           | (Gemini / OpenAI)  |
++-----------------------------+           +--------------------+
 ```
 
 ### 3.1 Flujo de Datos Principal
 
-1. **Carga Inicial del Grafo:** El cliente React solicita `GET /api/v1/graph`. FastAPI consulta PostgreSQL y retorna los nodos y enlaces activos (subgrafo paginado).
-2. **Exploración y Filtrado:** El usuario selecciona un nodo (ej: _Tomate_). El frontend resalta vecinos y solicita `GET /api/v1/ingredients/{id}/pairings`.
-3. **Explicación con IA (Online):** Al presionar "¿Por qué combinan?", el frontend invoca `POST /api/v1/ai/explain-pairing`. FastAPI utiliza la interfaz `LLMProvider` para generar un párrafo descriptivo con tono gastronómico.
-4. **Recetas Relacionadas:** Al solicitar recetas para una combinación (ej: _Tomate + Albahaca + Ajo_), FastAPI consulta la caché local. Si no existe en caché, llama a la API de Spoonacular y guarda el resultado traducido.
+1. **Carga Inicial del Grafo:** el cliente React solicita `GET /api/v1/graph`. FastAPI consulta PostgreSQL y retorna los nodos y enlaces activos (subgrafo paginado).
+2. **Exploración y Filtrado:** el usuario selecciona un nodo (ej: _Tomate_). El frontend resalta vecinos y solicita `GET /api/v1/ingredients/{id}/pairings`.
+3. **Evaluación de Sinergia:** al combinar varios ingredientes, el frontend invoca `POST /api/v1/pairings/evaluate`, que devuelve el índice de sinergia global, la matriz NxN y el ingrediente discordante si lo hay.
+4. **Explicación con IA (Online):** al presionar "¿Por qué combinan?", el frontend invoca `POST /api/v1/ai/explain-pairing`. FastAPI utiliza la interfaz `LLMProvider` para generar un párrafo descriptivo con tono gastronómico.
+
+El detalle técnico completo de este flujo está en **[SPEC.md](./SPEC.md)**.
 
 ---
 
 ## 4. Dataset de Sabores y Pipeline Offline
 
-### 4.1 Origen y Fuentes de la Información
+El dataset no se construye por relevamiento manual, sino mediante un pipeline en tres etapas:
 
-El dataset no se construye por relevamiento manual, sino combinando tres fuentes complementarias:
+1. **Síntesis con IA:** un script en Python (`scripts/seed_flavor_network.py`) consulta en lote a un LLM mediante solicitudes estructuradas (JSON Mode con Pydantic), generando un score de afinidad (0.0 a 1.0) y una explicación culinaria por cada par de ingredientes evaluado.
+2. **Validación Automática:** cada par generado pasa por chequeos de rango, coherencia sintáctica y comparación contra una matriz curada de ~50 pares antagónicos conocidos (ej. _Pescado Blanco + Dulce de Leche_). Los pares que no presentan señales de alerta se insertan directamente en `flavor_pairings`.
+3. **Curación Manual de Casos Dudosos:** los pares que sí disparan una alerta (por ejemplo, un score alto en un par listado como antagónico) no se descartan automáticamente: se enrutan a una cola de revisión (`pairing_review_queue`) donde el alumno, mediante un CLI simple (`scripts/curate.py --approve/--reject`), decide caso por caso si el par entra al grafo o se descarta. El detalle del funcionamiento de esta cola está en **[SPEC.md](./SPEC.md#2-pipeline-offline-y-origen-del-dataset-de-sabores)**.
 
-1. **La IA como Sintetizador y Destilador de Conocimiento (Método Principal):**
-   * Los modelos de lenguaje modernos (OpenAI GPT-4o, Google Gemini) fueron entrenados con millones de textos científicos, recetas globales y literatura gastronómica de referencia (incluyendo _The Flavor Bible_, _The Flavor Thesaurus_ y artículos científicos de maridaje molecular).
-   * En lugar de descargar o transcribir libros, nuestro script en Python (`scripts/seed_flavor_network.py`) consulta en lote al LLM mediante solicitudes estructuradas (JSON Mode con Pydantic). La IA actúa como un "chef experto", evaluando cada par de ingredientes y generando la puntuación de afinidad (0.0 a 1.0) y la explicación culinaria.
-2. **Datasets Abiertos Académicos:**
-   * **FlavorDB / Flavornet:** Proyecto científico abierto de IIIT Delhi que mapea ~1,000 ingredientes a sus moléculas aromáticas volátiles (eugenol, linalool, etc.). Sus datasets son descargables públicamente en formato CSV/JSON.
-   * **Nature Scientific Reports - Dataset de "Flavor Network":** Dataset público del famoso estudio científico de Yong-Yeol Ahn (_"Flavor network and the principles of food pairing"_).
-3. **Co-ocurrencia Estadística en Recetas (Spoonacular / RecipeDB):**
-   * Mapeo estadístico automático: Si dos ingredientes (ej: _Tomate_ y _Albahaca_) aparecen juntos frecuentemente en miles de recetas procesadas, se refuerza la puntuación de afinidad.
-
-**Nota metodológica sobre la normalización del score:** Las fuentes anteriores no son directamente comparables entre sí. FlavorDB/Flavornet expresan afinidad como cantidad de compuestos aromáticos volátiles compartidos (un número entero), mientras que el LLM devuelve directamente un puntaje 0.0-1.0 y la co-ocurrencia en recetas es una frecuencia relativa. El pipeline define una fórmula explícita de normalización para llevar todas las fuentes a la misma escala (0.0 a 1.0) antes de promediarlas o combinarlas.
-
-### 4.2 Fases del Pipeline Offline y Control de Alucinaciones
-1. **Semilla de Ingredientes:** Listado inicial normalizado en JSON/CSV con ~250 ingredientes clasificados por categorías (Frutas, Verduras, Carnes, Lácteos, Hierbas/Especias, Granos).
-2. **Generación Automatizada con `--dry-run`:** Generación de pares lógicos con opción de simulación sin gasto de cuota API.
-3. **Suite de Verificación y Cola de Arbitraje:** Verificación contra matriz de incompatibilidad prohibida (~50 pares antagónicos como _Pescado + Dulce de Leche_). Pares dudosos se derivan a la cola `pairing_review_queue` para arbitraje manual mediante el comando CLI `./scripts/curate.py`.
+Este enfoque prioriza que ningún dato dudoso llegue al usuario final sin revisión, sin requerir la complejidad de un sistema de moderación multiusuario: hay un único rol de curador (el alumno), ejercido por línea de comandos.
 
 ---
 
-## 5. Especificaciones del Servicio Backend y Recetas
-
-### 5.1 Evaluación Multi-Ingrediente y Resiliencia de IA
-* **Cálculo Determinístico:** `POST /api/v1/pairings/evaluate` calcula únicamente a partir de la base de datos la matriz de afinidades cruzadas $N \times N$, el **Índice de Sinergia Global (0-100%)** y el ingrediente discordante (_clashing element_).
-* **Sugerencia Generativa:** `POST /api/v1/ai/suggest-replacement` sugiere bajo demanda un ingrediente alternativo para corregir el choque de sabor.
-* **Jerarquía de Fallback (Degradación Grácil):** Llamadas a IA configuradas con **timeout estricto de 3.0s** y máximo 1 reintento. Si los proveedores cloud (Gemini/OpenAI) fallan, la API responde automáticamente con la justificación inmutable de PostgreSQL (`ai_rationale`), garantizando 100% de disponibilidad.
-
-### 5.2 Servicio de Recetas y Traducción al Cachear (Translation-on-Cache)
-* **Almacenamiento Permanente en Servidor:** Las recetas recuperadas de Spoonacular quedan guardadas en PostgreSQL para proteger la cuota gratuita (150 puntos/día) y reducir la latencia de 2000ms a < 10ms.
-* **Traducción Automática al Español:** Al descubrir una receta en inglés, el LLM traduce título, ingredientes e instrucciones **una sola vez antes de guardar en PostgreSQL**. Todas las consultas posteriores leen el texto traducido directamente desde la base de datos local.
-* **Sanitización de Payload (30 KB max):** Middleware que remueve metadatos publicitarios y HTML innecesario de Spoonacular.
-
-*(Ver esquemas DDL completos, contratos Pydantic v2 y código de sanitización en `SPEC.md`)*
-
----
-
-## 6. Diseño Frontend y Experiencia Visual
-
-El frontend se estructura con **React (Vite)** y **Tailwind CSS**.
+## 5. Experiencia de Usuario y Diseño Frontend
 
 ```
 +-----------------------------------------------------------------------------------+
@@ -151,94 +119,95 @@ El frontend se estructura con **React (Vite)** y **Tailwind CSS**.
 |             ( TOMATE ) ============= ( ALBAHACA )    |  * Tomate + Queso: 92%     |
 |                  |      (Verde 98%)                  |                            |
 |                  : (Rojo punteado 35%)               |  [ Explicación de Chef ]   |
-|                  v                                   |  [ 14 Recetas ]            |
+|                  v                                   |                            |
 |            ( CHOCOLATE )                             |                            |
 +------------------------------------------------------+----------------------------+
 ```
 
-### 6.1 Landing Page y Búsqueda Inicial
-* **Buscador Central:** Pantalla limpia con sugerencias y etiquetas de tendencias (`[Tomate y Albahaca]`, `[Palta y Limón]`, `[Chocolate y Naranja]`).
-* Transición fluida hacia la vista de exploración de grafo al seleccionar o tipear ingredientes.
+### 5.1 Landing y Búsqueda Inicial
+Buscador central con sugerencias de tendencias (`[Tomate y Albahaca]`, `[Palta y Limón]`, `[Chocolate y Naranja]`) y transición fluida hacia la vista de grafo.
 
-### 6.2 Lógica Dinámica y Progresiva del Grafo (1, 2 y N Ingredientes)
-1. **Selección de 1 Ingrediente (ej: *Tomate*):**
-   * El nodo seleccionado se ubica en el centro.
-   * Se despliegan aristas radiales hacia sus **Top 5-8 vecinos de mayor afinidad** (*Albahaca, Ajo, Mozzarella, Orégano, Aceite de Oliva*).
-2. **Selección de 2 Ingredientes (ej: *Tomate + Albahaca*):**
-   * Arista principal entre ambos coloreada por su afinidad (Verde para afinidad alta $> 75\%$).
-   * **Resaltado por Intensidad Armónica:** Los ingredientes vecinos conectados que presentan alta afinidad **con AMBOS ingredientes a la vez** se iluminan con **mayor intensidad visual (brillo/opacidad 100%)**.
-3. **Incorporación de Ingrediente Incompatible (ej: *Tomate + Albahaca + Chocolate*):**
-   * La arista que conecta el ingrediente discordante (*Chocolate*) se grafica en **ROJO punteado** (incompatibilidad $< 45\%$).
-   * Los ingredientes vecinos alrededor del grupo se atenúan con **menor intensidad visual (opacidad reducida al 30%)**.
-4. **Escala Progresiva a N Ingredientes:** Recálculo en tiempo real (< 16ms / 60 FPS) al sumar o restar componentes a la receta.
+### 5.2 Lógica Progresiva del Grafo (1, 2 y N Ingredientes)
+1. **1 Ingrediente** (ej. _Tomate_): nodo central con aristas radiales a sus Top 5-8 vecinos de mayor afinidad.
+2. **2 Ingredientes** (ej. _Tomate + Albahaca_): arista principal coloreada por afinidad (verde si > 75%); los vecinos con alta afinidad con ambos se iluminan con mayor intensidad (opacidad 100%).
+3. **Ingrediente Incompatible** (ej. _+ Chocolate_): arista en **rojo punteado** (< 45%) y atenuación del resto del grupo (opacidad 30%).
+4. **Escala a N Ingredientes:** recálculo en tiempo real (< 16ms / 60 FPS) al sumar o restar componentes.
 
-### 6.3 Panel Lateral (Drawer) e Interacciones
-* **Medidor Visual de Sinergia (Synergy Gauge):** Indicador porcentual del maridaje global del plato.
-* **Matriz Interactiva $N \times N$:** Tabla de afinidades cruzadas para inspección rápida de pares.
-* **Detector de Elemento Discordante (*Clashing Alert*):** Alerta en rojo identificando el ingrediente desentonante y habilitando sugerencia de reemplazo con IA.
+### 5.3 Panel Lateral (Drawer)
+* Medidor visual de sinergia global (_Synergy Gauge_).
+* Matriz interactiva NxN de afinidades cruzadas.
+* Detector de elemento discordante (_Clashing Alert_) con sugerencia de reemplazo vía IA.
 
 ---
 
-## 7. Modelo de Usuario y Accesibilidad de la Plataforma
+## 6. Modelo de Usuario y Accesibilidad de la Plataforma
 
-Para maximizar la agilidad en la implementación y concentrar el desarrollo en el núcleo funcional del proyecto, se ha simplificado la arquitectura eliminando la complejidad de niveles de suscripción comerciales (Freemium):
+La plataforma ofrece acceso completo a todas sus funcionalidades para los usuarios registrados:
 
-| Característica / Funcionalidad | Especificación Simplificada (Acceso Completo) |
+| Característica / Funcionalidad | Especificación (Acceso Completo) |
 | :--- | :--- |
-| **Límite de Ingredientes por Búsqueda** | **Hasta 10 ingredientes** (evaluación de platos y recetas complejas) |
+| **Límite de Ingredientes por Búsqueda** | Hasta 10 ingredientes |
 | **Visualización de Grafo y Sinergia** | Acceso completo e interactivo en 2D |
 | **Explicación de Chef con IA** | Generación en tiempo real con fallback a PostgreSQL |
-| **Búsqueda de Recetas** | Búsqueda integrada con almacenamiento en caché local |
-| **Guardado en Servidor** | Guardado de combinaciones y recetas favoritas por usuario |
-| **Autenticación** | Registro e Inicio de Sesión simplificado mediante JWT de sesión única |
+| **Guardado en Servidor** | Guardado de combinaciones favoritas por usuario |
+| **Autenticación** | Registro e inicio de sesión simplificado mediante JWT de sesión única |
 
 ---
 
-## 8. Plan de Implementación Ágil (Resumen de 2 Meses)
+## 7. Plan de Implementación (Resumen de 2 Meses)
 
-El desarrollo del proyecto se estructura en **2 Meses (8 Semanas)** divididos en **4 Sprints ágiles de 2 Semanas** (ver mapa detallado y *Definition of Done* por Sprint en `PLAN.md`):
+El desarrollo se estructura en **4 sprints de 2 semanas**, con tiempo reservado en cada uno para integración y comprensión del código generado con asistencia de IA. Cronograma detallado y *Definition of Done* por sprint en **[PLAN.md](./PLAN.md)**.
 
 ```
        +-----------------------------------------------------------------+
        |    MES 1: Cimientos, Pipeline de Datos & Prototipado            |
-       |    - Sprint 1: DDL Postgres, Alembic & Entorno Docker           |
-       |    - Sprint 2: Seed LLM / JSON Mode & Spike Grafo React 2D      |
+       |    - Sprint 1: DDL Postgres, Alembic, Entorno Docker & Auth     |
+       |    - Sprint 2: Seed LLM + Curación & Spike Grafo React 2D       |
        +------------------------------+----------------------------------+
                                       |
                                       v
        +------------------------------------------------------------------+
-       |    MES 2: Backend Core, Auth Simplificada & Frontend Completo    |
-       |    - Sprint 3: REST API Grafo, Sinergia N x N, Auth JWT & Caché  |
-       |    - Sprint 4: UI Grafo 2D, IA Online, CI/CD, QA & Tesis         |
+       |    MES 2: Backend Core & Frontend Completo                       |
+       |    - Sprint 3: REST API Grafo, Sinergia N x N & Caché de Auth    |
+       |    - Sprint 4: UI Grafo 2D, IA Online, QA Manual & Defensa       |
        +------------------------------------------------------------------+
 ```
 
 ---
 
-## 9. Matriz de Riesgos y Análisis de Viabilidad Económica
+## 8. Matriz de Riesgos y Viabilidad Económica
 
-### 9.1 Matriz de Riesgos
+### 8.1 Matriz de Riesgos
+
 | Riesgo Identificado | Impacto | Mitigación Planificada |
 | :--- | :--- | :--- |
-| **Agotamiento de cuota en API de Recetas** | Medio | Tabla caché en PostgreSQL (`recipe_search_cache`); depuración a 30 KB. |
 | **Saturación visual en el grafo** | Alto | Subgrafo paginado (`GET /graph?limit=50`) y `min_affinity` por defecto en 0.50. |
-| **Alucinaciones o latencia en respuestas de IA** | Medio | Prompting estructurado, suite `verify_coherence.py`, cola de revisión `pairing_review_queue` y fallback a `ai_rationale`. |
-| **Demoras en el objetivo opcional (Modelo Local)** | Bajo | El modelo local es un *Stretch Goal* opcional; la arquitectura cloud se mantiene 100% funcional. |
+| **Alucinaciones en pares generados por IA** | Medio | Prompting estructurado, matriz de incompatibilidades y cola de revisión manual (`pairing_review_queue`). |
+| **Tiempo de curación manual subestimado** | Medio | Se reserva tiempo explícito en Sprint 2 para revisar los pares marcados como dudosos. |
+| **Latencia o caída del proveedor de IA online** | Bajo | Timeout de 3s, reintentos y fallback al `ai_rationale` guardado en base. |
+| **Brecha entre "código generado" y "código comprendido"** | Medio | Tiempo de integración/comprensión reservado en cada sprint; el alumno debe poder justificar cada decisión de diseño en la defensa. |
 
-### 9.2 Viabilidad Económica y Trabajo Futuro
-El diseño arquitectónico del proyecto garantiza una **alta eficiencia de costos**, permitiendo operar el MVP a costo **$0.00 USD** durante la fase de desarrollo y defensa académica (capas gratuitas de Render, Supabase y PostgreSQL).
+### 8.2 Viabilidad Económica
 
-* **MVP / Defensa de Tesis (1-100 usuarios):** **$0.00 USD / mes** (Free Tier).
-* **Trabajo Futuro y Escalabilidad Teórica (Producción y Escala Media):** Las proyecciones de costos para escenarios hipotéticos a escala comercial (1,000 a 25,000 usuarios) se incluyen como análisis teórico en la memoria de tesis, amortizándose mediante la retención del caché local en PostgreSQL y suscripciones Pro.
+El diseño arquitectónico permite operar el MVP a costo prácticamente nulo durante la fase de desarrollo y defensa académica (capas gratuitas de Render, Supabase y PostgreSQL).
 
-### 9.3 Argumentación de Viabilidad para la Defensa Académica
-Este análisis demuestra criterio de ingeniería de software enfocado en la **economía de recursos y optimización operativa**, probando que el sistema no solo es funcional y estéticamente atractivo, sino también **financieramente viable y preparado para producción real**.
+* **MVP / Defensa de Tesis (1-100 usuarios):** ~$0.00 USD/mes (Free Tier).
+* **Producción Inicial (1.000 usuarios):** costo dominado por las llamadas a LLM cloud; estimado bajo (< USD 5/mes) gracias al fallback y al bajo volumen de llamadas en línea (solo explicaciones bajo demanda, no navegación del grafo).
+
+---
+
+## 9. Trabajo Futuro
+
+Como extensiones naturales del proyecto, quedan planteadas las siguientes líneas de trabajo futuro:
+
+1. **Integración con API externa de recetas (ej. Spoonacular):** permitiría mostrar recetas reales para una combinación de ingredientes evaluada por el sistema, enriqueciendo la propuesta de valor para el usuario final. Implica gestionar cuotas de uso, sanitización de payloads externos y una capa de caché.
+2. **Pipeline de CI/CD (GitHub Actions):** automatizaría la ejecución de tests y migraciones en cada push, aportando valor especialmente a medida que el proyecto escale a un equipo de más de un desarrollador.
+3. **Control de varianza del dataset contra fuentes académicas externas (FlavorDB/Flavornet):** cruzar los scores generados por el LLM contra un dataset académico externo permitiría detectar divergencias adicionales a las que ya cubren la matriz de incompatibilidades y la cola de revisión manual. Requiere resolver el *matching* de nombres de ingredientes entre idiomas y nomenclaturas.
 
 ---
 
 ## Referencias a la Documentación Técnica Completa
 
-Para profundizar en los aspectos específicos de implementación y código:
-* **[SPEC.md](./SPEC.md):** Especificación técnica detallada con el DDL completo, scripts de sanitización (`sanitize_recipe_payload`), suite anti-alucinaciones (`verify_coherence.py`), contratos Pydantic v2 y pipeline de CI/CD en GitHub Actions.
-* **[PLAN.md](./PLAN.md):** Plan de implementación detallado sprint por sprint, secuencia de kickoff en 5 pasos y archivos de infraestructura (`.env.example`, `docker-compose.yml`, `scripts/backup.sh`).
-* **[README.md](./README.md):** Portada del repositorio y guía de arranque rápido para desarrollo local.
+* **[SPEC.md](./SPEC.md):** especificación técnica detallada con el DDL completo, pipeline de datos, endpoints REST y estrategia de pruebas.
+* **[PLAN.md](./PLAN.md):** plan de implementación sprint por sprint, secuencia de kickoff y archivos de infraestructura.
+* **[README.md](./README.md):** portada del repositorio y guía de arranque rápido.
