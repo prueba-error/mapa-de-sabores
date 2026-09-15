@@ -82,9 +82,9 @@ El sistema utiliza un patrón de **Arquitectura Multicapa Desacoplada**:
 
 ### 3.1 Flujo de Datos Principal
 
-1. **Carga Inicial del Grafo:** el cliente React solicita `GET /api/v1/graph`. FastAPI consulta PostgreSQL y retorna los nodos y enlaces activos (subgrafo paginado).
-2. **Exploración y Filtrado:** el usuario selecciona un nodo (ej: _Tomate_). El frontend resalta vecinos y solicita `GET /api/v1/ingredients/{id}/pairings`.
-3. **Evaluación de Sinergia:** al combinar varios ingredientes, el frontend invoca `POST /api/v1/pairings/evaluate`, que devuelve el índice de sinergia global, la matriz NxN y el ingrediente discordante si lo hay.
+1. **Carga Inicial del Grafo:** el cliente React solicita `GET /api/v1/graph`. FastAPI consulta PostgreSQL y retorna los nodos y enlaces activos (subgrafo paginado, ordenable por mayor o menor afinidad).
+2. **Exploración y Filtrado:** el usuario selecciona un nodo (ej: _Tomate_). El frontend resalta vecinos y solicita `GET /api/v1/ingredients/{id}/pairings`, pudiendo pedir el ranking de mejores o peores afinidades para ese ingrediente.
+3. **Evaluación de Sinergia:** al combinar varios ingredientes, el frontend invoca `POST /api/v1/pairings/evaluate`, que calcula el índice de sinergia global como el promedio de `affinity_score` de todos los pares del grupo, arma la matriz NxN de afinidades cruzadas, y señala como ingrediente discordante al que tiene menor afinidad promedio contra el resto del grupo.
 4. **Explicación con IA (Online):** al presionar "¿Por qué combinan?", el frontend invoca `POST /api/v1/ai/explain-pairing`. FastAPI utiliza la interfaz `LLMProvider` para generar un párrafo descriptivo con tono gastronómico.
 
 El detalle técnico completo de este flujo está en **[SPEC.md](./SPEC.md)**.
@@ -132,11 +132,18 @@ Buscador central con sugerencias de tendencias (`[Tomate y Albahaca]`, `[Palta y
 2. **2 Ingredientes** (ej. _Tomate + Albahaca_): arista principal coloreada por afinidad (verde si > 75%); los vecinos con alta afinidad con ambos se iluminan con mayor intensidad (opacidad 100%).
 3. **Ingrediente Incompatible** (ej. _+ Chocolate_): arista en **rojo punteado** (< 45%) y atenuación del resto del grupo (opacidad 30%).
 4. **Escala a N Ingredientes:** recálculo en tiempo real (< 16ms / 60 FPS) al sumar o restar componentes.
+5. **Control de orden y cantidad:** un selector **Mejores / Todas / Peores** sobre el nodo activo cambia qué vecinos trae el grafo (`sort=best|worst|all` en `GET /api/v1/graph`), combinado con un slider de cantidad (5 a 20 nodos) para no saturar la vista.
+6. **Botón "Explorar extremos":** reduce el grafo del nodo activo a un único vecino de mayor afinidad y uno de menor afinidad, para contrastar visualmente ambos casos sin navegar el resto de la red.
 
 ### 5.3 Panel Lateral (Drawer)
 * Medidor visual de sinergia global (_Synergy Gauge_).
 * Matriz interactiva NxN de afinidades cruzadas.
 * Detector de elemento discordante (_Clashing Alert_) con sugerencia de reemplazo vía IA.
+
+### 5.4 Vista de Detalle de Ingrediente
+Al seleccionar un nodo se puede abrir una ficha con:
+* **Perfil de sabor** del ingrediente (dulce, ácido, umami, amargo, aromático, etc.) como barras horizontales, usando el campo `flavor_profile` ya almacenado en `ingredients`.
+* **Ranking de mejores y peores afinidades** para ese ingrediente, obtenido ordenando `GET /api/v1/ingredients/{id}/pairings` por `affinity_score` ascendente o descendente — sin tablas ni cálculos adicionales sobre los ya existentes.
 
 ---
 

@@ -143,13 +143,14 @@ WHERE p.ingredient_a_id = :ingredient_id OR p.ingredient_b_id = :ingredient_id
 * `GET /api/v1/auth/me` — perfil del usuario autenticado.
 
 ### 3.2 Red y Grafo (`/api/v1`)
-* `GET /api/v1/graph` — subgrafo paginado para `react-force-graph` (`limit` default 50, max 100, `offset`, `min_affinity` default 0.50).
+* `GET /api/v1/graph` — subgrafo paginado para `react-force-graph` (`limit` default 50, max 100, `offset`, `min_affinity` default 0.50, `sort=best|worst|all` para priorizar mayor o menor afinidad).
 * `GET /api/v1/ingredients` — lista paginada con filtro de búsqueda por nombre.
-* `GET /api/v1/ingredients/{id}/pairings` — vecinos directos (Top-N) y sus afinidades.
+* `GET /api/v1/ingredients/{id}` — detalle del ingrediente, incluyendo `flavor_profile` (JSONB con ejes dulce/ácido/salado/amargo/umami/aromático, etc.).
+* `GET /api/v1/ingredients/{id}/pairings` — vecinos directos y sus afinidades; acepta `sort=best|worst` (por defecto `best`) y `limit` para separar el ranking de mejores y peores combinaciones sin lógica adicional en el backend, solo ordenamiento sobre `flavor_pairings.affinity_score`.
 * `POST /api/v1/pairings/evaluate` — recibe una lista de 2 a 10 `ingredient_id`, devuelve:
-  * `synergy_score` (0–100) e índice global de sinergia;
+  * `synergy_score` (0–100): promedio simple de `affinity_score` sobre todos los pares del grupo (para N ingredientes, los `N*(N-1)/2` pares posibles), escalado a porcentaje;
   * `pairwise_matrix`: afinidad cruzada NxN;
-  * `clashing_ingredients`: lista de ingredientes discordantes (afinidad promedio con el resto del grupo < 45%).
+  * `clashing_ingredients`: ingredientes cuya afinidad promedio contra el resto del grupo es menor a 45% (el mínimo de esos promedios define el "ingrediente discordante" principal).
 
 ### 3.3 Inteligencia Artificial (`/api/v1/ai`)
 * `POST /api/v1/ai/explain-pairing` — genera (o recupera de fallback) una explicación en prosa para un par o grupo de ingredientes.
@@ -186,6 +187,9 @@ Notas técnicas adicionales:
 * Motor de grafo: `react-force-graph-2d` sobre HTML5 Canvas, target de 60 FPS / < 16ms por recálculo.
 * Estado global de selección de ingredientes: Context API (sin librería externa de estado).
 * Colores de arista: verde (`affinity_score > 0.75`), amarillo (`0.45–0.75`), rojo punteado (`< 0.45`).
+* Control **Mejores / Todas / Peores** y slider de cantidad: mapean directamente a los parámetros `sort` y `limit` de `GET /api/v1/graph`, sin lógica de ordenamiento en el cliente.
+* Botón "Explorar extremos": pide a `GET /api/v1/ingredients/{id}/pairings` un vecino con `sort=best&limit=1` y otro con `sort=worst&limit=1`, y renderiza solo esos dos nodos.
+* Ficha de ingrediente: consume `flavor_profile` de `GET /api/v1/ingredients/{id}` para las barras de perfil de sabor.
 
 ---
 

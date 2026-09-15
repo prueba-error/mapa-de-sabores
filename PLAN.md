@@ -57,8 +57,8 @@
 #### **Sprint 3 (Semanas 5-6) — REST API, Sinergia N x N y Favoritos**
 * **Objetivo:** implementar la lógica de sinergia y la gestión de combinaciones favoritas.
 * **Entregables:**
-  * Endpoints: `GET /api/v1/graph` (paginado, `limit=50`), `GET /api/v1/ingredients`, `GET /api/v1/ingredients/{id}/pairings`, `POST /api/v1/pairings/evaluate`.
-  * Algoritmo determinístico de evaluación: índice de sinergia global (0–100%), matriz de pares cruzados NxN y detección del ingrediente discordante.
+  * Endpoints: `GET /api/v1/graph` (paginado, `limit=50`, `sort=best|worst|all`), `GET /api/v1/ingredients`, `GET /api/v1/ingredients/{id}` (incluye `flavor_profile`), `GET /api/v1/ingredients/{id}/pairings` (con `sort=best|worst` para ranking de mejores/peores), `POST /api/v1/pairings/evaluate`.
+  * Algoritmo determinístico de evaluación: índice de sinergia global como promedio de `affinity_score` sobre todos los pares del grupo, matriz de pares cruzados NxN y detección del ingrediente discordante (menor afinidad promedio contra el resto del grupo).
   * Endpoints de favoritos: `GET` / `POST /api/v1/users/me/favorites`.
 * **Tiempo reservado:** ~1 día para verificar que los contratos Pydantic del backend coincidan exactamente con lo que consume el frontend (punto típico de fricción entre piezas generadas por separado).
 * **Criterios de Aceptación (TDD):** pruebas unitarias en `pytest` para la matemática de sinergia y para el guardado/recuperación de favoritos.
@@ -67,8 +67,9 @@
 * **Objetivo:** construir la interfaz interactiva completa, integrar la IA en línea, y preparar la defensa académica.
 * **Entregables:**
   * Landing page de búsqueda con sugerencias rápidas.
-  * Visualización progresiva del grafo (1, 2 y N ingredientes) según lo especificado en `PROYECTO.md`, Sección 5.2.
+  * Visualización progresiva del grafo (1, 2 y N ingredientes) según lo especificado en `PROYECTO.md`, Sección 5.2, incluyendo el control **Mejores / Todas / Peores** con slider de cantidad y el botón "Explorar extremos".
   * Panel lateral (Drawer): medidor de sinergia, matriz NxN, alerta de elemento discordante.
+  * Ficha de detalle de ingrediente con perfil de sabor (`flavor_profile`) y ranking de mejores/peores afinidades (`PROYECTO.md`, Sección 5.4).
   * Endpoints `POST /api/v1/ai/explain-pairing` y `POST /api/v1/ai/suggest-replacement`, con timeout de 3.0s y fallback a `ai_rationale`.
   * Suite de tests `pytest` + `Vitest` corriendo en verde localmente. La automatización de estos tests en un pipeline de CI/CD queda planteada como trabajo futuro (ver `PROYECTO.md`, Sección 9).
   * Memoria técnica final y preparación de la defensa ante el tribunal.
