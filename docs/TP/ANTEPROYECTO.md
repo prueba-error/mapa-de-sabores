@@ -25,7 +25,7 @@ header-includes:
 # Anteproyecto: Mapa de Sabores
 
 > _ISFT 204 / Tecnicatura Superior en Desarrollo de Software_\
-_Desarrollo de Sistemas Web - Prof. Morichetti_\
+_Desarrollo de Sistemas Web - Prof. Adriana Morichetti_\
 _Alumno: Diego Rafael Guaraz_
 
 <!-- --- -->
@@ -67,7 +67,7 @@ _"Mapa de Sabores – Sistema Web Interactivo de Descubrimiento Gastronómico as
 ### 7.1 Funcionalidades Incluidas (MVP — 4 Sprints / 2 Meses)
 
 * **Vista de Exploración (Grafo):** visualización interactiva en Canvas a 60 FPS, con selector Mejores/Todas/Peores, slider de cantidad de nodos (5-20) y botón "Explorar extremos".
-* **Vista de Ficha de Ingrediente:** barras horizontales del perfil sensorial (dulce, ácido, umami, amargo, aromático), ranking de mejores/peores afinidades, y tabla comparativa de perfiles al seleccionar un par específico.
+* **Vista de Ficha de Ingrediente:** barras horizontales del perfil sensorial (dulce, ácido, salado, amargo, umami, aromático), ranking de mejores/peores afinidades, y tabla comparativa de perfiles al seleccionar un par específico.
 * **Vista de Laboratorio:** constructor de combinaciones por etiquetas interactivas (_chips_), medidor de sinergia global (0-100%), matriz cruzada de afinidades, y alerta de ingrediente discordante con sugerencia de reemplazo por IA.
 * **Servicio de IA online con fallback:** explicación en lenguaje natural de una combinación, generada bajo demanda con _timeout_ de 3 segundos y respaldo automático a texto pre-generado.
 * **Autenticación y perfil:** registro, inicio de sesión y guardado de combinaciones favoritas.
@@ -116,7 +116,7 @@ El sistema utiliza un patrón de **Arquitectura Multicapa Desacoplada**:
 +-----------------------------+           +--------------------+
 ``` -->
 
-![Arquitectura](./arq.png){width=90%}
+![Arquitectura](./arq.png){width=100%}
 
 **Stack tecnológico:** React (Vite) + Tailwind CSS + Context API en el frontend; FastAPI (Python) + SQLAlchemy Core + Pydantic en el backend; PostgreSQL 16 + Alembic como base relacional; Google Gemini / OpenAI como proveedores de IA intercambiables detrás de una interfaz agnóstica (`LLMProvider`).
 
@@ -185,7 +185,7 @@ El desarrollo se organiza en **4 sprints de 2 semanas** (8 semanas / 2 meses en 
        +------------------------------------------------------------------+
 ``` -->
 
-![Sprints](./cron.png){width=70%}
+![Sprints](./cron.png){width=80%}
 
 * **Sprint 1 (Semanas 1-2):** Docker Compose (PostgreSQL + FastAPI), esquema DDL con migraciones, endpoints de autenticación. _(~2 días reservados para revisión del esquema y del flujo de JWT)._
 * **Sprint 2 (Semanas 3-4):** script de generación del dataset, matriz de pares antagónicos, herramienta de curación manual, carga inicial (~200-250 ingredientes) y prueba de renderizado del grafo a 60 FPS con datos de ejemplo. _(~1 día de curación manual real, ~1 día de ajuste del grafo)._
