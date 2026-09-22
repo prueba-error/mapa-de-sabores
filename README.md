@@ -39,7 +39,7 @@ cp .env.example .env
 docker compose up -d --build
 
 # 4. Verificar logs de migraciones y servidor backend
-docker compose logs -f backend -->
-```
+docker compose logs -f backend
+``` -->
 
 Para migraciones, carga del dataset y comandos de prueba, ver **[PLAN.md](./PLAN.md)**.
