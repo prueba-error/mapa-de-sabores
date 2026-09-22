@@ -1,34 +1,34 @@
 ---
-papersize: legal
-geometry: top=1.5cm,bottom=1.5cm,left=1.5cm,right=1.5cm
+papersize: a4
+geometry: top=1.75cm,bottom=2cm,left=2cm,right=2cm
 output: pdf_document
 fontsize: 11pt
 header-includes:
-  - \pagenumbering{gobble}
+  - \usepackage{helvet}
+  - \renewcommand{\familydefault}{\sfdefault}
   - \hyphenpenalty=10000
   - \exhyphenpenalty=10000
   - \usepackage{enumitem}
-  - \usepackage{helvet}
-  - \renewcommand{\familydefault}{\sfdefault}
-  - \setlist[itemize,1]{label=$\bullet$}
+  - \setlist[itemize,1]{}
   - \setlist[itemize,2]{}
   - \renewcommand{\figurename}{Figura}
   - \renewcommand{\tablename}{Tabla}
   - \renewcommand{\arraystretch}{1.45}
-  - \usepackage{lmodern}
   - \usepackage{titlesec}
   - |
     \titlespacing*{\section}{0pt}{0em}{0.6em}
-    \titleformat{\section}[display]{\vspace{0em}\titlerule[1.6pt]\vspace{0em}\normalfont\LARGE\bfseries}{}{0pt}{}
+    \titleformat{\section}[display]{\vspace{0.2em}\titlerule[1.6pt]\vspace{-0.2em}\normalfont\LARGE\bfseries}{}{0pt}{}
     \titlespacing*{\subsection}{0pt}{1em}{0.8em}
-    \titleformat{\subsection}[display]{\vspace{1em}\titlerule[0.4pt]\vspace{0em}\normalfont\large\bfseries}{}{0pt}{}
+    \titleformat{\subsection}[display]{\vspace{1.2em}\titlerule[0.4pt]\vspace{-0.2em}\normalfont\large\bfseries}{}{0pt}{}
 ---
 
-# Mapa de Sabores - ANTEPROYECTO
+# Anteproyecto: Mapa de Sabores
 
-> _ISFT 204 - Tecnicatura Superior en Desarrollo de Software_\
+> _ISFT 204 / Tecnicatura Superior en Desarrollo de Software_\
 _Desarrollo de Sistemas Web - Prof. Morichetti_\
 _Alumno: Diego Rafael Guaraz_
+
+<!-- --- -->
 
 ## 1. Tema o Idea del Proyecto
 
@@ -156,11 +156,11 @@ En la siguiente tabla se resumen los riesgos detectados, su nivel de impacto y l
 
 | **Riesgo**                       | **Impacto** | **Mitigación**                                                                  |
 |:---------------------------------|:------------|:--------------------------------------------------------------------------------|
-| Saturación visual en el grafo    | Alto        | Subgrafo paginado y umbral mínimo de afinidad por defecto.                      |
-| Alucinaciones en pares por IA    | Medio       | Prompting estructurado, matriz de incompatibilidades y cola de revisión manual. |
-| Tiempo de curación subestimado   | Medio       | Tiempo reservado explícitamente en el sprint de generación del dataset.         |
-| Latencia o caída de IA online    | Bajo        | Timeout de 3s, reintentos y fallback a texto pre-generado.                      |
-| Brecha de comprensión de código  | Medio       | Tiempo de integración/comprensión reservado en cada sprint.                     |
+| Saturación visual en el grafo    | **Alto**        | Subgrafo paginado y umbral mínimo de afinidad por defecto.                      |
+| Alucinaciones en pares por IA    | **Medio**       | Prompting estructurado, matriz de incompatibilidades y cola de revisión manual. |
+| Tiempo de curación subestimado   | **Medio**       | Tiempo reservado explícitamente en el sprint de generación del dataset.         |
+| Latencia o caída de IA online    | **Bajo**        | Timeout de 3s, reintentos y fallback a texto pre-generado.                      |
+| Brecha de comprensión de código  | **Medio**       | Tiempo de integración/comprensión reservado en cada sprint.                     |
 
 :Riesgos identificados en el proyecto
 
@@ -193,3 +193,5 @@ El desarrollo se organiza en **4 sprints de 2 semanas** (8 semanas / 2 meses en 
 * **Sprint 4 (Semanas 7-8):** construcción de las 3 vistas del frontend, integración de la IA en línea con fallback, suite de pruebas automatizadas, y memoria técnica final. _(~2 días de margen para pulir la UX del grafo y repasar la justificación de cada decisión de diseño de cara a la defensa.)_
 
 Al cierre de estos 4 sprints se espera contar con: una aplicación web funcional con las 3 vistas operativas de punta a punta; un dataset curado sin pares pendientes de revisión; una demostración reproducible ante la cátedra (explorar el grafo, armar una combinación en el laboratorio, y obtener una explicación de IA en vivo, con su fallback funcionando si la IA no responde); y una defensa académica en la que el alumno pueda justificar técnicamente cada decisión de arquitectura y código adoptada.
+
+$$\cdots$$
