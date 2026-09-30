@@ -18,8 +18,8 @@
                                       v
        +--------------------------------------------------------------+
        |   FASE 2: Backend Core & Frontend Completo (Mes 2)           |
-       |   * Sprint 3: REST API Grafo, Sinergia N x N & Favoritos     |
-       |   * Sprint 4: UI Grafo 2D, IA Online, QA Manual & Defensa    |
+       |   * Sprint 3: REST API, Sinergia N x N, Favoritos & Base UI  |
+       |   * Sprint 4: UI 3 Vistas, IA Online, QA & Defensa           |
        +--------------------------------------------------------------+
 ```
 
@@ -60,6 +60,7 @@
 * **Entregables:**
   * Endpoints: `GET /api/v1/graph` (paginado, `limit=50`, `sort=best|worst|all`), `GET /api/v1/ingredients`, `GET /api/v1/ingredients/{id}` (incluye `flavor_profile`), `GET /api/v1/ingredients/{id}/pairings` (con `sort=best|worst` para ranking de mejores/peores), `POST /api/v1/pairings/evaluate`.
   * Algoritmo determinístico de evaluación: índice de sinergia global como promedio de `affinity_score` sobre los pares del grupo con dato, indicador `coverage` (ej. 4 de 6 pares), matriz de pares cruzados NxN con celdas nulas y detección del ingrediente discordante (solo N ≥ 3; menor afinidad promedio contra el resto, calculada sobre los pares con dato).
+  * **Base del frontend:** Vite + Tailwind, rutas `/explore`, `/ingredient/:id` y `/lab`, `LabContext`, cliente de API tipado y Vista 1 conectada a `GET /api/v1/graph` (sin filtros avanzados), con Vitest configurado y un test de humo del cliente.
   * Endpoints de favoritos: `GET` / `POST` / `DELETE /api/v1/users/me/favorites`, modelados como conjuntos de ingredientes (`favorite_combinations`).
 * **Tiempo reservado:** ~1 día para verificar que los contratos Pydantic del backend coincidan exactamente con lo que consume el frontend (punto típico de fricción entre piezas generadas por separado).
 * **Criterios de Aceptación (TDD):** pruebas unitarias en `pytest` para la matemática de sinergia (incluidos pares sin dato, cobertura y el caso N=2) y para el guardado/recuperación de favoritos.
@@ -67,8 +68,8 @@
 #### **Sprint 4 (Semanas 7-8) — Frontend 3 Vistas (Explorar, Ficha, Laboratorio), IA Online y Defensa**
 * **Objetivo:** construir la interfaz interactiva completa dividida en 3 vistas principales, integrar la IA en línea y preparar la defensa académica.
 * **Entregables:**
-  * **Navbar & Navegación Modular:** Barra superior con pestañas y estado compartido `LabContext` (Context API).
-  * **Vista 1 (Explorar Grafo):** Visualización progresiva 2D con `react-force-graph-2d`, controles **Mejores / Todas / Peores**, slider de cantidad y botón **"Explorar extremos"**.
+  * **Navbar & Navegación Modular:** Barra superior con pestañas (el estado compartido `LabContext` ya existe desde el Sprint 3).
+  * **Vista 1 (Explorar Grafo):** Completar, sobre la base del Sprint 3, la visualización progresiva 2D con `react-force-graph-2d`, controles **Mejores / Todas / Peores**, slider de cantidad y botón **"Explorar extremos"**.
   * **Vista 2 (Ficha de Ingrediente):** Ficha sensorial con barras de `flavor_profile`, ranking de mejores/peores afinidades y **tabla comparativa de perfiles** para pares específicos.
   * **Vista 3 (Laboratorio de Combinaciones):** Constructor por **chips** interactivos, medidor de sinergia con indicador de cobertura, matriz cruzada $N \times N$ (celdas "sin dato") y alerta de ingrediente discordante.
   * Endpoints `POST /api/v1/ai/explain-pairing` y `POST /api/v1/ai/suggest-replacement`, con presupuesto total de 8 s y fallback a `ai_rationale` guardado o mensaje genérico (campo `source`).

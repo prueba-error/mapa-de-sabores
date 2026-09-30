@@ -27,7 +27,7 @@ El proyecto resuelve el problema del maridaje e innovación culinaria mediante u
 
 ### 2.1 Problema Identificado
 
-El descubrimiento de combinaciones de ingredientes (maridaje o _flavor pairing_) tradicionalmente ha dependido de la intuición empírica o de enciclopedias culinarias estáticas. Aunque existen teorías científicas de maridaje de sabores (compartir compuestos aromáticos clave), no existen herramientas web abiertas e interactivas en español que combinen exploración visual intuitiva en forma de grafo dinámico con explicaciones organolépticas personalizadas en lenguaje natural.
+El descubrimiento de combinaciones de ingredientes (maridaje o _flavor pairing_) tradicionalmente ha dependido de la intuición empírica o de enciclopedias culinarias estáticas. Aunque existen teorías científicas de maridaje de sabores (compartir compuestos aromáticos clave), las herramientas de _flavor pairing_ existentes están mayormente en inglés y son pocas las abiertas e interactivas en español que combinen exploración visual intuitiva en forma de grafo dinámico con explicaciones organolépticas personalizadas en lenguaje natural.
 
 ### 2.2 Objetivos del Proyecto
 
@@ -146,21 +146,21 @@ La interfaz se estructura en **tres vistas principales dedicadas**, accesibles m
   * Medidor de **Sinergia Global (0 a 100%)** basado en `POST /pairings/evaluate`, con un indicador de cobertura (ej. "4 de 6 pares con dato").
   * Matriz cruzada $N \times N$ de compatibilidad de pares; las celdas sin dato se muestran como "sin dato".
   * Alerta de ingrediente discordante con sugerencia de reemplazo asistida por IA.
-* *Nota de alcance:* Se preservan únicamente las métricas calculadas a partir del backend existente (`synergy_score`, matriz $N \times N$ y discordante). Se descartan tanto métricas adicionales de "contraste" o "complejidad" como un sistema de sugerencias para expandir la combinación (qué ingrediente agregar a continuación), por requerir lógica de agregación nueva no cubierta por los endpoints actuales — ver `PROYECTO.md`, Sección 9 ("Trabajo Futuro").
+* *Nota de alcance:* Se preservan únicamente las métricas calculadas a partir del backend existente (`synergy_score`, matriz $N \times N$ y discordante). Se descartan tanto métricas adicionales de "contraste" o "complejidad" como un sistema de sugerencias para expandir la combinación (qué ingrediente agregar a continuación), por requerir lógica de agregación nueva no cubierta por los endpoints actuales — ver Sección 9 ("Trabajo Futuro").
 
 ---
 
 ## 6. Modelo de Usuario y Accesibilidad de la Plataforma
 
-La plataforma ofrece acceso completo a todas sus funcionalidades para los usuarios registrados:
+La exploración es pública; solo el guardado de favoritos requiere cuenta:
 
-| Característica / Funcionalidad | Especificación (Acceso Completo) |
-| :--- | :--- |
-| **Límite de Ingredientes por Búsqueda** | Hasta 10 ingredientes |
-| **Visualización de Grafo y Sinergia** | Acceso completo e interactivo en 2D |
-| **Explicación de Chef con IA** | Generación en tiempo real con fallback a PostgreSQL |
-| **Guardado en Servidor** | Guardado de combinaciones favoritas por usuario |
-| **Autenticación** | Registro e inicio de sesión simplificado mediante JWT de sesión única |
+| Funcionalidad | Anónimo | Registrado |
+| :--- | :---: | :---: |
+| Grafo 2D, Ficha de ingrediente y Laboratorio (2 a 10 ingredientes) | Sí | Sí |
+| Explicación de Chef con IA (con fallback a texto guardado) | Sí | Sí |
+| Guardado de combinaciones favoritas | No | Sí |
+| Límite de tasa (`slowapi`) | 60 req/min por IP | 120 req/min |
+| Autenticación | — | Registro e inicio de sesión mediante JWT de sesión única |
 
 ---
 
@@ -178,8 +178,8 @@ El desarrollo se estructura en **4 sprints de 2 semanas**, con tiempo reservado 
                                       v
        +------------------------------------------------------------------+
        |    MES 2: Backend Core & Frontend Completo                       |
-       |    - Sprint 3: REST API Grafo, Sinergia N x N & Favoritos        |
-       |    - Sprint 4: UI Grafo 2D, IA Online, QA Manual & Defensa       |
+       |    - Sprint 3: REST API, Sinergia N x N, Favoritos & Base UI     |
+       |    - Sprint 4: UI 3 Vistas, IA Online, QA & Defensa              |
        +------------------------------------------------------------------+
 ```
 
@@ -191,9 +191,9 @@ El desarrollo se estructura en **4 sprints de 2 semanas**, con tiempo reservado 
 
 | Riesgo Identificado | Impacto | Mitigación Planificada |
 | :--- | :--- | :--- |
-| **Saturación visual en el grafo** | Alto | Subgrafo paginado (`GET /graph?limit=50`) y `min_affinity` por defecto en 0.50. |
+| **Saturación visual en el grafo** | Alto | Subgrafo paginado (`GET /graph?limit=50`) y `min_affinity` por defecto en 0.50 en el modo Mejores. |
 | **Alucinaciones en pares generados por IA** | Medio | Prompting estructurado, matriz de incompatibilidades y cola de revisión manual (`pairing_review_queue`). |
-| **Tiempo de curación manual subestimado** | Medio | Se reserva tiempo explícito en Sprint 2 para revisar los pares marcados como dudosos. |
+| **Tiempo de curación manual subestimado** | Medio | Se reserva tiempo explícito en Sprint 2 para revisar los pares marcados como dudosos y la muestra de auditoría. |
 | **Latencia o caída del proveedor de IA online** | Bajo | Presupuesto total de 8 s por solicitud (reintentos y cambio de proveedor incluidos) y fallback al `ai_rationale` guardado o a un mensaje genérico. |
 | **Brecha entre "código generado" y "código comprendido"** | Medio | Tiempo de integración/comprensión reservado en cada sprint; el alumno debe poder justificar cada decisión de diseño en la defensa. |
 

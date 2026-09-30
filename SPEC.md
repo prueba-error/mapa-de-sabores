@@ -32,7 +32,6 @@ CREATE TABLE flavor_pairings (
     affinity_score NUMERIC(3,2) NOT NULL CHECK (affinity_score BETWEEN 0.00 AND 1.00),
     ai_rationale VARCHAR(300), -- Explicación prediseñada acotada a máx 300 caracteres
     source_type VARCHAR(30) DEFAULT 'llm_synthesis', -- 'llm_synthesis', 'manual_review'
-    confidence_score NUMERIC(3,2) DEFAULT 0.85 CHECK (confidence_score BETWEEN 0.00 AND 1.00),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT chk_ordered_pair CHECK (ingredient_a_id < ingredient_b_id),
@@ -40,7 +39,7 @@ CREATE TABLE flavor_pairings (
     CONSTRAINT chk_rationale_len CHECK (length(ai_rationale) <= 300)
 );
 
-CREATE INDEX idx_pairings_a ON flavor_pairings(ingredient_a_id);
+-- La búsqueda por ingredient_a_id la cubre el índice compuesto que crea uq_ingredient_pair (a, b).
 CREATE INDEX idx_pairings_b ON flavor_pairings(ingredient_b_id);
 CREATE INDEX idx_pairings_score ON flavor_pairings(affinity_score DESC);
 
@@ -199,7 +198,7 @@ Ambas reglas reutilizan `flavor_pairings.affinity_score` sin necesidad de una ta
 * `DELETE /api/v1/users/me/favorites/{id}` — elimina una combinación favorita propia.
 
 ### 3.5 Curación (uso interno, no expuesto al usuario final)
-* Gestión de `pairing_review_queue` vía `scripts/curate.py` (CLI local), no vía endpoint HTTP, dado que el único rol de curación es ejercido por el propio alumno (ver `PROYECTO.md`, Sección 2.3).
+* Gestión de `pairing_review_queue` vía `scripts/curate.py` (CLI local), no vía endpoint HTTP, dado que el único rol de curación es ejercido por el propio alumno (ver `PROYECTO.md`, Sección 4).
 
 ---
 
@@ -228,7 +227,7 @@ Notas técnicas adicionales de implementación:
 * **Estado Global Compartido (Context API):** `LabContext` gestiona los ingredientes seleccionados (mesa de chips del Laboratorio) permitiendo la acción *"Agregar al Laboratorio"* de forma transparente desde los nodos del Grafo en la Vista 1 y desde la Ficha en la Vista 2.
 * **Motor de Grafo:** `react-force-graph-2d` sobre HTML5 Canvas, target de 60 FPS / < 16ms por recálculo.
 * **Colores de Arista:** verde (`affinity_score > 0.75`), amarillo (`0.45–0.75`), rojo punteado (`< 0.45`).
-* **Mapeo de Filtros:** Controles **Mejores / Todas / Peores** y slider de cantidad mapean a los parámetros `sort` y `limit` de `GET /api/v1/graph`.
+* **Mapeo de Filtros:** El selector **Mejores / Todas / Peores** mapea a `sort` de `GET /api/v1/graph` (carga inicial global, `limit=50` aristas) y de `GET /api/v1/ingredients/{id}/pairings` (nodo activo). El slider de cantidad (5–20) mapea a `limit` de este segundo endpoint, es decir, cuántos vecinos del nodo activo se muestran.
 * **Botón "Explorar Extremos":** Consume `GET /api/v1/ingredients/{id}/pairings` con `sort=best&limit=1` y `sort=worst&limit=1`.
 * **Tabla Comparativa de Perfiles (Vista 2):** Se construye al seleccionar una arista específica enfrentando los JSONB de `flavor_profile` de ambos ingredientes. Los valores numéricos se muestran como etiquetas (Bajo < 0.34, Medio 0.34–0.66, Alto > 0.66).
 * **Mesa del Laboratorio (Vista 3):** Renderizado de chips reactivos. Al modificar los chips se invoca en tiempo real `POST /api/v1/pairings/evaluate`, mostrando el indicador `coverage` y las celdas sin dato como "sin dato".
