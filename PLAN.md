@@ -33,7 +33,7 @@
 * **Objetivo:** establecer la infraestructura base y el esquema de base de datos relacional.
 * **Entregables:**
   * PostgreSQL 16 configurado en `docker-compose.yml`.
-  * Esquema DDL aplicado: `categories`, `ingredients`, `flavor_pairings`, `users`, `user_favorite_pairings`, `pairing_review_queue`.
+  * Esquema DDL aplicado: `categories`, `ingredients`, `flavor_pairings`, `users`, `favorite_combinations`, `favorite_combination_items`, `pairing_review_queue`.
   * Migración inicial de Alembic en `backend/alembic/versions/`.
   * Endpoints de auth (`register`, `login`, `me`) funcionando de punta a punta.
 * **Tiempo reservado (integración/comprensión):** ~2 días para leer y poder explicar el esquema DDL generado y el flujo de JWT antes de avanzar al Sprint 2.
@@ -60,7 +60,7 @@
 * **Entregables:**
   * Endpoints: `GET /api/v1/graph` (paginado, `limit=50`, `sort=best|worst|all`), `GET /api/v1/ingredients`, `GET /api/v1/ingredients/{id}` (incluye `flavor_profile`), `GET /api/v1/ingredients/{id}/pairings` (con `sort=best|worst` para ranking de mejores/peores), `POST /api/v1/pairings/evaluate`.
   * Algoritmo determinístico de evaluación: índice de sinergia global como promedio de `affinity_score` sobre los pares del grupo con dato, indicador `coverage` (ej. 4 de 6 pares), matriz de pares cruzados NxN con celdas nulas y detección del ingrediente discordante (solo N ≥ 3; menor afinidad promedio contra el resto, calculada sobre los pares con dato).
-  * Endpoints de favoritos: `GET` / `POST /api/v1/users/me/favorites`.
+  * Endpoints de favoritos: `GET` / `POST` / `DELETE /api/v1/users/me/favorites`, modelados como conjuntos de ingredientes (`favorite_combinations`).
 * **Tiempo reservado:** ~1 día para verificar que los contratos Pydantic del backend coincidan exactamente con lo que consume el frontend (punto típico de fricción entre piezas generadas por separado).
 * **Criterios de Aceptación (TDD):** pruebas unitarias en `pytest` para la matemática de sinergia (incluidos pares sin dato, cobertura y el caso N=2) y para el guardado/recuperación de favoritos.
 

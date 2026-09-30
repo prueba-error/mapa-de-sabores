@@ -53,11 +53,21 @@ CREATE TABLE users (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE user_favorite_pairings (
-    user_id INT REFERENCES users(id) ON DELETE CASCADE,
-    pairing_id INT REFERENCES flavor_pairings(id) ON DELETE CASCADE,
+-- Una combinación favorita es un conjunto de 2 a 10 ingredientes (no un conjunto de pares):
+-- así se conserva la identidad del grupo aunque falten pares con dato.
+CREATE TABLE favorite_combinations (
+    id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    name VARCHAR(100),
+    ingredient_key VARCHAR(100) NOT NULL, -- ids ordenados y unidos, ej: '12-45-88' (evita duplicados)
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (user_id, pairing_id)
+    CONSTRAINT uq_user_combination UNIQUE (user_id, ingredient_key)
+);
+
+CREATE TABLE favorite_combination_items (
+    combination_id INT NOT NULL REFERENCES favorite_combinations(id) ON DELETE CASCADE,
+    ingredient_id INT NOT NULL REFERENCES ingredients(id) ON DELETE CASCADE,
+    PRIMARY KEY (combination_id, ingredient_id)
 );
 
 -- 5. Cola de Revisión para Curación Manual de Pares Dudosos
@@ -184,8 +194,9 @@ Ambas reglas reutilizan `flavor_pairings.affinity_score` sin necesidad de una ta
 * `POST /api/v1/ai/suggest-replacement` — sugiere un reemplazo para el ingrediente discordante detectado por `/pairings/evaluate`.
 
 ### 3.4 Favoritos (`/api/v1/users/me/favorites`)
-* `GET /api/v1/users/me/favorites` — combinaciones favoritas guardadas por el usuario autenticado.
-* `POST /api/v1/users/me/favorites` — guarda una combinación (lista de `pairing_id`) como favorita.
+* `GET /api/v1/users/me/favorites` — combinaciones favoritas del usuario autenticado; cada una con `id`, `name`, `ingredient_ids` y `created_at`.
+* `POST /api/v1/users/me/favorites` — guarda una combinación. Body: `{"name": "opcional", "ingredient_ids": [12, 45, 88]}` (2 a 10 ids). Si el mismo conjunto de ingredientes ya existe para ese usuario, responde `409`.
+* `DELETE /api/v1/users/me/favorites/{id}` — elimina una combinación favorita propia.
 
 ### 3.5 Curación (uso interno, no expuesto al usuario final)
 * Gestión de `pairing_review_queue` vía `scripts/curate.py` (CLI local), no vía endpoint HTTP, dado que el único rol de curación es ejercido por el propio alumno (ver `PROYECTO.md`, Sección 2.3).
@@ -224,6 +235,6 @@ Notas técnicas adicionales de implementación:
 
 ## 6. Estrategia de Pruebas (TDD)
 
-* **Backend:** `pytest` + `pytest-asyncio` + `httpx`, con cobertura concentrada en lógica de negocio crítica: cálculo de sinergia NxN (incluidos pares sin dato, cobertura y el caso N=2), emisión/validación de JWT, y el flujo de aprobación/rechazo de `pairing_review_queue`.
+* **Backend:** `pytest` + `pytest-asyncio` + `httpx`, con cobertura concentrada en lógica de negocio crítica: cálculo de sinergia NxN (incluidos pares sin dato, cobertura y el caso N=2), emisión/validación de JWT, favoritos por conjunto de ingredientes y el flujo de aprobación/rechazo de `pairing_review_queue`.
 * **Frontend:** `Vitest` + `React Testing Library` + `MSW` para componentes del grafo, la ficha de ingrediente y el laboratorio de combinaciones.
 * **Ejecución:** local, vía `pytest` y `npm run test:run` antes de cada entrega de sprint. La automatización en un pipeline de CI/CD queda planteada como trabajo futuro (ver `PROYECTO.md`, Sección 9).
