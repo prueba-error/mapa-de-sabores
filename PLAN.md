@@ -120,21 +120,24 @@ LLM_TIMEOUT_SECONDS=8.0 # presupuesto total por solicitud (reintentos y cambio d
 ### 4.2 Orquestación con Docker Compose (`docker-compose.yml`)
 
 ```yaml
-version: '3.8'
-
 services:
   db:
     image: postgres:16-alpine
     container_name: mapa_sabores_db
     restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres_secret
-      POSTGRES_DB: mapa_sabores
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   backend:
     build: ./backend
@@ -145,13 +148,16 @@ services:
     env_file:
       - .env
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     command: >
       sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
 
 volumes:
   postgres_data:
 ```
+
+Docker Compose lee `.env` para sustituir las variables `${...}`, de modo que las credenciales viven en un único lugar. El `healthcheck` evita que el backend intente migrar antes de que PostgreSQL esté listo.
 
 ### 4.3 Script de Snapshot y Restauración (`scripts/backup.sh`)
 
@@ -169,7 +175,7 @@ mkdir -p "$BACKUP_DIR"
 case "${1:-backup}" in
   backup)
     echo "Generando snapshot de base de datos..."
-    docker exec -t mapa_sabores_db pg_dump -U postgres -d mapa_sabores > "$FILENAME"
+    docker exec -i mapa_sabores_db pg_dump -U postgres -d mapa_sabores --clean --if-exists > "$FILENAME"
     echo "Snapshot guardado exitosamente en: $FILENAME"
     ;;
   restore)
@@ -188,4 +194,4 @@ case "${1:-backup}" in
 esac
 ```
 
-Correr `scripts/backup.sh backup` antes de cada corrida masiva del pipeline de seed (Sprint 2), como red de seguridad ante datos corruptos por un error de curación.
+El volcado usa `--clean --if-exists`, por lo que `restore` reemplaza los objetos existentes en lugar de chocar con ellos (y `docker exec -i`, sin `-t`, evita que la pseudo-terminal altere el archivo). Correr `scripts/backup.sh backup` antes de cada corrida masiva del pipeline de seed (Sprint 2), como red de seguridad ante datos corruptos por un error de curación.
