@@ -71,7 +71,7 @@
   * **Vista 1 (Explorar Grafo):** Visualización progresiva 2D con `react-force-graph-2d`, controles **Mejores / Todas / Peores**, slider de cantidad y botón **"Explorar extremos"**.
   * **Vista 2 (Ficha de Ingrediente):** Ficha sensorial con barras de `flavor_profile`, ranking de mejores/peores afinidades y **tabla comparativa de perfiles** para pares específicos.
   * **Vista 3 (Laboratorio de Combinaciones):** Constructor por **chips** interactivos, medidor de sinergia con indicador de cobertura, matriz cruzada $N \times N$ (celdas "sin dato") y alerta de ingrediente discordante.
-  * Endpoints `POST /api/v1/ai/explain-pairing` y `POST /api/v1/ai/suggest-replacement`, con timeout de 3.0s y fallback a `ai_rationale`.
+  * Endpoints `POST /api/v1/ai/explain-pairing` y `POST /api/v1/ai/suggest-replacement`, con presupuesto total de 8 s y fallback a `ai_rationale` guardado o mensaje genérico (campo `source`).
   * Suite de tests `pytest` + `Vitest` corriendo en verde localmente.
   * Memoria técnica final y preparación de la defensa ante el tribunal.
 * **Opcional (solo si sobra tiempo, no forma parte del Definition of Done):** endpoint `GET /api/v1/pairings/suggest-additions` y las dos listas correspondientes ("Para aumentar sinergia" / "Para experimentar") en la Vista 3, según la especificación ya resuelta en `SPEC.md`, Sección 3.2.1.
@@ -84,7 +84,7 @@
 1. **Configuración de Entorno Local:** crear `.env.example` y la infraestructura base de `docker-compose.yml` (PostgreSQL + FastAPI).
 2. **Migración Inicial de Base de Datos:** inicializar Alembic y generar la migración DDL inicial (`001_initial_schema.py`).
 3. **Scaffolding del Data Pipeline:** crear `scripts/seed_flavor_network.py` con el flag `--dry-run` para validar esquemas Pydantic sin gastar cuota de API.
-4. **Implementación de Servicio de IA:** crear la interfaz agnóstica `LLMProvider` (adaptadores Gemini/OpenAI, timeout 3s, retries y fallback).
+4. **Implementación de Servicio de IA:** crear la interfaz agnóstica `LLMProvider` (adaptadores Gemini/OpenAI con modelo configurable por entorno, presupuesto total de 8 s, retries y fallback).
 5. **Primeras Pruebas Unitarias TDD:** escribir las pruebas con `pytest` para la matemática determinística de `POST /api/v1/pairings/evaluate`.
 
 ---
@@ -111,7 +111,9 @@ ACCESS_TOKEN_EXPIRE_DAYS=7
 GEMINI_API_KEY=tu_google_gemini_api_key
 OPENAI_API_KEY=tu_openai_api_key
 LLM_PRIMARY_PROVIDER=gemini # "gemini" | "openai"
-LLM_TIMEOUT_SECONDS=3.0
+GEMINI_MODEL=id_del_modelo_flash_vigente   # verificar en la documentación del proveedor
+OPENAI_MODEL=id_del_modelo_mini_vigente    # verificar en la documentación del proveedor
+LLM_TIMEOUT_SECONDS=8.0 # presupuesto total por solicitud (reintentos y cambio de proveedor incluidos)
 ```
 
 ### 4.2 Orquestación con Docker Compose (`docker-compose.yml`)

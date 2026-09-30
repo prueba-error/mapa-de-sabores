@@ -190,8 +190,8 @@ WHERE p.ingredient_a_id = :ingredient_id OR p.ingredient_b_id = :ingredient_id
 Ambas reglas reutilizan `flavor_pairings.affinity_score` sin necesidad de una tabla o campo nuevo.
 
 ### 3.3 Inteligencia Artificial (`/api/v1/ai`)
-* `POST /api/v1/ai/explain-pairing` — genera (o recupera de fallback) una explicación en prosa para un par o grupo de ingredientes.
-* `POST /api/v1/ai/suggest-replacement` — sugiere un reemplazo para el ingrediente discordante detectado por `/pairings/evaluate`.
+* `POST /api/v1/ai/explain-pairing` — genera (o recupera de fallback) una explicación en prosa para un par o grupo de ingredientes. La respuesta incluye `source: "llm" | "stored" | "generic"`. Fallbacks: para un par con dato, su `ai_rationale` guardado (`stored`); para un grupo de más de 2, los `ai_rationale` de los pares mejor y peor puntuados (`stored`); si no hay ningún par con dato, un mensaje genérico (`generic`).
+* `POST /api/v1/ai/suggest-replacement` — sugiere un reemplazo para el ingrediente discordante detectado por `/pairings/evaluate`. No existe texto guardado equivalente, por lo que su fallback es un mensaje genérico (`source: "generic"`).
 
 ### 3.4 Favoritos (`/api/v1/users/me/favorites`)
 * `GET /api/v1/users/me/favorites` — combinaciones favoritas del usuario autenticado; cada una con `id`, `name`, `ingredient_ids` y `created_at`.
@@ -211,9 +211,10 @@ Ambas reglas reutilizan `flavor_pairings.affinity_score` sin necesidad de una ta
 3. **Control de Tasa (`slowapi`):** rate limiting de 60 req/min por IP anónima y 120 req/min para llamadas autenticadas.
 
 ### 4.2 Resiliencia del Servicio de IA
-1. **Timeout Estricto:** 3.0 segundos en llamadas HTTP a LLMs cloud.
-2. **Reintentos:** máximo 1 reintento en errores 5xx.
-3. **Jerarquía de Fallback:** Gemini 1.5 Flash → OpenAI GPT-4o-mini → fallback local al `ai_rationale` guardado en `flavor_pairings` (100% disponibilidad garantizada).
+1. **Presupuesto Total de Tiempo:** 8.0 segundos por solicitud (`LLM_TIMEOUT_SECONDS`), compartido entre el reintento y el cambio de proveedor. Cada intento usa el tiempo restante y no se inicia uno nuevo si no queda presupuesto.
+2. **Reintentos:** máximo 1 reintento en errores 5xx, solo si queda presupuesto.
+3. **Jerarquía de Fallback:** Gemini (modelo Flash vigente, `GEMINI_MODEL`) → OpenAI (modelo mini vigente, `OPENAI_MODEL`) → fallback local: `ai_rationale` guardado o mensaje genérico. Los IDs de modelo se configuran por entorno para no depender de versiones retiradas; se verifican contra la documentación del proveedor.
+4. **Contrato Honesto:** el endpoint siempre responde (una caída del proveedor nunca produce un 5xx), pero no garantiza texto generado: el campo `source` le indica a la UI si el texto es en vivo, guardado o genérico, y el frontend muestra estado de carga y el origen.
 
 ---
 

@@ -194,7 +194,7 @@ El desarrollo se estructura en **4 sprints de 2 semanas**, con tiempo reservado 
 | **Saturación visual en el grafo** | Alto | Subgrafo paginado (`GET /graph?limit=50`) y `min_affinity` por defecto en 0.50. |
 | **Alucinaciones en pares generados por IA** | Medio | Prompting estructurado, matriz de incompatibilidades y cola de revisión manual (`pairing_review_queue`). |
 | **Tiempo de curación manual subestimado** | Medio | Se reserva tiempo explícito en Sprint 2 para revisar los pares marcados como dudosos. |
-| **Latencia o caída del proveedor de IA online** | Bajo | Timeout de 3s, reintentos y fallback al `ai_rationale` guardado en base. |
+| **Latencia o caída del proveedor de IA online** | Bajo | Presupuesto total de 8 s por solicitud (reintentos y cambio de proveedor incluidos) y fallback al `ai_rationale` guardado o a un mensaje genérico. |
 | **Brecha entre "código generado" y "código comprendido"** | Medio | Tiempo de integración/comprensión reservado en cada sprint; el alumno debe poder justificar cada decisión de diseño en la defensa. |
 
 ### 8.2 Viabilidad Económica
