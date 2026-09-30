@@ -160,9 +160,10 @@ WHERE p.ingredient_a_id = :ingredient_id OR p.ingredient_b_id = :ingredient_id
 * `GET /api/v1/ingredients/{id}` — detalle del ingrediente, incluyendo `flavor_profile` (JSONB con ejes dulce/ácido/salado/amargo/umami/aromático, etc.).
 * `GET /api/v1/ingredients/{id}/pairings` — vecinos directos y sus afinidades; acepta `sort=best|worst` (por defecto `best`) y `limit` para separar el ranking de mejores y peores combinaciones sin lógica adicional en el backend, solo ordenamiento sobre `flavor_pairings.affinity_score`.
 * `POST /api/v1/pairings/evaluate` — recibe una lista de 2 a 10 `ingredient_id`, devuelve:
-  * `synergy_score` (0–100): promedio simple de `affinity_score` sobre todos los pares del grupo (para N ingredientes, los `N*(N-1)/2` pares posibles), escalado a porcentaje;
-  * `pairwise_matrix`: afinidad cruzada NxN;
-  * `clashing_ingredients`: ingredientes cuya afinidad promedio contra el resto del grupo es menor a 45% (el mínimo de esos promedios define el "ingrediente discordante" principal).
+  * `synergy_score` (0–100): promedio simple de `affinity_score` sobre los pares del grupo **que tienen dato** (de los `N*(N-1)/2` pares posibles), escalado a porcentaje; `null` si ningún par tiene dato;
+  * `coverage`: `{"pairs_with_data": 4, "pairs_total": 6}`; la UI lo muestra como "4 de 6 pares con dato", porque el dataset es disperso (~4 % de los pares posibles) y el score no debe presentarse como más firme de lo que es;
+  * `pairwise_matrix`: afinidad cruzada NxN, con `null` en las celdas sin dato;
+  * `clashing_ingredients`: solo para N ≥ 3; ingredientes cuya afinidad promedio contra el resto del grupo (calculada únicamente sobre sus pares con dato) es menor a 45%. Un ingrediente sin ningún par con dato no participa. El mínimo de esos promedios define el "ingrediente discordante" principal. Para N = 2 la lista es vacía (ambos tendrían el mismo promedio).
 
 #### 3.2.1 (Opcional / Stretch Goal) Sugerencias para Expandir una Combinación
 
@@ -217,12 +218,12 @@ Notas técnicas adicionales de implementación:
 * **Mapeo de Filtros:** Controles **Mejores / Todas / Peores** y slider de cantidad mapean a los parámetros `sort` y `limit` de `GET /api/v1/graph`.
 * **Botón "Explorar Extremos":** Consume `GET /api/v1/ingredients/{id}/pairings` con `sort=best&limit=1` y `sort=worst&limit=1`.
 * **Tabla Comparativa de Perfiles (Vista 2):** Se construye al seleccionar una arista específica enfrentando los JSONB de `flavor_profile` de ambos ingredientes. Los valores numéricos se muestran como etiquetas (Bajo < 0.34, Medio 0.34–0.66, Alto > 0.66).
-* **Mesa del Laboratorio (Vista 3):** Renderizado de chips reactivos. Al modificar los chips se invoca en tiempo real `POST /api/v1/pairings/evaluate`.
+* **Mesa del Laboratorio (Vista 3):** Renderizado de chips reactivos. Al modificar los chips se invoca en tiempo real `POST /api/v1/pairings/evaluate`, mostrando el indicador `coverage` y las celdas sin dato como "sin dato".
 
 ---
 
 ## 6. Estrategia de Pruebas (TDD)
 
-* **Backend:** `pytest` + `pytest-asyncio` + `httpx`, con cobertura concentrada en lógica de negocio crítica: cálculo de sinergia NxN, emisión/validación de JWT, y el flujo de aprobación/rechazo de `pairing_review_queue`.
+* **Backend:** `pytest` + `pytest-asyncio` + `httpx`, con cobertura concentrada en lógica de negocio crítica: cálculo de sinergia NxN (incluidos pares sin dato, cobertura y el caso N=2), emisión/validación de JWT, y el flujo de aprobación/rechazo de `pairing_review_queue`.
 * **Frontend:** `Vitest` + `React Testing Library` + `MSW` para componentes del grafo, la ficha de ingrediente y el laboratorio de combinaciones.
 * **Ejecución:** local, vía `pytest` y `npm run test:run` antes de cada entrega de sprint. La automatización en un pipeline de CI/CD queda planteada como trabajo futuro (ver `PROYECTO.md`, Sección 9).

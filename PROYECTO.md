@@ -84,7 +84,7 @@ El sistema utiliza un patrón de **Arquitectura Multicapa Desacoplada**:
 
 1. **Carga Inicial del Grafo:** el cliente React solicita `GET /api/v1/graph`. FastAPI consulta PostgreSQL y retorna los nodos y enlaces activos (subgrafo paginado, ordenable por mayor o menor afinidad).
 2. **Exploración y Filtrado:** el usuario selecciona un nodo (ej: _Tomate_). El frontend resalta vecinos y solicita `GET /api/v1/ingredients/{id}/pairings`, pudiendo pedir el ranking de mejores o peores afinidades para ese ingrediente.
-3. **Evaluación de Sinergia en el Laboratorio:** al combinar varios ingredientes en la vista de Laboratorio, el frontend invoca `POST /api/v1/pairings/evaluate`, que calcula el índice de sinergia global como el promedio de `affinity_score` de todos los pares del grupo, arma la matriz NxN de afinidades cruzadas, y señala como ingrediente discordante al que tiene menor afinidad promedio contra el resto del grupo.
+3. **Evaluación de Sinergia en el Laboratorio:** al combinar varios ingredientes en la vista de Laboratorio, el frontend invoca `POST /api/v1/pairings/evaluate`, que calcula el índice de sinergia global como el promedio de `affinity_score` de los pares del grupo que tienen dato (e informa la cobertura, por ejemplo 4 de 6 pares), arma la matriz NxN de afinidades cruzadas, y señala como ingrediente discordante (solo con 3 o más ingredientes) al que tiene menor afinidad promedio contra el resto del grupo.
 4. **Explicación con IA (Online):** al presionar "¿Por qué combinan?", el frontend invoca `POST /api/v1/ai/explain-pairing`. FastAPI utiliza la interfaz `LLMProvider` para generar un párrafo descriptivo con tono gastronómico.
 
 El detalle técnico completo de este flujo está en **[SPEC.md](./SPEC.md)**.
@@ -143,8 +143,8 @@ La interfaz se estructura en **tres vistas principales dedicadas**, accesibles m
 ### 5.3 Vista 3: Laboratorio (Constructor de Combinaciones)
 * **Mesa de Trabajo por Chips:** El usuario construye y modifica combinaciones agregando o quitando ingredientes en forma de etiquetas interactivas (_chips_).
 * **Métricas y Análisis Determinístico:**
-  * Medidor de **Sinergia Global (0 a 100%)** basado en `POST /pairings/evaluate`.
-  * Matriz cruzada $N \times N$ de compatibilidad de pares.
+  * Medidor de **Sinergia Global (0 a 100%)** basado en `POST /pairings/evaluate`, con un indicador de cobertura (ej. "4 de 6 pares con dato").
+  * Matriz cruzada $N \times N$ de compatibilidad de pares; las celdas sin dato se muestran como "sin dato".
   * Alerta de ingrediente discordante con sugerencia de reemplazo asistida por IA.
 * *Nota de alcance:* Se preservan únicamente las métricas calculadas a partir del backend existente (`synergy_score`, matriz $N \times N$ y discordante). Se descartan tanto métricas adicionales de "contraste" o "complejidad" como un sistema de sugerencias para expandir la combinación (qué ingrediente agregar a continuación), por requerir lógica de agregación nueva no cubierta por los endpoints actuales — ver `PROYECTO.md`, Sección 9 ("Trabajo Futuro").
 
