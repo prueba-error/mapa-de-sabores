@@ -47,7 +47,7 @@ El descubrimiento de combinaciones de ingredientes (maridaje o _flavor pairing_)
 
 * **Curación Humana como Salvaguarda, no como Automatismo:** en lugar de confiar ciegamente en el score que devuelve el LLM, los pares que caen en una matriz de incompatibilidades conocidas se enrutan a una cola de revisión (`pairing_review_queue`) y solo entran al grafo público tras aprobación manual. Además, una muestra aleatoria del 5-10 % de los pares restantes también se revisa a mano, y la tasa de correcciones se informa en la memoria como medida de calidad del dataset. Los scores siguen siendo estimaciones de un LLM, no mediciones: la interfaz y la documentación los presentan como "afinidad estimada". Esto prioriza la corrección editorial sobre la cobertura automática total del dataset.
 
-* **Autenticación Estateless Simplificada (JWT de Sesión):** se optó por una autenticación JWT stateless de sesión única almacenada en el cliente. La validación se realiza criptográficamente en FastAPI sin consultas de revocación a base de datos, optimizando el desarrollo sin comprometer la seguridad funcional para usuarios autenticados.
+* **Autenticación Estateless Simplificada (JWT de Sesión):** se optó por una autenticación JWT stateless de sesión única almacenada en el cliente. La validación se realiza criptográficamente en FastAPI sin consultas de revocación a base de datos, optimizando el desarrollo sin comprometer la seguridad funcional para usuarios autenticados. El token se guarda en el cliente (`localStorage`), lo que expone el riesgo de XSS; se mitiga con una CSP estricta, sin inyección de HTML y tratando siempre la salida del LLM como texto plano.
 
 ---
 
@@ -66,7 +66,7 @@ El sistema utiliza un patrón de **Arquitectura Multicapa Desacoplada**:
 +-----------------------------------------------------------------------------------+
 |                                  CAPA BACKEND                                     |
 |                                FastAPI (Python)                                   |
-|   |- Auth Controller & Security (JWT / Passlib)                                   |
+|   |- Auth Controller & Security (JWT / Argon2)                                    |
 |   |- Ingredients & Pairings Service (SQLAlchemy Core)                             |
 |   |- LLM Provider Service Interface (Gemini / OpenAI Adapter)                     |
 |   |- Curation Service (Pairing Review Queue)                                      |

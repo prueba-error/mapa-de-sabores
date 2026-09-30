@@ -206,9 +206,10 @@ Ambas reglas reutilizan `flavor_pairings.affinity_score` sin necesidad de una ta
 ## 4. Seguridad, Autenticación y Resiliencia Operativa
 
 ### 4.1 Hardening de Seguridad
-1. **Hashing de Contraseñas:** Passlib con Argon2id (o `bcrypt` costo 12).
+1. **Hashing de Contraseñas:** `argon2-cffi` con Argon2id (o `bcrypt` costo 12). Se evita `passlib` por su falta de mantenimiento reciente.
 2. **Tokens JWT de Sesión:** `access_token` JWT de sesión única (expiración 7 días), enviado vía header `Authorization: Bearer <token>`. Validación criptográfica en FastAPI sin consultas de revocación a base de datos.
 3. **Control de Tasa (`slowapi`):** rate limiting de 60 req/min por IP anónima y 120 req/min para llamadas autenticadas.
+4. **Token en el Cliente (riesgo XSS):** el JWT se guarda en `localStorage` por simplicidad, lo que lo expone a XSS. Mitigaciones: CSP estricta, sin `dangerouslySetInnerHTML` y salida del LLM tratada siempre como texto plano, nunca como HTML.
 
 ### 4.2 Resiliencia del Servicio de IA
 1. **Presupuesto Total de Tiempo:** 8.0 segundos por solicitud (`LLM_TIMEOUT_SECONDS`), compartido entre el reintento y el cambio de proveedor. Cada intento usa el tiempo restante y no se inicia uno nuevo si no queda presupuesto.
