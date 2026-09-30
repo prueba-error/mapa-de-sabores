@@ -20,7 +20,7 @@ CREATE TABLE ingredients (
     name VARCHAR(100) NOT NULL UNIQUE,
     description TEXT,
     category_id INT REFERENCES categories(id) ON DELETE SET NULL,
-    flavor_profile JSONB DEFAULT '{}'::jsonb, -- ej: {"sweet": 0.2, "umami": 0.8}
+    flavor_profile JSONB DEFAULT '{}'::jsonb, -- seis ejes fijos (0.00-1.00): sweet, sour, salty, bitter, umami, aromatic
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -67,7 +67,7 @@ CREATE TABLE pairing_review_queue (
     ingredient_b_id INT NOT NULL REFERENCES ingredients(id),
     suggested_score NUMERIC(3,2) NOT NULL,
     ai_rationale VARCHAR(300),
-    flag_reason VARCHAR(100) NOT NULL, -- ej: 'forbidden_antagonistic_pair', 'score_out_of_expected_range'
+    flag_reason VARCHAR(100) NOT NULL, -- 'forbidden_antagonistic_pair', 'random_audit'
     status VARCHAR(20) DEFAULT 'pending_review', -- 'pending_review', 'approved', 'rejected'
     reviewed_at TIMESTAMP WITH TIME ZONE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
@@ -109,28 +109,40 @@ WHERE p.ingredient_a_id = :ingredient_id OR p.ingredient_b_id = :ingredient_id
 
 ### 2.2 Fases del Pipeline
 
-1. **Semilla de Ingredientes:** JSON/CSV con ~250 ingredientes clasificados por categoría.
-2. **Generación Automatizada:** ejecución en lotes, con flag `--dry-run` para validar prompts sin escribir en la base ni gastar créditos de API.
-3. **Validación Automática:** cada par generado se valida contra:
+1. **Semilla de Ingredientes:** JSON/CSV con ~200-250 ingredientes clasificados por categoría.
+2. **Perfiles Sensoriales:** el LLM genera el `flavor_profile` de cada ingrediente sobre seis ejes fijos (`sweet`, `sour`, `salty`, `bitter`, `umami`, `aromatic`), con valores de 0.00 a 1.00. Pydantic exige los seis ejes y el rango; el resultado se persiste en `ingredients.flavor_profile`. Sin este paso, la Ficha (Vista 2) y la tabla comparativa no tendrían datos.
+3. **Selección de Pares Candidatos:** no se evalúan los ~31.000 pares posibles. Por cada ingrediente se arma una lista de ~10-12 candidatos: la mitad sugerida por el LLM como afines y la otra mitad muestreada al azar entre categorías distintas (esto garantiza la presencia de pares débiles y neutros), más los pares de la matriz de antagónicos (Sección 2.1.2). Los pares se deduplican con la forma ordenada `a < b`.
+4. **Generación Automatizada:** ejecución en lotes (una llamada por ingrediente con su lista de candidatos), con flag `--dry-run` para validar prompts sin escribir en la base ni gastar créditos de API.
+5. **Validación Automática:** cada par generado se valida contra:
    * rango de score (0.00–1.00) y estructura JSON (Pydantic);
-   * la matriz de pares antagónicos (Sección 2.1.2);
-   * exclusión directa de pares con score < 0.40 (se descartan, no se guardan como relación débil).
-4. **Enrutamiento:** si un par no dispara ninguna alerta, se inserta directamente en `flavor_pairings` con `source_type = 'llm_synthesis'`. Si dispara una alerta (por ejemplo, aparece en la matriz de antagónicos con score > 0.35), se inserta en `pairing_review_queue` con el `flag_reason` correspondiente y estado `pending_review`.
-5. **Curación Manual:** el alumno revisa la cola con `scripts/curate.py --list` y decide cada caso:
+   * descarte directo de pares con score < 0.15 (ruido sin valor informativo). Los pares débiles entre 0.15 y 0.45 **se conservan a propósito**: son los que alimentan las aristas rojas y el modo "Peores";
+   * la matriz de pares antagónicos (Sección 2.1.2).
+6. **Enrutamiento:** el descarte de la fase 5 se aplica primero; luego:
+   * si el par está en la matriz de antagónicos y su score es > 0.35, se inserta en `pairing_review_queue` con `flag_reason = 'forbidden_antagonistic_pair'` y estado `pending_review`;
+   * una muestra aleatoria del 5-10 % de los pares restantes se inserta en la misma cola con `flag_reason = 'random_audit'`, para estimar la tasa de error del LLM;
+   * el resto se inserta directamente en `flavor_pairings` con `source_type = 'llm_synthesis'`.
+7. **Curación Manual:** el alumno revisa la cola con `scripts/curate.py --list` y decide cada caso:
    ```bash
    ./scripts/curate.py --approve 23   # copia el par a flavor_pairings, source_type = 'manual_review'
    ./scripts/curate.py --reject 24    # marca el par como rejected, nunca llega al grafo
+   ./scripts/curate.py --stats        # tasa de aprobados/rechazados, desglosada por flag_reason
    ```
-6. **Snapshot Previo:** `pg_dump -U postgres -d mapa_sabores -f backups/pre_seed_snapshot.sql` antes de cada corrida masiva, para poder revertir.
+   La tasa de rechazo de los pares `random_audit` se informa en la memoria como medida de calidad del dataset.
+8. **Snapshot Previo:** `./scripts/backup.sh backup` (ver `PLAN.md`, Sección 4.3) antes de cada corrida masiva, para poder revertir.
 
 ### 2.3 Prompt Estructurado (JSON Mode)
 
 > _"Eres un chef ejecutivo y científico gastronómico experto en maridajes moleculares. Evalúa la afinidad organoléptica entre [Ingrediente A] y [Ingrediente B]. Responde estrictamente en JSON con la siguiente estructura: `{"affinity_score": float (0.00 a 1.00), "ai_rationale": string (máximo 250 caracteres en español explicativo)}`."_
 
+> Para la evaluación en lote (fase 4) la misma consigna se aplica a una lista de candidatos y la respuesta es un arreglo JSON de objetos `{"ingredient_b": ..., "affinity_score": ..., "ai_rationale": ...}`, validado con Pydantic. El prompt de perfiles (fase 2) es análogo y devuelve `{"sweet": float, "sour": float, "salty": float, "bitter": float, "umami": float, "aromatic": float}`.
+
 ### 2.4 Métricas de Aceptación
 
 * Cobertura de al menos 80% de los ingredientes con 4 o más conexiones tras la curación.
 * 100% de consistencia sintáctica (JSON válido) en los pares aceptados.
+* 100% de los ingredientes con los seis ejes de `flavor_profile` completos.
+* Al menos 15 % de los pares aceptados con `affinity_score < 0.45`, para que el modo "Peores" y las aristas rojas tengan contenido real.
+* Informe de auditoría: tasa de rechazo/corrección sobre la muestra aleatoria (`random_audit`).
 * Cola de revisión vaciada (sin pares en `pending_review`) antes de considerar el dataset "cerrado" para una demo.
 
 ---
@@ -143,7 +155,7 @@ WHERE p.ingredient_a_id = :ingredient_id OR p.ingredient_b_id = :ingredient_id
 * `GET /api/v1/auth/me` — perfil del usuario autenticado.
 
 ### 3.2 Red y Grafo (`/api/v1`)
-* `GET /api/v1/graph` — subgrafo paginado para `react-force-graph` (`limit` default 50, max 100, `offset`, `min_affinity` default 0.50, `sort=best|worst|all` para priorizar mayor o menor afinidad).
+* `GET /api/v1/graph` — subgrafo paginado para `react-force-graph` (`limit` = número máximo de **aristas**, default 50, max 100; los nodos son los extremos de esas aristas; `offset`; `sort=best|worst|all` para priorizar mayor o menor afinidad; `min_affinity` tiene default 0.50 con `sort=best` y 0.00 con `sort=worst|all`, para que las aristas débiles sean visibles).
 * `GET /api/v1/ingredients` — lista paginada con filtro de búsqueda por nombre.
 * `GET /api/v1/ingredients/{id}` — detalle del ingrediente, incluyendo `flavor_profile` (JSONB con ejes dulce/ácido/salado/amargo/umami/aromático, etc.).
 * `GET /api/v1/ingredients/{id}/pairings` — vecinos directos y sus afinidades; acepta `sort=best|worst` (por defecto `best`) y `limit` para separar el ranking de mejores y peores combinaciones sin lógica adicional en el backend, solo ordenamiento sobre `flavor_pairings.affinity_score`.
@@ -158,7 +170,7 @@ WHERE p.ingredient_a_id = :ingredient_id OR p.ingredient_b_id = :ingredient_id
 
 * `GET /api/v1/pairings/suggest-additions?ingredient_ids=12,45,88&mode=synergy|contrast` — dado el grupo de ingredientes ya seleccionado en el Laboratorio, devuelve candidatos para sumar, ordenados según `mode`.
 
-**Decisión 1 — Regla de cobertura mínima (el dataset es disperso):** con ~250 ingredientes y ~1.000-1.500 pares cargados, la mayoría de los candidatos no van a tener afinidad conocida contra *todos* los ingredientes del grupo. Un candidato solo entra al ranking si tiene `affinity_score` conocido contra al menos el 50% de los ingredientes seleccionados (redondeando hacia arriba, ej. 2 de 3), promediando únicamente sobre los pares que sí existen. Los candidatos que no alcanzan ese mínimo de cobertura se excluyen del todo, en vez de mostrarse con una afinidad parcial engañosa.
+**Decisión 1 — Regla de cobertura mínima (el dataset es disperso):** con ~200-250 ingredientes y ~1.000-1.500 pares cargados, la mayoría de los candidatos no van a tener afinidad conocida contra *todos* los ingredientes del grupo. Un candidato solo entra al ranking si tiene `affinity_score` conocido contra al menos el 50% de los ingredientes seleccionados (redondeando hacia arriba, ej. 2 de 3), promediando únicamente sobre los pares que sí existen. Los candidatos que no alcanzan ese mínimo de cobertura se excluyen del todo, en vez de mostrarse con una afinidad parcial engañosa.
 
 **Decisión 2 — Definición de cada modo:**
 * `mode=synergy` ("Para aumentar sinergia"): candidatos ordenados por promedio de afinidad descendente, mostrando el Top 5 con promedio > 0.75.
@@ -204,7 +216,7 @@ Notas técnicas adicionales de implementación:
 * **Colores de Arista:** verde (`affinity_score > 0.75`), amarillo (`0.45–0.75`), rojo punteado (`< 0.45`).
 * **Mapeo de Filtros:** Controles **Mejores / Todas / Peores** y slider de cantidad mapean a los parámetros `sort` y `limit` de `GET /api/v1/graph`.
 * **Botón "Explorar Extremos":** Consume `GET /api/v1/ingredients/{id}/pairings` con `sort=best&limit=1` y `sort=worst&limit=1`.
-* **Tabla Comparativa de Perfiles (Vista 2):** Se construye al seleccionar una arista específica enfrentando los JSONB de `flavor_profile` de ambos ingredientes.
+* **Tabla Comparativa de Perfiles (Vista 2):** Se construye al seleccionar una arista específica enfrentando los JSONB de `flavor_profile` de ambos ingredientes. Los valores numéricos se muestran como etiquetas (Bajo < 0.34, Medio 0.34–0.66, Alto > 0.66).
 * **Mesa del Laboratorio (Vista 3):** Renderizado de chips reactivos. Al modificar los chips se invoca en tiempo real `POST /api/v1/pairings/evaluate`.
 
 ---

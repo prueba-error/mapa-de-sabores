@@ -42,13 +42,14 @@
 #### **Sprint 2 (Semanas 3-4) — Pipeline Offline de Datos, Curación y Spike Frontend**
 * **Objetivo:** generar el dataset inicial de sabores asistido por IA, curar manualmente los casos dudosos, y validar el motor de renderizado gráfico.
 * **Entregables:**
-  * `scripts/seed_flavor_network.py` con flag `--dry-run` y prompts estructurados en JSON Mode.
+  * `scripts/seed_flavor_network.py` con flag `--dry-run`, prompts estructurados en JSON Mode, generación de `flavor_profile` (6 ejes fijos), selección de pares candidatos y evaluación en lote.
   * Matriz de ~50 pares antagónicos conocidos, cargada como regla de validación.
-  * `scripts/curate.py` con soporte `--list / --approve / --reject` sobre `pairing_review_queue`.
-  * Carga inicial del dataset (~200 ingredientes, ~1.000 relaciones), con la cola de revisión en cero pendientes antes de cerrar el sprint.
+  * `scripts/curate.py` con soporte `--list / --approve / --reject / --stats` sobre `pairing_review_queue`.
+  * Carga inicial del dataset (~200-250 ingredientes, ~1.000-1.500 relaciones, piso de score 0.15 y al menos 15 % de pares < 0.45), con la cola de revisión (pares marcados + muestra aleatoria del 5-10 %) en cero pendientes antes de cerrar el sprint.
+  * Informe breve de auditoría (tasa de rechazo de la muestra aleatoria) para la memoria.
   * Spike en React con `react-force-graph-2d` renderizando datos mock estáticos, para evaluar velocidad en Canvas.
-* **Tiempo reservado:** ~1 día de curación manual real de los pares marcados (no delegable a IA), más ~1 día de ajuste de la física del grafo en el spike.
-* **Criterios de Aceptación:** dataset cargado sin pares pendientes de revisión; spike del grafo corriendo a ~60 FPS con datos mock.
+* **Tiempo reservado:** ~1,5 días de curación manual real (hasta ~150 pares: marcados por la matriz + muestra aleatoria; no delegable a IA), más ~1 día de ajuste de la física del grafo en el spike.
+* **Criterios de Aceptación:** dataset cargado sin pares pendientes de revisión y con todos los ingredientes con perfil de 6 ejes; spike del grafo corriendo a ~60 FPS con datos mock.
 
 ---
 
