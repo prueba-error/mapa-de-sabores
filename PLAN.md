@@ -80,7 +80,45 @@
 
 ---
 
-## 3. Secuencia de Kickoff del Código (Pasos Inmediatos para el Sprint 1)
+## 3. Estructura del Repositorio
+
+```
+mapa-de-sabores/
+├── backend/
+│   ├── app/
+│   │   ├── main.py            # entrypoint FastAPI, registra routers y CORSMiddleware
+│   │   ├── config.py          # carga de variables de entorno
+│   │   ├── database.py        # engine y sesión async de SQLAlchemy
+│   │   ├── security.py        # hashing (Argon2id) y JWT
+│   │   ├── models/             # modelos SQLAlchemy (tablas del DDL de SPEC.md)
+│   │   ├── schemas/            # esquemas Pydantic de request/response
+│   │   ├── routers/            # auth.py, graph.py, ingredients.py, pairings.py, ai.py, favorites.py
+│   │   └── services/           # llm_provider.py, synergy.py, curation.py
+│   ├── alembic/versions/
+│   ├── tests/
+│   ├── Dockerfile
+│   └── requirements.txt
+├── frontend/
+│   ├── src/
+│   │   ├── views/               # Explore.jsx, IngredientDetail.jsx, Lab.jsx
+│   │   ├── components/
+│   │   ├── context/              # LabContext.jsx
+│   │   └── api/                   # cliente HTTP tipado hacia el backend
+│   ├── Dockerfile
+│   └── package.json
+├── scripts/
+│   ├── seed_flavor_network.py
+│   ├── curate.py
+│   └── backup.sh
+├── backups/
+├── docker-compose.yml
+├── .env.example
+└── README.md · PROYECTO.md · SPEC.md · PLAN.md
+```
+
+---
+
+## 4. Secuencia de Kickoff del Código (Pasos Inmediatos para el Sprint 1)
 
 1. **Configuración de Entorno Local:** crear `.env.example` y la infraestructura base de `docker-compose.yml` (PostgreSQL + FastAPI).
 2. **Migración Inicial de Base de Datos:** inicializar Alembic y generar la migración DDL inicial (`001_initial_schema.py`).
@@ -90,9 +128,9 @@
 
 ---
 
-## 4. Archivos de Configuración e Infraestructura
+## 5. Archivos de Configuración e Infraestructura
 
-### 4.1 Variables de Entorno (`.env.example`)
+### 5.1 Variables de Entorno (`.env.example`)
 
 ```ini
 # Base de Datos
@@ -115,9 +153,13 @@ LLM_PRIMARY_PROVIDER=gemini # "gemini" | "openai"
 GEMINI_MODEL=id_del_modelo_flash_vigente   # verificar en la documentación del proveedor
 OPENAI_MODEL=id_del_modelo_mini_vigente    # verificar en la documentación del proveedor
 LLM_TIMEOUT_SECONDS=8.0 # presupuesto total por solicitud (reintentos y cambio de proveedor incluidos)
+
+# CORS (backend) y conexión al backend (frontend)
+CORS_ORIGINS=http://localhost:5173 # lista separada por comas; agregar el dominio de producción cuando exista
+VITE_API_BASE_URL=http://localhost:8000/api/v1
 ```
 
-### 4.2 Orquestación con Docker Compose (`docker-compose.yml`)
+### 5.2 Orquestación con Docker Compose (`docker-compose.yml`)
 
 ```yaml
 services:
@@ -153,13 +195,28 @@ services:
     command: >
       sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
 
+  frontend:
+    build: ./frontend
+    container_name: mapa_sabores_frontend
+    restart: always
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_BASE_URL=${VITE_API_BASE_URL}
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    command: npm run dev -- --host 0.0.0.0
+
 volumes:
   postgres_data:
 ```
 
-Docker Compose lee `.env` para sustituir las variables `${...}`, de modo que las credenciales viven en un único lugar. El `healthcheck` evita que el backend intente migrar antes de que PostgreSQL esté listo.
+Docker Compose lee `.env` para sustituir las variables `${...}`, de modo que las credenciales viven en un único lugar. El `healthcheck` evita que el backend intente migrar antes de que PostgreSQL esté listo. El servicio `frontend` monta el código como volumen para hot-reload y usa `--host 0.0.0.0` para que Vite escuche fuera del contenedor, no solo en `localhost`; `/app/node_modules` como volumen anónimo evita que el `node_modules` del host (si existe, con binarios de otro SO) pise al que se instaló dentro de la imagen.
 
-### 4.3 Script de Snapshot y Restauración (`scripts/backup.sh`)
+### 5.3 Script de Snapshot y Restauración (`scripts/backup.sh`)
 
 ```bash
 #!/usr/bin/env bash

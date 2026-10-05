@@ -137,7 +137,7 @@ WHERE p.ingredient_a_id = :ingredient_id OR p.ingredient_b_id = :ingredient_id
    ./scripts/curate.py --stats        # tasa de aprobados/rechazados, desglosada por flag_reason
    ```
    La tasa de rechazo de los pares `random_audit` se informa en la memoria como medida de calidad del dataset.
-8. **Snapshot Previo:** `./scripts/backup.sh backup` (ver `PLAN.md`, Sección 4.3) antes de cada corrida masiva, para poder revertir.
+8. **Snapshot Previo:** `./scripts/backup.sh backup` (ver `PLAN.md`, Sección 5.3) antes de cada corrida masiva, para poder revertir.
 
 ### 2.3 Prompt Estructurado (JSON Mode)
 
@@ -200,6 +200,58 @@ Ambas reglas reutilizan `flavor_pairings.affinity_score` sin necesidad de una ta
 ### 3.5 Curación (uso interno, no expuesto al usuario final)
 * Gestión de `pairing_review_queue` vía `scripts/curate.py` (CLI local), no vía endpoint HTTP, dado que el único rol de curación es ejercido por el propio alumno (ver `PROYECTO.md`, Sección 4).
 
+### 3.6 Ejemplos de Contrato (Request/Response)
+
+Para los tres endpoints con lógica no trivial, de forma que no haya que inferir nombres de campos ni el formato de los casos sin dato:
+
+**`POST /api/v1/pairings/evaluate`** — grupo de 3 ingredientes donde Albahaca-Chocolate no tiene dato:
+
+```json
+// Request
+{ "ingredient_ids": [12, 45, 88] }
+
+// Response (12 = Tomate, 45 = Albahaca, 88 = Chocolate)
+{
+  "synergy_score": 53,
+  "coverage": { "pairs_with_data": 2, "pairs_total": 3 },
+  "pairwise_matrix": [
+    [null, 0.94, 0.12],
+    [0.94, null, null],
+    [0.12, null, null]
+  ],
+  "clashing_ingredients": [
+    { "ingredient_id": 88, "avg_affinity": 0.12 }
+  ]
+}
+```
+
+**`GET /api/v1/graph?sort=best&limit=2`**:
+
+```json
+{
+  "nodes": [
+    { "id": 12, "name": "Tomate", "category": "Verduras" },
+    { "id": 45, "name": "Albahaca", "category": "Hierbas" }
+  ],
+  "edges": [
+    { "ingredient_a_id": 12, "ingredient_b_id": 45, "affinity_score": 0.94 }
+  ]
+}
+```
+
+**`POST /api/v1/ai/explain-pairing`**:
+
+```json
+// Request
+{ "ingredient_ids": [12, 45] }
+
+// Response
+{
+  "explanation": "El tomate y la albahaca comparten notas frescas y aromáticas que se potencian mutuamente, un maridaje clásico de la cocina mediterránea.",
+  "source": "llm"
+}
+```
+
 ---
 
 ## 4. Seguridad, Autenticación y Resiliencia Operativa
@@ -209,6 +261,7 @@ Ambas reglas reutilizan `flavor_pairings.affinity_score` sin necesidad de una ta
 2. **Tokens JWT de Sesión:** `access_token` JWT de sesión única (expiración 7 días), enviado vía header `Authorization: Bearer <token>`. Validación criptográfica en FastAPI sin consultas de revocación a base de datos.
 3. **Control de Tasa (`slowapi`):** rate limiting de 60 req/min por IP anónima y 120 req/min para llamadas autenticadas.
 4. **Token en el Cliente (riesgo XSS):** el JWT se guarda en `localStorage` por simplicidad, lo que lo expone a XSS. Mitigaciones: CSP estricta, sin `dangerouslySetInnerHTML` y salida del LLM tratada siempre como texto plano, nunca como HTML.
+5. **CORS:** `CORSMiddleware` de FastAPI habilitado solo para los orígenes listados en `CORS_ORIGINS` (`.env`, por defecto `http://localhost:5173`), con `allow_credentials=True` para que el header `Authorization` llegue en las requests del frontend. En producción, `CORS_ORIGINS` se actualiza para incluir el dominio real; nunca se usa `allow_origins=["*"]` junto con `allow_credentials=True` (lo rechaza el propio navegador).
 
 ### 4.2 Resiliencia del Servicio de IA
 1. **Presupuesto Total de Tiempo:** 8.0 segundos por solicitud (`LLM_TIMEOUT_SECONDS`), compartido entre el reintento y el cambio de proveedor. Cada intento usa el tiempo restante y no se inicia uno nuevo si no queda presupuesto.
