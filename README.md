@@ -25,21 +25,4 @@ Para el resumen completo del problema, los objetivos y las decisiones de diseño
 
 ---
 
-<!-- ## 3. Inicio rápido (desarrollo local)
-
-```bash
-# 1. Clonar el repositorio
-git clone https://github.com/usuario/mapa-de-sabores.git
-cd mapa-de-sabores
-
-# 2. Copiar archivo de variables de entorno (ver PLAN.md)
-cp .env.example .env
-
-# 3. Levantar servicios con Docker Compose (PostgreSQL + FastAPI)
-docker compose up -d --build
-
-# 4. Verificar logs de migraciones y servidor backend
-docker compose logs -f backend
-``` -->
-
-Para migraciones, carga del dataset y comandos de prueba, ver **[PLAN.md](./PLAN.md)**.
+Para instrucciones de arranque local, migraciones, carga del dataset y comandos de prueba, ver **[PLAN.md](./PLAN.md)**.
