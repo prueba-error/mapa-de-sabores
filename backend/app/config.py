@@ -16,9 +16,9 @@ class Settings(BaseSettings):
     POSTGRES_PASSWORD: str = "postgres_secret"
     POSTGRES_DB: str = "mapa_sabores"
     POSTGRES_HOST: str = "localhost"
-    POSTGRES_PORT: int = 5432
+    POSTGRES_PORT: int = 5433
     DATABASE_URL: str = (
-        "postgresql+asyncpg://postgres:postgres_secret@localhost:5432/mapa_sabores"
+        "postgresql+asyncpg://postgres:postgres_secret@localhost:5433/mapa_sabores"
     )
 
     # Seguridad & Autenticación
