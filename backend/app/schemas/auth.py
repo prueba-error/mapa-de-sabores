@@ -1,16 +1,18 @@
 from datetime import datetime
 
-from pydantic import BaseModel, ConfigDict, EmailStr, Field
+from pydantic import BaseModel, ConfigDict, Field
+
+EMAIL_REGEX = r"^[^@\s]+@[^@\s]+\.[^@\s]+$"
 
 
 class UserRegisterRequest(BaseModel):
-    email: EmailStr
+    email: str = Field(pattern=EMAIL_REGEX)
     password: str = Field(min_length=6, max_length=128)
     full_name: str | None = Field(default=None, max_length=100)
 
 
 class UserLoginRequest(BaseModel):
-    email: EmailStr
+    email: str = Field(pattern=EMAIL_REGEX)
     password: str
 
 
