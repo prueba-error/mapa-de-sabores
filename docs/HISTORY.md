@@ -21,4 +21,12 @@ Registro cronológico único de entregables mayores, decisiones técnicas acorda
   * `ruff check backend/` & `ruff format --check backend/`: 0 errores.
   * `mypy backend/app`: 0 errores en 17 archivos.
   * `pytest backend/tests/ -v`: 6/6 tests pasando (hashing Argon2id, ciclo JWT, flujo e2e auth con registro/duplicados/login/me, restricción `ingredient_a_id < ingredient_b_id`, consultas bidireccionales y restricciones de la cola de revisión).
-
+* **Hito de Dominio (Kickoff Sprint 1 - Algoritmo de Sinergia NxN):**
+  * Implementación mediante TDD del servicio determinístico en `backend/app/services/synergy.py`.
+  * Esquemas Pydantic `EvaluatePairingsRequest`, `CoverageInfo`, `ClashingIngredient`, `SynergyEvaluationResponse` en `backend/app/schemas/synergy.py`.
+  * Reglas de negocio cubiertas al 100%:
+    * `synergy_score`: promedio simple escalado a 0-100 sobre pares con dato (`None` si no hay pares).
+    * `coverage`: recuento de pares con dato vs total combinatorio $N(N-1)/2$.
+    * `pairwise_matrix`: matriz simétrica $N \times N$ con diagonal nula y celdas sin dato en `null`.
+    * `clashing_ingredients`: detección de ingredientes con afinidad media $< 0.45$ para $N \ge 3$ ordenados de menor a mayor (vacío para $N = 2$, aislados sin dato no participan).
+  * 6 tests unitarios dedicados en `backend/tests/test_synergy.py` pasando en 0.05 s (suite total: 12 tests en verde).
