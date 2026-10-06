@@ -30,3 +30,10 @@ Registro cronológico único de entregables mayores, decisiones técnicas acorda
     * `pairwise_matrix`: matriz simétrica $N \times N$ con diagonal nula y celdas sin dato en `null`.
     * `clashing_ingredients`: detección de ingredientes con afinidad media $< 0.45$ para $N \ge 3$ ordenados de menor a mayor (vacío para $N = 2$, aislados sin dato no participan).
   * 6 tests unitarios dedicados en `backend/tests/test_synergy.py` pasando en 0.05 s (suite total: 12 tests en verde).
+* **Hito de Integración y Datos (Kickoff Sprint 1 - LLM Provider y Data Pipeline):**
+  * Esquemas Pydantic en `backend/app/schemas/ai.py` (`FlavorProfileSchema` con 6 ejes normalizados 0.00-1.00, `BatchPairingItem`, `BatchPairingResponse`, `AIExplanationResponse`, `AIReplacementResponse`).
+  * Servicio agnóstico `LLMService` en `backend/app/services/llm_provider.py` con adaptadores para Gemini y OpenAI vía `httpx.AsyncClient`, presupuesto estricto de 8.0s (`RNF3`), conmutación por error entre proveedores y fallbacks determinísticos.
+  * Matriz curada de 50 pares antagónicos conocidos en `scripts/antagonistic_pairs.py` como filtro de seguridad contra alucinaciones del LLM.
+  * Script de sembrado `scripts/seed_flavor_network.py` con flag `--dry-run` para simulación y auditoría sin costo de API ni escritura en base de datos.
+  * Suite ampliada a 18 tests en verde con `pytest` (`test_llm_provider.py` y `test_seed_pipeline.py`), `ruff` y `mypy` sin errores.
+
