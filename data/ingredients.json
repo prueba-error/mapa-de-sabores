@@ -1,0 +1,6685 @@
+{
+  "chicken": {
+    "id": "chicken",
+    "name": "chicken",
+    "category": "protein",
+    "compounds": [
+      "diacetyl",
+      "hexanal",
+      "methional",
+      "methylpyrazine",
+      "nonanal",
+      "octanal",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "roast",
+      "grill",
+      "braise",
+      "poach",
+      "fry"
+    ],
+    "flavor_notes": "mild, savory, versatile",
+    "name_es": "Pollo"
+  },
+  "beef": {
+    "id": "beef",
+    "name": "beef",
+    "category": "protein",
+    "compounds": [
+      "4vg",
+      "diacetyl",
+      "guaiacol",
+      "hexanal",
+      "methional",
+      "methylpyrazine",
+      "nonanal",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "grill",
+      "braise",
+      "roast",
+      "sear",
+      "smoke"
+    ],
+    "flavor_notes": "rich, umami, meaty",
+    "name_es": "Carne Vacuna"
+  },
+  "pork": {
+    "id": "pork",
+    "name": "pork",
+    "category": "protein",
+    "compounds": [
+      "diacetyl",
+      "hexanal",
+      "methional",
+      "methylpyrazine",
+      "nonanal",
+      "octanal",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "roast",
+      "braise",
+      "grill",
+      "smoke",
+      "fry"
+    ],
+    "flavor_notes": "mild, sweet, fatty",
+    "name_es": "Cerdo"
+  },
+  "lamb": {
+    "id": "lamb",
+    "name": "lamb",
+    "category": "protein",
+    "compounds": [
+      "4vg",
+      "cresol",
+      "hexanal",
+      "methional",
+      "methylpyrazine",
+      "nonanal",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "roast",
+      "grill",
+      "braise",
+      "stew"
+    ],
+    "flavor_notes": "gamey, rich, earthy",
+    "name_es": "Cordero"
+  },
+  "duck": {
+    "id": "duck",
+    "name": "duck",
+    "category": "protein",
+    "compounds": [
+      "diacetyl",
+      "gamma_decalactone",
+      "hexanal",
+      "methylpyrazine",
+      "nonanal",
+      "octanal",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "roast",
+      "confit",
+      "sear",
+      "smoke",
+      "braise"
+    ],
+    "flavor_notes": "rich, fatty, dark meat",
+    "name_es": "Pato"
+  },
+  "turkey": {
+    "id": "turkey",
+    "name": "turkey",
+    "category": "protein",
+    "compounds": [
+      "diacetyl",
+      "hexanal",
+      "methional",
+      "methylpyrazine",
+      "nonanal",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "roast",
+      "smoke",
+      "braise",
+      "grill",
+      "ground"
+    ],
+    "flavor_notes": "mild, lean, savory",
+    "name_es": "Pavo"
+  },
+  "bacon": {
+    "id": "bacon",
+    "name": "bacon",
+    "category": "protein",
+    "compounds": [
+      "4vg",
+      "cresol",
+      "diacetyl",
+      "guaiacol",
+      "hexanal",
+      "methylpyrazine",
+      "nonanal",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "fry",
+      "bake",
+      "smoke",
+      "crumble"
+    ],
+    "flavor_notes": "smoky, salty, fatty, umami",
+    "name_es": "Panceta / Bacon"
+  },
+  "tofu": {
+    "id": "tofu",
+    "name": "tofu",
+    "category": "protein",
+    "compounds": [
+      "1_octen_3_ol",
+      "acetoin",
+      "hexanal",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "fry",
+      "braise",
+      "grill",
+      "scramble",
+      "steam",
+      "smoke"
+    ],
+    "flavor_notes": "mild, neutral, absorbs flavor",
+    "name_es": "Tofu"
+  },
+  "tempeh": {
+    "id": "tempeh",
+    "name": "tempeh",
+    "category": "protein",
+    "compounds": [
+      "1_octen_3_ol",
+      "acetoin",
+      "hexanal",
+      "methylpyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "fry",
+      "grill",
+      "crumble",
+      "braise",
+      "steam"
+    ],
+    "flavor_notes": "nutty, earthy, fermented",
+    "name_es": "Tempeh"
+  },
+  "egg": {
+    "id": "egg",
+    "name": "egg",
+    "category": "protein",
+    "compounds": [
+      "diacetyl",
+      "dimethyl_sulfide",
+      "hexanal",
+      "methional",
+      "nonanal",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "fry",
+      "scramble",
+      "poach",
+      "boil",
+      "bake"
+    ],
+    "flavor_notes": "rich, sulfurous, custard",
+    "name_es": "Huevo"
+  },
+  "salmon": {
+    "id": "salmon",
+    "name": "salmon",
+    "category": "seafood",
+    "compounds": [
+      "1_octen_3_ol",
+      "diacetyl",
+      "dimethyl_sulfide",
+      "hexanal",
+      "nonanal",
+      "trimethylamine"
+    ],
+    "cooking_methods": [
+      "grill",
+      "bake",
+      "poach",
+      "cure",
+      "smoke"
+    ],
+    "flavor_notes": "rich, fatty, ocean",
+    "name_es": "Salmón"
+  },
+  "shrimp": {
+    "id": "shrimp",
+    "name": "shrimp",
+    "category": "seafood",
+    "compounds": [
+      "acetylpyrazine",
+      "dimethyl_sulfide",
+      "methylpyrazine",
+      "nonanal",
+      "thiazole",
+      "trimethylamine"
+    ],
+    "cooking_methods": [
+      "sauté",
+      "grill",
+      "boil",
+      "fry"
+    ],
+    "flavor_notes": "sweet, briny, delicate",
+    "name_es": "Camarones"
+  },
+  "scallop": {
+    "id": "scallop",
+    "name": "scallop",
+    "category": "seafood",
+    "compounds": [
+      "diacetyl",
+      "dimethyl_sulfide",
+      "methional",
+      "nonanal",
+      "trimethylamine"
+    ],
+    "cooking_methods": [
+      "sear",
+      "raw",
+      "poach",
+      "grill"
+    ],
+    "flavor_notes": "sweet, buttery, delicate",
+    "name_es": "Vieira"
+  },
+  "crab": {
+    "id": "crab",
+    "name": "crab",
+    "category": "seafood",
+    "compounds": [
+      "dimethyl_sulfide",
+      "methional",
+      "methylpyrazine",
+      "nonanal",
+      "thiazole",
+      "trimethylamine"
+    ],
+    "cooking_methods": [
+      "boil",
+      "steam",
+      "sauté",
+      "bake"
+    ],
+    "flavor_notes": "sweet, briny, rich",
+    "name_es": "Cangrejo"
+  },
+  "tuna": {
+    "id": "tuna",
+    "name": "tuna",
+    "category": "seafood",
+    "compounds": [
+      "dimethyl_sulfide",
+      "hexanal",
+      "nonanal",
+      "thiophene",
+      "trimethylamine"
+    ],
+    "cooking_methods": [
+      "sear",
+      "raw",
+      "grill",
+      "can"
+    ],
+    "flavor_notes": "meaty, clean, ocean",
+    "name_es": "Atún"
+  },
+  "anchovy": {
+    "id": "anchovy",
+    "name": "anchovy",
+    "category": "seafood",
+    "compounds": [
+      "butyric_acid",
+      "dimethyl_sulfide",
+      "methional",
+      "methylpyrazine",
+      "trimethylamine"
+    ],
+    "cooking_methods": [
+      "cure",
+      "melt",
+      "sauce",
+      "paste"
+    ],
+    "flavor_notes": "intense, salty, umami bomb",
+    "name_es": "Anchoa"
+  },
+  "lobster": {
+    "id": "lobster",
+    "name": "lobster",
+    "category": "seafood",
+    "compounds": [
+      "diacetyl",
+      "dimethyl_sulfide",
+      "hexanal",
+      "methional",
+      "nonanal",
+      "trimethylamine"
+    ],
+    "cooking_methods": [
+      "boil",
+      "steam",
+      "grill",
+      "bake"
+    ],
+    "flavor_notes": "sweet, rich, buttery",
+    "name_es": "Langosta"
+  },
+  "oyster": {
+    "id": "oyster",
+    "name": "oyster",
+    "category": "seafood",
+    "compounds": [
+      "1_octen_3_ol",
+      "dimethyl_sulfide",
+      "hexanal",
+      "methional",
+      "nonanal",
+      "trimethylamine"
+    ],
+    "cooking_methods": [
+      "raw",
+      "grill",
+      "fry",
+      "roast"
+    ],
+    "flavor_notes": "briny, mineral, oceanic, zinc",
+    "name_es": "Ostra"
+  },
+  "mussels": {
+    "id": "mussels",
+    "name": "mussels",
+    "category": "seafood",
+    "compounds": [
+      "dimethyl_sulfide",
+      "dimethyl_trisulfide",
+      "hexanal",
+      "nonanal",
+      "trimethylamine"
+    ],
+    "cooking_methods": [
+      "steam",
+      "braise",
+      "grill",
+      "fry"
+    ],
+    "flavor_notes": "briny, sweet, plump",
+    "name_es": "Mejillones"
+  },
+  "tomato": {
+    "id": "tomato",
+    "name": "tomato",
+    "category": "vegetable",
+    "compounds": [
+      "citral",
+      "dimethyl_sulfide",
+      "furaneol",
+      "geraniol",
+      "hexanal",
+      "ionone",
+      "linalool"
+    ],
+    "cooking_methods": [
+      "raw",
+      "roast",
+      "stew",
+      "sauce",
+      "grill"
+    ],
+    "flavor_notes": "acidic, sweet, umami",
+    "name_es": "Tomate"
+  },
+  "carrot": {
+    "id": "carrot",
+    "name": "carrot",
+    "category": "vegetable",
+    "compounds": [
+      "ionone",
+      "limonene",
+      "linalool",
+      "myrcene",
+      "nonanal",
+      "pinene",
+      "terpinene"
+    ],
+    "cooking_methods": [
+      "roast",
+      "raw",
+      "braise",
+      "purée",
+      "pickle"
+    ],
+    "flavor_notes": "sweet, earthy, bright",
+    "name_es": "Zanahoria"
+  },
+  "bell_pepper": {
+    "id": "bell_pepper",
+    "name": "bell pepper",
+    "category": "vegetable",
+    "compounds": [
+      "hexanal",
+      "limonene",
+      "linalool",
+      "methoxypyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "raw",
+      "roast",
+      "sauté",
+      "stuff",
+      "grill"
+    ],
+    "flavor_notes": "sweet, vegetal, crisp",
+    "name_es": "Pimiento Morrón"
+  },
+  "broccoli": {
+    "id": "broccoli",
+    "name": "broccoli",
+    "category": "vegetable",
+    "compounds": [
+      "allyl_isothiocyanate",
+      "dimethyl_sulfide",
+      "dimethyl_trisulfide",
+      "hexanal",
+      "linalool",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "steam",
+      "roast",
+      "sauté",
+      "raw",
+      "stir-fry"
+    ],
+    "flavor_notes": "cruciferous, green, earthy",
+    "name_es": "Brócoli"
+  },
+  "sweet_potato": {
+    "id": "sweet_potato",
+    "name": "sweet potato",
+    "category": "vegetable",
+    "compounds": [
+      "furaneol",
+      "ionone",
+      "linalool",
+      "maltol",
+      "nonanal",
+      "phenethyl_alcohol"
+    ],
+    "cooking_methods": [
+      "roast",
+      "bake",
+      "fry",
+      "purée",
+      "mash"
+    ],
+    "flavor_notes": "sweet, starchy, caramel",
+    "name_es": "Batata"
+  },
+  "beet": {
+    "id": "beet",
+    "name": "beet",
+    "category": "vegetable",
+    "compounds": [
+      "dimethyl_sulfide",
+      "geosmin",
+      "linalool",
+      "malic_acid",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "roast",
+      "raw",
+      "pickle",
+      "purée",
+      "boil"
+    ],
+    "flavor_notes": "earthy, sweet, mineral",
+    "name_es": "Remolacha"
+  },
+  "corn": {
+    "id": "corn",
+    "name": "corn",
+    "category": "vegetable",
+    "compounds": [
+      "acetyl_pyrroline",
+      "acetylpyrazine",
+      "dimethyl_sulfide",
+      "furaneol",
+      "hexanal",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "grill",
+      "boil",
+      "roast",
+      "cream",
+      "pop"
+    ],
+    "flavor_notes": "sweet, starchy, toasty",
+    "name_es": "Maíz / Choclo"
+  },
+  "celery": {
+    "id": "celery",
+    "name": "celery",
+    "category": "vegetable",
+    "compounds": [
+      "hexanal",
+      "limonene",
+      "linalool",
+      "myrcene",
+      "pinene",
+      "sabinene"
+    ],
+    "cooking_methods": [
+      "raw",
+      "braise",
+      "sauté",
+      "stock"
+    ],
+    "flavor_notes": "green, aromatic, fresh",
+    "name_es": "Apio"
+  },
+  "cauliflower": {
+    "id": "cauliflower",
+    "name": "cauliflower",
+    "category": "vegetable",
+    "compounds": [
+      "allyl_isothiocyanate",
+      "dimethyl_sulfide",
+      "dimethyl_trisulfide",
+      "methylpyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "roast",
+      "purée",
+      "fry",
+      "steam",
+      "rice"
+    ],
+    "flavor_notes": "mild, nutty when roasted",
+    "name_es": "Coliflor"
+  },
+  "asparagus": {
+    "id": "asparagus",
+    "name": "asparagus",
+    "category": "vegetable",
+    "compounds": [
+      "dimethyl_sulfide",
+      "hexanal",
+      "linalool",
+      "methoxypyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "roast",
+      "grill",
+      "steam",
+      "sauté"
+    ],
+    "flavor_notes": "green, grassy, mineral",
+    "name_es": "Espárrago"
+  },
+  "eggplant": {
+    "id": "eggplant",
+    "name": "eggplant",
+    "category": "vegetable",
+    "compounds": [
+      "1_octen_3_ol",
+      "furfural",
+      "hexanal",
+      "linalool",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "grill",
+      "roast",
+      "fry",
+      "braise",
+      "smoke"
+    ],
+    "flavor_notes": "meaty, absorbent, smoky",
+    "name_es": "Berenjena"
+  },
+  "zucchini": {
+    "id": "zucchini",
+    "name": "zucchini",
+    "category": "vegetable",
+    "compounds": [
+      "hexanal",
+      "linalool",
+      "nonanal",
+      "trans_2_nonenal"
+    ],
+    "cooking_methods": [
+      "grill",
+      "sauté",
+      "raw",
+      "spiralize",
+      "bake"
+    ],
+    "flavor_notes": "mild, fresh, squash",
+    "name_es": "Zucchini"
+  },
+  "spinach": {
+    "id": "spinach",
+    "name": "spinach",
+    "category": "vegetable",
+    "compounds": [
+      "dimethyl_sulfide",
+      "geraniol",
+      "hexanal",
+      "linalool",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "raw",
+      "sauté",
+      "wilt",
+      "cream",
+      "blend"
+    ],
+    "flavor_notes": "earthy, iron, green",
+    "name_es": "Espinaca"
+  },
+  "kale": {
+    "id": "kale",
+    "name": "kale",
+    "category": "vegetable",
+    "compounds": [
+      "allyl_isothiocyanate",
+      "dimethyl_sulfide",
+      "hexanal",
+      "linalool",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "raw",
+      "sauté",
+      "chip",
+      "braise",
+      "blend"
+    ],
+    "flavor_notes": "bitter, earthy, hearty",
+    "name_es": "Kale"
+  },
+  "fennel": {
+    "id": "fennel",
+    "name": "fennel",
+    "category": "vegetable",
+    "compounds": [
+      "anethole",
+      "estragole",
+      "limonene",
+      "linalool",
+      "myrcene",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "raw",
+      "roast",
+      "braise",
+      "grill",
+      "shave"
+    ],
+    "flavor_notes": "anise, sweet, crisp",
+    "name_es": "Hinojo"
+  },
+  "radish": {
+    "id": "radish",
+    "name": "radish",
+    "category": "vegetable",
+    "compounds": [
+      "allyl_isothiocyanate",
+      "hexanal",
+      "methoxypyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "raw",
+      "roast",
+      "pickle",
+      "sauté"
+    ],
+    "flavor_notes": "peppery, crisp, bright",
+    "name_es": "Rábano"
+  },
+  "cabbage": {
+    "id": "cabbage",
+    "name": "cabbage",
+    "category": "vegetable",
+    "compounds": [
+      "allyl_isothiocyanate",
+      "dimethyl_sulfide",
+      "dimethyl_trisulfide",
+      "hexanal",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "raw",
+      "braise",
+      "ferment",
+      "sauté",
+      "roast"
+    ],
+    "flavor_notes": "cruciferous, sweet, crunchy",
+    "name_es": "Repollo"
+  },
+  "peas": {
+    "id": "peas",
+    "name": "peas",
+    "category": "legume",
+    "compounds": [
+      "acetoin",
+      "dimethyl_sulfide",
+      "hexanal",
+      "linalool",
+      "methoxypyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "raw",
+      "boil",
+      "purée",
+      "sauté"
+    ],
+    "flavor_notes": "sweet, green, bright",
+    "name_es": "Arvejas"
+  },
+  "brussels_sprouts": {
+    "id": "brussels_sprouts",
+    "name": "Brussels sprouts",
+    "category": "vegetable",
+    "compounds": [
+      "allyl_isothiocyanate",
+      "dimethyl_sulfide",
+      "dimethyl_trisulfide",
+      "hexanal",
+      "methylpyrazine"
+    ],
+    "cooking_methods": [
+      "roast",
+      "shred",
+      "fry",
+      "braise",
+      "char"
+    ],
+    "flavor_notes": "nutty, bitter, caramelized",
+    "name_es": "Coles de Bruselas"
+  },
+  "artichoke": {
+    "id": "artichoke",
+    "name": "artichoke",
+    "category": "vegetable",
+    "compounds": [
+      "furfural",
+      "hexanal",
+      "linalool",
+      "nonanal",
+      "phenylacetaldehyde"
+    ],
+    "cooking_methods": [
+      "steam",
+      "braise",
+      "grill",
+      "fry",
+      "roast"
+    ],
+    "flavor_notes": "nutty, earthy, mineral",
+    "name_es": "Alcaucil / Alcachofa"
+  },
+  "parsnip": {
+    "id": "parsnip",
+    "name": "parsnip",
+    "category": "vegetable",
+    "compounds": [
+      "furfural",
+      "maltol",
+      "myrcene",
+      "nonanal",
+      "pinene",
+      "terpinene"
+    ],
+    "cooking_methods": [
+      "roast",
+      "purée",
+      "fry",
+      "braise"
+    ],
+    "flavor_notes": "sweet, nutty, starchy",
+    "name_es": "Chirivía"
+  },
+  "turnip": {
+    "id": "turnip",
+    "name": "turnip",
+    "category": "vegetable",
+    "compounds": [
+      "allyl_isothiocyanate",
+      "dimethyl_sulfide",
+      "hexanal",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "roast",
+      "mash",
+      "braise",
+      "raw"
+    ],
+    "flavor_notes": "peppery, mild, slightly bitter",
+    "name_es": "Nabo"
+  },
+  "cucumber": {
+    "id": "cucumber",
+    "name": "cucumber",
+    "category": "vegetable",
+    "compounds": [
+      "hexanal",
+      "linalool",
+      "nonanal",
+      "trans_2_nonenal"
+    ],
+    "cooking_methods": [
+      "raw",
+      "pickle",
+      "blend",
+      "compress"
+    ],
+    "flavor_notes": "cool, green, fresh, watery",
+    "name_es": "Pepino"
+  },
+  "avocado": {
+    "id": "avocado",
+    "name": "avocado",
+    "category": "vegetable",
+    "compounds": [
+      "acetoin",
+      "ethyl_acetate",
+      "hexanal",
+      "linalool",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "raw",
+      "smash",
+      "blend",
+      "grill"
+    ],
+    "flavor_notes": "creamy, mild, fatty, green",
+    "name_es": "Palta / Aguacate"
+  },
+  "strawberry": {
+    "id": "strawberry",
+    "name": "strawberry",
+    "category": "fruit",
+    "compounds": [
+      "ethyl_butyrate",
+      "furaneol",
+      "gamma_decalactone",
+      "geraniol",
+      "hexanal",
+      "ionone",
+      "linalool"
+    ],
+    "cooking_methods": [
+      "raw",
+      "macerate",
+      "bake",
+      "purée",
+      "jam"
+    ],
+    "flavor_notes": "sweet, fragrant, bright",
+    "name_es": "Frutilla / Fresa"
+  },
+  "apple": {
+    "id": "apple",
+    "name": "apple",
+    "category": "fruit",
+    "compounds": [
+      "damascenone",
+      "ethyl_acetate",
+      "ethyl_butyrate",
+      "ethyl_hexanoate",
+      "hexanal",
+      "linalool",
+      "malic_acid"
+    ],
+    "cooking_methods": [
+      "raw",
+      "bake",
+      "sauce",
+      "cider",
+      "poach"
+    ],
+    "flavor_notes": "crisp, tart, sweet",
+    "name_es": "Manzana"
+  },
+  "banana": {
+    "id": "banana",
+    "name": "banana",
+    "category": "fruit",
+    "compounds": [
+      "ethyl_butyrate",
+      "eugenol",
+      "isoamyl_acetate",
+      "linalool",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "raw",
+      "bake",
+      "fry",
+      "flambe",
+      "freeze"
+    ],
+    "flavor_notes": "sweet, creamy, tropical",
+    "name_es": "Plátano / Banana"
+  },
+  "lemon": {
+    "id": "lemon",
+    "name": "lemon",
+    "category": "citrus",
+    "compounds": [
+      "citral",
+      "citric_acid",
+      "geraniol",
+      "limonene",
+      "linalool",
+      "nonanal",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "juice",
+      "zest",
+      "preserve",
+      "garnish"
+    ],
+    "flavor_notes": "bright, sour, clean",
+    "name_es": "Limón"
+  },
+  "orange": {
+    "id": "orange",
+    "name": "orange",
+    "category": "citrus",
+    "compounds": [
+      "citral",
+      "citric_acid",
+      "decanal",
+      "limonene",
+      "linalool",
+      "myrcene",
+      "nootkatone",
+      "octanal"
+    ],
+    "cooking_methods": [
+      "juice",
+      "zest",
+      "segment",
+      "marmalade"
+    ],
+    "flavor_notes": "sweet, citrus, bright",
+    "name_es": "Naranja"
+  },
+  "grapefruit": {
+    "id": "grapefruit",
+    "name": "grapefruit",
+    "category": "citrus",
+    "compounds": [
+      "citral",
+      "limonene",
+      "linalool",
+      "myrcene",
+      "nootkatone",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "juice",
+      "segment",
+      "broil",
+      "zest"
+    ],
+    "flavor_notes": "bitter, citrus, tart",
+    "name_es": "Pomelo"
+  },
+  "lime": {
+    "id": "lime",
+    "name": "lime",
+    "category": "citrus",
+    "compounds": [
+      "citral",
+      "citric_acid",
+      "limonene",
+      "linalool",
+      "pinene",
+      "terpinene"
+    ],
+    "cooking_methods": [
+      "juice",
+      "zest",
+      "garnish",
+      "pickle"
+    ],
+    "flavor_notes": "tart, bright, tropical",
+    "name_es": "Lima"
+  },
+  "peach": {
+    "id": "peach",
+    "name": "peach",
+    "category": "fruit",
+    "compounds": [
+      "benzaldehyde",
+      "delta_decalactone",
+      "furaneol",
+      "gamma_decalactone",
+      "hexanal",
+      "ionone",
+      "linalool"
+    ],
+    "cooking_methods": [
+      "raw",
+      "grill",
+      "poach",
+      "bake",
+      "jam"
+    ],
+    "flavor_notes": "sweet, floral, juicy",
+    "name_es": "Durazno"
+  },
+  "mango": {
+    "id": "mango",
+    "name": "mango",
+    "category": "fruit",
+    "compounds": [
+      "ethyl_butyrate",
+      "furaneol",
+      "gamma_octalactone",
+      "limonene",
+      "linalool",
+      "myrcene"
+    ],
+    "cooking_methods": [
+      "raw",
+      "purée",
+      "pickle",
+      "dry",
+      "salsa"
+    ],
+    "flavor_notes": "tropical, sweet, resinous",
+    "name_es": "Mango"
+  },
+  "pineapple": {
+    "id": "pineapple",
+    "name": "pineapple",
+    "category": "fruit",
+    "compounds": [
+      "ethyl_butyrate",
+      "ethyl_hexanoate",
+      "furaneol",
+      "linalool",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "raw",
+      "grill",
+      "juice",
+      "bake"
+    ],
+    "flavor_notes": "tropical, tart, enzymatic",
+    "name_es": "Ananá / Piña"
+  },
+  "raspberry": {
+    "id": "raspberry",
+    "name": "raspberry",
+    "category": "fruit",
+    "compounds": [
+      "damascenone",
+      "furaneol",
+      "geraniol",
+      "hexanal",
+      "ionone",
+      "linalool"
+    ],
+    "cooking_methods": [
+      "raw",
+      "purée",
+      "bake",
+      "jam",
+      "sauce"
+    ],
+    "flavor_notes": "tart, fragrant, intense",
+    "name_es": "Frambuesa"
+  },
+  "coconut": {
+    "id": "coconut",
+    "name": "coconut",
+    "category": "fruit",
+    "compounds": [
+      "delta_decalactone",
+      "gamma_decalactone",
+      "gamma_octalactone",
+      "maltol",
+      "nonanal",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "raw",
+      "toast",
+      "milk",
+      "cream",
+      "bake"
+    ],
+    "flavor_notes": "sweet, creamy, tropical",
+    "name_es": "Coco"
+  },
+  "grape": {
+    "id": "grape",
+    "name": "grape",
+    "category": "fruit",
+    "compounds": [
+      "ethyl_acetate",
+      "geraniol",
+      "hexanal",
+      "linalool",
+      "methyl_anthranilate",
+      "rotundone"
+    ],
+    "cooking_methods": [
+      "raw",
+      "juice",
+      "wine",
+      "roast",
+      "jam"
+    ],
+    "flavor_notes": "sweet, floral, wine-like",
+    "name_es": "Uva"
+  },
+  "fig": {
+    "id": "fig",
+    "name": "fig",
+    "category": "fruit",
+    "compounds": [
+      "benzaldehyde",
+      "eugenol",
+      "furaneol",
+      "hexanal",
+      "linalool",
+      "phenethyl_alcohol"
+    ],
+    "cooking_methods": [
+      "raw",
+      "roast",
+      "jam",
+      "dry",
+      "grill"
+    ],
+    "flavor_notes": "honey, jammy, seedy, complex",
+    "name_es": "Higo"
+  },
+  "date": {
+    "id": "date",
+    "name": "date",
+    "category": "fruit",
+    "compounds": [
+      "acetoin",
+      "furaneol",
+      "furfural",
+      "linalool",
+      "maltol",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "raw",
+      "stuff",
+      "purée",
+      "bake",
+      "caramel"
+    ],
+    "flavor_notes": "intensely sweet, caramel, chewy",
+    "name_es": "Dátil"
+  },
+  "pomegranate": {
+    "id": "pomegranate",
+    "name": "pomegranate",
+    "category": "fruit",
+    "compounds": [
+      "citric_acid",
+      "ethyl_acetate",
+      "geraniol",
+      "hexanal",
+      "linalool",
+      "malic_acid"
+    ],
+    "cooking_methods": [
+      "raw",
+      "juice",
+      "reduce",
+      "garnish"
+    ],
+    "flavor_notes": "tart, fruity, complex, jewel-like",
+    "name_es": "Granada"
+  },
+  "cherry": {
+    "id": "cherry",
+    "name": "cherry",
+    "category": "fruit",
+    "compounds": [
+      "acetophenone",
+      "benzaldehyde",
+      "ethyl_acetate",
+      "eugenol",
+      "hexanal",
+      "linalool",
+      "malic_acid"
+    ],
+    "cooking_methods": [
+      "raw",
+      "bake",
+      "jam",
+      "poach",
+      "dry"
+    ],
+    "flavor_notes": "sweet-tart, almond, rich",
+    "name_es": "Cereza"
+  },
+  "passion_fruit": {
+    "id": "passion_fruit",
+    "name": "passion fruit",
+    "category": "fruit",
+    "compounds": [
+      "ethyl_butyrate",
+      "ethyl_hexanoate",
+      "geraniol",
+      "hexanal",
+      "ionone",
+      "linalool"
+    ],
+    "cooking_methods": [
+      "raw",
+      "purée",
+      "sauce",
+      "curd"
+    ],
+    "flavor_notes": "intensely tart, tropical, floral",
+    "name_es": "Maracuyá"
+  },
+  "blackberry": {
+    "id": "blackberry",
+    "name": "blackberry",
+    "category": "fruit",
+    "compounds": [
+      "damascenone",
+      "furaneol",
+      "geraniol",
+      "hexanal",
+      "ionone",
+      "linalool"
+    ],
+    "cooking_methods": [
+      "raw",
+      "bake",
+      "jam",
+      "sauce",
+      "muddle"
+    ],
+    "flavor_notes": "sweet-tart, dark, earthy",
+    "name_es": "Mora"
+  },
+  "apricot": {
+    "id": "apricot",
+    "name": "apricot",
+    "category": "fruit",
+    "compounds": [
+      "benzaldehyde",
+      "gamma_decalactone",
+      "hexanal",
+      "ionone",
+      "linalool",
+      "myrcene"
+    ],
+    "cooking_methods": [
+      "raw",
+      "dry",
+      "jam",
+      "poach",
+      "grill"
+    ],
+    "flavor_notes": "sweet, slightly tart, stone fruit",
+    "name_es": "Damasco / Albaricoque"
+  },
+  "watermelon": {
+    "id": "watermelon",
+    "name": "watermelon",
+    "category": "fruit",
+    "compounds": [
+      "geraniol",
+      "hexanal",
+      "linalool",
+      "nonanal",
+      "trans_2_nonenal"
+    ],
+    "cooking_methods": [
+      "raw",
+      "juice",
+      "grill",
+      "pickle rind"
+    ],
+    "flavor_notes": "refreshing, light, sweet",
+    "name_es": "Sandía"
+  },
+  "guava": {
+    "id": "guava",
+    "name": "guava",
+    "category": "fruit",
+    "compounds": [
+      "ethyl_butyrate",
+      "ethyl_hexanoate",
+      "hexanal",
+      "limonene",
+      "linalool",
+      "myrcene"
+    ],
+    "cooking_methods": [
+      "raw",
+      "purée",
+      "jam",
+      "juice",
+      "paste"
+    ],
+    "flavor_notes": "tropical, musky, sweet-tart",
+    "name_es": "Guayaba"
+  },
+  "lychee": {
+    "id": "lychee",
+    "name": "lychee",
+    "category": "fruit",
+    "compounds": [
+      "citral",
+      "damascenone",
+      "geraniol",
+      "linalool",
+      "phenethyl_alcohol"
+    ],
+    "cooking_methods": [
+      "raw",
+      "syrup",
+      "sorbet",
+      "cocktail"
+    ],
+    "flavor_notes": "floral, perfumed, sweet, rose",
+    "name_es": "Lichi"
+  },
+  "basil": {
+    "id": "basil",
+    "name": "basil",
+    "category": "herb",
+    "compounds": [
+      "chavicol",
+      "estragole",
+      "eugenol",
+      "geraniol",
+      "limonene",
+      "linalool",
+      "myrcene",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "raw",
+      "chiffonade",
+      "infuse",
+      "pesto"
+    ],
+    "flavor_notes": "sweet, peppery, anise",
+    "name_es": "Albahaca"
+  },
+  "cilantro": {
+    "id": "cilantro",
+    "name": "cilantro",
+    "category": "herb",
+    "compounds": [
+      "citral",
+      "decanal",
+      "geraniol",
+      "linalool",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "raw",
+      "garnish",
+      "blend",
+      "salsa"
+    ],
+    "flavor_notes": "bright, citrus, polarizing",
+    "name_es": "Cilantro"
+  },
+  "mint": {
+    "id": "mint",
+    "name": "mint",
+    "category": "herb",
+    "compounds": [
+      "carvone",
+      "limonene",
+      "linalool",
+      "menthol",
+      "menthone",
+      "myrcene",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "raw",
+      "muddle",
+      "infuse",
+      "garnish"
+    ],
+    "flavor_notes": "cooling, fresh, sweet",
+    "name_es": "Menta"
+  },
+  "rosemary": {
+    "id": "rosemary",
+    "name": "rosemary",
+    "category": "herb",
+    "compounds": [
+      "carvone",
+      "eucalyptol",
+      "limonene",
+      "linalool",
+      "myrcene",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "roast",
+      "infuse",
+      "grill",
+      "bake"
+    ],
+    "flavor_notes": "piney, resinous, woody",
+    "name_es": "Romero"
+  },
+  "thyme": {
+    "id": "thyme",
+    "name": "thyme",
+    "category": "herb",
+    "compounds": [
+      "geraniol",
+      "limonene",
+      "linalool",
+      "myrcene",
+      "pinene",
+      "thymol"
+    ],
+    "cooking_methods": [
+      "roast",
+      "braise",
+      "infuse",
+      "sauté"
+    ],
+    "flavor_notes": "earthy, minty, woody",
+    "name_es": "Tomillo"
+  },
+  "oregano": {
+    "id": "oregano",
+    "name": "oregano",
+    "category": "herb",
+    "compounds": [
+      "4vg",
+      "carvone",
+      "linalool",
+      "myrcene",
+      "pinene",
+      "thymol"
+    ],
+    "cooking_methods": [
+      "dry",
+      "sauté",
+      "infuse",
+      "bake"
+    ],
+    "flavor_notes": "pungent, warm, slightly bitter",
+    "name_es": "Orégano"
+  },
+  "tarragon": {
+    "id": "tarragon",
+    "name": "tarragon",
+    "category": "herb",
+    "compounds": [
+      "anethole",
+      "estragole",
+      "eugenol",
+      "limonene",
+      "linalool",
+      "ocimene"
+    ],
+    "cooking_methods": [
+      "raw",
+      "infuse",
+      "sauce",
+      "vinegar"
+    ],
+    "flavor_notes": "anise, sweet, elegant",
+    "name_es": "Estragón"
+  },
+  "sage": {
+    "id": "sage",
+    "name": "sage",
+    "category": "herb",
+    "compounds": [
+      "eucalyptol",
+      "linalool",
+      "myrcene",
+      "pinene",
+      "sabinene",
+      "thymol"
+    ],
+    "cooking_methods": [
+      "fry",
+      "infuse",
+      "roast",
+      "brown butter"
+    ],
+    "flavor_notes": "musty, warm, savory, earthy",
+    "name_es": "Salvia"
+  },
+  "dill": {
+    "id": "dill",
+    "name": "dill",
+    "category": "herb",
+    "compounds": [
+      "carvone",
+      "limonene",
+      "linalool",
+      "myrcene",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "raw",
+      "garnish",
+      "pickle",
+      "sauce"
+    ],
+    "flavor_notes": "feathery, fresh, anise-like",
+    "name_es": "Eneldo"
+  },
+  "chives": {
+    "id": "chives",
+    "name": "chives",
+    "category": "herb",
+    "compounds": [
+      "diallyl_disulfide",
+      "dimethyl_sulfide",
+      "linalool",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "raw",
+      "garnish",
+      "fold",
+      "snip"
+    ],
+    "flavor_notes": "mild onion, delicate, fresh",
+    "name_es": "Ciboulette"
+  },
+  "lemongrass": {
+    "id": "lemongrass",
+    "name": "lemongrass",
+    "category": "herb",
+    "compounds": [
+      "citral",
+      "citric_acid",
+      "geraniol",
+      "limonene",
+      "linalool",
+      "myrcene"
+    ],
+    "cooking_methods": [
+      "bruise",
+      "infuse",
+      "mince",
+      "paste"
+    ],
+    "flavor_notes": "citrus, ginger-like, floral",
+    "name_es": "Lemongrass"
+  },
+  "parsley": {
+    "id": "parsley",
+    "name": "parsley",
+    "category": "herb",
+    "compounds": [
+      "limonene",
+      "linalool",
+      "methoxypyrazine",
+      "myrcene",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "raw",
+      "garnish",
+      "blend",
+      "chimichurri"
+    ],
+    "flavor_notes": "clean, green, slightly peppery",
+    "name_es": "Perejil"
+  },
+  "cinnamon": {
+    "id": "cinnamon",
+    "name": "cinnamon",
+    "category": "spice",
+    "compounds": [
+      "cinnamaldehyde",
+      "coumarin",
+      "ethyl_cinnamate",
+      "eugenol",
+      "linalool",
+      "pinene",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "toast",
+      "grind",
+      "infuse",
+      "bake"
+    ],
+    "flavor_notes": "warm, sweet, woody",
+    "name_es": "Canela"
+  },
+  "ginger": {
+    "id": "ginger",
+    "name": "ginger",
+    "category": "spice",
+    "compounds": [
+      "citral",
+      "geraniol",
+      "limonene",
+      "linalool",
+      "myrcene",
+      "pinene",
+      "zingerone"
+    ],
+    "cooking_methods": [
+      "grate",
+      "slice",
+      "juice",
+      "candy",
+      "infuse"
+    ],
+    "flavor_notes": "spicy, bright, warm",
+    "name_es": "Jengibre"
+  },
+  "cumin": {
+    "id": "cumin",
+    "name": "cumin",
+    "category": "spice",
+    "compounds": [
+      "cuminaldehyde",
+      "limonene",
+      "linalool",
+      "methylpyrazine",
+      "myrcene",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "toast",
+      "grind",
+      "bloom"
+    ],
+    "flavor_notes": "earthy, warm, nutty",
+    "name_es": "Comino"
+  },
+  "clove": {
+    "id": "clove",
+    "name": "clove",
+    "category": "spice",
+    "compounds": [
+      "acetylpyrazine",
+      "coumarin",
+      "eugenol",
+      "linalool",
+      "pinene",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "whole",
+      "grind",
+      "infuse",
+      "stud"
+    ],
+    "flavor_notes": "intense, warm, numbing",
+    "name_es": "Clavo de Olor"
+  },
+  "cardamom": {
+    "id": "cardamom",
+    "name": "cardamom",
+    "category": "spice",
+    "compounds": [
+      "citral",
+      "eucalyptol",
+      "geraniol",
+      "limonene",
+      "linalool",
+      "myrcene",
+      "pinene",
+      "sabinene"
+    ],
+    "cooking_methods": [
+      "crush",
+      "grind",
+      "infuse",
+      "toast"
+    ],
+    "flavor_notes": "floral, citrus, eucalyptus",
+    "name_es": "Cardamomo"
+  },
+  "black_pepper": {
+    "id": "black_pepper",
+    "name": "black pepper",
+    "category": "spice",
+    "compounds": [
+      "carvone",
+      "limonene",
+      "linalool",
+      "myrcene",
+      "pinene",
+      "piperine",
+      "rotundone",
+      "sabinene"
+    ],
+    "cooking_methods": [
+      "crack",
+      "grind",
+      "toast"
+    ],
+    "flavor_notes": "sharp, biting, warm",
+    "name_es": "Pimienta Negra"
+  },
+  "turmeric": {
+    "id": "turmeric",
+    "name": "turmeric",
+    "category": "spice",
+    "compounds": [
+      "citral",
+      "limonene",
+      "linalool",
+      "myrcene",
+      "pinene",
+      "terpinene"
+    ],
+    "cooking_methods": [
+      "grind",
+      "bloom",
+      "paste"
+    ],
+    "flavor_notes": "earthy, bitter, warm",
+    "name_es": "Cúrcuma"
+  },
+  "nutmeg": {
+    "id": "nutmeg",
+    "name": "nutmeg",
+    "category": "spice",
+    "compounds": [
+      "eugenol",
+      "geraniol",
+      "linalool",
+      "myrcene",
+      "pinene",
+      "sabinene",
+      "terpinene"
+    ],
+    "cooking_methods": [
+      "grate",
+      "grind",
+      "infuse"
+    ],
+    "flavor_notes": "warm, sweet, woody",
+    "name_es": "Nuez Moscada"
+  },
+  "vanilla": {
+    "id": "vanilla",
+    "name": "vanilla",
+    "category": "spice",
+    "compounds": [
+      "acetoin",
+      "coumarin",
+      "eugenol",
+      "linalool",
+      "maltol",
+      "phenethyl_alcohol",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "scrape",
+      "infuse",
+      "extract"
+    ],
+    "flavor_notes": "sweet, creamy, floral",
+    "name_es": "Vainilla"
+  },
+  "star_anise": {
+    "id": "star_anise",
+    "name": "star anise",
+    "category": "spice",
+    "compounds": [
+      "anethole",
+      "estragole",
+      "eugenol",
+      "limonene",
+      "linalool",
+      "myrcene",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "whole",
+      "grind",
+      "infuse"
+    ],
+    "flavor_notes": "licorice, sweet, warm",
+    "name_es": "Anís Estrellado"
+  },
+  "coriander_seed": {
+    "id": "coriander_seed",
+    "name": "coriander seed",
+    "category": "spice",
+    "compounds": [
+      "citral",
+      "geraniol",
+      "limonene",
+      "linalool",
+      "myrcene",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "toast",
+      "grind",
+      "crush"
+    ],
+    "flavor_notes": "citrus, floral, nutty",
+    "name_es": "Semillas de Cilantro"
+  },
+  "fenugreek": {
+    "id": "fenugreek",
+    "name": "fenugreek",
+    "category": "spice",
+    "compounds": [
+      "linalool",
+      "myrcene",
+      "pinene",
+      "sotolon"
+    ],
+    "cooking_methods": [
+      "toast",
+      "grind",
+      "sprout"
+    ],
+    "flavor_notes": "maple, curry, bitter",
+    "name_es": "Fenogreco"
+  },
+  "saffron": {
+    "id": "saffron",
+    "name": "saffron",
+    "category": "spice",
+    "compounds": [
+      "geraniol",
+      "hexanal",
+      "ionone",
+      "linalool",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "bloom",
+      "infuse",
+      "steep"
+    ],
+    "flavor_notes": "honey, floral, metallic",
+    "name_es": "Azafrán"
+  },
+  "mustard": {
+    "id": "mustard",
+    "name": "mustard",
+    "category": "spice",
+    "compounds": [
+      "acetic_acid",
+      "allyl_isothiocyanate",
+      "myrcene",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "grind",
+      "mix",
+      "bloom"
+    ],
+    "flavor_notes": "sharp, hot, pungent",
+    "name_es": "Mostaza"
+  },
+  "paprika": {
+    "id": "paprika",
+    "name": "paprika",
+    "category": "spice",
+    "compounds": [
+      "capsaicin",
+      "hexanal",
+      "limonene",
+      "linalool",
+      "methylpyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "bloom",
+      "dust",
+      "rub",
+      "smoke"
+    ],
+    "flavor_notes": "sweet, mild heat, smoky",
+    "name_es": "Pimentón"
+  },
+  "cayenne": {
+    "id": "cayenne",
+    "name": "cayenne",
+    "category": "spice",
+    "compounds": [
+      "capsaicin",
+      "hexanal",
+      "limonene",
+      "methylpyrazine"
+    ],
+    "cooking_methods": [
+      "grind",
+      "dust",
+      "bloom",
+      "sauce"
+    ],
+    "flavor_notes": "hot, sharp, clean heat",
+    "name_es": "Pimienta de Cayena"
+  },
+  "szechuan_pepper": {
+    "id": "szechuan_pepper",
+    "name": "Sichuan pepper",
+    "category": "spice",
+    "compounds": [
+      "geraniol",
+      "limonene",
+      "linalool",
+      "myrcene",
+      "pinene",
+      "sabinene",
+      "terpinene"
+    ],
+    "cooking_methods": [
+      "toast",
+      "grind",
+      "infuse"
+    ],
+    "flavor_notes": "numbing, citrus, floral, electric",
+    "name_es": "Pimienta de Sichuan"
+  },
+  "allspice": {
+    "id": "allspice",
+    "name": "allspice",
+    "category": "spice",
+    "compounds": [
+      "cinnamaldehyde",
+      "eugenol",
+      "limonene",
+      "linalool",
+      "myrcene",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "grind",
+      "whole",
+      "infuse",
+      "brine"
+    ],
+    "flavor_notes": "clove, cinnamon, nutmeg, warm",
+    "name_es": "Pimienta de Jamaica"
+  },
+  "sumac": {
+    "id": "sumac",
+    "name": "sumac",
+    "category": "spice",
+    "compounds": [
+      "citric_acid",
+      "geraniol",
+      "limonene",
+      "linalool",
+      "malic_acid"
+    ],
+    "cooking_methods": [
+      "dust",
+      "garnish",
+      "marinade"
+    ],
+    "flavor_notes": "tart, citrusy, fruity",
+    "name_es": "Sumac"
+  },
+  "juniper": {
+    "id": "juniper",
+    "name": "juniper",
+    "category": "spice",
+    "compounds": [
+      "limonene",
+      "linalool",
+      "myrcene",
+      "pinene",
+      "sabinene",
+      "terpinene"
+    ],
+    "cooking_methods": [
+      "crush",
+      "infuse",
+      "brine",
+      "smoke"
+    ],
+    "flavor_notes": "pine, resinous, gin-like, forest",
+    "name_es": "Enebro"
+  },
+  "salt": {
+    "id": "salt",
+    "name": "salt",
+    "category": "spice",
+    "compounds": [],
+    "cooking_methods": [
+      "season",
+      "brine",
+      "cure",
+      "finish"
+    ],
+    "flavor_notes": "salty, enhances all flavors",
+    "name_es": "Sal"
+  },
+  "msg": {
+    "id": "msg",
+    "name": "MSG",
+    "category": "spice",
+    "compounds": [],
+    "cooking_methods": [
+      "season",
+      "dissolve"
+    ],
+    "flavor_notes": "umami, savory depth, meaty",
+    "name_es": "Glutamato Monosódico"
+  },
+  "garlic_powder": {
+    "id": "garlic_powder",
+    "name": "garlic powder",
+    "category": "spice",
+    "compounds": [
+      "allicin",
+      "diallyl_disulfide",
+      "methylpyrazine",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "season",
+      "rub",
+      "dust",
+      "mix"
+    ],
+    "flavor_notes": "concentrated garlic, roasty",
+    "name_es": "Ajo en Polvo"
+  },
+  "onion_powder": {
+    "id": "onion_powder",
+    "name": "onion powder",
+    "category": "spice",
+    "compounds": [
+      "diallyl_disulfide",
+      "dimethyl_sulfide",
+      "hexanal",
+      "methylpyrazine",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "season",
+      "rub",
+      "dust",
+      "mix"
+    ],
+    "flavor_notes": "sweet onion, concentrated",
+    "name_es": "Cebolla en Polvo"
+  },
+  "red_pepper_flakes": {
+    "id": "red_pepper_flakes",
+    "name": "red pepper flakes",
+    "category": "spice",
+    "compounds": [
+      "capsaicin",
+      "hexanal",
+      "limonene",
+      "methylpyrazine",
+      "piperine"
+    ],
+    "cooking_methods": [
+      "sprinkle",
+      "bloom",
+      "infuse"
+    ],
+    "flavor_notes": "hot, fruity, smoky heat",
+    "name_es": "Hojuelas de Ají"
+  },
+  "chili_powder": {
+    "id": "chili_powder",
+    "name": "chili powder",
+    "category": "spice",
+    "compounds": [
+      "capsaicin",
+      "cuminaldehyde",
+      "limonene",
+      "linalool",
+      "methylpyrazine",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "rub",
+      "bloom",
+      "stew",
+      "dust"
+    ],
+    "flavor_notes": "warm, earthy, mild heat, complex",
+    "name_es": "Chili en Polvo"
+  },
+  "curry_powder": {
+    "id": "curry_powder",
+    "name": "curry powder",
+    "category": "spice",
+    "compounds": [
+      "cuminaldehyde",
+      "limonene",
+      "linalool",
+      "myrcene",
+      "pinene",
+      "sotolon",
+      "terpinene"
+    ],
+    "cooking_methods": [
+      "bloom",
+      "simmer",
+      "rub",
+      "dust"
+    ],
+    "flavor_notes": "warm, earthy, aromatic, complex",
+    "name_es": "Curry en Polvo"
+  },
+  "garam_masala": {
+    "id": "garam_masala",
+    "name": "garam masala",
+    "category": "spice",
+    "compounds": [
+      "cinnamaldehyde",
+      "eugenol",
+      "limonene",
+      "linalool",
+      "pinene",
+      "piperine",
+      "sabinene"
+    ],
+    "cooking_methods": [
+      "finish",
+      "toast",
+      "bloom"
+    ],
+    "flavor_notes": "warm, sweet, aromatic, layered",
+    "name_es": "Garam Masala"
+  },
+  "five_spice": {
+    "id": "five_spice",
+    "name": "five spice",
+    "category": "spice",
+    "compounds": [
+      "anethole",
+      "cinnamaldehyde",
+      "eugenol",
+      "limonene",
+      "linalool",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "rub",
+      "dust",
+      "bloom",
+      "marinade"
+    ],
+    "flavor_notes": "sweet, anise, warm, complex",
+    "name_es": "Cinco Especias"
+  },
+  "zaatar": {
+    "id": "zaatar",
+    "name": "za'atar",
+    "category": "spice",
+    "compounds": [
+      "citric_acid",
+      "limonene",
+      "linalool",
+      "malic_acid",
+      "methylpyrazine",
+      "thymol"
+    ],
+    "cooking_methods": [
+      "sprinkle",
+      "crust",
+      "dip",
+      "finish"
+    ],
+    "flavor_notes": "herby, tangy, nutty, Middle Eastern",
+    "name_es": "Zaatar"
+  },
+  "italian_seasoning": {
+    "id": "italian_seasoning",
+    "name": "Italian seasoning",
+    "category": "spice",
+    "compounds": [
+      "carvone",
+      "eugenol",
+      "limonene",
+      "linalool",
+      "myrcene",
+      "pinene",
+      "thymol"
+    ],
+    "cooking_methods": [
+      "sprinkle",
+      "simmer",
+      "rub",
+      "bake"
+    ],
+    "flavor_notes": "herby, warm, Mediterranean",
+    "name_es": "Hierbas Italianas"
+  },
+  "old_bay": {
+    "id": "old_bay",
+    "name": "Old Bay",
+    "category": "spice",
+    "compounds": [
+      "allyl_isothiocyanate",
+      "capsaicin",
+      "carvone",
+      "eugenol",
+      "limonene",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "season",
+      "sprinkle",
+      "boil",
+      "rub"
+    ],
+    "flavor_notes": "celery, mustard, paprika, warm",
+    "name_es": "Old Bay"
+  },
+  "everything_bagel": {
+    "id": "everything_bagel",
+    "name": "everything bagel seasoning",
+    "category": "spice",
+    "compounds": [
+      "diallyl_disulfide",
+      "dimethyl_sulfide",
+      "methylpyrazine",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "sprinkle",
+      "crust",
+      "finish"
+    ],
+    "flavor_notes": "onion, garlic, sesame, poppy, savory",
+    "name_es": "Condimento de Bagel"
+  },
+  "poppy_seeds": {
+    "id": "poppy_seeds",
+    "name": "poppy seeds",
+    "category": "spice",
+    "compounds": [
+      "furfural",
+      "hexanal",
+      "linalool",
+      "myrcene",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "sprinkle",
+      "bake",
+      "grind"
+    ],
+    "flavor_notes": "nutty, mild, crunchy",
+    "name_es": "Semillas de Amapola"
+  },
+  "hot_sauce": {
+    "id": "hot_sauce",
+    "name": "hot sauce",
+    "category": "fermented",
+    "compounds": [
+      "acetic_acid",
+      "allicin",
+      "capsaicin",
+      "hexanal",
+      "lactic_acid"
+    ],
+    "cooking_methods": [
+      "dash",
+      "drizzle",
+      "mix",
+      "marinade"
+    ],
+    "flavor_notes": "hot, tangy, vinegary, sharp",
+    "name_es": "Salsa Picante"
+  },
+  "sriracha": {
+    "id": "sriracha",
+    "name": "sriracha",
+    "category": "fermented",
+    "compounds": [
+      "acetic_acid",
+      "allicin",
+      "capsaicin",
+      "furaneol",
+      "hexanal"
+    ],
+    "cooking_methods": [
+      "drizzle",
+      "mix",
+      "dip",
+      "marinade"
+    ],
+    "flavor_notes": "hot, sweet, garlicky, bright",
+    "name_es": "Sriracha"
+  },
+  "mayo": {
+    "id": "mayo",
+    "name": "mayonnaise",
+    "category": "dairy",
+    "compounds": [
+      "acetic_acid",
+      "diacetyl",
+      "hexanal",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "spread",
+      "mix",
+      "bind",
+      "dress"
+    ],
+    "flavor_notes": "rich, tangy, creamy, neutral",
+    "name_es": "Mayonesa"
+  },
+  "ketchup": {
+    "id": "ketchup",
+    "name": "ketchup",
+    "category": "fermented",
+    "compounds": [
+      "acetic_acid",
+      "dimethyl_sulfide",
+      "furaneol",
+      "hexanal",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "dip",
+      "glaze",
+      "mix",
+      "sauce"
+    ],
+    "flavor_notes": "sweet, tangy, tomato, umami",
+    "name_es": "Kétchup"
+  },
+  "bbq_sauce": {
+    "id": "bbq_sauce",
+    "name": "BBQ sauce",
+    "category": "fermented",
+    "compounds": [
+      "acetic_acid",
+      "capsaicin",
+      "furaneol",
+      "guaiacol",
+      "maltol",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "glaze",
+      "marinade",
+      "dip",
+      "baste"
+    ],
+    "flavor_notes": "smoky, sweet, tangy, complex",
+    "name_es": "Salsa Barbacoa"
+  },
+  "ranch": {
+    "id": "ranch",
+    "name": "ranch dressing",
+    "category": "dairy",
+    "compounds": [
+      "diacetyl",
+      "diallyl_disulfide",
+      "hexanal",
+      "lactic_acid",
+      "linalool"
+    ],
+    "cooking_methods": [
+      "dip",
+      "dress",
+      "drizzle"
+    ],
+    "flavor_notes": "creamy, herby, tangy, garlicky",
+    "name_es": "Aderezo Ranch"
+  },
+  "white_sugar": {
+    "id": "white_sugar",
+    "name": "sugar",
+    "category": "sweetener",
+    "compounds": [],
+    "cooking_methods": [
+      "dissolve",
+      "caramelize",
+      "bake",
+      "cream"
+    ],
+    "flavor_notes": "sweet, clean, neutral",
+    "name_es": "Azúcar Blanco"
+  },
+  "flour": {
+    "id": "flour",
+    "name": "flour",
+    "category": "grain",
+    "compounds": [
+      "hexanal",
+      "maltol",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "dredge",
+      "thicken",
+      "bake",
+      "roux"
+    ],
+    "flavor_notes": "mild, wheaty, starchy",
+    "name_es": "Harina de Trigo"
+  },
+  "cornstarch": {
+    "id": "cornstarch",
+    "name": "cornstarch",
+    "category": "grain",
+    "compounds": [],
+    "cooking_methods": [
+      "thicken",
+      "dredge",
+      "coat"
+    ],
+    "flavor_notes": "neutral, thickener",
+    "name_es": "Almidón de Maíz"
+  },
+  "garlic": {
+    "id": "garlic",
+    "name": "garlic",
+    "category": "allium",
+    "compounds": [
+      "allicin",
+      "diallyl_disulfide",
+      "dimethyl_sulfide",
+      "methional",
+      "methylpyrazine",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "raw",
+      "roast",
+      "sauté",
+      "confit",
+      "ferment"
+    ],
+    "flavor_notes": "pungent, savory, sweet when cooked",
+    "name_es": "Ajo"
+  },
+  "onion": {
+    "id": "onion",
+    "name": "onion",
+    "category": "allium",
+    "compounds": [
+      "diallyl_disulfide",
+      "dimethyl_sulfide",
+      "dimethyl_trisulfide",
+      "hexanal",
+      "linalool",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "raw",
+      "caramelize",
+      "sauté",
+      "roast",
+      "pickle"
+    ],
+    "flavor_notes": "sharp raw, sweet cooked",
+    "name_es": "Cebolla"
+  },
+  "shallot": {
+    "id": "shallot",
+    "name": "shallot",
+    "category": "allium",
+    "compounds": [
+      "diallyl_disulfide",
+      "dimethyl_sulfide",
+      "hexanal",
+      "linalool"
+    ],
+    "cooking_methods": [
+      "raw",
+      "sauté",
+      "confit",
+      "fry"
+    ],
+    "flavor_notes": "mild, sweet, refined",
+    "name_es": "Chalota"
+  },
+  "leek": {
+    "id": "leek",
+    "name": "leek",
+    "category": "allium",
+    "compounds": [
+      "diallyl_disulfide",
+      "dimethyl_sulfide",
+      "hexanal",
+      "linalool"
+    ],
+    "cooking_methods": [
+      "braise",
+      "sauté",
+      "soup",
+      "grill"
+    ],
+    "flavor_notes": "mild, sweet, delicate",
+    "name_es": "Puerro"
+  },
+  "green_onion": {
+    "id": "green_onion",
+    "name": "green onion",
+    "category": "allium",
+    "compounds": [
+      "diallyl_disulfide",
+      "dimethyl_sulfide",
+      "hexanal",
+      "linalool",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "raw",
+      "grill",
+      "garnish",
+      "sauté"
+    ],
+    "flavor_notes": "fresh, mild onion, versatile",
+    "name_es": "Cebolla de Verdeo"
+  },
+  "butter": {
+    "id": "butter",
+    "name": "butter",
+    "category": "dairy",
+    "compounds": [
+      "acetoin",
+      "butyric_acid",
+      "delta_decalactone",
+      "diacetyl",
+      "gamma_decalactone",
+      "hexanal",
+      "nonanal",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "melt",
+      "brown",
+      "cream",
+      "clarify"
+    ],
+    "flavor_notes": "rich, creamy, nutty when browned",
+    "name_es": "Manteca / Mantequilla"
+  },
+  "parmesan": {
+    "id": "parmesan",
+    "name": "parmesan",
+    "category": "dairy",
+    "compounds": [
+      "acetic_acid",
+      "acetoin",
+      "butyric_acid",
+      "diacetyl",
+      "ethyl_butyrate",
+      "hexanal",
+      "methylpyrazine"
+    ],
+    "cooking_methods": [
+      "grate",
+      "shave",
+      "rind"
+    ],
+    "flavor_notes": "sharp, savory, crystalline",
+    "name_es": "Parmesano"
+  },
+  "blue_cheese": {
+    "id": "blue_cheese",
+    "name": "blue cheese",
+    "category": "dairy",
+    "compounds": [
+      "1_octen_3_ol",
+      "acetoin",
+      "butyric_acid",
+      "diacetyl",
+      "hexanal",
+      "methyl_thioacetate",
+      "methylpyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "crumble",
+      "melt",
+      "sauce"
+    ],
+    "flavor_notes": "pungent, tangy, funky",
+    "name_es": "Queso Azul"
+  },
+  "goat_cheese": {
+    "id": "goat_cheese",
+    "name": "goat cheese",
+    "category": "dairy",
+    "compounds": [
+      "acetoin",
+      "butyric_acid",
+      "diacetyl",
+      "hexanal",
+      "lactic_acid",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "crumble",
+      "spread",
+      "bake",
+      "whip"
+    ],
+    "flavor_notes": "tangy, earthy, bright",
+    "name_es": "Queso de Cabra"
+  },
+  "yogurt": {
+    "id": "yogurt",
+    "name": "yogurt",
+    "category": "dairy",
+    "compounds": [
+      "acetic_acid",
+      "acetoin",
+      "diacetyl",
+      "lactic_acid"
+    ],
+    "cooking_methods": [
+      "raw",
+      "marinade",
+      "sauce",
+      "bake"
+    ],
+    "flavor_notes": "tangy, creamy, tart",
+    "name_es": "Yogur"
+  },
+  "cream": {
+    "id": "cream",
+    "name": "cream",
+    "category": "dairy",
+    "compounds": [
+      "acetoin",
+      "delta_decalactone",
+      "diacetyl",
+      "gamma_decalactone",
+      "nonanal",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "whip",
+      "reduce",
+      "infuse",
+      "pour"
+    ],
+    "flavor_notes": "rich, sweet, smooth",
+    "name_es": "Crema de Leche"
+  },
+  "ricotta": {
+    "id": "ricotta",
+    "name": "ricotta",
+    "category": "dairy",
+    "compounds": [
+      "acetoin",
+      "diacetyl",
+      "hexanal",
+      "lactic_acid",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "spread",
+      "bake",
+      "stuff",
+      "dollop"
+    ],
+    "flavor_notes": "mild, milky, fresh, grainy",
+    "name_es": "Ricotta"
+  },
+  "gruyere": {
+    "id": "gruyere",
+    "name": "gruyere",
+    "category": "dairy",
+    "compounds": [
+      "acetoin",
+      "butyric_acid",
+      "diacetyl",
+      "hexanal",
+      "methylpyrazine",
+      "nonanal",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "melt",
+      "grate",
+      "fondue",
+      "gratinée"
+    ],
+    "flavor_notes": "nutty, sweet, earthy, complex",
+    "name_es": "Gruyère"
+  },
+  "mascarpone": {
+    "id": "mascarpone",
+    "name": "mascarpone",
+    "category": "dairy",
+    "compounds": [
+      "acetoin",
+      "delta_decalactone",
+      "diacetyl",
+      "gamma_decalactone",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "spread",
+      "fold",
+      "whip",
+      "layer"
+    ],
+    "flavor_notes": "ultra-rich, sweet, velvety",
+    "name_es": "Mascarpone"
+  },
+  "almond": {
+    "id": "almond",
+    "name": "almond",
+    "category": "nut",
+    "compounds": [
+      "benzaldehyde",
+      "furfural",
+      "hexanal",
+      "linalool",
+      "methylpyrazine",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "toast",
+      "grind",
+      "blanch",
+      "butter"
+    ],
+    "flavor_notes": "sweet, marzipan, delicate",
+    "name_es": "Almendra"
+  },
+  "walnut": {
+    "id": "walnut",
+    "name": "walnut",
+    "category": "nut",
+    "compounds": [
+      "1_octen_3_ol",
+      "hexanal",
+      "methylpyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "toast",
+      "chop",
+      "candy",
+      "press"
+    ],
+    "flavor_notes": "earthy, tannic, rich",
+    "name_es": "Nuez"
+  },
+  "pistachio": {
+    "id": "pistachio",
+    "name": "pistachio",
+    "category": "nut",
+    "compounds": [
+      "hexanal",
+      "limonene",
+      "linalool",
+      "methylpyrazine",
+      "myrcene",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "toast",
+      "grind",
+      "chop"
+    ],
+    "flavor_notes": "sweet, green, earthy",
+    "name_es": "Pistacho"
+  },
+  "peanut": {
+    "id": "peanut",
+    "name": "peanut",
+    "category": "nut",
+    "compounds": [
+      "acetylpyrazine",
+      "benzaldehyde",
+      "furaneol",
+      "hexanal",
+      "methylpyrazine"
+    ],
+    "cooking_methods": [
+      "roast",
+      "grind",
+      "boil",
+      "butter"
+    ],
+    "flavor_notes": "roasty, nutty, earthy",
+    "name_es": "Maní / Cacahuate"
+  },
+  "hazelnut": {
+    "id": "hazelnut",
+    "name": "hazelnut",
+    "category": "nut",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "hexanal",
+      "linalool",
+      "maltol",
+      "methylpyrazine",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "toast",
+      "grind",
+      "butter"
+    ],
+    "flavor_notes": "rich, sweet, toasty",
+    "name_es": "Avellana"
+  },
+  "cashew": {
+    "id": "cashew",
+    "name": "cashew",
+    "category": "nut",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "hexanal",
+      "methylpyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "toast",
+      "cream",
+      "butter",
+      "grind"
+    ],
+    "flavor_notes": "buttery, mild, sweet",
+    "name_es": "Castaña de Cajú"
+  },
+  "pecan": {
+    "id": "pecan",
+    "name": "pecan",
+    "category": "nut",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "hexanal",
+      "maltol",
+      "methylpyrazine",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "toast",
+      "candy",
+      "chop",
+      "pie"
+    ],
+    "flavor_notes": "buttery, sweet, maple-like",
+    "name_es": "Nuez Pecán"
+  },
+  "macadamia": {
+    "id": "macadamia",
+    "name": "macadamia",
+    "category": "nut",
+    "compounds": [
+      "furfural",
+      "gamma_decalactone",
+      "hexanal",
+      "methylpyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "toast",
+      "chop",
+      "butter",
+      "bake"
+    ],
+    "flavor_notes": "buttery, rich, creamy, subtle",
+    "name_es": "Nuez de Macadamia"
+  },
+  "tahini": {
+    "id": "tahini",
+    "name": "tahini",
+    "category": "nut",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "guaiacol",
+      "hexanal",
+      "methylpyrazine"
+    ],
+    "cooking_methods": [
+      "raw",
+      "dress",
+      "sauce",
+      "spread"
+    ],
+    "flavor_notes": "nutty, bitter, toasty, earthy",
+    "name_es": "Tahini"
+  },
+  "shiitake": {
+    "id": "shiitake",
+    "name": "shiitake",
+    "category": "mushroom",
+    "compounds": [
+      "1_octen_3_ol",
+      "dimethyl_sulfide",
+      "dimethyl_trisulfide",
+      "hexanal",
+      "methylpyrazine",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "sauté",
+      "dry",
+      "braise",
+      "grill"
+    ],
+    "flavor_notes": "earthy, umami, meaty",
+    "name_es": "Shiitake"
+  },
+  "truffle": {
+    "id": "truffle",
+    "name": "truffle",
+    "category": "mushroom",
+    "compounds": [
+      "1_octen_3_ol",
+      "dimethyl_sulfide",
+      "dimethyl_trisulfide",
+      "methylpyrazine",
+      "nonanal",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "shave",
+      "infuse",
+      "finish"
+    ],
+    "flavor_notes": "intense, earthy, musky",
+    "name_es": "Trufa"
+  },
+  "porcini": {
+    "id": "porcini",
+    "name": "porcini",
+    "category": "mushroom",
+    "compounds": [
+      "1_octen_3_ol",
+      "hexanal",
+      "methylpyrazine",
+      "nonanal",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "sauté",
+      "dry",
+      "braise",
+      "risotto"
+    ],
+    "flavor_notes": "nutty, woodsy, deep",
+    "name_es": "Boletus / Porcini"
+  },
+  "oyster_mushroom": {
+    "id": "oyster_mushroom",
+    "name": "oyster mushroom",
+    "category": "mushroom",
+    "compounds": [
+      "1_octen_3_ol",
+      "benzaldehyde",
+      "hexanal",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "sauté",
+      "fry",
+      "grill",
+      "braise"
+    ],
+    "flavor_notes": "delicate, mild, slightly sweet",
+    "name_es": "Gírgola / Hongo Ostra"
+  },
+  "chanterelle": {
+    "id": "chanterelle",
+    "name": "chanterelle",
+    "category": "mushroom",
+    "compounds": [
+      "1_octen_3_ol",
+      "geraniol",
+      "hexanal",
+      "linalool",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "sauté",
+      "cream",
+      "dry",
+      "pickle"
+    ],
+    "flavor_notes": "fruity, peppery, apricot-like",
+    "name_es": "Rebozuelo / Chanterelle"
+  },
+  "morel": {
+    "id": "morel",
+    "name": "morel",
+    "category": "mushroom",
+    "compounds": [
+      "1_octen_3_ol",
+      "furfural",
+      "hexanal",
+      "methylpyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "sauté",
+      "cream",
+      "stuff",
+      "dry"
+    ],
+    "flavor_notes": "earthy, nutty, complex, smoky",
+    "name_es": "Colmenilla / Morchella"
+  },
+  "bread": {
+    "id": "bread",
+    "name": "bread",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "diacetyl",
+      "furaneol",
+      "furfural",
+      "hexanal",
+      "maltol",
+      "methylpyrazine"
+    ],
+    "cooking_methods": [
+      "toast",
+      "grill",
+      "crumb",
+      "cube"
+    ],
+    "flavor_notes": "yeasty, toasty, wheaty",
+    "name_es": "Pan Blanco"
+  },
+  "sourdough": {
+    "id": "sourdough",
+    "name": "sourdough",
+    "category": "grain",
+    "compounds": [
+      "acetic_acid",
+      "acetylpyrazine",
+      "diacetyl",
+      "ethyl_acetate",
+      "furfural",
+      "lactic_acid",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "toast",
+      "grill",
+      "slice",
+      "crouton"
+    ],
+    "flavor_notes": "tangy, complex, chewy, crusty",
+    "name_es": "Pan de Masa Madre"
+  },
+  "ciabatta": {
+    "id": "ciabatta",
+    "name": "ciabatta",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "diacetyl",
+      "furfural",
+      "hexanal",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "toast",
+      "grill",
+      "sandwich",
+      "bruschetta"
+    ],
+    "flavor_notes": "airy, olive oil, crusty, chewy",
+    "name_es": "Ciabatta"
+  },
+  "brioche": {
+    "id": "brioche",
+    "name": "brioche",
+    "category": "grain",
+    "compounds": [
+      "acetoin",
+      "diacetyl",
+      "furaneol",
+      "gamma_decalactone",
+      "maltol",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "toast",
+      "french toast",
+      "bun",
+      "bread pudding"
+    ],
+    "flavor_notes": "buttery, rich, sweet, pillowy",
+    "name_es": "Brioche"
+  },
+  "pita": {
+    "id": "pita",
+    "name": "pita",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "hexanal",
+      "maltol",
+      "methylpyrazine"
+    ],
+    "cooking_methods": [
+      "warm",
+      "stuff",
+      "chip",
+      "toast"
+    ],
+    "flavor_notes": "mild, pocket, soft, versatile",
+    "name_es": "Pan Pita"
+  },
+  "focaccia": {
+    "id": "focaccia",
+    "name": "focaccia",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "hexanal",
+      "linalool",
+      "maltol",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "slice",
+      "sandwich",
+      "dip",
+      "toast"
+    ],
+    "flavor_notes": "herby, olive oil, dimpled, chewy",
+    "name_es": "Focaccia"
+  },
+  "cornbread": {
+    "id": "cornbread",
+    "name": "cornbread",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "diacetyl",
+      "dimethyl_sulfide",
+      "furaneol",
+      "hexanal",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "bake",
+      "crumble",
+      "slice",
+      "stuff"
+    ],
+    "flavor_notes": "sweet, corn, crumbly, rustic",
+    "name_es": "Pan de Maíz"
+  },
+  "naan": {
+    "id": "naan",
+    "name": "naan",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "diacetyl",
+      "furfural",
+      "lactic_acid",
+      "maltol",
+      "methylpyrazine"
+    ],
+    "cooking_methods": [
+      "grill",
+      "bake",
+      "char",
+      "stuff"
+    ],
+    "flavor_notes": "yeasty, charred, pillowy",
+    "name_es": "Pan Naan"
+  },
+  "tortilla": {
+    "id": "tortilla",
+    "name": "tortilla",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "dimethyl_sulfide",
+      "furfural",
+      "hexanal",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "warm",
+      "fry",
+      "wrap",
+      "bake",
+      "char"
+    ],
+    "flavor_notes": "corn or flour, mild, pliable",
+    "name_es": "Tortilla"
+  },
+  "rice": {
+    "id": "rice",
+    "name": "white rice",
+    "category": "grain",
+    "compounds": [
+      "acetyl_pyrroline",
+      "acetylpyrazine",
+      "hexanal",
+      "maltol",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "boil",
+      "steam",
+      "fry",
+      "toast"
+    ],
+    "flavor_notes": "mild, starchy, fluffy",
+    "name_es": "Arroz Blanco"
+  },
+  "jasmine_rice": {
+    "id": "jasmine_rice",
+    "name": "jasmine rice",
+    "category": "grain",
+    "compounds": [
+      "acetyl_pyrroline",
+      "hexanal",
+      "indole",
+      "linalool",
+      "maltol",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "steam",
+      "boil",
+      "coconut"
+    ],
+    "flavor_notes": "floral, fragrant, soft, aromatic",
+    "name_es": "Arroz Jazmín"
+  },
+  "basmati_rice": {
+    "id": "basmati_rice",
+    "name": "basmati rice",
+    "category": "grain",
+    "compounds": [
+      "acetyl_pyrroline",
+      "hexanal",
+      "linalool",
+      "myrcene",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "boil",
+      "pilaf",
+      "steam",
+      "biryani"
+    ],
+    "flavor_notes": "nutty, fragrant, long-grain, separate",
+    "name_es": "Arroz Basmati"
+  },
+  "brown_rice": {
+    "id": "brown_rice",
+    "name": "brown rice",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "hexanal",
+      "maltol",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "boil",
+      "steam",
+      "pilaf"
+    ],
+    "flavor_notes": "nutty, chewy, wholesome, earthy",
+    "name_es": "Arroz Integral"
+  },
+  "arborio_rice": {
+    "id": "arborio_rice",
+    "name": "arborio rice",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "diacetyl",
+      "hexanal",
+      "maltol",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "risotto",
+      "pudding",
+      "simmer"
+    ],
+    "flavor_notes": "starchy, creamy, plump, absorbent",
+    "name_es": "Arroz Carnaroli / Arborio"
+  },
+  "sticky_rice": {
+    "id": "sticky_rice",
+    "name": "sticky rice",
+    "category": "grain",
+    "compounds": [
+      "acetyl_pyrroline",
+      "hexanal",
+      "maltol",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "steam",
+      "wrap",
+      "mold"
+    ],
+    "flavor_notes": "sweet, glutinous, chewy, clumpy",
+    "name_es": "Arroz Glutinoso"
+  },
+  "wild_rice": {
+    "id": "wild_rice",
+    "name": "wild rice",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "hexanal",
+      "methylpyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "boil",
+      "pilaf",
+      "salad",
+      "stuff"
+    ],
+    "flavor_notes": "earthy, nutty, chewy, smoky",
+    "name_es": "Arroz Salvaje"
+  },
+  "spaghetti": {
+    "id": "spaghetti",
+    "name": "spaghetti",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "hexanal",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "boil",
+      "toss",
+      "twirl"
+    ],
+    "flavor_notes": "wheaty, firm, classic, versatile",
+    "name_es": "Espagueti"
+  },
+  "penne": {
+    "id": "penne",
+    "name": "penne",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "hexanal",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "boil",
+      "bake",
+      "toss"
+    ],
+    "flavor_notes": "wheaty, tubular, holds sauce, firm",
+    "name_es": "Penne"
+  },
+  "fettuccine": {
+    "id": "fettuccine",
+    "name": "fettuccine",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "diacetyl",
+      "furfural",
+      "hexanal",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "boil",
+      "toss",
+      "cream"
+    ],
+    "flavor_notes": "rich, flat, egg noodle, silky",
+    "name_es": "Fettuccine"
+  },
+  "egg_noodles": {
+    "id": "egg_noodles",
+    "name": "egg noodles",
+    "category": "grain",
+    "compounds": [
+      "diacetyl",
+      "furfural",
+      "hexanal",
+      "maltol",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "boil",
+      "soup",
+      "casserole",
+      "butter"
+    ],
+    "flavor_notes": "eggy, tender, comfort, homestyle",
+    "name_es": "Fideos al Huevo"
+  },
+  "rice_noodles": {
+    "id": "rice_noodles",
+    "name": "rice noodles",
+    "category": "grain",
+    "compounds": [
+      "acetyl_pyrroline",
+      "hexanal",
+      "linalool",
+      "maltol",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "soak",
+      "stir-fry",
+      "soup",
+      "salad"
+    ],
+    "flavor_notes": "slippery, delicate, glassy, neutral, Asian",
+    "name_es": "Fideos de Arroz"
+  },
+  "udon": {
+    "id": "udon",
+    "name": "udon",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "hexanal",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "boil",
+      "stir-fry",
+      "soup",
+      "cold"
+    ],
+    "flavor_notes": "thick, chewy, bouncy, wheaty, Japanese",
+    "name_es": "Fideos Udon"
+  },
+  "soba": {
+    "id": "soba",
+    "name": "soba",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "hexanal",
+      "maltol",
+      "methylpyrazine"
+    ],
+    "cooking_methods": [
+      "boil",
+      "cold",
+      "soup",
+      "dip"
+    ],
+    "flavor_notes": "nutty, buckwheat, earthy, firm, Japanese",
+    "name_es": "Fideos Soba"
+  },
+  "ramen_noodles": {
+    "id": "ramen_noodles",
+    "name": "ramen noodles",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "hexanal",
+      "lactic_acid",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "boil",
+      "soup",
+      "stir-fry"
+    ],
+    "flavor_notes": "springy, alkaline, chewy, yellow",
+    "name_es": "Fideos Ramen"
+  },
+  "gnocchi": {
+    "id": "gnocchi",
+    "name": "gnocchi",
+    "category": "grain",
+    "compounds": [
+      "diacetyl",
+      "hexanal",
+      "maltol",
+      "methional",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "boil",
+      "pan-fry",
+      "bake",
+      "sauce"
+    ],
+    "flavor_notes": "pillowy, potato, dumpling, tender, Italian",
+    "name_es": "Ñoquis / Gnocchi"
+  },
+  "orzo": {
+    "id": "orzo",
+    "name": "orzo",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "hexanal",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "boil",
+      "pilaf",
+      "salad",
+      "soup"
+    ],
+    "flavor_notes": "rice-shaped pasta, versatile, light",
+    "name_es": "Orzo"
+  },
+  "elbow_macaroni": {
+    "id": "elbow_macaroni",
+    "name": "elbow macaroni",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "hexanal",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "boil",
+      "bake",
+      "casserole"
+    ],
+    "flavor_notes": "curved, tubular, classic mac & cheese shape, holds sauce inside",
+    "name_es": "Coditos / Macarrones"
+  },
+  "shells": {
+    "id": "shells",
+    "name": "pasta shells",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "hexanal",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "boil",
+      "stuff",
+      "bake",
+      "toss"
+    ],
+    "flavor_notes": "cup-shaped, catches sauce and cheese, great stuffed",
+    "name_es": "Conchiglie / Caracoles"
+  },
+  "rigatoni": {
+    "id": "rigatoni",
+    "name": "rigatoni",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "hexanal",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "boil",
+      "bake",
+      "toss"
+    ],
+    "flavor_notes": "large ridged tubes, holds chunky sauce, hearty, al dente",
+    "name_es": "Rigatoni"
+  },
+  "rotini": {
+    "id": "rotini",
+    "name": "rotini",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "hexanal",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "boil",
+      "salad",
+      "casserole",
+      "toss"
+    ],
+    "flavor_notes": "spiral-shaped, traps sauce in twists, fun, versatile",
+    "name_es": "Tirabuzones / Rotini"
+  },
+  "farfalle": {
+    "id": "farfalle",
+    "name": "farfalle",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "hexanal",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "boil",
+      "salad",
+      "cream",
+      "toss"
+    ],
+    "flavor_notes": "bow-tie shaped, thick center chewy edges, elegant",
+    "name_es": "Moñitos / Farfalle"
+  },
+  "angel_hair": {
+    "id": "angel_hair",
+    "name": "angel hair",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "hexanal",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "boil",
+      "toss",
+      "nest"
+    ],
+    "flavor_notes": "ultra-thin, delicate, cooks in 2 min, pairs with light sauces",
+    "name_es": "Cabello de Ángel"
+  },
+  "linguine": {
+    "id": "linguine",
+    "name": "linguine",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "hexanal",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "boil",
+      "toss",
+      "twirl"
+    ],
+    "flavor_notes": "flat and wide, between spaghetti and fettuccine, seafood classic",
+    "name_es": "Linguine"
+  },
+  "ziti": {
+    "id": "ziti",
+    "name": "ziti",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "hexanal",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "boil",
+      "bake",
+      "toss"
+    ],
+    "flavor_notes": "smooth tubes, perfect for baked dishes, holds ricotta",
+    "name_es": "Ziti"
+  },
+  "cavatappi": {
+    "id": "cavatappi",
+    "name": "cavatappi",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "hexanal",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "boil",
+      "bake",
+      "mac"
+    ],
+    "flavor_notes": "corkscrew tubes, ridged, ultimate mac & cheese pasta",
+    "name_es": "Cavatappi"
+  },
+  "orecchiette": {
+    "id": "orecchiette",
+    "name": "orecchiette",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "hexanal",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "boil",
+      "toss",
+      "broccoli rabe"
+    ],
+    "flavor_notes": "little ear shapes, catches crumbled sausage and greens",
+    "name_es": "Orecchiette"
+  },
+  "lasagna_sheets": {
+    "id": "lasagna_sheets",
+    "name": "lasagna sheets",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "diacetyl",
+      "furfural",
+      "hexanal",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "layer",
+      "bake",
+      "roll"
+    ],
+    "flavor_notes": "flat wide sheets for layering, absorbs sauce, becomes silky",
+    "name_es": "Masa de Lasaña"
+  },
+  "vermicelli": {
+    "id": "vermicelli",
+    "name": "vermicelli",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "hexanal",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "boil",
+      "stir-fry",
+      "soup",
+      "nest"
+    ],
+    "flavor_notes": "very thin, quick-cooking, works in soups and Asian dishes",
+    "name_es": "Vermicelli"
+  },
+  "lo_mein_noodles": {
+    "id": "lo_mein_noodles",
+    "name": "lo mein noodles",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "diacetyl",
+      "furfural",
+      "hexanal",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "boil",
+      "stir-fry",
+      "toss"
+    ],
+    "flavor_notes": "chewy, egg-based, Chinese, absorbs sauce well",
+    "name_es": "Fideos Lo Mein"
+  },
+  "couscous": {
+    "id": "couscous",
+    "name": "couscous",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "hexanal",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "steam",
+      "fluff",
+      "salad",
+      "pilaf"
+    ],
+    "flavor_notes": "fluffy, tiny, North African, quick",
+    "name_es": "Cuscús"
+  },
+  "oat": {
+    "id": "oat",
+    "name": "oat",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "furaneol",
+      "furfural",
+      "hexanal",
+      "maltol",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "toast",
+      "boil",
+      "bake",
+      "grind"
+    ],
+    "flavor_notes": "earthy, sweet, nutty",
+    "name_es": "Avena"
+  },
+  "quinoa": {
+    "id": "quinoa",
+    "name": "quinoa",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "hexanal",
+      "linalool",
+      "methylpyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "toast",
+      "boil",
+      "pilaf",
+      "salad"
+    ],
+    "flavor_notes": "nutty, earthy, mild",
+    "name_es": "Quinua"
+  },
+  "barley": {
+    "id": "barley",
+    "name": "barley",
+    "category": "grain",
+    "compounds": [
+      "furfural",
+      "hexanal",
+      "maltol",
+      "methylpyrazine",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "toast",
+      "simmer",
+      "risotto",
+      "soup"
+    ],
+    "flavor_notes": "malty, chewy, sweet",
+    "name_es": "Cebada"
+  },
+  "polenta": {
+    "id": "polenta",
+    "name": "polenta",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "diacetyl",
+      "dimethyl_sulfide",
+      "hexanal",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "simmer",
+      "fry",
+      "grill",
+      "bake"
+    ],
+    "flavor_notes": "corn, creamy, sweet",
+    "name_es": "Polenta"
+  },
+  "farro": {
+    "id": "farro",
+    "name": "farro",
+    "category": "grain",
+    "compounds": [
+      "furfural",
+      "hexanal",
+      "maltol",
+      "methylpyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "boil",
+      "salad",
+      "risotto",
+      "soup"
+    ],
+    "flavor_notes": "nutty, chewy, ancient grain, hearty",
+    "name_es": "Farro"
+  },
+  "chickpea": {
+    "id": "chickpea",
+    "name": "chickpea",
+    "category": "legume",
+    "compounds": [
+      "acetylpyrazine",
+      "hexanal",
+      "methoxypyrazine",
+      "methylpyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "roast",
+      "boil",
+      "fry",
+      "purée",
+      "stew"
+    ],
+    "flavor_notes": "nutty, earthy, starchy",
+    "name_es": "Garbanzo"
+  },
+  "lentil": {
+    "id": "lentil",
+    "name": "lentil",
+    "category": "legume",
+    "compounds": [
+      "furfural",
+      "hexanal",
+      "methional",
+      "methylpyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "simmer",
+      "stew",
+      "purée",
+      "salad"
+    ],
+    "flavor_notes": "earthy, peppery, hearty",
+    "name_es": "Lenteja"
+  },
+  "black_bean": {
+    "id": "black_bean",
+    "name": "black bean",
+    "category": "legume",
+    "compounds": [
+      "furfural",
+      "hexanal",
+      "methional",
+      "methylpyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "simmer",
+      "fry",
+      "purée",
+      "stew"
+    ],
+    "flavor_notes": "earthy, rich, meaty",
+    "name_es": "Poroto Negro / Frijol"
+  },
+  "edamame": {
+    "id": "edamame",
+    "name": "edamame",
+    "category": "legume",
+    "compounds": [
+      "dimethyl_sulfide",
+      "hexanal",
+      "linalool",
+      "methoxypyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "boil",
+      "steam",
+      "sauté",
+      "purée"
+    ],
+    "flavor_notes": "sweet, green, nutty, fresh",
+    "name_es": "Edamame"
+  },
+  "soy_sauce": {
+    "id": "soy_sauce",
+    "name": "soy sauce",
+    "category": "fermented",
+    "compounds": [
+      "acetic_acid",
+      "acetylpyrazine",
+      "furaneol",
+      "guaiacol",
+      "maltol",
+      "methional",
+      "methylpyrazine"
+    ],
+    "cooking_methods": [
+      "season",
+      "glaze",
+      "marinade",
+      "dip"
+    ],
+    "flavor_notes": "salty, umami, complex",
+    "name_es": "Salsa de Soja"
+  },
+  "miso": {
+    "id": "miso",
+    "name": "miso",
+    "category": "fermented",
+    "compounds": [
+      "acetylpyrazine",
+      "dimethyl_sulfide",
+      "furaneol",
+      "methional",
+      "methylpyrazine",
+      "sotolon"
+    ],
+    "cooking_methods": [
+      "dissolve",
+      "glaze",
+      "marinade"
+    ],
+    "flavor_notes": "salty, funky, sweet",
+    "name_es": "Pasta Miso"
+  },
+  "fish_sauce": {
+    "id": "fish_sauce",
+    "name": "fish sauce",
+    "category": "fermented",
+    "compounds": [
+      "acetic_acid",
+      "butyric_acid",
+      "dimethyl_sulfide",
+      "methional",
+      "methylpyrazine",
+      "trimethylamine"
+    ],
+    "cooking_methods": [
+      "season",
+      "dress",
+      "marinade",
+      "dip"
+    ],
+    "flavor_notes": "pungent, umami, funky, depth",
+    "name_es": "Salsa de Pescado"
+  },
+  "kimchi": {
+    "id": "kimchi",
+    "name": "kimchi",
+    "category": "fermented",
+    "compounds": [
+      "acetic_acid",
+      "allyl_isothiocyanate",
+      "capsaicin",
+      "diallyl_disulfide",
+      "dimethyl_sulfide",
+      "lactic_acid"
+    ],
+    "cooking_methods": [
+      "raw",
+      "fry",
+      "stew",
+      "pancake"
+    ],
+    "flavor_notes": "sour, spicy, funky, complex",
+    "name_es": "Kimchi"
+  },
+  "coffee": {
+    "id": "coffee",
+    "name": "coffee",
+    "category": "fermented",
+    "compounds": [
+      "4vg",
+      "acetylpyrazine",
+      "furaneol",
+      "furfural",
+      "guaiacol",
+      "linalool",
+      "maltol",
+      "methylpyrazine",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "brew",
+      "grind",
+      "infuse",
+      "espresso"
+    ],
+    "flavor_notes": "bitter, roasty, complex",
+    "name_es": "Café"
+  },
+  "chocolate": {
+    "id": "chocolate",
+    "name": "chocolate",
+    "category": "fermented",
+    "compounds": [
+      "acetylpyrazine",
+      "furaneol",
+      "furfural",
+      "linalool",
+      "maltol",
+      "methylpyrazine",
+      "phenethyl_alcohol",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "melt",
+      "temper",
+      "grate",
+      "ganache"
+    ],
+    "flavor_notes": "rich, bitter, complex",
+    "name_es": "Chocolate"
+  },
+  "beer": {
+    "id": "beer",
+    "name": "beer",
+    "category": "fermented",
+    "compounds": [
+      "4vg",
+      "diacetyl",
+      "ethyl_acetate",
+      "isoamyl_acetate",
+      "linalool",
+      "myrcene"
+    ],
+    "cooking_methods": [
+      "braise",
+      "batter",
+      "reduce",
+      "steam"
+    ],
+    "flavor_notes": "bitter, malty, hoppy",
+    "name_es": "Cerveza"
+  },
+  "vinegar": {
+    "id": "vinegar",
+    "name": "vinegar",
+    "category": "fermented",
+    "compounds": [
+      "acetic_acid",
+      "acetoin",
+      "diacetyl",
+      "ethyl_acetate"
+    ],
+    "cooking_methods": [
+      "dress",
+      "deglaze",
+      "pickle",
+      "reduce"
+    ],
+    "flavor_notes": "sharp, sour, bright",
+    "name_es": "Vinagre de Alcohol"
+  },
+  "balsamic": {
+    "id": "balsamic",
+    "name": "balsamic vinegar",
+    "category": "fermented",
+    "compounds": [
+      "acetic_acid",
+      "ethyl_acetate",
+      "furaneol",
+      "furfural",
+      "maltol",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "drizzle",
+      "reduce",
+      "glaze",
+      "dress"
+    ],
+    "flavor_notes": "sweet, complex, syrupy, aged",
+    "name_es": "Aceto Balsámico"
+  },
+  "sake": {
+    "id": "sake",
+    "name": "sake",
+    "category": "fermented",
+    "compounds": [
+      "acetoin",
+      "diacetyl",
+      "ethyl_acetate",
+      "isoamyl_acetate",
+      "lactic_acid",
+      "linalool"
+    ],
+    "cooking_methods": [
+      "deglaze",
+      "poach",
+      "marinade",
+      "steam"
+    ],
+    "flavor_notes": "clean, floral, rice, delicate",
+    "name_es": "Sake"
+  },
+  "olive_oil": {
+    "id": "olive_oil",
+    "name": "olive oil",
+    "category": "oil/fat",
+    "compounds": [
+      "hexanal",
+      "limonene",
+      "linalool",
+      "nonanal",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "drizzle",
+      "sauté",
+      "fry",
+      "dress"
+    ],
+    "flavor_notes": "fruity, peppery, grassy",
+    "name_es": "Aceite de Oliva"
+  },
+  "sesame_oil": {
+    "id": "sesame_oil",
+    "name": "sesame oil",
+    "category": "oil/fat",
+    "compounds": [
+      "acetylpyrazine",
+      "furaneol",
+      "furfural",
+      "guaiacol",
+      "hexanal",
+      "methylpyrazine"
+    ],
+    "cooking_methods": [
+      "drizzle",
+      "finish",
+      "stir-fry"
+    ],
+    "flavor_notes": "nutty, toasty, rich",
+    "name_es": "Aceite de Sésamo"
+  },
+  "coconut_oil": {
+    "id": "coconut_oil",
+    "name": "coconut oil",
+    "category": "oil/fat",
+    "compounds": [
+      "delta_decalactone",
+      "gamma_decalactone",
+      "gamma_octalactone",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "fry",
+      "bake",
+      "sauté",
+      "drizzle"
+    ],
+    "flavor_notes": "coconut, mild, tropical",
+    "name_es": "Aceite de Coco"
+  },
+  "honey": {
+    "id": "honey",
+    "name": "honey",
+    "category": "sweetener",
+    "compounds": [
+      "damascenone",
+      "furaneol",
+      "linalool",
+      "nonanal",
+      "phenethyl_alcohol",
+      "phenylacetaldehyde",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "drizzle",
+      "dissolve",
+      "glaze",
+      "bake"
+    ],
+    "flavor_notes": "floral, sweet, complex",
+    "name_es": "Miel"
+  },
+  "maple_syrup": {
+    "id": "maple_syrup",
+    "name": "maple syrup",
+    "category": "sweetener",
+    "compounds": [
+      "acetoin",
+      "furaneol",
+      "furfural",
+      "maltol",
+      "sotolon",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "drizzle",
+      "glaze",
+      "bake",
+      "candy"
+    ],
+    "flavor_notes": "caramel, woody, sweet",
+    "name_es": "Jarabe de Arce"
+  },
+  "brown_sugar": {
+    "id": "brown_sugar",
+    "name": "brown sugar",
+    "category": "sweetener",
+    "compounds": [
+      "acetoin",
+      "diacetyl",
+      "furaneol",
+      "maltol",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "dissolve",
+      "caramelize",
+      "bake",
+      "rub"
+    ],
+    "flavor_notes": "molasses, toffee, warm",
+    "name_es": "Azúcar Rubio / Mascabado"
+  },
+  "caramel": {
+    "id": "caramel",
+    "name": "caramel",
+    "category": "sweetener",
+    "compounds": [
+      "acetylpyrazine",
+      "diacetyl",
+      "ethyl_maltol",
+      "furaneol",
+      "furfural",
+      "maltol",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "drizzle",
+      "sauce",
+      "candy",
+      "flavor"
+    ],
+    "flavor_notes": "rich, burnt sugar, buttery, complex",
+    "name_es": "Caramelo"
+  },
+  "sesame_seeds": {
+    "id": "sesame_seeds",
+    "name": "sesame seeds",
+    "category": "nut",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "guaiacol",
+      "hexanal",
+      "linalool",
+      "methylpyrazine"
+    ],
+    "cooking_methods": [
+      "toast",
+      "sprinkle",
+      "grind",
+      "crust",
+      "garnish"
+    ],
+    "flavor_notes": "nutty, toasty, delicate",
+    "name_es": "Semillas de Sésamo"
+  },
+  "pumpkin_seed": {
+    "id": "pumpkin_seed",
+    "name": "pumpkin seeds",
+    "category": "nut",
+    "compounds": [
+      "hexanal",
+      "linalool",
+      "methylpyrazine",
+      "nonanal",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "toast",
+      "press",
+      "garnish",
+      "blend"
+    ],
+    "flavor_notes": "nutty, earthy, green",
+    "name_es": "Semillas de Calabaza"
+  },
+  "sunflower_seed": {
+    "id": "sunflower_seed",
+    "name": "sunflower seeds",
+    "category": "nut",
+    "compounds": [
+      "furfural",
+      "hexanal",
+      "linalool",
+      "methylpyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "toast",
+      "butter",
+      "garnish",
+      "grind"
+    ],
+    "flavor_notes": "mild, nutty, slightly sweet",
+    "name_es": "Semillas de Girasol"
+  },
+  "flax_seed": {
+    "id": "flax_seed",
+    "name": "flax seeds",
+    "category": "nut",
+    "compounds": [
+      "furfural",
+      "hexanal",
+      "linalool",
+      "nonanal",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "grind",
+      "soak",
+      "bake",
+      "sprinkle"
+    ],
+    "flavor_notes": "earthy, nutty, mild",
+    "name_es": "Semillas de Lino"
+  },
+  "cheddar": {
+    "id": "cheddar",
+    "name": "cheddar",
+    "category": "dairy",
+    "compounds": [
+      "acetoin",
+      "butyric_acid",
+      "diacetyl",
+      "hexanal",
+      "methional",
+      "methylpyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "grate",
+      "melt",
+      "slice",
+      "sauce"
+    ],
+    "flavor_notes": "sharp, tangy, rich, aged",
+    "name_es": "Queso Cheddar"
+  },
+  "mozzarella": {
+    "id": "mozzarella",
+    "name": "mozzarella",
+    "category": "dairy",
+    "compounds": [
+      "acetoin",
+      "delta_decalactone",
+      "diacetyl",
+      "hexanal",
+      "lactic_acid",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "tear",
+      "melt",
+      "slice",
+      "bake"
+    ],
+    "flavor_notes": "mild, milky, stretchy, fresh",
+    "name_es": "Mozzarella"
+  },
+  "feta": {
+    "id": "feta",
+    "name": "feta",
+    "category": "dairy",
+    "compounds": [
+      "acetic_acid",
+      "acetoin",
+      "butyric_acid",
+      "diacetyl",
+      "hexanal",
+      "lactic_acid"
+    ],
+    "cooking_methods": [
+      "crumble",
+      "bake",
+      "whip",
+      "brine"
+    ],
+    "flavor_notes": "salty, tangy, briny, crumbly",
+    "name_es": "Queso Feta"
+  },
+  "brie": {
+    "id": "brie",
+    "name": "brie",
+    "category": "dairy",
+    "compounds": [
+      "1_octen_3_ol",
+      "acetoin",
+      "diacetyl",
+      "dimethyl_sulfide",
+      "gamma_decalactone",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "bake",
+      "slice",
+      "spread",
+      "melt"
+    ],
+    "flavor_notes": "creamy, earthy, mushroomy, buttery",
+    "name_es": "Queso Brie"
+  },
+  "cream_cheese": {
+    "id": "cream_cheese",
+    "name": "cream cheese",
+    "category": "dairy",
+    "compounds": [
+      "acetoin",
+      "diacetyl",
+      "gamma_decalactone",
+      "lactic_acid",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "spread",
+      "whip",
+      "bake",
+      "fold"
+    ],
+    "flavor_notes": "mild, tangy, smooth, rich",
+    "name_es": "Queso Crema"
+  },
+  "potato": {
+    "id": "potato",
+    "name": "potato",
+    "category": "vegetable",
+    "compounds": [
+      "acetylpyrazine",
+      "dimethyl_sulfide",
+      "hexanal",
+      "methional",
+      "methylpyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "roast",
+      "mash",
+      "fry",
+      "bake",
+      "boil"
+    ],
+    "flavor_notes": "starchy, earthy, versatile",
+    "name_es": "Papa"
+  },
+  "butternut_squash": {
+    "id": "butternut_squash",
+    "name": "butternut squash",
+    "category": "vegetable",
+    "compounds": [
+      "furaneol",
+      "hexanal",
+      "ionone",
+      "linalool",
+      "maltol",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "roast",
+      "purée",
+      "soup",
+      "bake",
+      "stuff"
+    ],
+    "flavor_notes": "sweet, nutty, velvety",
+    "name_es": "Calabaza Anco"
+  },
+  "bok_choy": {
+    "id": "bok_choy",
+    "name": "bok choy",
+    "category": "vegetable",
+    "compounds": [
+      "allyl_isothiocyanate",
+      "dimethyl_sulfide",
+      "hexanal",
+      "linalool",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "stir-fry",
+      "steam",
+      "braise",
+      "grill",
+      "raw"
+    ],
+    "flavor_notes": "mild, crisp, slightly sweet",
+    "name_es": "Bok Choy"
+  },
+  "snap_peas": {
+    "id": "snap_peas",
+    "name": "snap peas",
+    "category": "vegetable",
+    "compounds": [
+      "dimethyl_sulfide",
+      "hexanal",
+      "linalool",
+      "methoxypyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "raw",
+      "stir-fry",
+      "sauté",
+      "blanch"
+    ],
+    "flavor_notes": "sweet, crisp, green, fresh",
+    "name_es": "Tirabeques / Arvejas Chinas"
+  },
+  "tomatillo": {
+    "id": "tomatillo",
+    "name": "tomatillo",
+    "category": "vegetable",
+    "compounds": [
+      "citric_acid",
+      "hexanal",
+      "limonene",
+      "linalool",
+      "malic_acid",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "roast",
+      "raw",
+      "simmer",
+      "blend"
+    ],
+    "flavor_notes": "tart, bright, citrusy, herbal",
+    "name_es": "Tomatillo Verde"
+  },
+  "jalapeno": {
+    "id": "jalapeno",
+    "name": "jalapeño",
+    "category": "vegetable",
+    "compounds": [
+      "capsaicin",
+      "hexanal",
+      "limonene",
+      "linalool",
+      "methoxypyrazine"
+    ],
+    "cooking_methods": [
+      "raw",
+      "roast",
+      "pickle",
+      "stuff",
+      "char"
+    ],
+    "flavor_notes": "spicy, bright, vegetal",
+    "name_es": "Jalapeño"
+  },
+  "poblano": {
+    "id": "poblano",
+    "name": "poblano",
+    "category": "vegetable",
+    "compounds": [
+      "capsaicin",
+      "hexanal",
+      "limonene",
+      "methoxypyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "roast",
+      "stuff",
+      "char",
+      "blend",
+      "dry"
+    ],
+    "flavor_notes": "mild heat, earthy, rich",
+    "name_es": "Chile Poblano"
+  },
+  "mushroom_button": {
+    "id": "mushroom_button",
+    "name": "button mushrooms",
+    "category": "mushroom",
+    "compounds": [
+      "1_octen_3_ol",
+      "hexanal",
+      "linalool",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "sauté",
+      "raw",
+      "stuff",
+      "grill",
+      "cream"
+    ],
+    "flavor_notes": "mild, earthy, versatile",
+    "name_es": "Champiñón de París"
+  },
+  "acorn_squash": {
+    "id": "acorn_squash",
+    "name": "acorn squash",
+    "category": "vegetable",
+    "compounds": [
+      "furaneol",
+      "hexanal",
+      "linalool",
+      "maltol",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "roast",
+      "stuff",
+      "bake",
+      "purée"
+    ],
+    "flavor_notes": "sweet, nutty, hearty",
+    "name_es": "Calabaza Bellota"
+  },
+  "gochujang": {
+    "id": "gochujang",
+    "name": "gochujang",
+    "category": "fermented",
+    "compounds": [
+      "acetic_acid",
+      "acetylpyrazine",
+      "capsaicin",
+      "furaneol",
+      "maltol",
+      "methylpyrazine"
+    ],
+    "cooking_methods": [
+      "glaze",
+      "marinade",
+      "sauce",
+      "stir"
+    ],
+    "flavor_notes": "sweet, spicy, funky, umami",
+    "name_es": "Gochujang"
+  },
+  "harissa": {
+    "id": "harissa",
+    "name": "harissa",
+    "category": "fermented",
+    "compounds": [
+      "capsaicin",
+      "cuminaldehyde",
+      "guaiacol",
+      "limonene",
+      "linalool",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "paste",
+      "marinade",
+      "stir",
+      "drizzle"
+    ],
+    "flavor_notes": "smoky, spicy, complex, North African",
+    "name_es": "Harissa"
+  },
+  "hoisin": {
+    "id": "hoisin",
+    "name": "hoisin",
+    "category": "fermented",
+    "compounds": [
+      "acetic_acid",
+      "acetylpyrazine",
+      "furaneol",
+      "maltol",
+      "methylpyrazine",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "glaze",
+      "dip",
+      "marinade",
+      "sauce"
+    ],
+    "flavor_notes": "sweet, salty, umami, thick",
+    "name_es": "Salsa Hoisin"
+  },
+  "chipotle": {
+    "id": "chipotle",
+    "name": "chipotle",
+    "category": "spice",
+    "compounds": [
+      "4vg",
+      "capsaicin",
+      "cresol",
+      "guaiacol",
+      "hexanal",
+      "methylpyrazine"
+    ],
+    "cooking_methods": [
+      "purée",
+      "rehydrate",
+      "sauce",
+      "rub"
+    ],
+    "flavor_notes": "smoky, moderate heat, deep, complex",
+    "name_es": "Chipotle"
+  },
+  "coconut_milk": {
+    "id": "coconut_milk",
+    "name": "coconut milk",
+    "category": "dairy",
+    "compounds": [
+      "delta_decalactone",
+      "gamma_decalactone",
+      "gamma_octalactone",
+      "nonanal",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "simmer",
+      "curry",
+      "soup",
+      "bake"
+    ],
+    "flavor_notes": "rich, creamy, tropical, sweet",
+    "name_es": "Leche de Coco"
+  },
+  "tomato_paste": {
+    "id": "tomato_paste",
+    "name": "tomato paste",
+    "category": "vegetable",
+    "compounds": [
+      "dimethyl_sulfide",
+      "furaneol",
+      "guaiacol",
+      "hexanal",
+      "maltol",
+      "methylpyrazine"
+    ],
+    "cooking_methods": [
+      "bloom",
+      "sauce",
+      "braise",
+      "deglaze"
+    ],
+    "flavor_notes": "concentrated, umami, sweet, intense",
+    "name_es": "Extracto de Tomate"
+  },
+  "dijon": {
+    "id": "dijon",
+    "name": "Dijon mustard",
+    "category": "fermented",
+    "compounds": [
+      "acetic_acid",
+      "allyl_isothiocyanate",
+      "linalool",
+      "myrcene",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "dress",
+      "sauce",
+      "marinade",
+      "glaze"
+    ],
+    "flavor_notes": "sharp, creamy, tangy, complex",
+    "name_es": "Mostaza de Dijón"
+  },
+  "worcestershire": {
+    "id": "worcestershire",
+    "name": "Worcestershire",
+    "category": "fermented",
+    "compounds": [
+      "acetic_acid",
+      "dimethyl_sulfide",
+      "maltol",
+      "methional",
+      "methylpyrazine",
+      "trimethylamine"
+    ],
+    "cooking_methods": [
+      "season",
+      "marinade",
+      "sauce",
+      "deglaze"
+    ],
+    "flavor_notes": "umami, tangy, complex, aged",
+    "name_es": "Salsa Inglesa / Worcestershire"
+  },
+  "tomato_sauce": {
+    "id": "tomato_sauce",
+    "name": "tomato sauce",
+    "category": "sauce",
+    "compounds": [
+      "citral",
+      "dimethyl_sulfide",
+      "furaneol",
+      "geraniol",
+      "hexanal",
+      "ionone",
+      "linalool"
+    ],
+    "cooking_methods": [
+      "simmer",
+      "spread",
+      "bake",
+      "braise"
+    ],
+    "flavor_notes": "sweet, acidic, tomatoey, smooth",
+    "name_es": "Salsa de Tomate"
+  },
+  "marinara": {
+    "id": "marinara",
+    "name": "marinara",
+    "category": "sauce",
+    "compounds": [
+      "allicin",
+      "dimethyl_sulfide",
+      "eugenol",
+      "furaneol",
+      "geraniol",
+      "hexanal",
+      "linalool"
+    ],
+    "cooking_methods": [
+      "simmer",
+      "spread",
+      "dip",
+      "bake"
+    ],
+    "flavor_notes": "garlicky, herby, tomato, Italian",
+    "name_es": "Salsa Marinara"
+  },
+  "pesto": {
+    "id": "pesto",
+    "name": "pesto",
+    "category": "sauce",
+    "compounds": [
+      "eugenol",
+      "geraniol",
+      "hexanal",
+      "linalool",
+      "methylpyrazine",
+      "myrcene",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "spread",
+      "toss",
+      "drizzle",
+      "dollop"
+    ],
+    "flavor_notes": "herby, nutty, garlicky, bright",
+    "name_es": "Pesto Genovés"
+  },
+  "alfredo": {
+    "id": "alfredo",
+    "name": "alfredo sauce",
+    "category": "sauce",
+    "compounds": [
+      "acetoin",
+      "butyric_acid",
+      "diacetyl",
+      "gamma_decalactone",
+      "nonanal",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "simmer",
+      "toss",
+      "bake",
+      "pour"
+    ],
+    "flavor_notes": "rich, buttery, cheesy, creamy",
+    "name_es": "Salsa Alfredo"
+  },
+  "curry_paste": {
+    "id": "curry_paste",
+    "name": "curry paste",
+    "category": "sauce",
+    "compounds": [
+      "capsaicin",
+      "citral",
+      "geraniol",
+      "limonene",
+      "linalool",
+      "myrcene",
+      "pinene",
+      "zingerone"
+    ],
+    "cooking_methods": [
+      "bloom",
+      "simmer",
+      "stir",
+      "marinade"
+    ],
+    "flavor_notes": "aromatic, spicy, complex, concentrated",
+    "name_es": "Pasta de Curry"
+  },
+  "enchilada_sauce": {
+    "id": "enchilada_sauce",
+    "name": "enchilada sauce",
+    "category": "sauce",
+    "compounds": [
+      "acetic_acid",
+      "capsaicin",
+      "cuminaldehyde",
+      "guaiacol",
+      "hexanal",
+      "methylpyrazine"
+    ],
+    "cooking_methods": [
+      "simmer",
+      "pour",
+      "bake",
+      "dip"
+    ],
+    "flavor_notes": "earthy, mild heat, tangy, smoky",
+    "name_es": "Salsa Enchilada"
+  },
+  "teriyaki": {
+    "id": "teriyaki",
+    "name": "teriyaki sauce",
+    "category": "sauce",
+    "compounds": [
+      "acetic_acid",
+      "ethyl_acetate",
+      "furaneol",
+      "maltol",
+      "methylpyrazine",
+      "zingerone"
+    ],
+    "cooking_methods": [
+      "glaze",
+      "marinade",
+      "stir-fry",
+      "dip"
+    ],
+    "flavor_notes": "sweet, salty, gingery, caramelized",
+    "name_es": "Salsa Teriyaki"
+  },
+  "bechamel": {
+    "id": "bechamel",
+    "name": "béchamel",
+    "category": "sauce",
+    "compounds": [
+      "acetoin",
+      "diacetyl",
+      "maltol",
+      "nonanal",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "pour",
+      "layer",
+      "bake",
+      "gratinée"
+    ],
+    "flavor_notes": "creamy, buttery, mild, velvety",
+    "name_es": "Salsa Bechamel"
+  },
+  "chimichurri": {
+    "id": "chimichurri",
+    "name": "chimichurri",
+    "category": "sauce",
+    "compounds": [
+      "acetic_acid",
+      "allicin",
+      "hexanal",
+      "limonene",
+      "linalool",
+      "myrcene",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "drizzle",
+      "marinade",
+      "spoon",
+      "dip"
+    ],
+    "flavor_notes": "herby, garlicky, tangy, bright",
+    "name_es": "Chimichurri"
+  },
+  "salsa": {
+    "id": "salsa",
+    "name": "salsa",
+    "category": "sauce",
+    "compounds": [
+      "allicin",
+      "capsaicin",
+      "citral",
+      "citric_acid",
+      "dimethyl_sulfide",
+      "hexanal",
+      "linalool"
+    ],
+    "cooking_methods": [
+      "spoon",
+      "dip",
+      "top",
+      "mix"
+    ],
+    "flavor_notes": "fresh, spicy, bright, chunky",
+    "name_es": "Salsa Criolla / Mexicana"
+  },
+  "buffalo_sauce": {
+    "id": "buffalo_sauce",
+    "name": "buffalo sauce",
+    "category": "sauce",
+    "compounds": [
+      "acetic_acid",
+      "capsaicin",
+      "diacetyl",
+      "piperine"
+    ],
+    "cooking_methods": [
+      "toss",
+      "drizzle",
+      "dip",
+      "glaze"
+    ],
+    "flavor_notes": "hot, tangy, buttery, sharp",
+    "name_es": "Salsa Búfalo"
+  },
+  "chicken_stock": {
+    "id": "chicken_stock",
+    "name": "chicken stock",
+    "category": "sauce",
+    "compounds": [
+      "diacetyl",
+      "dimethyl_sulfide",
+      "hexanal",
+      "methional",
+      "nonanal",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "simmer",
+      "base",
+      "deglaze",
+      "poach"
+    ],
+    "flavor_notes": "savory, golden, rich, comforting, backbone of most soups",
+    "name_es": "Caldo de Pollo"
+  },
+  "beef_stock": {
+    "id": "beef_stock",
+    "name": "beef stock",
+    "category": "sauce",
+    "compounds": [
+      "guaiacol",
+      "hexanal",
+      "methional",
+      "methylpyrazine",
+      "nonanal",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "simmer",
+      "base",
+      "braise",
+      "deglaze"
+    ],
+    "flavor_notes": "deep, meaty, brown, robust, hearty base",
+    "name_es": "Caldo de Carne"
+  },
+  "vegetable_stock": {
+    "id": "vegetable_stock",
+    "name": "vegetable stock",
+    "category": "sauce",
+    "compounds": [
+      "dimethyl_sulfide",
+      "hexanal",
+      "linalool",
+      "myrcene",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "simmer",
+      "base",
+      "poach",
+      "deglaze"
+    ],
+    "flavor_notes": "light, clean, herby, versatile, veggie base",
+    "name_es": "Caldo de Verduras"
+  },
+  "bone_broth": {
+    "id": "bone_broth",
+    "name": "bone broth",
+    "category": "sauce",
+    "compounds": [
+      "diacetyl",
+      "dimethyl_sulfide",
+      "hexanal",
+      "methional",
+      "methylpyrazine",
+      "nonanal",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "sip",
+      "base",
+      "simmer",
+      "braise"
+    ],
+    "flavor_notes": "gelatinous, deeply savory, collagen-rich, umami",
+    "name_es": "Caldo de Huesos"
+  },
+  "dashi": {
+    "id": "dashi",
+    "name": "dashi",
+    "category": "sauce",
+    "compounds": [
+      "dimethyl_sulfide",
+      "hexanal",
+      "methional",
+      "methylpyrazine",
+      "trimethylamine"
+    ],
+    "cooking_methods": [
+      "base",
+      "simmer",
+      "season",
+      "poach"
+    ],
+    "flavor_notes": "clean, smoky, umami, Japanese stock from kelp and bonito",
+    "name_es": "Caldo Dashi"
+  },
+  "coconut_broth": {
+    "id": "coconut_broth",
+    "name": "coconut broth",
+    "category": "sauce",
+    "compounds": [
+      "citral",
+      "gamma_decalactone",
+      "gamma_octalactone",
+      "linalool",
+      "nonanal",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "simmer",
+      "base",
+      "curry",
+      "poach"
+    ],
+    "flavor_notes": "creamy, tropical, fragrant, Thai/Indian soup base",
+    "name_es": "Caldo de Coco"
+  },
+  "tomato_broth": {
+    "id": "tomato_broth",
+    "name": "tomato broth",
+    "category": "sauce",
+    "compounds": [
+      "citral",
+      "dimethyl_sulfide",
+      "furaneol",
+      "geraniol",
+      "hexanal",
+      "linalool"
+    ],
+    "cooking_methods": [
+      "simmer",
+      "base",
+      "poach"
+    ],
+    "flavor_notes": "bright, acidic, tomatoey, light, Italian/Spanish base",
+    "name_es": "Caldo de Tomate"
+  },
+  "miso_broth": {
+    "id": "miso_broth",
+    "name": "miso broth",
+    "category": "sauce",
+    "compounds": [
+      "dimethyl_sulfide",
+      "furaneol",
+      "methional",
+      "methylpyrazine",
+      "sotolon"
+    ],
+    "cooking_methods": [
+      "dissolve",
+      "base",
+      "simmer"
+    ],
+    "flavor_notes": "salty, umami, fermented, warming, Japanese base",
+    "name_es": "Caldo de Miso"
+  },
+  "sour_cream": {
+    "id": "sour_cream",
+    "name": "sour cream",
+    "category": "dairy",
+    "compounds": [
+      "acetic_acid",
+      "acetoin",
+      "diacetyl",
+      "lactic_acid",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "dollop",
+      "mix",
+      "dress",
+      "top"
+    ],
+    "flavor_notes": "tangy, rich, cool, creamy",
+    "name_es": "Crema Ácida"
+  },
+  "peanut_butter": {
+    "id": "peanut_butter",
+    "name": "peanut butter",
+    "category": "nut",
+    "compounds": [
+      "acetylpyrazine",
+      "benzaldehyde",
+      "furaneol",
+      "furfural",
+      "hexanal",
+      "methylpyrazine"
+    ],
+    "cooking_methods": [
+      "spread",
+      "sauce",
+      "blend",
+      "bake"
+    ],
+    "flavor_notes": "roasty, nutty, rich, creamy",
+    "name_es": "Mantequilla de Maní"
+  },
+  "green_beans": {
+    "id": "green_beans",
+    "name": "green beans",
+    "category": "vegetable",
+    "compounds": [
+      "dimethyl_sulfide",
+      "hexanal",
+      "linalool",
+      "methoxypyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "steam",
+      "sauté",
+      "blanch",
+      "roast",
+      "fry"
+    ],
+    "flavor_notes": "crisp, green, fresh, snappy",
+    "name_es": "Chauchas / Judías Verdes"
+  },
+  "pickles": {
+    "id": "pickles",
+    "name": "pickles",
+    "category": "fermented",
+    "compounds": [
+      "acetic_acid",
+      "allyl_isothiocyanate",
+      "hexanal",
+      "lactic_acid",
+      "linalool"
+    ],
+    "cooking_methods": [
+      "chop",
+      "slice",
+      "garnish",
+      "relish"
+    ],
+    "flavor_notes": "sour, crunchy, briny, tangy",
+    "name_es": "Pepinillos en Vinagre"
+  },
+  "sausage": {
+    "id": "sausage",
+    "name": "sausage",
+    "category": "protein",
+    "compounds": [
+      "4vg",
+      "allicin",
+      "cresol",
+      "guaiacol",
+      "hexanal",
+      "methylpyrazine",
+      "nonanal",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "grill",
+      "sauté",
+      "crumble",
+      "smoke",
+      "bake"
+    ],
+    "flavor_notes": "savory, spiced, fatty, smoky",
+    "name_es": "Salchicha / Embutido"
+  },
+  "prosciutto": {
+    "id": "prosciutto",
+    "name": "prosciutto",
+    "category": "protein",
+    "compounds": [
+      "diacetyl",
+      "guaiacol",
+      "hexanal",
+      "methylpyrazine",
+      "nonanal",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "raw",
+      "crisp",
+      "wrap",
+      "garnish"
+    ],
+    "flavor_notes": "salty, nutty, delicate, aged",
+    "name_es": "Jamón Crudo / Prosciutto"
+  },
+  "ground_beef": {
+    "id": "ground_beef",
+    "name": "ground beef",
+    "category": "protein",
+    "compounds": [
+      "4vg",
+      "diacetyl",
+      "guaiacol",
+      "hexanal",
+      "methional",
+      "methylpyrazine",
+      "nonanal",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "brown",
+      "shape",
+      "stuff",
+      "simmer",
+      "grill"
+    ],
+    "flavor_notes": "rich, umami, versatile",
+    "name_es": "Carne Picada"
+  },
+  "pasta": {
+    "id": "pasta",
+    "name": "pasta",
+    "category": "grain",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "hexanal",
+      "maltol",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "boil",
+      "bake",
+      "toss",
+      "stuff"
+    ],
+    "flavor_notes": "wheaty, mild, versatile",
+    "name_es": "Pasta Seca"
+  },
+  "monterey_jack": {
+    "id": "monterey_jack",
+    "name": "Monterey Jack",
+    "category": "dairy",
+    "compounds": [
+      "acetoin",
+      "delta_decalactone",
+      "diacetyl",
+      "hexanal",
+      "lactic_acid",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "melt",
+      "grate",
+      "slice",
+      "quesadilla"
+    ],
+    "flavor_notes": "mild, buttery, great melter",
+    "name_es": "Monterey Jack"
+  },
+  "swiss": {
+    "id": "swiss",
+    "name": "Swiss cheese",
+    "category": "dairy",
+    "compounds": [
+      "acetoin",
+      "diacetyl",
+      "hexanal",
+      "methylpyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "melt",
+      "slice",
+      "fondue",
+      "gratinée"
+    ],
+    "flavor_notes": "nutty, sweet, holey, mild",
+    "name_es": "Queso Suizo"
+  },
+  "provolone": {
+    "id": "provolone",
+    "name": "provolone",
+    "category": "dairy",
+    "compounds": [
+      "acetoin",
+      "butyric_acid",
+      "diacetyl",
+      "hexanal",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "melt",
+      "slice",
+      "grate"
+    ],
+    "flavor_notes": "sharp, smoky, tangy, Italian",
+    "name_es": "Provolone"
+  },
+  "cotija": {
+    "id": "cotija",
+    "name": "cotija",
+    "category": "dairy",
+    "compounds": [
+      "acetic_acid",
+      "butyric_acid",
+      "diacetyl",
+      "hexanal",
+      "lactic_acid"
+    ],
+    "cooking_methods": [
+      "crumble",
+      "grate",
+      "garnish"
+    ],
+    "flavor_notes": "salty, crumbly, sharp, Mexican parmesan",
+    "name_es": "Queso Cotija"
+  },
+  "pecorino": {
+    "id": "pecorino",
+    "name": "pecorino",
+    "category": "dairy",
+    "compounds": [
+      "acetic_acid",
+      "acetoin",
+      "butyric_acid",
+      "diacetyl",
+      "hexanal",
+      "methylpyrazine"
+    ],
+    "cooking_methods": [
+      "grate",
+      "shave",
+      "finish"
+    ],
+    "flavor_notes": "sharp, salty, sheepy, crystalline",
+    "name_es": "Pecorino"
+  },
+  "white_wine": {
+    "id": "white_wine",
+    "name": "white wine",
+    "category": "fermented",
+    "compounds": [
+      "citral",
+      "damascenone",
+      "ethyl_acetate",
+      "geraniol",
+      "linalool",
+      "nonanal",
+      "tartaric_acid"
+    ],
+    "cooking_methods": [
+      "deglaze",
+      "poach",
+      "sauce",
+      "braise"
+    ],
+    "flavor_notes": "crisp, fruity, acidic, bright",
+    "name_es": "Vino Blanco"
+  },
+  "rice_vinegar": {
+    "id": "rice_vinegar",
+    "name": "rice vinegar",
+    "category": "fermented",
+    "compounds": [
+      "acetic_acid",
+      "acetoin",
+      "ethyl_acetate",
+      "lactic_acid"
+    ],
+    "cooking_methods": [
+      "dress",
+      "pickle",
+      "season",
+      "dip"
+    ],
+    "flavor_notes": "mild, sweet, delicate, Asian",
+    "name_es": "Vinagre de Arroz"
+  },
+  "apple_cider_vinegar": {
+    "id": "apple_cider_vinegar",
+    "name": "apple cider vinegar",
+    "category": "fermented",
+    "compounds": [
+      "acetic_acid",
+      "ethyl_acetate",
+      "ethyl_butyrate",
+      "malic_acid"
+    ],
+    "cooking_methods": [
+      "dress",
+      "marinade",
+      "pickle",
+      "shrub"
+    ],
+    "flavor_notes": "fruity, tangy, sharp, apple",
+    "name_es": "Vinagre de Manzana"
+  },
+  "horseradish": {
+    "id": "horseradish",
+    "name": "horseradish",
+    "category": "fermented",
+    "compounds": [
+      "acetic_acid",
+      "allyl_isothiocyanate",
+      "hexanal",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "grate",
+      "cream",
+      "sauce",
+      "garnish"
+    ],
+    "flavor_notes": "sharp, nasal heat, pungent, sinus-clearing",
+    "name_es": "Rábano Picante"
+  },
+  "tzatziki": {
+    "id": "tzatziki",
+    "name": "tzatziki",
+    "category": "sauce",
+    "compounds": [
+      "acetoin",
+      "diacetyl",
+      "hexanal",
+      "lactic_acid",
+      "linalool",
+      "trans_2_nonenal"
+    ],
+    "cooking_methods": [
+      "dip",
+      "spread",
+      "dollop",
+      "dress"
+    ],
+    "flavor_notes": "cool, garlicky, cucumber, tangy, Greek",
+    "name_es": "Tzatziki"
+  },
+  "guacamole": {
+    "id": "guacamole",
+    "name": "guacamole",
+    "category": "sauce",
+    "compounds": [
+      "allicin",
+      "citral",
+      "citric_acid",
+      "hexanal",
+      "linalool",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "dip",
+      "spread",
+      "top",
+      "side"
+    ],
+    "flavor_notes": "creamy, bright, garlicky, fresh, avocado",
+    "name_es": "Guacamole"
+  },
+  "hummus": {
+    "id": "hummus",
+    "name": "hummus",
+    "category": "sauce",
+    "compounds": [
+      "citric_acid",
+      "furfural",
+      "hexanal",
+      "linalool",
+      "methylpyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "dip",
+      "spread",
+      "base",
+      "dress"
+    ],
+    "flavor_notes": "nutty, garlicky, lemony, earthy, tahini",
+    "name_es": "Hummus"
+  },
+  "aioli": {
+    "id": "aioli",
+    "name": "aioli",
+    "category": "sauce",
+    "compounds": [
+      "acetic_acid",
+      "allicin",
+      "diacetyl",
+      "hexanal",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "spread",
+      "dip",
+      "drizzle",
+      "dollop"
+    ],
+    "flavor_notes": "garlicky, rich, creamy, French mayo",
+    "name_es": "Alioli"
+  },
+  "tahini_sauce": {
+    "id": "tahini_sauce",
+    "name": "tahini sauce",
+    "category": "sauce",
+    "compounds": [
+      "acetylpyrazine",
+      "citric_acid",
+      "furfural",
+      "hexanal",
+      "linalool",
+      "methylpyrazine"
+    ],
+    "cooking_methods": [
+      "drizzle",
+      "dress",
+      "dip",
+      "dollop"
+    ],
+    "flavor_notes": "nutty, sesame, creamy, lemony, Middle Eastern",
+    "name_es": "Salsa de Tahini"
+  },
+  "buttermilk": {
+    "id": "buttermilk",
+    "name": "buttermilk",
+    "category": "dairy",
+    "compounds": [
+      "acetic_acid",
+      "acetoin",
+      "diacetyl",
+      "hexanal",
+      "lactic_acid"
+    ],
+    "cooking_methods": [
+      "marinade",
+      "batter",
+      "dress",
+      "bake"
+    ],
+    "flavor_notes": "tangy, creamy, tender-making, Southern",
+    "name_es": "Suero de Mantequilla"
+  },
+  "labneh": {
+    "id": "labneh",
+    "name": "labneh",
+    "category": "dairy",
+    "compounds": [
+      "acetic_acid",
+      "acetoin",
+      "diacetyl",
+      "lactic_acid",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "spread",
+      "dollop",
+      "dip",
+      "base"
+    ],
+    "flavor_notes": "thick, tangy, yogurt cheese, Middle Eastern",
+    "name_es": "Labneh"
+  },
+  "whipped_cream": {
+    "id": "whipped_cream",
+    "name": "whipped cream",
+    "category": "dairy",
+    "compounds": [
+      "acetoin",
+      "delta_decalactone",
+      "diacetyl",
+      "gamma_decalactone",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "top",
+      "fold",
+      "pipe",
+      "dollop"
+    ],
+    "flavor_notes": "airy, sweet, light, cloud-like",
+    "name_es": "Crema Chantilly"
+  },
+  "roasted_red_pepper": {
+    "id": "roasted_red_pepper",
+    "name": "roasted red pepper",
+    "category": "vegetable",
+    "compounds": [
+      "furaneol",
+      "hexanal",
+      "limonene",
+      "linalool",
+      "methoxypyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "purée",
+      "slice",
+      "stuff",
+      "blend"
+    ],
+    "flavor_notes": "sweet, smoky, silky, charred",
+    "name_es": "Pimiento Morron Asado"
+  },
+  "sun_dried_tomato": {
+    "id": "sun_dried_tomato",
+    "name": "sun-dried tomato",
+    "category": "vegetable",
+    "compounds": [
+      "dimethyl_sulfide",
+      "furaneol",
+      "guaiacol",
+      "hexanal",
+      "maltol",
+      "methylpyrazine"
+    ],
+    "cooking_methods": [
+      "chop",
+      "blend",
+      "rehydrate",
+      "oil-pack"
+    ],
+    "flavor_notes": "intense, chewy, concentrated umami, sweet-tart",
+    "name_es": "Tomate Seco"
+  },
+  "bean_sprouts": {
+    "id": "bean_sprouts",
+    "name": "bean sprouts",
+    "category": "vegetable",
+    "compounds": [
+      "dimethyl_sulfide",
+      "hexanal",
+      "linalool",
+      "nonanal",
+      "trans_2_nonenal"
+    ],
+    "cooking_methods": [
+      "raw",
+      "stir-fry",
+      "blanch",
+      "top"
+    ],
+    "flavor_notes": "crisp, watery, fresh, mild, crunchy",
+    "name_es": "Bean sprouts"
+  },
+  "water_chestnut": {
+    "id": "water_chestnut",
+    "name": "water chestnut",
+    "category": "vegetable",
+    "compounds": [
+      "dimethyl_sulfide",
+      "furfural",
+      "hexanal",
+      "linalool",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "slice",
+      "stir-fry",
+      "dice",
+      "can"
+    ],
+    "flavor_notes": "crunchy, sweet, stays crisp when cooked",
+    "name_es": "Water chestnut"
+  },
+  "bamboo_shoot": {
+    "id": "bamboo_shoot",
+    "name": "bamboo shoot",
+    "category": "vegetable",
+    "compounds": [
+      "dimethyl_sulfide",
+      "hexanal",
+      "linalool",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "slice",
+      "stir-fry",
+      "braise",
+      "pickle"
+    ],
+    "flavor_notes": "mild, crunchy, earthy, slightly sweet",
+    "name_es": "Bamboo shoot"
+  },
+  "radicchio": {
+    "id": "radicchio",
+    "name": "radicchio",
+    "category": "vegetable",
+    "compounds": [
+      "dimethyl_sulfide",
+      "hexanal",
+      "linalool",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "raw",
+      "grill",
+      "roast",
+      "shred"
+    ],
+    "flavor_notes": "bitter, beautiful purple, becomes sweet grilled",
+    "name_es": "Radicchio"
+  },
+  "endive": {
+    "id": "endive",
+    "name": "endive",
+    "category": "vegetable",
+    "compounds": [
+      "dimethyl_sulfide",
+      "hexanal",
+      "linalool",
+      "myrcene",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "raw",
+      "braise",
+      "grill",
+      "stuff"
+    ],
+    "flavor_notes": "bitter, crisp, elegant, boat-shaped leaves",
+    "name_es": "Endive"
+  },
+  "romaine": {
+    "id": "romaine",
+    "name": "romaine lettuce",
+    "category": "vegetable",
+    "compounds": [
+      "dimethyl_sulfide",
+      "hexanal",
+      "linalool",
+      "nonanal",
+      "trans_2_nonenal"
+    ],
+    "cooking_methods": [
+      "raw",
+      "grill",
+      "wrap",
+      "chop"
+    ],
+    "flavor_notes": "crisp, mild, crunchy, watery, sturdy",
+    "name_es": "Romaine lettuce"
+  },
+  "bay_leaf": {
+    "id": "bay_leaf",
+    "name": "bay leaf",
+    "category": "herb",
+    "compounds": [
+      "eucalyptol",
+      "eugenol",
+      "linalool",
+      "pinene",
+      "sabinene",
+      "terpinene"
+    ],
+    "cooking_methods": [
+      "simmer",
+      "braise",
+      "infuse",
+      "steep"
+    ],
+    "flavor_notes": "resinous, tea-like, subtly medicinal — a background note you notice when it is gone",
+    "name_es": "Bay leaf"
+  },
+  "marjoram": {
+    "id": "marjoram",
+    "name": "marjoram",
+    "category": "herb",
+    "compounds": [
+      "eucalyptol",
+      "linalool",
+      "ocimene",
+      "sabinene",
+      "terpinene",
+      "thymol"
+    ],
+    "cooking_methods": [
+      "dried",
+      "infuse",
+      "sprinkle",
+      "roast"
+    ],
+    "flavor_notes": "sweeter and softer than oregano, floral-herbal",
+    "name_es": "Marjoram"
+  },
+  "arugula": {
+    "id": "arugula",
+    "name": "arugula",
+    "category": "vegetable",
+    "compounds": [
+      "1_octen_3_ol",
+      "allyl_isothiocyanate",
+      "hexanal",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "raw",
+      "wilt",
+      "top",
+      "blend"
+    ],
+    "flavor_notes": "peppery, bitter, mustardy — the glucosinolate bite",
+    "name_es": "Arugula"
+  },
+  "squid": {
+    "id": "squid",
+    "name": "squid",
+    "category": "seafood",
+    "compounds": [
+      "dimethyl_sulfide",
+      "hexanal",
+      "methional",
+      "thiophene",
+      "trimethylamine"
+    ],
+    "cooking_methods": [
+      "fry",
+      "grill",
+      "braise",
+      "sear",
+      "poach"
+    ],
+    "flavor_notes": "sweet, mild, briny — chewy unless cooked very fast or very slow",
+    "name_es": "Squid"
+  },
+  "black_tea": {
+    "id": "black_tea",
+    "name": "black tea",
+    "category": "fermented",
+    "compounds": [
+      "damascenone",
+      "geraniol",
+      "linalool",
+      "linalool_oxide",
+      "methional",
+      "phenylacetaldehyde"
+    ],
+    "cooking_methods": [
+      "steep",
+      "infuse",
+      "smoke",
+      "braise"
+    ],
+    "flavor_notes": "tannic, malty, floral — the oxidised-leaf aroma",
+    "name_es": "Black tea"
+  },
+  "red_wine": {
+    "id": "red_wine",
+    "name": "red wine",
+    "category": "fermented",
+    "compounds": [
+      "4vg",
+      "damascenone",
+      "ethyl_acetate",
+      "ethyl_hexanoate",
+      "eugenol",
+      "guaiacol",
+      "ionone",
+      "linalool",
+      "phenethyl_alcohol",
+      "rotundone",
+      "tartaric_acid",
+      "vanillin",
+      "whiskey_lactone"
+    ],
+    "cooking_methods": [
+      "reduce",
+      "braise",
+      "deglaze",
+      "marinate"
+    ],
+    "flavor_notes": "tannic, dark-fruited, oaky — rotundone gives the peppery reds their pepper",
+    "name_es": "Red wine"
+  },
+  "seitan": {
+    "id": "seitan",
+    "name": "seitan",
+    "category": "protein",
+    "compounds": [
+      "acetylpyrazine",
+      "hexanal",
+      "maltol",
+      "methional",
+      "methylpyrazine"
+    ],
+    "cooking_methods": [
+      "braise",
+      "sear",
+      "fry",
+      "roast",
+      "simmer"
+    ],
+    "flavor_notes": "wheaty, chewy, deeply savory — takes on whatever it is braised in",
+    "name_es": "Seitan"
+  },
+  "jackfruit": {
+    "id": "jackfruit",
+    "name": "young jackfruit",
+    "category": "protein",
+    "compounds": [
+      "butyric_acid",
+      "ethyl_butyrate",
+      "hexanal",
+      "isoamyl_acetate"
+    ],
+    "cooking_methods": [
+      "braise",
+      "shred",
+      "roast",
+      "simmer"
+    ],
+    "flavor_notes": "neutral and stringy when green — pulls like slow-cooked meat",
+    "name_es": "Young jackfruit"
+  },
+  "halloumi": {
+    "id": "halloumi",
+    "name": "halloumi",
+    "category": "dairy",
+    "compounds": [
+      "acetoin",
+      "butyric_acid",
+      "diacetyl",
+      "hexanal",
+      "lactic_acid"
+    ],
+    "cooking_methods": [
+      "grill",
+      "fry",
+      "sear",
+      "skewer"
+    ],
+    "flavor_notes": "salty, squeaky, holds its shape over direct heat",
+    "name_es": "Halloumi"
+  },
+  "paneer": {
+    "id": "paneer",
+    "name": "paneer",
+    "category": "dairy",
+    "compounds": [
+      "acetoin",
+      "diacetyl",
+      "hexanal",
+      "lactic_acid"
+    ],
+    "cooking_methods": [
+      "fry",
+      "simmer",
+      "grill",
+      "crumble"
+    ],
+    "flavor_notes": "mild, milky, firm — a carrier for whatever it is cooked in",
+    "name_es": "Paneer"
+  },
+  "nutritional_yeast": {
+    "id": "nutritional_yeast",
+    "name": "nutritional yeast",
+    "category": "fermented",
+    "compounds": [
+      "acetylpyrazine",
+      "dimethyl_sulfide",
+      "maltol",
+      "methional",
+      "methylpyrazine",
+      "thiazole"
+    ],
+    "cooking_methods": [
+      "sprinkle",
+      "blend",
+      "toast",
+      "stir"
+    ],
+    "flavor_notes": "nutty, cheesy, savory — the pyrazines parmesan gets from ageing",
+    "name_es": "Nutritional yeast"
+  },
+  "cashew_cream": {
+    "id": "cashew_cream",
+    "name": "cashew cream",
+    "category": "dairy",
+    "compounds": [
+      "benzaldehyde",
+      "gamma_octalactone",
+      "hexanal",
+      "maltol",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "blend",
+      "simmer",
+      "drizzle",
+      "thicken"
+    ],
+    "flavor_notes": "rich, neutral, silky — the plant answer to double cream",
+    "name_es": "Cashew cream"
+  },
+  "oat_milk": {
+    "id": "oat_milk",
+    "name": "oat milk",
+    "category": "dairy",
+    "compounds": [
+      "furfural",
+      "hexanal",
+      "maltol",
+      "nonanal",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "steam",
+      "simmer",
+      "blend",
+      "bake"
+    ],
+    "flavor_notes": "cereal-sweet, creamy, faintly toasty",
+    "name_es": "Oat milk"
+  },
+  "coconut_yogurt": {
+    "id": "coconut_yogurt",
+    "name": "coconut yogurt",
+    "category": "dairy",
+    "compounds": [
+      "acetoin",
+      "delta_decalactone",
+      "diacetyl",
+      "gamma_octalactone",
+      "lactic_acid"
+    ],
+    "cooking_methods": [
+      "dollop",
+      "marinate",
+      "swirl",
+      "chill"
+    ],
+    "flavor_notes": "tangy, thick, coconut-rich — cultured without the cow",
+    "name_es": "Coconut yogurt"
+  },
+  "chervil": {
+    "id": "chervil",
+    "name": "chervil",
+    "category": "herb",
+    "compounds": [
+      "anethole",
+      "estragole",
+      "linalool",
+      "myrcene",
+      "ocimene"
+    ],
+    "cooking_methods": [
+      "raw",
+      "finish",
+      "infuse",
+      "chiffonade"
+    ],
+    "flavor_notes": "delicate anise-parsley — added off the heat or it disappears",
+    "name_es": "Chervil"
+  },
+  "savory": {
+    "id": "savory",
+    "name": "savory",
+    "category": "herb",
+    "compounds": [
+      "carvone",
+      "linalool",
+      "myrcene",
+      "pinene",
+      "terpinene",
+      "thymol"
+    ],
+    "cooking_methods": [
+      "dried",
+      "simmer",
+      "rub",
+      "infuse"
+    ],
+    "flavor_notes": "peppery and thyme-like, the classic bean herb",
+    "name_es": "Savory"
+  },
+  "shiso": {
+    "id": "shiso",
+    "name": "shiso",
+    "category": "herb",
+    "compounds": [
+      "citral",
+      "eucalyptol",
+      "limonene",
+      "linalool",
+      "ocimene",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "raw",
+      "wrap",
+      "chiffonade",
+      "pickle"
+    ],
+    "flavor_notes": "minty-basil-citrus, unmistakable and slightly numbing",
+    "name_es": "Shiso"
+  },
+  "thai_basil": {
+    "id": "thai_basil",
+    "name": "Thai basil",
+    "category": "herb",
+    "compounds": [
+      "chavicol",
+      "estragole",
+      "eugenol",
+      "limonene",
+      "linalool",
+      "ocimene"
+    ],
+    "cooking_methods": [
+      "raw",
+      "finish",
+      "infuse",
+      "stir-fry"
+    ],
+    "flavor_notes": "aniseed-forward and sturdier than sweet basil — survives the wok",
+    "name_es": "Thai basil"
+  },
+  "lovage": {
+    "id": "lovage",
+    "name": "lovage",
+    "category": "herb",
+    "compounds": [
+      "1_octen_3_ol",
+      "myrcene",
+      "pinene",
+      "sabinene",
+      "terpinene"
+    ],
+    "cooking_methods": [
+      "simmer",
+      "infuse",
+      "braise",
+      "raw"
+    ],
+    "flavor_notes": "celery amplified — a little goes a very long way",
+    "name_es": "Lovage"
+  },
+  "yuzu": {
+    "id": "yuzu",
+    "name": "yuzu",
+    "category": "citrus",
+    "compounds": [
+      "citral",
+      "geraniol",
+      "limonene",
+      "linalool",
+      "nootkatone",
+      "pinene"
+    ],
+    "cooking_methods": [
+      "zest",
+      "juice",
+      "finish",
+      "cure"
+    ],
+    "flavor_notes": "grapefruit-mandarin-floral, aromatic far beyond its juice",
+    "name_es": "Yuzu"
+  },
+  "blood_orange": {
+    "id": "blood_orange",
+    "name": "blood orange",
+    "category": "citrus",
+    "compounds": [
+      "citric_acid",
+      "decanal",
+      "ionone",
+      "limonene",
+      "linalool",
+      "octanal"
+    ],
+    "cooking_methods": [
+      "juice",
+      "segment",
+      "zest",
+      "roast"
+    ],
+    "flavor_notes": "orange with a raspberry edge — the anthocyanins bring their own note",
+    "name_es": "Blood orange"
+  },
+  "mandarin": {
+    "id": "mandarin",
+    "name": "mandarin",
+    "category": "citrus",
+    "compounds": [
+      "citric_acid",
+      "decanal",
+      "limonene",
+      "methyl_anthranilate",
+      "octanal"
+    ],
+    "cooking_methods": [
+      "segment",
+      "juice",
+      "zest",
+      "candy"
+    ],
+    "flavor_notes": "sweet, low-acid, perfumed — the grape-like note is anthranilate",
+    "name_es": "Mandarin"
+  },
+  "ghee": {
+    "id": "ghee",
+    "name": "ghee",
+    "category": "oil/fat",
+    "compounds": [
+      "butyric_acid",
+      "delta_decalactone",
+      "diacetyl",
+      "furfural",
+      "maltol"
+    ],
+    "cooking_methods": [
+      "fry",
+      "temper",
+      "roast",
+      "baste"
+    ],
+    "flavor_notes": "nutty browned butter with the milk solids cooked out — high smoke point",
+    "name_es": "Ghee"
+  },
+  "peanut_oil": {
+    "id": "peanut_oil",
+    "name": "peanut oil",
+    "category": "oil/fat",
+    "compounds": [
+      "acetylpyrazine",
+      "hexanal",
+      "methylpyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "fry",
+      "deep-fry",
+      "sear",
+      "wok"
+    ],
+    "flavor_notes": "clean and faintly roasted, built for high heat",
+    "name_es": "Peanut oil"
+  },
+  "walnut_oil": {
+    "id": "walnut_oil",
+    "name": "walnut oil",
+    "category": "oil/fat",
+    "compounds": [
+      "1_octen_3_ol",
+      "hexanal",
+      "methylpyrazine",
+      "nonanal",
+      "trans_2_nonenal"
+    ],
+    "cooking_methods": [
+      "drizzle",
+      "dress",
+      "finish"
+    ],
+    "flavor_notes": "toasty and bitter-edged — a finishing oil, never a frying one",
+    "name_es": "Walnut oil"
+  },
+  "duck_fat": {
+    "id": "duck_fat",
+    "name": "duck fat",
+    "category": "oil/fat",
+    "compounds": [
+      "diacetyl",
+      "hexanal",
+      "methylpyrazine",
+      "nonanal",
+      "octanal",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "roast",
+      "confit",
+      "fry",
+      "baste"
+    ],
+    "flavor_notes": "savory and rich — what makes roast potatoes worth the trouble",
+    "name_es": "Duck fat"
+  },
+  "white_bean": {
+    "id": "white_bean",
+    "name": "white bean",
+    "category": "legume",
+    "compounds": [
+      "1_octen_3_ol",
+      "dimethyl_sulfide",
+      "hexanal",
+      "maltol",
+      "methional"
+    ],
+    "cooking_methods": [
+      "simmer",
+      "braise",
+      "mash",
+      "puree"
+    ],
+    "flavor_notes": "creamy, mild, thickens whatever it is cooked in",
+    "name_es": "White bean"
+  },
+  "kidney_bean": {
+    "id": "kidney_bean",
+    "name": "kidney bean",
+    "category": "legume",
+    "compounds": [
+      "dimethyl_sulfide",
+      "hexanal",
+      "methional",
+      "methoxypyrazine"
+    ],
+    "cooking_methods": [
+      "simmer",
+      "stew",
+      "braise",
+      "mash"
+    ],
+    "flavor_notes": "meaty and earthy, holds its shape through a long cook",
+    "name_es": "Kidney bean"
+  },
+  "fava_bean": {
+    "id": "fava_bean",
+    "name": "fava bean",
+    "category": "legume",
+    "compounds": [
+      "1_octen_3_ol",
+      "geosmin",
+      "hexanal",
+      "methoxypyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "blanch",
+      "puree",
+      "braise",
+      "raw"
+    ],
+    "flavor_notes": "green, grassy, faintly bitter — spring in a pod",
+    "name_es": "Fava bean"
+  },
+  "molasses": {
+    "id": "molasses",
+    "name": "molasses",
+    "category": "sweetener",
+    "compounds": [
+      "acetic_acid",
+      "furaneol",
+      "furfural",
+      "guaiacol",
+      "maltol",
+      "sotolon"
+    ],
+    "cooking_methods": [
+      "glaze",
+      "bake",
+      "braise",
+      "stir"
+    ],
+    "flavor_notes": "bitter-sweet, smoky, mineral — sotolon gives it the burnt-sugar depth",
+    "name_es": "Molasses"
+  },
+  "date_syrup": {
+    "id": "date_syrup",
+    "name": "date syrup",
+    "category": "sweetener",
+    "compounds": [
+      "damascenone",
+      "furaneol",
+      "maltol",
+      "sotolon",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "drizzle",
+      "glaze",
+      "bake",
+      "stir"
+    ],
+    "flavor_notes": "caramel-raisin sweetness with none of the sharpness of sugar",
+    "name_es": "Date syrup"
+  },
+  "agave": {
+    "id": "agave",
+    "name": "agave nectar",
+    "category": "sweetener",
+    "compounds": [
+      "ethyl_maltol",
+      "furaneol",
+      "maltol",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "drizzle",
+      "stir",
+      "dissolve",
+      "glaze"
+    ],
+    "flavor_notes": "clean and neutral, sweeter than sugar so less of it goes in",
+    "name_es": "Agave nectar"
+  }
+}

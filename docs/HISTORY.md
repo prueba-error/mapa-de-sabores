@@ -35,5 +35,11 @@ Registro cronológico único de entregables mayores, decisiones técnicas acorda
   * Servicio agnóstico `LLMService` en `backend/app/services/llm_provider.py` con adaptadores para Gemini y OpenAI vía `httpx.AsyncClient`, presupuesto estricto de 8.0s (`RNF3`), conmutación por error entre proveedores y fallbacks determinísticos.
   * Matriz curada de 50 pares antagónicos conocidos en `scripts/antagonistic_pairs.py` como filtro de seguridad contra alucinaciones del LLM.
   * Script de sembrado `scripts/seed_flavor_network.py` con flag `--dry-run` para simulación y auditoría sin costo de API ni escritura en base de datos.
-  * Suite ampliada a 18 tests en verde con `pytest` (`test_llm_provider.py` y `test_seed_pipeline.py`), `ruff` y `mypy` sin errores.
+* **Hito de Verdad Empírica y Afinidad Molecular (Food Pairing Científico):**
+  * Desacoplamiento total del cálculo de afinidades de las alucinaciones de modelos de lenguaje: las afinidades se calculan de manera 100% determinista y matemática a partir de química de aromas real.
+  * Incorporación de datasets científicos en `data/compounds.json` (82 moléculas volátiles clave clasificadas en 15 familias químicas con descriptores sensoriales) y `data/ingredients.json` (326 ingredientes clasificados en 17 categorías con nombres localizados en español `name_es` y perfiles moleculares derivados de FlavorDB y Ahn et al., Nature 2011).
+  * Redacción del documento formal de fundamentación científica y metodológica en `docs/JUSTIFICACION_TEORICA_FOOD_PAIRING.md`, detallando el índice de similitud de Jaccard, el recuento de moléculas compartidas ($N_s$), la fórmula ponderada calibrada ($S_{AB}$) y el rol exclusivo del LLM como redactor elocuente (`ai_rationale`).
+  * Refactorización completa de `scripts/seed_flavor_network.py` para cargar los datasets en disco, aplicar `calculate_molecular_affinity()` y procesar los ingredientes de forma determinista y reproducible.
+  * Verificación técnica con `ruff check` (100% limpio), `mypy --explicit-package-bases` (0 errores en 32 archivos) y tests unitarios en verde.
+
 

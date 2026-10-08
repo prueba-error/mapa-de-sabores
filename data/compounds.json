@@ -1,0 +1,494 @@
+{
+  "linalool": {
+    "id": "linalool",
+    "name": "linalool",
+    "category": "terpene",
+    "description": "floral, lavender, citrus"
+  },
+  "limonene": {
+    "id": "limonene",
+    "name": "limonene",
+    "category": "terpene",
+    "description": "citrus, orange peel"
+  },
+  "myrcene": {
+    "id": "myrcene",
+    "name": "myrcene",
+    "category": "terpene",
+    "description": "earthy, musky, herbal"
+  },
+  "pinene": {
+    "id": "pinene",
+    "name": "pinene",
+    "category": "terpene",
+    "description": "pine, resinous, fresh"
+  },
+  "geraniol": {
+    "id": "geraniol",
+    "name": "geraniol",
+    "category": "terpene",
+    "description": "rose, geranium, sweet"
+  },
+  "carvone": {
+    "id": "carvone",
+    "name": "carvone",
+    "category": "terpene",
+    "description": "spearmint, caraway"
+  },
+  "eucalyptol": {
+    "id": "eucalyptol",
+    "name": "eucalyptol",
+    "category": "terpene",
+    "description": "eucalyptus, cooling, camphor"
+  },
+  "ocimene": {
+    "id": "ocimene",
+    "name": "ocimene",
+    "category": "terpene",
+    "description": "sweet, herbal, woody"
+  },
+  "terpinene": {
+    "id": "terpinene",
+    "name": "terpinene",
+    "category": "terpene",
+    "description": "herbal, citrus, woody"
+  },
+  "sabinene": {
+    "id": "sabinene",
+    "name": "sabinene",
+    "category": "terpene",
+    "description": "woody, spicy, citrus"
+  },
+  "eugenol": {
+    "id": "eugenol",
+    "name": "eugenol",
+    "category": "phenol",
+    "description": "clove, warm, spicy"
+  },
+  "thymol": {
+    "id": "thymol",
+    "name": "thymol",
+    "category": "phenol",
+    "description": "thyme, medicinal, herbal"
+  },
+  "guaiacol": {
+    "id": "guaiacol",
+    "name": "guaiacol",
+    "category": "phenol",
+    "description": "smoky, woody, bacon"
+  },
+  "4vg": {
+    "id": "4vg",
+    "name": "4-vinylguaiacol",
+    "category": "phenol",
+    "description": "clove, smoky, spicy"
+  },
+  "cresol": {
+    "id": "cresol",
+    "name": "cresol",
+    "category": "phenol",
+    "description": "smoky, tarry, medicinal"
+  },
+  "anethole": {
+    "id": "anethole",
+    "name": "anethole",
+    "category": "phenol",
+    "description": "anise, licorice, sweet"
+  },
+  "estragole": {
+    "id": "estragole",
+    "name": "estragole",
+    "category": "phenol",
+    "description": "tarragon, anise, sweet"
+  },
+  "chavicol": {
+    "id": "chavicol",
+    "name": "chavicol",
+    "category": "phenol",
+    "description": "basil, spicy, warm"
+  },
+  "cinnamaldehyde": {
+    "id": "cinnamaldehyde",
+    "name": "cinnamaldehyde",
+    "category": "aldehyde",
+    "description": "cinnamon, warm, sweet"
+  },
+  "vanillin": {
+    "id": "vanillin",
+    "name": "vanillin",
+    "category": "aldehyde",
+    "description": "vanilla, sweet, creamy"
+  },
+  "benzaldehyde": {
+    "id": "benzaldehyde",
+    "name": "benzaldehyde",
+    "category": "aldehyde",
+    "description": "almond, cherry, marzipan"
+  },
+  "hexanal": {
+    "id": "hexanal",
+    "name": "hexanal",
+    "category": "aldehyde",
+    "description": "green, grassy, fresh-cut"
+  },
+  "nonanal": {
+    "id": "nonanal",
+    "name": "nonanal",
+    "category": "aldehyde",
+    "description": "waxy, citrus, fatty"
+  },
+  "octanal": {
+    "id": "octanal",
+    "name": "octanal",
+    "category": "aldehyde",
+    "description": "citrus, green, fatty"
+  },
+  "decanal": {
+    "id": "decanal",
+    "name": "decanal",
+    "category": "aldehyde",
+    "description": "orange peel, waxy"
+  },
+  "citral": {
+    "id": "citral",
+    "name": "citral",
+    "category": "aldehyde",
+    "description": "lemon, citrus, fresh"
+  },
+  "furfural": {
+    "id": "furfural",
+    "name": "furfural",
+    "category": "aldehyde",
+    "description": "almond, bread, caramel"
+  },
+  "methional": {
+    "id": "methional",
+    "name": "methional",
+    "category": "aldehyde",
+    "description": "potato, cooked, brothy"
+  },
+  "phenylacetaldehyde": {
+    "id": "phenylacetaldehyde",
+    "name": "phenylacetaldehyde",
+    "category": "aldehyde",
+    "description": "honey, floral, hyacinth"
+  },
+  "cuminaldehyde": {
+    "id": "cuminaldehyde",
+    "name": "cuminaldehyde",
+    "category": "aldehyde",
+    "description": "cumin, warm, green"
+  },
+  "trans_2_nonenal": {
+    "id": "trans_2_nonenal",
+    "name": "trans-2-nonenal",
+    "category": "aldehyde",
+    "description": "cucumber, fatty, green"
+  },
+  "ethyl_butyrate": {
+    "id": "ethyl_butyrate",
+    "name": "ethyl butyrate",
+    "category": "ester",
+    "description": "pineapple, fruity"
+  },
+  "ethyl_acetate": {
+    "id": "ethyl_acetate",
+    "name": "ethyl acetate",
+    "category": "ester",
+    "description": "fruity, solvent-like"
+  },
+  "isoamyl_acetate": {
+    "id": "isoamyl_acetate",
+    "name": "isoamyl acetate",
+    "category": "ester",
+    "description": "banana, pear"
+  },
+  "methyl_anthranilate": {
+    "id": "methyl_anthranilate",
+    "name": "methyl anthranilate",
+    "category": "ester",
+    "description": "grape, concord"
+  },
+  "ethyl_hexanoate": {
+    "id": "ethyl_hexanoate",
+    "name": "ethyl hexanoate",
+    "category": "ester",
+    "description": "apple, fruity, wine"
+  },
+  "ethyl_cinnamate": {
+    "id": "ethyl_cinnamate",
+    "name": "ethyl cinnamate",
+    "category": "ester",
+    "description": "cinnamon, balsamic, fruity"
+  },
+  "diacetyl": {
+    "id": "diacetyl",
+    "name": "diacetyl",
+    "category": "ketone",
+    "description": "buttery, creamy"
+  },
+  "acetoin": {
+    "id": "acetoin",
+    "name": "acetoin",
+    "category": "ketone",
+    "description": "buttery, yogurt"
+  },
+  "ionone": {
+    "id": "ionone",
+    "name": "ionone",
+    "category": "ketone",
+    "description": "violet, floral, berry"
+  },
+  "damascenone": {
+    "id": "damascenone",
+    "name": "damascenone",
+    "category": "ketone",
+    "description": "rose, honey, cooked apple"
+  },
+  "nootkatone": {
+    "id": "nootkatone",
+    "name": "nootkatone",
+    "category": "ketone",
+    "description": "grapefruit, citrus"
+  },
+  "acetophenone": {
+    "id": "acetophenone",
+    "name": "acetophenone",
+    "category": "ketone",
+    "description": "floral, almond, cherry"
+  },
+  "zingerone": {
+    "id": "zingerone",
+    "name": "zingerone",
+    "category": "ketone",
+    "description": "ginger, sweet, spicy"
+  },
+  "menthone": {
+    "id": "menthone",
+    "name": "menthone",
+    "category": "ketone",
+    "description": "minty, slightly woody"
+  },
+  "allicin": {
+    "id": "allicin",
+    "name": "allicin",
+    "category": "sulfur",
+    "description": "garlic, pungent"
+  },
+  "diallyl_disulfide": {
+    "id": "diallyl_disulfide",
+    "name": "diallyl disulfide",
+    "category": "sulfur",
+    "description": "garlic, cooked onion"
+  },
+  "dimethyl_sulfide": {
+    "id": "dimethyl_sulfide",
+    "name": "dimethyl sulfide",
+    "category": "sulfur",
+    "description": "cabbage, truffle, corn"
+  },
+  "thiophene": {
+    "id": "thiophene",
+    "name": "thiophene",
+    "category": "sulfur",
+    "description": "roasted, meaty"
+  },
+  "allyl_isothiocyanate": {
+    "id": "allyl_isothiocyanate",
+    "name": "allyl isothiocyanate",
+    "category": "sulfur",
+    "description": "mustard, wasabi, horseradish"
+  },
+  "dimethyl_trisulfide": {
+    "id": "dimethyl_trisulfide",
+    "name": "dimethyl trisulfide",
+    "category": "sulfur",
+    "description": "cooked cabbage, savory, umami"
+  },
+  "methyl_thioacetate": {
+    "id": "methyl_thioacetate",
+    "name": "methyl thioacetate",
+    "category": "sulfur",
+    "description": "cheesy, sulfurous, fermented"
+  },
+  "acetic_acid": {
+    "id": "acetic_acid",
+    "name": "acetic acid",
+    "category": "acid",
+    "description": "vinegar, sharp, sour"
+  },
+  "citric_acid": {
+    "id": "citric_acid",
+    "name": "citric acid",
+    "category": "acid",
+    "description": "sour, citrus"
+  },
+  "malic_acid": {
+    "id": "malic_acid",
+    "name": "malic acid",
+    "category": "acid",
+    "description": "tart apple, sour"
+  },
+  "lactic_acid": {
+    "id": "lactic_acid",
+    "name": "lactic acid",
+    "category": "acid",
+    "description": "sour milk, tangy"
+  },
+  "tartaric_acid": {
+    "id": "tartaric_acid",
+    "name": "tartaric acid",
+    "category": "acid",
+    "description": "grape, wine, tart"
+  },
+  "butyric_acid": {
+    "id": "butyric_acid",
+    "name": "butyric acid",
+    "category": "acid",
+    "description": "cheesy, rancid, sharp"
+  },
+  "methoxypyrazine": {
+    "id": "methoxypyrazine",
+    "name": "methoxypyrazine",
+    "category": "pyrazine",
+    "description": "green bell pepper, earthy"
+  },
+  "methylpyrazine": {
+    "id": "methylpyrazine",
+    "name": "methylpyrazine",
+    "category": "pyrazine",
+    "description": "roasted, nutty, cocoa"
+  },
+  "acetylpyrazine": {
+    "id": "acetylpyrazine",
+    "name": "acetylpyrazine",
+    "category": "pyrazine",
+    "description": "popcorn, roasted, bread crust"
+  },
+  "acetyl_pyrroline": {
+    "id": "acetyl_pyrroline",
+    "name": "2-acetyl-1-pyrroline",
+    "category": "pyrroline",
+    "description": "basmati rice, popcorn, pandan"
+  },
+  "furaneol": {
+    "id": "furaneol",
+    "name": "furaneol",
+    "category": "furanone",
+    "description": "strawberry, caramel, sweet"
+  },
+  "sotolon": {
+    "id": "sotolon",
+    "name": "sotolon",
+    "category": "furanone",
+    "description": "maple, curry, fenugreek"
+  },
+  "maltol": {
+    "id": "maltol",
+    "name": "maltol",
+    "category": "furanone",
+    "description": "caramel, cotton candy, toasty"
+  },
+  "ethyl_maltol": {
+    "id": "ethyl_maltol",
+    "name": "ethyl maltol",
+    "category": "furanone",
+    "description": "cotton candy, caramelized sugar"
+  },
+  "gamma_decalactone": {
+    "id": "gamma_decalactone",
+    "name": "gamma-decalactone",
+    "category": "lactone",
+    "description": "peach, creamy, coconut"
+  },
+  "gamma_octalactone": {
+    "id": "gamma_octalactone",
+    "name": "gamma-octalactone",
+    "category": "lactone",
+    "description": "coconut, creamy"
+  },
+  "whiskey_lactone": {
+    "id": "whiskey_lactone",
+    "name": "whiskey lactone",
+    "category": "lactone",
+    "description": "coconut, woody, oaky"
+  },
+  "delta_decalactone": {
+    "id": "delta_decalactone",
+    "name": "delta-decalactone",
+    "category": "lactone",
+    "description": "creamy, milky, peach"
+  },
+  "1_octen_3_ol": {
+    "id": "1_octen_3_ol",
+    "name": "1-octen-3-ol",
+    "category": "alcohol",
+    "description": "mushroom, earthy, damp"
+  },
+  "phenethyl_alcohol": {
+    "id": "phenethyl_alcohol",
+    "name": "phenethyl alcohol",
+    "category": "alcohol",
+    "description": "rose, honey, floral"
+  },
+  "geosmin": {
+    "id": "geosmin",
+    "name": "geosmin",
+    "category": "alcohol",
+    "description": "earthy, beet, petrichor"
+  },
+  "menthol": {
+    "id": "menthol",
+    "name": "menthol",
+    "category": "alcohol",
+    "description": "cooling, minty"
+  },
+  "linalool_oxide": {
+    "id": "linalool_oxide",
+    "name": "linalool oxide",
+    "category": "alcohol",
+    "description": "floral, woody, earthy"
+  },
+  "thiazole": {
+    "id": "thiazole",
+    "name": "thiazole",
+    "category": "thiazole",
+    "description": "meaty, roasted, nutty"
+  },
+  "trimethylamine": {
+    "id": "trimethylamine",
+    "name": "trimethylamine",
+    "category": "amine",
+    "description": "fishy, marine, briny"
+  },
+  "indole": {
+    "id": "indole",
+    "name": "indole",
+    "category": "amine",
+    "description": "floral, jasmine (low conc), fecal (high)"
+  },
+  "capsaicin": {
+    "id": "capsaicin",
+    "name": "capsaicin",
+    "category": "other",
+    "description": "hot, burning, chili heat"
+  },
+  "piperine": {
+    "id": "piperine",
+    "name": "piperine",
+    "category": "other",
+    "description": "sharp, biting, pepper heat"
+  },
+  "coumarin": {
+    "id": "coumarin",
+    "name": "coumarin",
+    "category": "other",
+    "description": "hay, vanilla, tonka bean"
+  },
+  "rotundone": {
+    "id": "rotundone",
+    "name": "rotundone",
+    "category": "other",
+    "description": "black pepper, spicy, woody"
+  }
+}
