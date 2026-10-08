@@ -6681,5 +6681,49 @@
     ],
     "flavor_notes": "clean and neutral, sweeter than sugar so less of it goes in",
     "name_es": "Agave nectar"
+  },
+  "sardine": {
+    "id": "sardine",
+    "name": "sardine",
+    "name_es": "Sardinas",
+    "category": "seafood",
+    "compounds": [
+      "1_octen_3_ol",
+      "dimethyl_sulfide",
+      "hexanal",
+      "methional",
+      "nonanal",
+      "trimethylamine"
+    ],
+    "cooking_methods": [
+      "grill",
+      "can",
+      "bake",
+      "cure",
+      "fry"
+    ],
+    "flavor_notes": "oily, rich, briny, oceanic, intense"
+  },
+  "mackerel": {
+    "id": "mackerel",
+    "name": "mackerel",
+    "name_es": "Caballa",
+    "category": "seafood",
+    "compounds": [
+      "dimethyl_sulfide",
+      "hexanal",
+      "methional",
+      "nonanal",
+      "thiophene",
+      "trimethylamine"
+    ],
+    "cooking_methods": [
+      "grill",
+      "smoke",
+      "cure",
+      "sear",
+      "bake"
+    ],
+    "flavor_notes": "rich, fatty, firm, savory, oceanic"
   }
 }
