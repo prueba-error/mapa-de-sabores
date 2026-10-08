@@ -6725,5 +6725,207 @@
       "bake"
     ],
     "flavor_notes": "rich, fatty, firm, savory, oceanic"
+  },
+  "beef_liver": {
+    "id": "beef_liver",
+    "name": "beef liver",
+    "name_es": "Hígado de Res",
+    "category": "protein",
+    "compounds": [
+      "diacetyl",
+      "hexanal",
+      "methional",
+      "methylpyrazine",
+      "nonanal",
+      "octanal",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "sear",
+      "sauté",
+      "pan-fry",
+      "braise",
+      "paté"
+    ],
+    "flavor_notes": "metallic, rich, livery, iron, savory, mineral"
+  },
+  "beef_heart": {
+    "id": "beef_heart",
+    "name": "beef heart",
+    "name_es": "Corazón de Res",
+    "category": "protein",
+    "compounds": [
+      "diacetyl",
+      "guaiacol",
+      "hexanal",
+      "methional",
+      "methylpyrazine",
+      "nonanal",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "grill",
+      "anticucho",
+      "sear",
+      "braise",
+      "smoke"
+    ],
+    "flavor_notes": "lean, firm, deeply meaty, mineral, mild iron"
+  },
+  "beef_kidney": {
+    "id": "beef_kidney",
+    "name": "beef kidney",
+    "name_es": "Riñón de Res",
+    "category": "protein",
+    "compounds": [
+      "cresol",
+      "hexanal",
+      "methional",
+      "methylpyrazine",
+      "nonanal",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "sauté",
+      "braise",
+      "grill",
+      "pie",
+      "stew"
+    ],
+    "flavor_notes": "pungent, gamey, robust, earthy, iron"
+  },
+  "chorizo": {
+    "id": "chorizo",
+    "name": "chorizo",
+    "name_es": "Chorizo",
+    "category": "protein",
+    "compounds": [
+      "4vg",
+      "allicin",
+      "capsaicin",
+      "diallyl_disulfide",
+      "guaiacol",
+      "hexanal",
+      "methylpyrazine",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "grill",
+      "sear",
+      "crumble",
+      "braise",
+      "cure"
+    ],
+    "flavor_notes": "paprika, garlicky, spicy, fatty, smoky, pork"
+  },
+  "salami": {
+    "id": "salami",
+    "name": "salami",
+    "name_es": "Salame",
+    "category": "protein",
+    "compounds": [
+      "acetic_acid",
+      "allicin",
+      "diacetyl",
+      "diallyl_disulfide",
+      "lactic_acid",
+      "methylpyrazine",
+      "piperine"
+    ],
+    "cooking_methods": [
+      "cure",
+      "slice",
+      "raw",
+      "charcuterie",
+      "crisp"
+    ],
+    "flavor_notes": "tangy, aged, peppery, garlicky, cured fat"
+  },
+  "hake": {
+    "id": "hake",
+    "name": "hake",
+    "name_es": "Merluza",
+    "category": "seafood",
+    "compounds": [
+      "dimethyl_sulfide",
+      "hexanal",
+      "methional",
+      "nonanal",
+      "trimethylamine"
+    ],
+    "cooking_methods": [
+      "pan-fry",
+      "bake",
+      "poach",
+      "steam",
+      "grill"
+    ],
+    "flavor_notes": "delicate, flaky, mild, clean ocean, sweet"
+  },
+  "octopus": {
+    "id": "octopus",
+    "name": "octopus",
+    "name_es": "Pulpo",
+    "category": "seafood",
+    "compounds": [
+      "1_octen_3_ol",
+      "dimethyl_sulfide",
+      "hexanal",
+      "methional",
+      "nonanal",
+      "trimethylamine"
+    ],
+    "cooking_methods": [
+      "boil",
+      "grill",
+      "braise",
+      "char",
+      "carpaccio"
+    ],
+    "flavor_notes": "firm, tender, sweet, briny, slightly mineral"
+  },
+  "pear": {
+    "id": "pear",
+    "name": "pear",
+    "name_es": "Pera",
+    "category": "fruit",
+    "compounds": [
+      "damascenone",
+      "ethyl_acetate",
+      "furaneol",
+      "hexanal",
+      "linalool",
+      "malic_acid"
+    ],
+    "cooking_methods": [
+      "raw",
+      "poach",
+      "bake",
+      "roast",
+      "cheese board"
+    ],
+    "flavor_notes": "sweet, floral, juicy, delicate, grainy, honeyed"
+  },
+  "melon": {
+    "id": "melon",
+    "name": "melon",
+    "name_es": "Melón",
+    "category": "fruit",
+    "compounds": [
+      "ethyl_butyrate",
+      "furaneol",
+      "hexanal",
+      "linalool",
+      "nonanal",
+      "trans_2_nonenal"
+    ],
+    "cooking_methods": [
+      "raw",
+      "wrap",
+      "chilled soup",
+      "compress",
+      "salad"
+    ],
+    "flavor_notes": "sweet, musky, watery, refreshing, honeyed"
   }
 }
