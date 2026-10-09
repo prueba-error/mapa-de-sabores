@@ -42,4 +42,32 @@ Registro cronológico único de entregables mayores, decisiones técnicas acorda
   * Refactorización completa de `scripts/seed_flavor_network.py` para cargar los datasets en disco, aplicar `calculate_molecular_affinity()` y procesar los ingredientes de forma determinista y reproducible.
   * Verificación técnica con `ruff check` (100% limpio), `mypy --explicit-package-bases` (0 errores en 32 archivos) y tests unitarios en verde.
 
+---
+
+## Sprint 2: Curación Editorial, Data Pipeline y Spike Frontend
+
+* **Contexto:** Implementación de la gestión editorial de `pairing_review_queue` (Human-in-the-Loop) y construcción del spike interactivo en React para validar el rendimiento a 60 FPS de `react-force-graph-2d`.
+* **Cambios realizados:**
+  * **Servicio de Curación (`backend/app/services/curation.py`):** Lógica de negocio para `list_pending`, `approve` (migra a `flavor_pairings` con `source_type='manual_review'` y permite reajuste de score/prosa), `reject` (marca como descartado) y `get_stats` con tasa de descarte de la auditoría aleatoria.
+  * **CLI de Curación (`scripts/curate.py`):** Herramienta de terminal con comandos `--list`, `--approve <id>`, `--reject <id>` y `--stats` para la labor del alumno curador.
+  * **Suite de Pruebas TDD (`backend/tests/test_curation_service.py`):** Cobertura completa del ciclo de vida de curación y restricciones de estado.
+  * **Spike Frontend React 2D (`frontend/`):**
+    * Inicialización de la aplicación frontend con Vite y React.
+    * Instalación e integración de `react-force-graph-2d`, `lucide-react`, `clsx` y `tailwind-merge`.
+    * Datos estáticos mock representativos en `frontend/src/data/mockGraph.js` (22 nodos y aristas con tres niveles de afinidad y notas aromáticas).
+    * Componente interactivo `frontend/src/App.jsx` con panel lateral de control (filtros *Todas / Mejores / Peores*, slider de piso de afinidad, selección y centrado suave de nodo, leyenda de colores y tooltip reactivo de maridajes).
+    * Build de producción de Vite verificado con éxito (`dist/` generado en 19.8s).
+* **Tests y verificaciones:**
+  * `ruff check scripts/ backend/`: 100% limpio.
+  * `mypy --explicit-package-bases scripts/ backend/`: 0 errores en 35 archivos fuente.
+  * `pytest backend/tests/`: 19/19 tests pasando con PostgreSQL activo.
+  * `npm --prefix frontend run build`: compilación de producción de Vite limpia y verificada.
+* **Hito Final de Datos, Persistencia y Documentación Técnica (Cierre Sprint 2):**
+  * **Expansión y Catalogación del Dataset:** Ampliación a **360 ingredientes únicos** clasificados en 17 categorías y mapeados contra la biblioteca de 82 compuestos volátiles en `data/compounds.json`. Reconstrucción y ordenamiento alfabético de `catalogo_ingredientes.txt`.
+  * **Monografías Científicas y Bromatológicas:** Incorporación de documentos de sustento cromatográfico en `docs/`: `datos_carne.md` (cortes vacunos magros/grasos/colágeno), `datos_ddl.md` (dulce de leche, catálisis Maillard), `datos_salsa_ostras.md` (hidrólisis péptidos y volátiles marinos), `datos_soja_texturizada.md` (termoextrusión y lipoxigenasa) y `justificacion_evaluacion_sinergia.md` (matemática de evaluación $N \times N$, cobertura, celdas nulas y cálculo on-the-fly).
+  * **Ajuste de UX/UI en Spike Frontend:** Corrección del layout en `frontend/src/index.css` y `frontend/src/App.jsx` para evitar colapso de ancho del panel lateral en Flexbox (`flexShrink: 0`, `minWidth: 0`).
+  * **Persistencia Real a PostgreSQL:** Implementación en `scripts/seed_flavor_network.py` del flag `--persist` y la rutina asíncrona de guardado en base de datos.
+  * **Sembrado Exitoso de la Red:** Ejecución en PostgreSQL 16 persistiendo los 360 ingredientes, sincronizando 2.078 maridajes directos en `flavor_pairings` (incluyendo más del 70% de pares débiles/contrastes para exploración) y 204 ítems en `pairing_review_queue` auditables vía `scripts/curate.py`.
+
+
 

@@ -1,9 +1,9 @@
 ================================================================================
                 MAPA DE SABORES - CATÁLOGO COMPLETO DE INGREDIENTES
-                Total de ingredientes catalogados: 337
+                Total de ingredientes catalogados: 360
 ================================================================================
 
-## Carnes, Achuras y Proteínas (20 ingredientes)
+## Carnes, Achuras y Proteínas (22 ingredientes)
 --------------------------------------------------------------------------------
  1. Carne Picada [ground beef]
     Notas sensoriales: rich, umami, versatile
@@ -32,88 +32,98 @@
  9. Jamón Crudo / Prosciutto [prosciutto]
     Notas sensoriales: salty, nutty, delicate, aged
     Compuestos clave : diacetyl, guaiacol, hexanal, methylpyrazine, nonanal, thiophene
-10. Panceta / Bacon [bacon]
+10. Morcilla [blood sausage]
+    Notas sensoriales: metallic iron, spiced, fatty, onion, warm clove, savory
+    Compuestos clave : cinnamaldehyde, diacetyl, diallyl_disulfide, eugenol, guaiacol, methional, piperine, thiophene
+11. Panceta / Bacon [bacon]
     Notas sensoriales: smoky, salty, fatty, umami
     Compuestos clave : 4vg, cresol, diacetyl, guaiacol, hexanal, methylpyrazine, nonanal, thiophene
-11. Pato [duck]
+12. Pato [duck]
     Notas sensoriales: rich, fatty, dark meat
     Compuestos clave : diacetyl, gamma_decalactone, hexanal, methylpyrazine, nonanal, octanal, thiophene
-12. Pavo [turkey]
+13. Pavo [turkey]
     Notas sensoriales: mild, lean, savory
     Compuestos clave : diacetyl, hexanal, methional, methylpyrazine, nonanal, thiophene
-13. Pollo [chicken]
+14. Pollo [chicken]
     Notas sensoriales: mild, savory, versatile
     Compuestos clave : diacetyl, hexanal, methional, methylpyrazine, nonanal, octanal, thiophene
-14. Riñón de Res [beef kidney]
+15. Proteína de Soja Texturizada [textured soy protein]
+    Notas sensoriales: mild, nutty, beany, porous savory matrix
+    Compuestos clave : 1_octen_3_ol, benzaldehyde, hexanal, methional, methylpyrazine, nonanal
+16. Riñón de Res [beef kidney]
     Notas sensoriales: pungent, gamey, robust, earthy, iron
     Compuestos clave : cresol, hexanal, methional, methylpyrazine, nonanal, thiophene
-15. Salame [salami]
+17. Salame [salami]
     Notas sensoriales: tangy, aged, peppery, garlicky, cured fat
     Compuestos clave : acetic_acid, allicin, diacetyl, diallyl_disulfide, lactic_acid, methylpyrazine, piperine
-16. Salchicha / Embutido [sausage]
+18. Salchicha / Embutido [sausage]
     Notas sensoriales: savory, spiced, fatty, smoky
     Compuestos clave : 4vg, allicin, cresol, guaiacol, hexanal, methylpyrazine, nonanal, thiophene
-17. Seitan [seitan]
+19. Seitan [seitan]
     Notas sensoriales: wheaty, chewy, deeply savory — takes on whatever it is braised in
     Compuestos clave : acetylpyrazine, hexanal, maltol, methional, methylpyrazine
-18. Tempeh [tempeh]
+20. Tempeh [tempeh]
     Notas sensoriales: nutty, earthy, fermented
     Compuestos clave : 1_octen_3_ol, acetoin, hexanal, methylpyrazine, nonanal
-19. Tofu [tofu]
+21. Tofu [tofu]
     Notas sensoriales: mild, neutral, absorbs flavor
     Compuestos clave : 1_octen_3_ol, acetoin, hexanal, nonanal
-20. Young jackfruit [young jackfruit]
+22. Young jackfruit [young jackfruit]
     Notas sensoriales: neutral and stringy when green — pulls like slow-cooked meat
     Compuestos clave : butyric_acid, ethyl_butyrate, hexanal, isoamyl_acetate
 
-
-## Pescados y Mariscos (14 ingredientes)
+## Pescados y Mariscos (16 ingredientes)
 --------------------------------------------------------------------------------
- 1. Anchoa [anchovy]
+ 1. Almeja [clam]
+    Notas sensoriales: briny, sweet, iodine, savory umami bivalve
+    Compuestos clave : dimethyl_sulfide, dimethyl_trisulfide, methional, trimethylamine
+ 2. Anchoa [anchovy]
     Notas sensoriales: intense, salty, umami bomb
     Compuestos clave : butyric_acid, dimethyl_sulfide, methional, methylpyrazine, trimethylamine
- 2. Atún [tuna]
+ 3. Atún [tuna]
     Notas sensoriales: meaty, clean, ocean
     Compuestos clave : dimethyl_sulfide, hexanal, nonanal, thiophene, trimethylamine
- 3. Caballa [mackerel]
+ 4. Bacalao [cod]
+    Notas sensoriales: mild, lean, flaky white fish, subtle marine sweetness
+    Compuestos clave : dimethyl_sulfide, hexanal, methional, trimethylamine
+ 5. Caballa [mackerel]
     Notas sensoriales: rich, fatty, firm, savory, oceanic
     Compuestos clave : dimethyl_sulfide, hexanal, methional, nonanal, thiophene, trimethylamine
- 4. Camarones [shrimp]
+ 6. Camarones [shrimp]
     Notas sensoriales: sweet, briny, delicate
     Compuestos clave : acetylpyrazine, dimethyl_sulfide, methylpyrazine, nonanal, thiazole, trimethylamine
- 5. Cangrejo [crab]
+ 7. Cangrejo [crab]
     Notas sensoriales: sweet, briny, rich
     Compuestos clave : dimethyl_sulfide, methional, methylpyrazine, nonanal, thiazole, trimethylamine
- 6. Langosta [lobster]
+ 8. Langosta [lobster]
     Notas sensoriales: sweet, rich, buttery
     Compuestos clave : diacetyl, dimethyl_sulfide, hexanal, methional, nonanal, trimethylamine
- 7. Mejillones [mussels]
+ 9. Mejillones [mussels]
     Notas sensoriales: briny, sweet, plump
     Compuestos clave : dimethyl_sulfide, dimethyl_trisulfide, hexanal, nonanal, trimethylamine
- 8. Merluza [hake]
+10. Merluza [hake]
     Notas sensoriales: delicate, flaky, mild, clean ocean, sweet
     Compuestos clave : dimethyl_sulfide, hexanal, methional, nonanal, trimethylamine
- 9. Ostra [oyster]
+11. Ostra [oyster]
     Notas sensoriales: briny, mineral, oceanic, zinc
     Compuestos clave : 1_octen_3_ol, dimethyl_sulfide, hexanal, methional, nonanal, trimethylamine
-10. Pulpo [octopus]
+12. Pulpo [octopus]
     Notas sensoriales: firm, tender, sweet, briny, slightly mineral
     Compuestos clave : 1_octen_3_ol, dimethyl_sulfide, hexanal, methional, nonanal, trimethylamine
-11. Salmón [salmon]
+13. Salmón [salmon]
     Notas sensoriales: rich, fatty, ocean
     Compuestos clave : 1_octen_3_ol, diacetyl, dimethyl_sulfide, hexanal, nonanal, trimethylamine
-12. Sardinas [sardine]
+14. Sardinas [sardine]
     Notas sensoriales: oily, rich, briny, oceanic, intense
     Compuestos clave : 1_octen_3_ol, dimethyl_sulfide, hexanal, methional, nonanal, trimethylamine
-13. Squid [squid]
+15. Squid [squid]
     Notas sensoriales: sweet, mild, briny — chewy unless cooked very fast or very slow
     Compuestos clave : dimethyl_sulfide, hexanal, methional, thiophene, trimethylamine
-14. Vieira [scallop]
+16. Vieira [scallop]
     Notas sensoriales: sweet, buttery, delicate
     Compuestos clave : diacetyl, dimethyl_sulfide, methional, nonanal, trimethylamine
 
-
-## Verduras (42 ingredientes)
+## Verduras (43 ingredientes)
 --------------------------------------------------------------------------------
  1. Alcaucil / Alcachofa [artichoke]
     Notas sensoriales: nutty, earthy, mineral
@@ -184,133 +194,143 @@
 23. Kale [kale]
     Notas sensoriales: bitter, earthy, hearty
     Compuestos clave : allyl_isothiocyanate, dimethyl_sulfide, hexanal, linalool, nonanal
-24. Maíz / Choclo [corn]
+24. Mandioca / Yuca [cassava]
+    Notas sensoriales: starchy, earthy, mildly sweet, nutty, fibrous
+    Compuestos clave : dimethyl_sulfide, hexanal, methional, methylpyrazine, nonanal, phenethyl_alcohol
+25. Maíz / Choclo [corn]
     Notas sensoriales: sweet, starchy, toasty
     Compuestos clave : acetyl_pyrroline, acetylpyrazine, dimethyl_sulfide, furaneol, hexanal, maltol
-25. Nabo [turnip]
+26. Nabo [turnip]
     Notas sensoriales: peppery, mild, slightly bitter
     Compuestos clave : allyl_isothiocyanate, dimethyl_sulfide, hexanal, nonanal
-26. Palta / Aguacate [avocado]
+27. Palta / Aguacate [avocado]
     Notas sensoriales: creamy, mild, fatty, green
     Compuestos clave : acetoin, ethyl_acetate, hexanal, linalool, nonanal
-27. Papa [potato]
+28. Papa [potato]
     Notas sensoriales: starchy, earthy, versatile
     Compuestos clave : acetylpyrazine, dimethyl_sulfide, hexanal, methional, methylpyrazine, nonanal
-28. Pepino [cucumber]
+29. Pepino [cucumber]
     Notas sensoriales: cool, green, fresh, watery
     Compuestos clave : hexanal, linalool, nonanal, trans_2_nonenal
-29. Pimiento Morron Asado [roasted red pepper]
+30. Pimiento Morron Asado [roasted red pepper]
     Notas sensoriales: sweet, smoky, silky, charred
     Compuestos clave : furaneol, hexanal, limonene, linalool, methoxypyrazine, nonanal
-30. Pimiento Morrón [bell pepper]
+31. Pimiento Morrón [bell pepper]
     Notas sensoriales: sweet, vegetal, crisp
     Compuestos clave : hexanal, limonene, linalool, methoxypyrazine, nonanal
-31. Radicchio [radicchio]
+32. Radicchio [radicchio]
     Notas sensoriales: bitter, beautiful purple, becomes sweet grilled
     Compuestos clave : dimethyl_sulfide, hexanal, linalool, nonanal
-32. Remolacha [beet]
+33. Remolacha [beet]
     Notas sensoriales: earthy, sweet, mineral
     Compuestos clave : dimethyl_sulfide, geosmin, linalool, malic_acid, nonanal
-33. Repollo [cabbage]
+34. Repollo [cabbage]
     Notas sensoriales: cruciferous, sweet, crunchy
     Compuestos clave : allyl_isothiocyanate, dimethyl_sulfide, dimethyl_trisulfide, hexanal, nonanal
-34. Romaine lettuce [romaine lettuce]
+35. Romaine lettuce [romaine lettuce]
     Notas sensoriales: crisp, mild, crunchy, watery, sturdy
     Compuestos clave : dimethyl_sulfide, hexanal, linalool, nonanal, trans_2_nonenal
-35. Rábano [radish]
+36. Rábano [radish]
     Notas sensoriales: peppery, crisp, bright
     Compuestos clave : allyl_isothiocyanate, hexanal, methoxypyrazine, nonanal
-36. Tirabeques / Arvejas Chinas [snap peas]
+37. Tirabeques / Arvejas Chinas [snap peas]
     Notas sensoriales: sweet, crisp, green, fresh
     Compuestos clave : dimethyl_sulfide, hexanal, linalool, methoxypyrazine, nonanal
-37. Tomate [tomato]
+38. Tomate [tomato]
     Notas sensoriales: acidic, sweet, umami
     Compuestos clave : citral, dimethyl_sulfide, furaneol, geraniol, hexanal, ionone, linalool
-38. Tomate Seco [sun-dried tomato]
+39. Tomate Seco [sun-dried tomato]
     Notas sensoriales: intense, chewy, concentrated umami, sweet-tart
     Compuestos clave : dimethyl_sulfide, furaneol, guaiacol, hexanal, maltol, methylpyrazine
-39. Tomatillo Verde [tomatillo]
+40. Tomatillo Verde [tomatillo]
     Notas sensoriales: tart, bright, citrusy, herbal
     Compuestos clave : citric_acid, hexanal, limonene, linalool, malic_acid, nonanal
-40. Water chestnut [water chestnut]
+41. Water chestnut [water chestnut]
     Notas sensoriales: crunchy, sweet, stays crisp when cooked
     Compuestos clave : dimethyl_sulfide, furfural, hexanal, linalool, nonanal
-41. Zanahoria [carrot]
+42. Zanahoria [carrot]
     Notas sensoriales: sweet, earthy, bright
     Compuestos clave : ionone, limonene, linalool, myrcene, nonanal, pinene, terpinene
-42. Zucchini [zucchini]
+43. Zucchini [zucchini]
     Notas sensoriales: mild, fresh, squash
     Compuestos clave : hexanal, linalool, nonanal, trans_2_nonenal
 
-
-## Frutas (21 ingredientes)
+## Frutas (24 ingredientes)
 --------------------------------------------------------------------------------
  1. Ananá / Piña [pineapple]
     Notas sensoriales: tropical, tart, enzymatic
     Compuestos clave : ethyl_butyrate, ethyl_hexanoate, furaneol, linalool, vanillin
- 2. Cereza [cherry]
+ 2. Arándano [blueberry]
+    Notas sensoriales: sweet-tart, floral, woody-berry, juicy
+    Compuestos clave : citric_acid, hexanal, ionone, limonene, linalool
+ 3. Açaí [acai]
+    Notas sensoriales: deep berry, earthy, tart, dark cocoa, oily rich
+    Compuestos clave : citric_acid, damascenone, ethyl_hexanoate, hexanal, ionone, limonene, linalool
+ 4. Cereza [cherry]
     Notas sensoriales: sweet-tart, almond, rich
     Compuestos clave : acetophenone, benzaldehyde, ethyl_acetate, eugenol, hexanal, linalool, malic_acid
- 3. Coco [coconut]
+ 5. Ciruela [plum]
+    Notas sensoriales: sweet, tart, stone fruit, floral, almond nuance
+    Compuestos clave : benzaldehyde, gamma_decalactone, hexanal, linalool, malic_acid
+ 6. Coco [coconut]
     Notas sensoriales: sweet, creamy, tropical
     Compuestos clave : delta_decalactone, gamma_decalactone, gamma_octalactone, maltol, nonanal, vanillin
- 4. Damasco / Albaricoque [apricot]
+ 7. Damasco / Albaricoque [apricot]
     Notas sensoriales: sweet, slightly tart, stone fruit
     Compuestos clave : benzaldehyde, gamma_decalactone, hexanal, ionone, linalool, myrcene
- 5. Durazno [peach]
+ 8. Durazno [peach]
     Notas sensoriales: sweet, floral, juicy
     Compuestos clave : benzaldehyde, delta_decalactone, furaneol, gamma_decalactone, hexanal, ionone, linalool
- 6. Dátil [date]
+ 9. Dátil [date]
     Notas sensoriales: intensely sweet, caramel, chewy
     Compuestos clave : acetoin, furaneol, furfural, linalool, maltol, vanillin
- 7. Frambuesa [raspberry]
+10. Frambuesa [raspberry]
     Notas sensoriales: tart, fragrant, intense
     Compuestos clave : damascenone, furaneol, geraniol, hexanal, ionone, linalool
- 8. Frutilla / Fresa [strawberry]
+11. Frutilla / Fresa [strawberry]
     Notas sensoriales: sweet, fragrant, bright
     Compuestos clave : ethyl_butyrate, furaneol, gamma_decalactone, geraniol, hexanal, ionone, linalool
- 9. Granada [pomegranate]
+12. Granada [pomegranate]
     Notas sensoriales: tart, fruity, complex, jewel-like
     Compuestos clave : citric_acid, ethyl_acetate, geraniol, hexanal, linalool, malic_acid
-10. Guayaba [guava]
+13. Guayaba [guava]
     Notas sensoriales: tropical, musky, sweet-tart
     Compuestos clave : ethyl_butyrate, ethyl_hexanoate, hexanal, limonene, linalool, myrcene
-11. Higo [fig]
+14. Higo [fig]
     Notas sensoriales: honey, jammy, seedy, complex
     Compuestos clave : benzaldehyde, eugenol, furaneol, hexanal, linalool, phenethyl_alcohol
-12. Lichi [lychee]
+15. Lichi [lychee]
     Notas sensoriales: floral, perfumed, sweet, rose
     Compuestos clave : citral, damascenone, geraniol, linalool, phenethyl_alcohol
-13. Mango [mango]
+16. Mango [mango]
     Notas sensoriales: tropical, sweet, resinous
     Compuestos clave : ethyl_butyrate, furaneol, gamma_octalactone, limonene, linalool, myrcene
-14. Manzana [apple]
+17. Manzana [apple]
     Notas sensoriales: crisp, tart, sweet
     Compuestos clave : damascenone, ethyl_acetate, ethyl_butyrate, ethyl_hexanoate, hexanal, linalool, malic_acid
-15. Maracuyá [passion fruit]
+18. Maracuyá [passion fruit]
     Notas sensoriales: intensely tart, tropical, floral
     Compuestos clave : ethyl_butyrate, ethyl_hexanoate, geraniol, hexanal, ionone, linalool
-16. Melón [melon]
+19. Melón [melon]
     Notas sensoriales: sweet, musky, watery, refreshing, honeyed
     Compuestos clave : ethyl_butyrate, furaneol, hexanal, linalool, nonanal, trans_2_nonenal
-17. Mora [blackberry]
+20. Mora [blackberry]
     Notas sensoriales: sweet-tart, dark, earthy
     Compuestos clave : damascenone, furaneol, geraniol, hexanal, ionone, linalool
-18. Pera [pear]
+21. Pera [pear]
     Notas sensoriales: sweet, floral, juicy, delicate, grainy, honeyed
     Compuestos clave : damascenone, ethyl_acetate, furaneol, hexanal, linalool, malic_acid
-19. Plátano / Banana [banana]
+22. Plátano / Banana [banana]
     Notas sensoriales: sweet, creamy, tropical
     Compuestos clave : ethyl_butyrate, eugenol, isoamyl_acetate, linalool, vanillin
-20. Sandía [watermelon]
+23. Sandía [watermelon]
     Notas sensoriales: refreshing, light, sweet
     Compuestos clave : geraniol, hexanal, linalool, nonanal, trans_2_nonenal
-21. Uva [grape]
+24. Uva [grape]
     Notas sensoriales: sweet, floral, wine-like
     Compuestos clave : ethyl_acetate, geraniol, hexanal, linalool, methyl_anthranilate, rotundone
 
-
-## Cítricos (7 ingredientes)
+## Cítricos (8 ingredientes)
 --------------------------------------------------------------------------------
  1. Blood orange [blood orange]
     Notas sensoriales: orange with a raspberry edge — the anthocyanins bring their own note
@@ -327,13 +347,15 @@
  5. Naranja [orange]
     Notas sensoriales: sweet, citrus, bright
     Compuestos clave : citral, citric_acid, decanal, limonene, linalool, myrcene, nootkatone, octanal
- 6. Pomelo [grapefruit]
+ 6. Naranja Agria [bitter orange]
+    Notas sensoriales: tart, bitter, intensely aromatic, floral citrus peel
+    Compuestos clave : citral, citric_acid, limonene, linalool, myrcene, octanal
+ 7. Pomelo [grapefruit]
     Notas sensoriales: bitter, citrus, tart
     Compuestos clave : citral, limonene, linalool, myrcene, nootkatone, pinene
- 7. Yuzu [yuzu]
+ 8. Yuzu [yuzu]
     Notas sensoriales: grapefruit-mandarin-floral, aromatic far beyond its juice
     Compuestos clave : citral, geraniol, limonene, linalool, nootkatone, pinene
-
 
 ## Hierbas (19 ingredientes)
 --------------------------------------------------------------------------------
@@ -395,87 +417,86 @@
     Notas sensoriales: earthy, minty, woody
     Compuestos clave : geraniol, limonene, linalool, myrcene, pinene, thymol
 
-
-## Especias y Condimentos (35 ingredientes)
+## Especias y Condimentos (36 ingredientes)
 --------------------------------------------------------------------------------
- 1. Ajo en Polvo [garlic powder]
+ 1. Achiote / Urucú [annatto]
+    Notas sensoriales: earthy, peppery, nutty, subtle floral, warm bitter
+    Compuestos clave : benzaldehyde, geraniol, limonene, myrcene, pinene, rotundone
+ 2. Ajo en Polvo [garlic powder]
     Notas sensoriales: concentrated garlic, roasty
     Compuestos clave : allicin, diallyl_disulfide, methylpyrazine, thiophene
- 2. Anís Estrellado [star anise]
+ 3. Anís Estrellado [star anise]
     Notas sensoriales: licorice, sweet, warm
     Compuestos clave : anethole, estragole, eugenol, limonene, linalool, myrcene, pinene
- 3. Azafrán [saffron]
+ 4. Azafrán [saffron]
     Notas sensoriales: honey, floral, metallic
     Compuestos clave : geraniol, hexanal, ionone, linalool, pinene
- 4. Canela [cinnamon]
+ 5. Canela [cinnamon]
     Notas sensoriales: warm, sweet, woody
     Compuestos clave : cinnamaldehyde, coumarin, ethyl_cinnamate, eugenol, linalool, pinene, vanillin
- 5. Cardamomo [cardamom]
+ 6. Cardamomo [cardamom]
     Notas sensoriales: floral, citrus, eucalyptus
     Compuestos clave : citral, eucalyptol, geraniol, limonene, linalool, myrcene, pinene, sabinene
- 6. Cebolla en Polvo [onion powder]
+ 7. Cebolla en Polvo [onion powder]
     Notas sensoriales: sweet onion, concentrated
     Compuestos clave : diallyl_disulfide, dimethyl_sulfide, hexanal, methylpyrazine, thiophene
- 7. Chili en Polvo [chili powder]
+ 8. Chili en Polvo [chili powder]
     Notas sensoriales: warm, earthy, mild heat, complex
     Compuestos clave : capsaicin, cuminaldehyde, limonene, linalool, methylpyrazine, pinene
- 8. Chipotle [chipotle]
+ 9. Chipotle [chipotle]
     Notas sensoriales: smoky, moderate heat, deep, complex
     Compuestos clave : 4vg, capsaicin, cresol, guaiacol, hexanal, methylpyrazine
- 9. Cinco Especias [five spice]
+10. Cinco Especias [five spice]
     Notas sensoriales: sweet, anise, warm, complex
     Compuestos clave : anethole, cinnamaldehyde, eugenol, limonene, linalool, pinene
-10. Clavo de Olor [clove]
+11. Clavo de Olor [clove]
     Notas sensoriales: intense, warm, numbing
     Compuestos clave : acetylpyrazine, coumarin, eugenol, linalool, pinene, vanillin
-11. Comino [cumin]
+12. Comino [cumin]
     Notas sensoriales: earthy, warm, nutty
     Compuestos clave : cuminaldehyde, limonene, linalool, methylpyrazine, myrcene, pinene
-12. Condimento de Bagel [everything bagel seasoning]
+13. Condimento de Bagel [everything bagel seasoning]
     Notas sensoriales: onion, garlic, sesame, poppy, savory
     Compuestos clave : diallyl_disulfide, dimethyl_sulfide, methylpyrazine, pinene
-13. Curry en Polvo [curry powder]
+14. Curry en Polvo [curry powder]
     Notas sensoriales: warm, earthy, aromatic, complex
     Compuestos clave : cuminaldehyde, limonene, linalool, myrcene, pinene, sotolon, terpinene
-14. Cúrcuma [turmeric]
+15. Cúrcuma [turmeric]
     Notas sensoriales: earthy, bitter, warm
     Compuestos clave : citral, limonene, linalool, myrcene, pinene, terpinene
-15. Enebro [juniper]
+16. Enebro [juniper]
     Notas sensoriales: pine, resinous, gin-like, forest
     Compuestos clave : limonene, linalool, myrcene, pinene, sabinene, terpinene
-16. Fenogreco [fenugreek]
+17. Fenogreco [fenugreek]
     Notas sensoriales: maple, curry, bitter
     Compuestos clave : linalool, myrcene, pinene, sotolon
-17. Garam Masala [garam masala]
+18. Garam Masala [garam masala]
     Notas sensoriales: warm, sweet, aromatic, layered
     Compuestos clave : cinnamaldehyde, eugenol, limonene, linalool, pinene, piperine, sabinene
-18. Glutamato Monosódico [MSG]
+19. Glutamato Monosódico [MSG]
     Notas sensoriales: umami, savory depth, meaty
-    Compuestos clave : 
-19. Hierbas Italianas [Italian seasoning]
+    Compuestos clave : (perfil sensorial base sin compuestos volátiles voluminosos)
+20. Hierbas Italianas [Italian seasoning]
     Notas sensoriales: herby, warm, Mediterranean
     Compuestos clave : carvone, eugenol, limonene, linalool, myrcene, pinene, thymol
-20. Hojuelas de Ají [red pepper flakes]
+21. Hojuelas de Ají [red pepper flakes]
     Notas sensoriales: hot, fruity, smoky heat
     Compuestos clave : capsaicin, hexanal, limonene, methylpyrazine, piperine
-21. Jengibre [ginger]
+22. Jengibre [ginger]
     Notas sensoriales: spicy, bright, warm
     Compuestos clave : citral, geraniol, limonene, linalool, myrcene, pinene, zingerone
-22. Mostaza [mustard]
+23. Mostaza [mustard]
     Notas sensoriales: sharp, hot, pungent
     Compuestos clave : acetic_acid, allyl_isothiocyanate, myrcene, pinene
-23. Nuez Moscada [nutmeg]
+24. Nuez Moscada [nutmeg]
     Notas sensoriales: warm, sweet, woody
     Compuestos clave : eugenol, geraniol, linalool, myrcene, pinene, sabinene, terpinene
-24. Old Bay [Old Bay]
+25. Old Bay [Old Bay]
     Notas sensoriales: celery, mustard, paprika, warm
     Compuestos clave : allyl_isothiocyanate, capsaicin, carvone, eugenol, limonene, pinene
-25. Pimentón [paprika]
+26. Pimentón [paprika]
     Notas sensoriales: sweet, mild heat, smoky
     Compuestos clave : capsaicin, hexanal, limonene, linalool, methylpyrazine, nonanal
-26. Pimienta Negra [black pepper]
-    Notas sensoriales: sharp, biting, warm
-    Compuestos clave : carvone, limonene, linalool, myrcene, pinene, piperine, rotundone, sabinene
 27. Pimienta de Cayena [cayenne]
     Notas sensoriales: hot, sharp, clean heat
     Compuestos clave : capsaicin, hexanal, limonene, methylpyrazine
@@ -485,27 +506,29 @@
 29. Pimienta de Sichuan [Sichuan pepper]
     Notas sensoriales: numbing, citrus, floral, electric
     Compuestos clave : geraniol, limonene, linalool, myrcene, pinene, sabinene, terpinene
-30. Sal [salt]
+30. Pimienta Negra [black pepper]
+    Notas sensoriales: sharp, biting, warm
+    Compuestos clave : carvone, limonene, linalool, myrcene, pinene, piperine, rotundone, sabinene
+31. Sal [salt]
     Notas sensoriales: salty, enhances all flavors
-    Compuestos clave : 
-31. Semillas de Amapola [poppy seeds]
+    Compuestos clave : (perfil sensorial base sin compuestos volátiles voluminosos)
+32. Semillas de Amapola [poppy seeds]
     Notas sensoriales: nutty, mild, crunchy
     Compuestos clave : furfural, hexanal, linalool, myrcene, nonanal
-32. Semillas de Cilantro [coriander seed]
+33. Semillas de Cilantro [coriander seed]
     Notas sensoriales: citrus, floral, nutty
     Compuestos clave : citral, geraniol, limonene, linalool, myrcene, pinene
-33. Sumac [sumac]
+34. Sumac [sumac]
     Notas sensoriales: tart, citrusy, fruity
     Compuestos clave : citric_acid, geraniol, limonene, linalool, malic_acid
-34. Vainilla [vanilla]
+35. Vainilla [vanilla]
     Notas sensoriales: sweet, creamy, floral
     Compuestos clave : acetoin, coumarin, eugenol, linalool, maltol, phenethyl_alcohol, vanillin
-35. Zaatar [za'atar]
+36. Zaatar [za'atar]
     Notas sensoriales: herby, tangy, nutty, Middle Eastern
     Compuestos clave : citric_acid, limonene, linalool, malic_acid, methylpyrazine, thymol
 
-
-## Lácteos y Quesos (31 ingredientes)
+## Lácteos y Quesos (33 ingredientes)
 --------------------------------------------------------------------------------
  1. Aderezo Ranch [ranch dressing]
     Notas sensoriales: creamy, herby, tangy, garlicky
@@ -537,70 +560,75 @@
 10. Leche de Coco [coconut milk]
     Notas sensoriales: rich, creamy, tropical, sweet
     Compuestos clave : delta_decalactone, gamma_decalactone, gamma_octalactone, nonanal, vanillin
-11. Manteca / Mantequilla [butter]
+11. Leche de Vaca [milk]
+    Notas sensoriales: creamy, sweet, lactic, rich, mild
+    Compuestos clave : acetoin, butyric_acid, delta_decalactone, diacetyl, lactic_acid
+12. Manteca / Mantequilla [butter]
     Notas sensoriales: rich, creamy, nutty when browned
     Compuestos clave : acetoin, butyric_acid, delta_decalactone, diacetyl, gamma_decalactone, hexanal, nonanal, vanillin
-12. Mascarpone [mascarpone]
+13. Mascarpone [mascarpone]
     Notas sensoriales: ultra-rich, sweet, velvety
     Compuestos clave : acetoin, delta_decalactone, diacetyl, gamma_decalactone, vanillin
-13. Mayonesa [mayonnaise]
+14. Mayonesa [mayonnaise]
     Notas sensoriales: rich, tangy, creamy, neutral
     Compuestos clave : acetic_acid, diacetyl, hexanal, nonanal
-14. Monterey Jack [Monterey Jack]
+15. Monterey Jack [Monterey Jack]
     Notas sensoriales: mild, buttery, great melter
     Compuestos clave : acetoin, delta_decalactone, diacetyl, hexanal, lactic_acid, nonanal
-15. Mozzarella [mozzarella]
+16. Mozzarella [mozzarella]
     Notas sensoriales: mild, milky, stretchy, fresh
     Compuestos clave : acetoin, delta_decalactone, diacetyl, hexanal, lactic_acid, nonanal
-16. Oat milk [oat milk]
+17. Oat milk [oat milk]
     Notas sensoriales: cereal-sweet, creamy, faintly toasty
     Compuestos clave : furfural, hexanal, maltol, nonanal, vanillin
-17. Paneer [paneer]
+18. Paneer [paneer]
     Notas sensoriales: mild, milky, firm — a carrier for whatever it is cooked in
     Compuestos clave : acetoin, diacetyl, hexanal, lactic_acid
-18. Parmesano [parmesan]
+19. Parmesano [parmesan]
     Notas sensoriales: sharp, savory, crystalline
     Compuestos clave : acetic_acid, acetoin, butyric_acid, diacetyl, ethyl_butyrate, hexanal, methylpyrazine
-19. Pecorino [pecorino]
+20. Pecorino [pecorino]
     Notas sensoriales: sharp, salty, sheepy, crystalline
     Compuestos clave : acetic_acid, acetoin, butyric_acid, diacetyl, hexanal, methylpyrazine
-20. Provolone [provolone]
+21. Provolone [provolone]
     Notas sensoriales: sharp, smoky, tangy, Italian
     Compuestos clave : acetoin, butyric_acid, diacetyl, hexanal, nonanal
-21. Queso Azul [blue cheese]
+22. Queso Azul [blue cheese]
     Notas sensoriales: pungent, tangy, funky
     Compuestos clave : 1_octen_3_ol, acetoin, butyric_acid, diacetyl, hexanal, methyl_thioacetate, methylpyrazine, nonanal
-22. Queso Brie [brie]
+23. Queso Brie [brie]
     Notas sensoriales: creamy, earthy, mushroomy, buttery
     Compuestos clave : 1_octen_3_ol, acetoin, diacetyl, dimethyl_sulfide, gamma_decalactone, nonanal
-23. Queso Cheddar [cheddar]
+24. Queso Cheddar [cheddar]
     Notas sensoriales: sharp, tangy, rich, aged
     Compuestos clave : acetoin, butyric_acid, diacetyl, hexanal, methional, methylpyrazine, nonanal
-24. Queso Cotija [cotija]
+25. Queso Cotija [cotija]
     Notas sensoriales: salty, crumbly, sharp, Mexican parmesan
     Compuestos clave : acetic_acid, butyric_acid, diacetyl, hexanal, lactic_acid
-25. Queso Crema [cream cheese]
+26. Queso Crema [cream cheese]
     Notas sensoriales: mild, tangy, smooth, rich
     Compuestos clave : acetoin, diacetyl, gamma_decalactone, lactic_acid, nonanal
-26. Queso Feta [feta]
-    Notas sensoriales: salty, tangy, briny, crumbly
-    Compuestos clave : acetic_acid, acetoin, butyric_acid, diacetyl, hexanal, lactic_acid
-27. Queso Suizo [Swiss cheese]
-    Notas sensoriales: nutty, sweet, holey, mild
-    Compuestos clave : acetoin, diacetyl, hexanal, methylpyrazine, nonanal
-28. Queso de Cabra [goat cheese]
+27. Queso de Cabra [goat cheese]
     Notas sensoriales: tangy, earthy, bright
     Compuestos clave : acetoin, butyric_acid, diacetyl, hexanal, lactic_acid, nonanal
-29. Ricotta [ricotta]
+28. Queso Feta [feta]
+    Notas sensoriales: salty, tangy, briny, crumbly
+    Compuestos clave : acetic_acid, acetoin, butyric_acid, diacetyl, hexanal, lactic_acid
+29. Queso Gouda [gouda]
+    Notas sensoriales: creamy, buttery, nutty, caramel nuance, aged curd
+    Compuestos clave : acetoin, butyric_acid, delta_decalactone, diacetyl, lactic_acid, methylpyrazine
+30. Queso Suizo [Swiss cheese]
+    Notas sensoriales: nutty, sweet, holey, mild
+    Compuestos clave : acetoin, diacetyl, hexanal, methylpyrazine, nonanal
+31. Ricotta [ricotta]
     Notas sensoriales: mild, milky, fresh, grainy
     Compuestos clave : acetoin, diacetyl, hexanal, lactic_acid, nonanal
-30. Suero de Mantequilla [buttermilk]
+32. Suero de Mantequilla [buttermilk]
     Notas sensoriales: tangy, creamy, tender-making, Southern
     Compuestos clave : acetic_acid, acetoin, diacetyl, hexanal, lactic_acid
-31. Yogur [yogurt]
+33. Yogur [yogurt]
     Notas sensoriales: tangy, creamy, tart
     Compuestos clave : acetic_acid, acetoin, diacetyl, lactic_acid
-
 
 ## Alliums (Ajos y Cebollas) (5 ingredientes)
 --------------------------------------------------------------------------------
@@ -619,7 +647,6 @@
  5. Puerro [leek]
     Notas sensoriales: mild, sweet, delicate
     Compuestos clave : diallyl_disulfide, dimethyl_sulfide, hexanal, linalool
-
 
 ## Hongos y Setas (7 ingredientes)
 --------------------------------------------------------------------------------
@@ -645,7 +672,6 @@
     Notas sensoriales: intense, earthy, musky
     Compuestos clave : 1_octen_3_ol, dimethyl_sulfide, dimethyl_trisulfide, methylpyrazine, nonanal, thiophene
 
-
 ## Frutos Secos y Semillas (14 ingredientes)
 --------------------------------------------------------------------------------
  1. Almendra [almond]
@@ -666,12 +692,12 @@
  6. Nuez [walnut]
     Notas sensoriales: earthy, tannic, rich
     Compuestos clave : 1_octen_3_ol, hexanal, methylpyrazine, nonanal
- 7. Nuez Pecán [pecan]
-    Notas sensoriales: buttery, sweet, maple-like
-    Compuestos clave : acetylpyrazine, furfural, hexanal, maltol, methylpyrazine, vanillin
- 8. Nuez de Macadamia [macadamia]
+ 7. Nuez de Macadamia [macadamia]
     Notas sensoriales: buttery, rich, creamy, subtle
     Compuestos clave : furfural, gamma_decalactone, hexanal, methylpyrazine, nonanal
+ 8. Nuez Pecán [pecan]
+    Notas sensoriales: buttery, sweet, maple-like
+    Compuestos clave : acetylpyrazine, furfural, hexanal, maltol, methylpyrazine, vanillin
  9. Pistacho [pistachio]
     Notas sensoriales: sweet, green, earthy
     Compuestos clave : hexanal, limonene, linalool, methylpyrazine, myrcene, pinene
@@ -691,8 +717,7 @@
     Notas sensoriales: nutty, bitter, toasty, earthy
     Compuestos clave : acetylpyrazine, furfural, guaiacol, hexanal, methylpyrazine
 
-
-## Legumbres (8 ingredientes)
+## Legumbres (10 ingredientes)
 --------------------------------------------------------------------------------
  1. Arvejas [peas]
     Notas sensoriales: sweet, green, bright
@@ -706,25 +731,30 @@
  4. Garbanzo [chickpea]
     Notas sensoriales: nutty, earthy, starchy
     Compuestos clave : acetylpyrazine, hexanal, methoxypyrazine, methylpyrazine, nonanal
- 5. Kidney bean [kidney bean]
+ 5. Harina de Garbanzo [chickpea flour]
+    Notas sensoriales: nutty, earthy, starchy, roasted bean
+    Compuestos clave : acetylpyrazine, hexanal, methional, methoxypyrazine, methylpyrazine, nonanal
+ 6. Kidney bean [kidney bean]
     Notas sensoriales: meaty and earthy, holds its shape through a long cook
     Compuestos clave : dimethyl_sulfide, hexanal, methional, methoxypyrazine
- 6. Lenteja [lentil]
+ 7. Lenteja [lentil]
     Notas sensoriales: earthy, peppery, hearty
     Compuestos clave : furfural, hexanal, methional, methylpyrazine, nonanal
- 7. Poroto Negro / Frijol [black bean]
+ 8. Poroto Negro / Frijol [black bean]
     Notas sensoriales: earthy, rich, meaty
     Compuestos clave : furfural, hexanal, methional, methylpyrazine, nonanal
- 8. White bean [white bean]
+ 9. Poroto Pallar [lima bean]
+    Notas sensoriales: creamy, buttery, nutty, starchy, mild earthiness
+    Compuestos clave : 1_octen_3_ol, diacetyl, dimethyl_sulfide, hexanal, methional, methylpyrazine
+10. White bean [white bean]
     Notas sensoriales: creamy, mild, thickens whatever it is cooked in
     Compuestos clave : 1_octen_3_ol, dimethyl_sulfide, hexanal, maltol, methional
 
-
-## Granos, Arroces, Panes y Pastas (48 ingredientes)
+## Granos, Arroces, Panes y Pastas (49 ingredientes)
 --------------------------------------------------------------------------------
  1. Almidón de Maíz [cornstarch]
     Notas sensoriales: neutral, thickener
-    Compuestos clave : 
+    Compuestos clave : (perfil sensorial base sin compuestos volátiles voluminosos)
  2. Arroz Basmati [basmati rice]
     Notas sensoriales: nutty, fragrant, long-grain, separate
     Compuestos clave : acetyl_pyrroline, hexanal, linalool, myrcene, nonanal
@@ -782,24 +812,24 @@
 20. Fettuccine [fettuccine]
     Notas sensoriales: rich, flat, egg noodle, silky
     Compuestos clave : acetylpyrazine, diacetyl, furfural, hexanal, maltol
-21. Fideos Lo Mein [lo mein noodles]
-    Notas sensoriales: chewy, egg-based, Chinese, absorbs sauce well
-    Compuestos clave : acetylpyrazine, diacetyl, furfural, hexanal, maltol
-22. Fideos Ramen [ramen noodles]
-    Notas sensoriales: springy, alkaline, chewy, yellow
-    Compuestos clave : acetylpyrazine, furfural, hexanal, lactic_acid, maltol
-23. Fideos Soba [soba]
-    Notas sensoriales: nutty, buckwheat, earthy, firm, Japanese
-    Compuestos clave : acetylpyrazine, furfural, hexanal, maltol, methylpyrazine
-24. Fideos Udon [udon]
-    Notas sensoriales: thick, chewy, bouncy, wheaty, Japanese
-    Compuestos clave : acetylpyrazine, furfural, hexanal, maltol
-25. Fideos al Huevo [egg noodles]
+21. Fideos al Huevo [egg noodles]
     Notas sensoriales: eggy, tender, comfort, homestyle
     Compuestos clave : diacetyl, furfural, hexanal, maltol, nonanal
-26. Fideos de Arroz [rice noodles]
+22. Fideos de Arroz [rice noodles]
     Notas sensoriales: slippery, delicate, glassy, neutral, Asian
     Compuestos clave : acetyl_pyrroline, hexanal, linalool, maltol, nonanal
+23. Fideos Lo Mein [lo mein noodles]
+    Notas sensoriales: chewy, egg-based, Chinese, absorbs sauce well
+    Compuestos clave : acetylpyrazine, diacetyl, furfural, hexanal, maltol
+24. Fideos Ramen [ramen noodles]
+    Notas sensoriales: springy, alkaline, chewy, yellow
+    Compuestos clave : acetylpyrazine, furfural, hexanal, lactic_acid, maltol
+25. Fideos Soba [soba]
+    Notas sensoriales: nutty, buckwheat, earthy, firm, Japanese
+    Compuestos clave : acetylpyrazine, furfural, hexanal, maltol, methylpyrazine
+26. Fideos Udon [udon]
+    Notas sensoriales: thick, chewy, bouncy, wheaty, Japanese
+    Compuestos clave : acetylpyrazine, furfural, hexanal, maltol
 27. Focaccia [focaccia]
     Notas sensoriales: herby, olive oil, dimpled, chewy
     Compuestos clave : acetylpyrazine, furfural, hexanal, linalool, maltol, pinene
@@ -824,18 +854,18 @@
 34. Pan Blanco [bread]
     Notas sensoriales: yeasty, toasty, wheaty
     Compuestos clave : acetylpyrazine, diacetyl, furaneol, furfural, hexanal, maltol, methylpyrazine
-35. Pan Naan [naan]
-    Notas sensoriales: yeasty, charred, pillowy
-    Compuestos clave : acetylpyrazine, diacetyl, furfural, lactic_acid, maltol, methylpyrazine
-36. Pan Pita [pita]
-    Notas sensoriales: mild, pocket, soft, versatile
-    Compuestos clave : acetylpyrazine, furfural, hexanal, maltol, methylpyrazine
-37. Pan de Masa Madre [sourdough]
+35. Pan de Masa Madre [sourdough]
     Notas sensoriales: tangy, complex, chewy, crusty
     Compuestos clave : acetic_acid, acetylpyrazine, diacetyl, ethyl_acetate, furfural, lactic_acid, maltol
-38. Pan de Maíz [cornbread]
+36. Pan de Maíz [cornbread]
     Notas sensoriales: sweet, corn, crumbly, rustic
     Compuestos clave : acetylpyrazine, diacetyl, dimethyl_sulfide, furaneol, hexanal, maltol
+37. Pan Naan [naan]
+    Notas sensoriales: yeasty, charred, pillowy
+    Compuestos clave : acetylpyrazine, diacetyl, furfural, lactic_acid, maltol, methylpyrazine
+38. Pan Pita [pita]
+    Notas sensoriales: mild, pocket, soft, versatile
+    Compuestos clave : acetylpyrazine, furfural, hexanal, maltol, methylpyrazine
 39. Pasta Seca [pasta]
     Notas sensoriales: wheaty, mild, versatile
     Compuestos clave : acetylpyrazine, furfural, hexanal, maltol, nonanal
@@ -851,24 +881,26 @@
 43. Rigatoni [rigatoni]
     Notas sensoriales: large ridged tubes, holds chunky sauce, hearty, al dente
     Compuestos clave : acetylpyrazine, furfural, hexanal, maltol
-44. Tirabuzones / Rotini [rotini]
+44. Tapioca [tapioca]
+    Notas sensoriales: neutral, starchy, chewy, gelatinous
+    Compuestos clave : acetic_acid, hexanal, nonanal
+45. Tirabuzones / Rotini [rotini]
     Notas sensoriales: spiral-shaped, traps sauce in twists, fun, versatile
     Compuestos clave : acetylpyrazine, furfural, hexanal, maltol
-45. Tortilla [tortilla]
+46. Tortilla [tortilla]
     Notas sensoriales: corn or flour, mild, pliable
     Compuestos clave : acetylpyrazine, dimethyl_sulfide, furfural, hexanal, maltol
-46. Vermicelli [vermicelli]
+47. Vermicelli [vermicelli]
     Notas sensoriales: very thin, quick-cooking, works in soups and Asian dishes
     Compuestos clave : acetylpyrazine, furfural, hexanal, maltol
-47. Ziti [ziti]
+48. Ziti [ziti]
     Notas sensoriales: smooth tubes, perfect for baked dishes, holds ricotta
     Compuestos clave : acetylpyrazine, furfural, hexanal, maltol
-48. Ñoquis / Gnocchi [gnocchi]
+49. Ñoquis / Gnocchi [gnocchi]
     Notas sensoriales: pillowy, potato, dumpling, tender, Italian
     Compuestos clave : diacetyl, hexanal, maltol, methional, nonanal
 
-
-## Fermentados, Bebidas y Vinagres (27 ingredientes)
+## Fermentados, Bebidas y Vinagres (32 ingredientes)
 --------------------------------------------------------------------------------
  1. Aceto Balsámico [balsamic vinegar]
     Notas sensoriales: sweet, complex, syrupy, aged
@@ -876,84 +908,98 @@
  2. Black tea [black tea]
     Notas sensoriales: tannic, malty, floral — the oxidised-leaf aroma
     Compuestos clave : damascenone, geraniol, linalool, linalool_oxide, methional, phenylacetaldehyde
- 3. Café [coffee]
+ 3. Bourbon [bourbon]
+    Notas sensoriales: sweet corn, caramel, rich oak, vanilla, toasted wood
+    Compuestos clave : damascenone, ethyl_acetate, furfural, maltol, vanillin, whiskey_lactone
+ 4. Brandy / Coñac [brandy]
+    Notas sensoriales: fruity, warm, oak, dried grape, vanilla, aged spirit
+    Compuestos clave : damascenone, ethyl_hexanoate, eugenol, vanillin, whiskey_lactone
+ 5. Cacao en Polvo [cocoa powder]
+    Notas sensoriales: bitter, dark roast, earthy, nutty, concentrated chocolate
+    Compuestos clave : acetylpyrazine, furfural, maltol, methylpyrazine, phenethyl_alcohol, vanillin
+ 6. Café [coffee]
     Notas sensoriales: bitter, roasty, complex
     Compuestos clave : 4vg, acetylpyrazine, furaneol, furfural, guaiacol, linalool, maltol, methylpyrazine, vanillin
- 4. Cerveza [beer]
+ 7. Cerveza [beer]
     Notas sensoriales: bitter, malty, hoppy
     Compuestos clave : 4vg, diacetyl, ethyl_acetate, isoamyl_acetate, linalool, myrcene
- 5. Chocolate [chocolate]
+ 8. Chocolate [chocolate]
     Notas sensoriales: rich, bitter, complex
     Compuestos clave : acetylpyrazine, furaneol, furfural, linalool, maltol, methylpyrazine, phenethyl_alcohol, vanillin
- 6. Gochujang [gochujang]
+ 9. Gochujang [gochujang]
     Notas sensoriales: sweet, spicy, funky, umami
     Compuestos clave : acetic_acid, acetylpyrazine, capsaicin, furaneol, maltol, methylpyrazine
- 7. Harissa [harissa]
+10. Harissa [harissa]
     Notas sensoriales: smoky, spicy, complex, North African
     Compuestos clave : capsaicin, cuminaldehyde, guaiacol, limonene, linalool, pinene
- 8. Kimchi [kimchi]
+11. Jerez [sherry]
+    Notas sensoriales: oxidized, nutty, dried fruit, saline, complex flor wine
+    Compuestos clave : acetoin, ethyl_acetate, sotolon, vanillin, whiskey_lactone
+12. Kimchi [kimchi]
     Notas sensoriales: sour, spicy, funky, complex
     Compuestos clave : acetic_acid, allyl_isothiocyanate, capsaicin, diallyl_disulfide, dimethyl_sulfide, lactic_acid
- 9. Kétchup [ketchup]
+13. Kétchup [ketchup]
     Notas sensoriales: sweet, tangy, tomato, umami
     Compuestos clave : acetic_acid, dimethyl_sulfide, furaneol, hexanal, maltol
-10. Mostaza de Dijón [Dijon mustard]
+14. Mostaza de Dijón [Dijon mustard]
     Notas sensoriales: sharp, creamy, tangy, complex
     Compuestos clave : acetic_acid, allyl_isothiocyanate, linalool, myrcene, pinene
-11. Nutritional yeast [nutritional yeast]
+15. Nutritional yeast [nutritional yeast]
     Notas sensoriales: nutty, cheesy, savory — the pyrazines parmesan gets from ageing
     Compuestos clave : acetylpyrazine, dimethyl_sulfide, maltol, methional, methylpyrazine, thiazole
-12. Pasta Miso [miso]
+16. Pasta Miso [miso]
     Notas sensoriales: salty, funky, sweet
     Compuestos clave : acetylpyrazine, dimethyl_sulfide, furaneol, methional, methylpyrazine, sotolon
-13. Pepinillos en Vinagre [pickles]
+17. Pepinillos en Vinagre [pickles]
     Notas sensoriales: sour, crunchy, briny, tangy
     Compuestos clave : acetic_acid, allyl_isothiocyanate, hexanal, lactic_acid, linalool
-14. Red wine [red wine]
-    Notas sensoriales: tannic, dark-fruited, oaky — rotundone gives the peppery reds their pepper
-    Compuestos clave : 4vg, damascenone, ethyl_acetate, ethyl_hexanoate, eugenol, guaiacol, ionone, linalool, phenethyl_alcohol, rotundone, tartaric_acid, vanillin, whiskey_lactone
-15. Rábano Picante [horseradish]
+18. Rábano Picante [horseradish]
     Notas sensoriales: sharp, nasal heat, pungent, sinus-clearing
     Compuestos clave : acetic_acid, allyl_isothiocyanate, hexanal, nonanal
-16. Sake [sake]
+19. Sake [sake]
     Notas sensoriales: clean, floral, rice, delicate
     Compuestos clave : acetoin, diacetyl, ethyl_acetate, isoamyl_acetate, lactic_acid, linalool
-17. Salsa Barbacoa [BBQ sauce]
+20. Salsa Barbacoa [BBQ sauce]
     Notas sensoriales: smoky, sweet, tangy, complex
     Compuestos clave : acetic_acid, capsaicin, furaneol, guaiacol, maltol, vanillin
-18. Salsa Hoisin [hoisin]
-    Notas sensoriales: sweet, salty, umami, thick
-    Compuestos clave : acetic_acid, acetylpyrazine, furaneol, maltol, methylpyrazine, vanillin
-19. Salsa Inglesa / Worcestershire [Worcestershire]
-    Notas sensoriales: umami, tangy, complex, aged
-    Compuestos clave : acetic_acid, dimethyl_sulfide, maltol, methional, methylpyrazine, trimethylamine
-20. Salsa Picante [hot sauce]
-    Notas sensoriales: hot, tangy, vinegary, sharp
-    Compuestos clave : acetic_acid, allicin, capsaicin, hexanal, lactic_acid
 21. Salsa de Pescado [fish sauce]
     Notas sensoriales: pungent, umami, funky, depth
     Compuestos clave : acetic_acid, butyric_acid, dimethyl_sulfide, methional, methylpyrazine, trimethylamine
 22. Salsa de Soja [soy sauce]
     Notas sensoriales: salty, umami, complex
     Compuestos clave : acetic_acid, acetylpyrazine, furaneol, guaiacol, maltol, methional, methylpyrazine
-23. Sriracha [sriracha]
+23. Salsa Hoisin [hoisin]
+    Notas sensoriales: sweet, salty, umami, thick
+    Compuestos clave : acetic_acid, acetylpyrazine, furaneol, maltol, methylpyrazine, vanillin
+24. Salsa Inglesa / Worcestershire [Worcestershire]
+    Notas sensoriales: umami, tangy, complex, aged
+    Compuestos clave : acetic_acid, dimethyl_sulfide, maltol, methional, methylpyrazine, trimethylamine
+25. Salsa Picante [hot sauce]
+    Notas sensoriales: hot, tangy, vinegary, sharp
+    Compuestos clave : acetic_acid, allicin, capsaicin, hexanal, lactic_acid
+26. Sriracha [sriracha]
     Notas sensoriales: hot, sweet, garlicky, bright
     Compuestos clave : acetic_acid, allicin, capsaicin, furaneol, hexanal
-24. Vinagre de Alcohol [vinegar]
+27. Vinagre de Alcohol [vinegar]
     Notas sensoriales: sharp, sour, bright
     Compuestos clave : acetic_acid, acetoin, diacetyl, ethyl_acetate
-25. Vinagre de Arroz [rice vinegar]
+28. Vinagre de Arroz [rice vinegar]
     Notas sensoriales: mild, sweet, delicate, Asian
     Compuestos clave : acetic_acid, acetoin, ethyl_acetate, lactic_acid
-26. Vinagre de Manzana [apple cider vinegar]
+29. Vinagre de Manzana [apple cider vinegar]
     Notas sensoriales: fruity, tangy, sharp, apple
     Compuestos clave : acetic_acid, ethyl_acetate, ethyl_butyrate, malic_acid
-27. Vino Blanco [white wine]
+30. Vino Blanco [white wine]
     Notas sensoriales: crisp, fruity, acidic, bright
     Compuestos clave : citral, damascenone, ethyl_acetate, geraniol, linalool, nonanal, tartaric_acid
+31. Vino Tinto [red wine]
+    Notas sensoriales: tannic, dark-fruited, oaky — rotundone gives the peppery reds their pepper
+    Compuestos clave : 4vg, damascenone, ethyl_acetate, ethyl_hexanoate, eugenol, guaiacol, ionone, linalool, phenethyl_alcohol, rotundone, tartaric_acid, vanillin, whiskey_lactone
+32. Whisky [whisky]
+    Notas sensoriales: smoky, oak, malty, vanilla, peaty, warm spirit
+    Compuestos clave : 4vg, diacetyl, eugenol, guaiacol, maltol, vanillin, whiskey_lactone
 
-
-## Salsas y Caldos (24 ingredientes)
+## Salsas y Caldos (25 ingredientes)
 --------------------------------------------------------------------------------
  1. Alioli [aioli]
     Notas sensoriales: garlicky, rich, creamy, French mayo
@@ -1009,25 +1055,27 @@
 18. Salsa Criolla / Mexicana [salsa]
     Notas sensoriales: fresh, spicy, bright, chunky
     Compuestos clave : allicin, capsaicin, citral, citric_acid, dimethyl_sulfide, hexanal, linalool
-19. Salsa Enchilada [enchilada sauce]
-    Notas sensoriales: earthy, mild heat, tangy, smoky
-    Compuestos clave : acetic_acid, capsaicin, cuminaldehyde, guaiacol, hexanal, methylpyrazine
-20. Salsa Marinara [marinara]
-    Notas sensoriales: garlicky, herby, tomato, Italian
-    Compuestos clave : allicin, dimethyl_sulfide, eugenol, furaneol, geraniol, hexanal, linalool
-21. Salsa Teriyaki [teriyaki sauce]
-    Notas sensoriales: sweet, salty, gingery, caramelized
-    Compuestos clave : acetic_acid, ethyl_acetate, furaneol, maltol, methylpyrazine, zingerone
-22. Salsa de Tahini [tahini sauce]
+19. Salsa de Ostras [oyster sauce]
+    Notas sensoriales: savory, sweet, briny, umami-rich, caramelized
+    Compuestos clave : acetic_acid, dimethyl_sulfide, furfural, maltol, methional, methylpyrazine, trimethylamine
+20. Salsa de Tahini [tahini sauce]
     Notas sensoriales: nutty, sesame, creamy, lemony, Middle Eastern
     Compuestos clave : acetylpyrazine, citric_acid, furfural, hexanal, linalool, methylpyrazine
-23. Salsa de Tomate [tomato sauce]
+21. Salsa de Tomate [tomato sauce]
     Notas sensoriales: sweet, acidic, tomatoey, smooth
     Compuestos clave : citral, dimethyl_sulfide, furaneol, geraniol, hexanal, ionone, linalool
-24. Tzatziki [tzatziki]
+22. Salsa Enchilada [enchilada sauce]
+    Notas sensoriales: earthy, mild heat, tangy, smoky
+    Compuestos clave : acetic_acid, capsaicin, cuminaldehyde, guaiacol, hexanal, methylpyrazine
+23. Salsa Marinara [marinara]
+    Notas sensoriales: garlicky, herby, tomato, Italian
+    Compuestos clave : allicin, dimethyl_sulfide, eugenol, furaneol, geraniol, hexanal, linalool
+24. Salsa Teriyaki [teriyaki sauce]
+    Notas sensoriales: sweet, salty, gingery, caramelized
+    Compuestos clave : acetic_acid, ethyl_acetate, furaneol, maltol, methylpyrazine, zingerone
+25. Tzatziki [tzatziki]
     Notas sensoriales: cool, garlicky, cucumber, tangy, Greek
     Compuestos clave : acetoin, diacetyl, hexanal, lactic_acid, linalool, trans_2_nonenal
-
 
 ## Endulzantes (8 ingredientes)
 --------------------------------------------------------------------------------
@@ -1036,7 +1084,7 @@
     Compuestos clave : ethyl_maltol, furaneol, maltol, vanillin
  2. Azúcar Blanco [sugar]
     Notas sensoriales: sweet, clean, neutral
-    Compuestos clave : 
+    Compuestos clave : (perfil sensorial base sin compuestos volátiles voluminosos)
  3. Azúcar Rubio / Mascabado [brown sugar]
     Notas sensoriales: molasses, toffee, warm
     Compuestos clave : acetoin, diacetyl, furaneol, maltol, vanillin
@@ -1056,28 +1104,33 @@
     Notas sensoriales: bitter-sweet, smoky, mineral — sotolon gives it the burnt-sugar depth
     Compuestos clave : acetic_acid, furaneol, furfural, guaiacol, maltol, sotolon
 
-
-## Aceites y Grasas (7 ingredientes)
+## Aceites y Grasas (9 ingredientes)
 --------------------------------------------------------------------------------
  1. Aceite de Coco [coconut oil]
     Notas sensoriales: coconut, mild, tropical
     Compuestos clave : delta_decalactone, gamma_decalactone, gamma_octalactone, nonanal
- 2. Aceite de Oliva [olive oil]
+ 2. Aceite de Dendê [dende oil]
+    Notas sensoriales: nutty, earthy, distinct floral carrot-like aroma, heavy, pungent
+    Compuestos clave : butyric_acid, damascenone, guaiacol, hexanal, ionone, nonanal, octanal
+ 3. Aceite de Girasol [sunflower oil]
+    Notas sensoriales: light, nutty, clean neutral lipid, mild seed note
+    Compuestos clave : hexanal, nonanal, octanal, trans_2_nonenal
+ 4. Aceite de Oliva [olive oil]
     Notas sensoriales: fruity, peppery, grassy
     Compuestos clave : hexanal, limonene, linalool, nonanal, pinene
- 3. Aceite de Sésamo [sesame oil]
+ 5. Aceite de Sésamo [sesame oil]
     Notas sensoriales: nutty, toasty, rich
     Compuestos clave : acetylpyrazine, furaneol, furfural, guaiacol, hexanal, methylpyrazine
- 4. Duck fat [duck fat]
+ 6. Duck fat [duck fat]
     Notas sensoriales: savory and rich — what makes roast potatoes worth the trouble
     Compuestos clave : diacetyl, hexanal, methylpyrazine, nonanal, octanal, thiophene
- 5. Ghee [ghee]
+ 7. Ghee [ghee]
     Notas sensoriales: nutty browned butter with the milk solids cooked out — high smoke point
     Compuestos clave : butyric_acid, delta_decalactone, diacetyl, furfural, maltol
- 6. Peanut oil [peanut oil]
+ 8. Peanut oil [peanut oil]
     Notas sensoriales: clean and faintly roasted, built for high heat
     Compuestos clave : acetylpyrazine, hexanal, methylpyrazine, nonanal
- 7. Walnut oil [walnut oil]
+ 9. Walnut oil [walnut oil]
     Notas sensoriales: toasty and bitter-edged — a finishing oil, never a frying one
     Compuestos clave : 1_octen_3_ol, hexanal, methylpyrazine, nonanal, trans_2_nonenal
 

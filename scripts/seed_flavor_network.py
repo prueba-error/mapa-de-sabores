@@ -38,10 +38,32 @@ if CURRENT_DIR not in sys.path:
     sys.path.insert(0, CURRENT_DIR)
 
 from antagonistic_pairs import is_antagonistic
+from app.database import async_session_factory
+from app.models import Category, FlavorPairing, Ingredient, PairingReviewQueue
 from app.schemas.ai import (
     BatchPairingItem,
     FlavorProfileSchema,
 )
+
+CATEGORY_METADATA: dict[str, tuple[str, str]] = {
+    "protein": ("Carnes y Proteínas", "#EF4444"),
+    "seafood": ("Pescados y Mariscos", "#06B6D4"),
+    "vegetable": ("Verduras", "#22C55E"),
+    "fruit": ("Frutas", "#F97316"),
+    "citrus": ("Cítricos", "#EAB308"),
+    "herb": ("Hierbas", "#10B981"),
+    "spice": ("Especias y Condimentos", "#D97706"),
+    "dairy": ("Lácteos y Quesos", "#3B82F6"),
+    "allium": ("Alliums", "#8B5CF6"),
+    "mushroom": ("Hongos y Setas", "#78716C"),
+    "nut": ("Frutos Secos y Semillas", "#A855F7"),
+    "legume": ("Legumbres", "#84CC16"),
+    "grain": ("Granos y Cereales", "#F59E0B"),
+    "fermented": ("Fermentados y Bebidas", "#EC4899"),
+    "sauce": ("Salsas y Caldos", "#6366F1"),
+    "sweetener": ("Endulzantes", "#F43F5E"),
+    "oil/fat": ("Aceites y Grasas", "#E11D48"),
+}
 
 logging.basicConfig(
     level=logging.INFO,
@@ -261,6 +283,8 @@ class FlavorNetworkPipeline:
         )
 
         evaluated_pairs: set[tuple[str, str]] = set()
+        accepted_pairings: list[tuple[dict[str, Any], dict[str, Any], float, str]] = []
+        queue_pairings: list[tuple[dict[str, Any], dict[str, Any], float, str, str]] = []
 
         # Fase 1: Perfiles sensoriales
         for item in all_ingredients:
@@ -342,13 +366,133 @@ class FlavorNetworkPipeline:
                 # 3. Muestra aleatoria de auditoría
                 if random.random() < self.audit_rate:
                     self.stats["queue_random_audits"] += 1
+                    queue_pairings.append((item_a, item_b, score, rationale, "random_audit"))
                     continue
 
                 # 4. Inserción directa en grafo
                 self.stats["accepted_flavor_pairings"] += 1
+                accepted_pairings.append((item_a, item_b, score, rationale))
+
+        # Persistir en PostgreSQL si no es modo simulación
+        if not self.dry_run:
+            await self._persist_to_database(all_ingredients, accepted_pairings, queue_pairings)
 
         self._print_report()
         return self.stats
+
+    async def _persist_to_database(
+        self,
+        ingredients_list: list[dict[str, Any]],
+        accepted_pairings: list[tuple[dict[str, Any], dict[str, Any], float, str]],
+        queue_pairings: list[tuple[dict[str, Any], dict[str, Any], float, str, str]],
+    ) -> None:
+        """Persiste categorías, ingredientes, maridajes y cola en PostgreSQL."""
+        from decimal import Decimal
+        from sqlalchemy import select
+
+        logger.info("Persistiendo datos en PostgreSQL (puerto mapeado 5433 / DB mapa_sabores)...")
+
+        async with async_session_factory() as session:
+            # 1. Asegurar categorías oficiales
+            cat_map: dict[str, int] = {}
+            for cat_key, (cat_name, cat_color) in CATEGORY_METADATA.items():
+                stmt = select(Category).where(Category.name == cat_name)
+                res = await session.execute(stmt)
+                cat = res.scalar_one_or_none()
+                if not cat:
+                    cat = Category(name=cat_name, color_code=cat_color)
+                    session.add(cat)
+                    await session.flush()
+                else:
+                    if cat.color_code != cat_color:
+                        cat.color_code = cat_color
+                cat_map[cat_key] = cat.id
+
+            # 2. Insertar / Actualizar ingredientes
+            ing_db_map: dict[str, int] = {}
+            for item in ingredients_list:
+                name_es = item.get("name_es", item["name"])
+                cat_id = cat_map.get(item["category"])
+                flavor_profile = generate_flavor_profile_from_data(item).model_dump()
+                desc = item.get("flavor_notes", "")
+
+                stmt = select(Ingredient).where(Ingredient.name == name_es)
+                res = await session.execute(stmt)
+                ing = res.scalar_one_or_none()
+                if not ing:
+                    ing = Ingredient(
+                        name=name_es,
+                        description=desc,
+                        category_id=cat_id,
+                        flavor_profile=flavor_profile,
+                    )
+                    session.add(ing)
+                    await session.flush()
+                else:
+                    ing.description = desc
+                    ing.category_id = cat_id
+                    ing.flavor_profile = flavor_profile
+
+                ing_db_map[item["id"]] = ing.id
+
+            await session.flush()
+            logger.info("Ingredientes procesados y sincronizados en BD: %d", len(ing_db_map))
+
+            # 3. Insertar FlavorPairings
+            existing_pairs_stmt = select(
+                FlavorPairing.ingredient_a_id, FlavorPairing.ingredient_b_id
+            )
+            existing_res = await session.execute(existing_pairs_stmt)
+            existing_pairs = set(existing_res.fetchall())
+
+            pairings_added = 0
+            for item_a, item_b, score, rationale in accepted_pairings:
+                db_a = ing_db_map[item_a["id"]]
+                db_b = ing_db_map[item_b["id"]]
+                min_id, max_id = min(db_a, db_b), max(db_a, db_b)
+                if (min_id, max_id) not in existing_pairs:
+                    pairing = FlavorPairing(
+                        ingredient_a_id=min_id,
+                        ingredient_b_id=max_id,
+                        affinity_score=Decimal(str(round(score, 2))),
+                        ai_rationale=rationale[:300] if rationale else None,
+                        source_type="empirical_food_pairing",
+                    )
+                    session.add(pairing)
+                    existing_pairs.add((min_id, max_id))
+                    pairings_added += 1
+
+            # 4. Insertar PairingReviewQueue
+            existing_queue_stmt = select(
+                PairingReviewQueue.ingredient_a_id, PairingReviewQueue.ingredient_b_id
+            )
+            existing_queue_res = await session.execute(existing_queue_stmt)
+            existing_queue = set(existing_queue_res.fetchall())
+
+            queue_added = 0
+            for item_a, item_b, score, rationale, flag_reason in queue_pairings:
+                db_a = ing_db_map[item_a["id"]]
+                db_b = ing_db_map[item_b["id"]]
+                min_id, max_id = min(db_a, db_b), max(db_a, db_b)
+                if (min_id, max_id) not in existing_queue:
+                    queue_item = PairingReviewQueue(
+                        ingredient_a_id=min_id,
+                        ingredient_b_id=max_id,
+                        suggested_score=Decimal(str(round(score, 2))),
+                        ai_rationale=rationale[:300] if rationale else None,
+                        flag_reason=flag_reason,
+                        status="pending_review",
+                    )
+                    session.add(queue_item)
+                    existing_queue.add((min_id, max_id))
+                    queue_added += 1
+
+            await session.commit()
+            logger.info(
+                "Persistencia completada: %d nuevos maridajes guardados, %d añadidos a cola de revisión",
+                pairings_added,
+                queue_added,
+            )
 
     def _print_report(self) -> None:
         accepted = self.stats["accepted_flavor_pairings"]
@@ -359,7 +503,7 @@ class FlavorNetworkPipeline:
         print("          INFORME DE AUDITORIA Y SIMULACION DEL PIPELINE")
         print("=" * 70)
         print(
-            f" Modos de ejecucion           : {'DRY-RUN (Simulacion Cientifica)' if self.dry_run else 'PRODUCCION'}"
+            f" Modos de ejecucion           : {'DRY-RUN (Simulacion Cientifica)' if self.dry_run else 'PRODUCCION (PostgreSQL Persistido)'}"
         )
         print(f" Ingredientes procesados      : {self.stats['total_ingredients']}")
         print(
@@ -401,10 +545,16 @@ def main() -> None:
         description="Seed pipeline científico para el Grafo de Sabores."
     )
     parser.add_argument(
+        "--persist",
+        action="store_true",
+        default=False,
+        help="Persistir en la base de datos PostgreSQL real.",
+    )
+    parser.add_argument(
         "--dry-run",
         action="store_true",
-        default=True,
-        help="Ejecutar en modo simulación.",
+        default=False,
+        help="Ejecutar en modo simulación (sin escribir en BD).",
     )
     parser.add_argument(
         "--limit", type=int, default=None, help="Límite de ingredientes a procesar."
@@ -417,11 +567,15 @@ def main() -> None:
     )
     args = parser.parse_args()
 
+    # Si se pasa --persist y no --dry-run, persistir en BD; de lo contrario por defecto simular
+    is_dry_run = not args.persist or args.dry_run
+
     pipeline = FlavorNetworkPipeline(
-        dry_run=args.dry_run, limit=args.limit, audit_rate=args.audit_rate
+        dry_run=is_dry_run, limit=args.limit, audit_rate=args.audit_rate
     )
     asyncio.run(pipeline.run())
 
 
 if __name__ == "__main__":
     main()
+
