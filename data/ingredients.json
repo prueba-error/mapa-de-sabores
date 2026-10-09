@@ -6927,5 +6927,227 @@
       "salad"
     ],
     "flavor_notes": "sweet, musky, watery, refreshing, honeyed"
+  },
+  "oyster_sauce": {
+    "id": "oyster_sauce",
+    "name": "oyster sauce",
+    "category": "sauce",
+    "compounds": [
+      "acetic_acid",
+      "dimethyl_sulfide",
+      "furfural",
+      "maltol",
+      "methional",
+      "methylpyrazine",
+      "trimethylamine"
+    ],
+    "cooking_methods": [
+      "stir-fry",
+      "braise",
+      "glaze",
+      "marinade",
+      "season"
+    ],
+    "flavor_notes": "savory, sweet, briny, umami-rich, caramelized",
+    "name_es": "Salsa de Ostras"
+  },
+  "textured_soy_protein": {
+    "id": "textured_soy_protein",
+    "name": "textured soy protein",
+    "category": "protein",
+    "compounds": [
+      "1_octen_3_ol",
+      "benzaldehyde",
+      "hexanal",
+      "methional",
+      "methylpyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "rehydrate",
+      "braise",
+      "sauté",
+      "stew",
+      "bake"
+    ],
+    "flavor_notes": "mild, nutty, beany, porous savory matrix",
+    "name_es": "Proteína de Soja Texturizada"
+  },
+  "blood_sausage": {
+    "id": "blood_sausage",
+    "name": "blood sausage",
+    "category": "protein",
+    "compounds": [
+      "cinnamaldehyde",
+      "diacetyl",
+      "diallyl_disulfide",
+      "eugenol",
+      "guaiacol",
+      "methional",
+      "piperine",
+      "thiophene"
+    ],
+    "cooking_methods": [
+      "grill",
+      "fry",
+      "bake",
+      "stew",
+      "sear"
+    ],
+    "flavor_notes": "metallic iron, spiced, fatty, onion, warm clove, savory",
+    "name_es": "Morcilla"
+  },
+  "cassava": {
+    "id": "cassava",
+    "name": "cassava",
+    "category": "vegetable",
+    "compounds": [
+      "dimethyl_sulfide",
+      "hexanal",
+      "methional",
+      "methylpyrazine",
+      "nonanal",
+      "phenethyl_alcohol"
+    ],
+    "cooking_methods": [
+      "boil",
+      "fry",
+      "mash",
+      "steam",
+      "roast"
+    ],
+    "flavor_notes": "starchy, earthy, mildly sweet, nutty, fibrous",
+    "name_es": "Mandioca / Yuca"
+  },
+  "tapioca": {
+    "id": "tapioca",
+    "name": "tapioca",
+    "category": "grain",
+    "compounds": [
+      "acetic_acid",
+      "hexanal",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "boil",
+      "thicken",
+      "steam",
+      "bake",
+      "pudding"
+    ],
+    "flavor_notes": "neutral, starchy, chewy, gelatinous",
+    "name_es": "Tapioca"
+  },
+  "annatto": {
+    "id": "annatto",
+    "name": "annatto",
+    "category": "spice",
+    "compounds": [
+      "benzaldehyde",
+      "geraniol",
+      "limonene",
+      "myrcene",
+      "pinene",
+      "rotundone"
+    ],
+    "cooking_methods": [
+      "infuse",
+      "grind",
+      "paste",
+      "color",
+      "simmer"
+    ],
+    "flavor_notes": "earthy, peppery, nutty, subtle floral, warm bitter",
+    "name_es": "Achiote / Urucú"
+  },
+  "acai": {
+    "id": "acai",
+    "name": "acai",
+    "category": "fruit",
+    "compounds": [
+      "citric_acid",
+      "damascenone",
+      "ethyl_hexanoate",
+      "hexanal",
+      "ionone",
+      "limonene",
+      "linalool"
+    ],
+    "cooking_methods": [
+      "blend",
+      "freeze",
+      "puree",
+      "bowl",
+      "juice"
+    ],
+    "flavor_notes": "deep berry, earthy, tart, dark cocoa, oily rich",
+    "name_es": "Açaí"
+  },
+  "dende_oil": {
+    "id": "dende_oil",
+    "name": "dende oil",
+    "category": "oil/fat",
+    "compounds": [
+      "butyric_acid",
+      "damascenone",
+      "guaiacol",
+      "hexanal",
+      "ionone",
+      "nonanal",
+      "octanal"
+    ],
+    "cooking_methods": [
+      "sauté",
+      "fry",
+      "stew",
+      "finish",
+      "curry"
+    ],
+    "flavor_notes": "nutty, earthy, distinct floral carrot-like aroma, heavy, pungent",
+    "name_es": "Aceite de Dendê"
+  },
+  "lima_bean": {
+    "id": "lima_bean",
+    "name": "lima bean",
+    "category": "legume",
+    "compounds": [
+      "1_octen_3_ol",
+      "diacetyl",
+      "dimethyl_sulfide",
+      "hexanal",
+      "methional",
+      "methylpyrazine"
+    ],
+    "cooking_methods": [
+      "boil",
+      "simmer",
+      "stew",
+      "mash",
+      "braise"
+    ],
+    "flavor_notes": "creamy, buttery, nutty, starchy, mild earthiness",
+    "name_es": "Poroto Pallar"
+  },
+  "chickpea_flour": {
+    "id": "chickpea_flour",
+    "name": "chickpea flour",
+    "category": "legume",
+    "compounds": [
+      "acetylpyrazine",
+      "hexanal",
+      "methional",
+      "methoxypyrazine",
+      "methylpyrazine",
+      "nonanal"
+    ],
+    "cooking_methods": [
+      "bake",
+      "fry",
+      "batter",
+      "whisk",
+      "pancake"
+    ],
+    "flavor_notes": "nutty, earthy, starchy, roasted bean",
+    "name_es": "Harina de Garbanzo"
   }
 }
