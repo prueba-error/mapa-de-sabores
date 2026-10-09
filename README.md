@@ -9,7 +9,7 @@
 
 ## 1. Qué es este proyecto
 
-**Mapa de Sabores** es una plataforma web que permite explorar combinaciones de ingredientes (_flavor pairing_) mediante un **Grafo de Sabores** interactivo, con explicaciones organolépticas generadas por IA y una arquitectura donde la certeza de las relaciones vive en PostgreSQL y la IA actúa como potenciador, no como fuente de verdad en tiempo real.
+**Mapa de Sabores** es una plataforma web que permite explorar combinaciones de ingredientes (_flavor pairing_) mediante un **Grafo de Sabores** interactivo. La certeza y afinidad de las relaciones se fundamenta en **datos empíricos de química de aromas (FlavorDB y el estudio fundamental de Ahn et al., Nature Scientific Reports 2011)** calculados matemáticamente mediante el índice de Jaccard sobre compuestos volátiles compartidos. La Inteligencia Artificial actúa estrictamente como enriquecedor organoléptico y lingüístico en lenguaje natural, garantizando que el sistema sea verificable, científico y libre de alucinaciones.
 
 Para el resumen completo del problema, los objetivos y las decisiones de diseño, ver **[PROYECTO.md](./PROYECTO.md)**.
 

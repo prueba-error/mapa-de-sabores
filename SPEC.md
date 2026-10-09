@@ -110,34 +110,28 @@ WHERE p.ingredient_a_id = :ingredient_id OR p.ingredient_b_id = :ingredient_id
 ---
 
 ## 2. Pipeline Offline y Origen del Dataset de Sabores
-
+ 
 ### 2.1 Fuentes Prácticas de Información
-
-1. **La IA como Sintetizador de Conocimiento (Método Principal):** el script `scripts/seed_flavor_network.py` consulta en lote a un LLM mediante solicitudes estructuradas (JSON Mode con Pydantic), evaluando pares de ingredientes y generando `affinity_score` + `ai_rationale`.
-2. **Matriz de Incompatibilidad Conocida:** listado curado de ~50 pares antagónicos (ej. _Pescado Blanco + Dulce de Leche_), usado como regla de alerta durante la validación.
-
+ 
+1. **Verdad Científica Empírica (FlavorDB y Ahn et al., Nature 2011):** catálogos curados en `data/compounds.json` (82 compuestos volátiles clave) y `data/ingredients.json` (>330 ingredientes).
+2. **Cálculo Determinista de Afinidad:** cálculo matemático del score mediante similitud de Jaccard y recuento de moléculas compartidas ($N_s$). Ver formulación en `docs/JUSTIFICACION_TEORICA_FOOD_PAIRING.md`.
+3. **La IA como Enriquecedor Lingüístico:** el script `scripts/seed_flavor_network.py` utiliza el LLM exclusivamente para generar la prosa explicativa (`ai_rationale`) condicionada a las moléculas químicas reales.
+4. **Matriz de Incompatibilidad Conocida:** listado curado de ~50 pares antagónicos (ej. _Pescado Blanco + Dulce de Leche_), usado como regla de alerta durante la validación.
+ 
 ### 2.2 Fases del Pipeline
-
-1. **Semilla de Ingredientes:** JSON/CSV con ~200-250 ingredientes clasificados por categoría.
-2. **Perfiles Sensoriales:** el LLM genera el `flavor_profile` de cada ingrediente sobre seis ejes fijos (`sweet`, `sour`, `salty`, `bitter`, `umami`, `aromatic`), con valores de 0.00 a 1.00. Pydantic exige los seis ejes y el rango; el resultado se persiste en `ingredients.flavor_profile`. Sin este paso, la Ficha (Vista 2) y la tabla comparativa no tendrían datos.
-3. **Selección de Pares Candidatos:** no se evalúan los ~31.000 pares posibles. Por cada ingrediente se arma una lista de ~10-12 candidatos: la mitad sugerida por el LLM como afines y la otra mitad muestreada al azar entre categorías distintas (esto garantiza la presencia de pares débiles y neutros), más los pares de la matriz de antagónicos (Sección 2.1.2). Los pares se deduplican con la forma ordenada `a < b`.
-4. **Generación Automatizada:** ejecución en lotes (una llamada por ingrediente con su lista de candidatos), con flag `--dry-run` para validar prompts sin escribir en la base ni gastar créditos de API.
-5. **Validación Automática:** cada par generado se valida contra:
-   * rango de score (0.00–1.00) y estructura JSON (Pydantic);
-   * descarte directo de pares con score < 0.15 (ruido sin valor informativo). Los pares débiles entre 0.15 y 0.45 **se conservan a propósito**: son los que alimentan las aristas rojas y el modo "Peores";
-   * la matriz de pares antagónicos (Sección 2.1.2).
-6. **Enrutamiento:** el descarte de la fase 5 se aplica primero; luego:
-   * si el par está en la matriz de antagónicos y su score es > 0.35, se inserta en `pairing_review_queue` con `flag_reason = 'forbidden_antagonistic_pair'` y estado `pending_review`;
-   * una muestra aleatoria del 5-10 % de los pares restantes se inserta en la misma cola con `flag_reason = 'random_audit'`, para estimar la tasa de error del LLM;
-   * el resto se inserta directamente en `flavor_pairings` con `source_type = 'llm_synthesis'`.
-7. **Curación Manual:** el alumno revisa la cola con `scripts/curate.py --list` y decide cada caso:
-   ```bash
-   ./scripts/curate.py --approve 23   # copia el par a flavor_pairings, source_type = 'manual_review'
-   ./scripts/curate.py --reject 24    # marca el par como rejected, nunca llega al grafo
-   ./scripts/curate.py --stats        # tasa de aprobados/rechazados, desglosada por flag_reason
-   ```
-   La tasa de rechazo de los pares `random_audit` se informa en la memoria como medida de calidad del dataset.
-8. **Snapshot Previo:** `./scripts/backup.sh backup` (ver `PLAN.md`, Sección 5.3) antes de cada corrida masiva, para poder revertir.
+ 
+1. **Carga de Datasets Moleculares:** lectura de `data/compounds.json` e `data/ingredients.json`.
+2. **Perfiles Sensoriales:** generación determinista y validación Pydantic del `flavor_profile` de cada ingrediente sobre seis ejes fijos (`sweet`, `sour`, `salty`, `bitter`, `umami`, `aromatic`), persistido en `ingredients.flavor_profile`.
+3. **Selección de Pares Candidatos:** balance entre candidatos intra-categoría, cruces inter-categoría y la matriz de pares antagónicos. Deduplicación canónica `a < b`.
+4. **Evaluación Matemática:** cálculo determinista de afinidad mediante `calculate_molecular_affinity()`.
+5. **Enriquecimiento con IA (JSON Mode):** redacción del `ai_rationale` citando los compuestos químicos compartidos.
+6. **Validación Automática y Enrutamiento:**
+   * descarte directo de pares con score < 0.15 (ruido sin significancia culinaria);
+   * conservación de pares débiles entre 0.15 y 0.45 para el modo "Peores" y aristas rojas;
+   * derivación a `pairing_review_queue` si el par pertenece a la matriz antagónica y supera 0.35, o para muestra aleatoria de auditoría (5-8%);
+   * inserción directa del resto en `flavor_pairings`.
+7. **Curación Manual:** el alumno revisa la cola con `scripts/curate.py --list` y decide cada caso (`--approve` / `--reject`).
+8. **Snapshot Previo:** `./scripts/backup.sh backup` antes de cada corrida masiva.
 
 ### 2.3 Prompt Estructurado (JSON Mode)
 
