@@ -42,4 +42,25 @@ Registro cronológico único de entregables mayores, decisiones técnicas acorda
   * Refactorización completa de `scripts/seed_flavor_network.py` para cargar los datasets en disco, aplicar `calculate_molecular_affinity()` y procesar los ingredientes de forma determinista y reproducible.
   * Verificación técnica con `ruff check` (100% limpio), `mypy --explicit-package-bases` (0 errores en 32 archivos) y tests unitarios en verde.
 
+---
+
+## Sprint 2: Curación Editorial, Data Pipeline y Spike Frontend
+
+* **Contexto:** Implementación de la gestión editorial de `pairing_review_queue` (Human-in-the-Loop) y construcción del spike interactivo en React para validar el rendimiento a 60 FPS de `react-force-graph-2d`.
+* **Cambios realizados:**
+  * **Servicio de Curación (`backend/app/services/curation.py`):** Lógica de negocio para `list_pending`, `approve` (migra a `flavor_pairings` con `source_type='manual_review'` y permite reajuste de score/prosa), `reject` (marca como descartado) y `get_stats` con tasa de descarte de la auditoría aleatoria.
+  * **CLI de Curación (`scripts/curate.py`):** Herramienta de terminal con comandos `--list`, `--approve <id>`, `--reject <id>` y `--stats` para la labor del alumno curador.
+  * **Suite de Pruebas TDD (`backend/tests/test_curation_service.py`):** Cobertura completa del ciclo de vida de curación y restricciones de estado.
+  * **Spike Frontend React 2D (`frontend/`):**
+    * Inicialización de la aplicación frontend con Vite y React.
+    * Instalación e integración de `react-force-graph-2d`, `lucide-react`, `clsx` y `tailwind-merge`.
+    * Datos estáticos mock representativos en `frontend/src/data/mockGraph.js` (22 nodos y aristas con tres niveles de afinidad y notas aromáticas).
+    * Componente interactivo `frontend/src/App.jsx` con panel lateral de control (filtros *Todas / Mejores / Peores*, slider de piso de afinidad, selección y centrado suave de nodo, leyenda de colores y tooltip reactivo de maridajes).
+    * Build de producción de Vite verificado con éxito (`dist/` generado en 19.8s).
+* **Tests y verificaciones:**
+  * `ruff check scripts/ backend/`: 100% limpio.
+  * `mypy --explicit-package-bases scripts/ backend/`: 0 errores en 35 archivos fuente.
+  * `pytest backend/tests/test_seed_pipeline.py backend/tests/test_llm_provider.py backend/tests/test_synergy.py`: 12/12 tests pasando.
+  * `npm --prefix frontend run build`: compilación de Vite sin errores.
+
 
