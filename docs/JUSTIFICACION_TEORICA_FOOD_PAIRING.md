@@ -122,4 +122,5 @@ Para aquellas matrices complejas, cortes anatómicos especializados o alimentos 
 - **Dulce de Leche:** [`docs/datos_ddl.md`](./datos_ddl.md) (catálisis alcalina de Maillard, caramelización y ciclación de lactonas lácteas).
 - **Salsa de Ostras:** [`docs/datos_salsa_ostras.md`](./datos_salsa_ostras.md) (hidrólisis de péptidos bivalvos, osmoprotectores marinos DMS/TMA y concentración caramelizada).
 - **Proteína de Soja Texturizada:** [`docs/datos_soja_texturizada.md`](./datos_soja_texturizada.md) (termocizallamiento en extrusor, cinética de lipoxigenasa y formación de red fibrilar).
+- **Evaluación de Sinergia NxN y Cobertura:** [`docs/justificacion_evaluacion_sinergia.md`](./justificacion_evaluacion_sinergia.md) (tratamiento matemático de pares débiles, celdas nulas, ingrediente discordante y cálculo on-the-fly).
 
