@@ -7194,5 +7194,236 @@
     ],
     "flavor_notes": "sweet corn, caramel, rich oak, vanilla, toasted wood",
     "name_es": "Bourbon"
+  },
+  "milk": {
+    "id": "milk",
+    "name": "milk",
+    "category": "dairy",
+    "compounds": [
+      "acetoin",
+      "butyric_acid",
+      "delta_decalactone",
+      "diacetyl",
+      "lactic_acid"
+    ],
+    "cooking_methods": [
+      "boil",
+      "steam",
+      "froth",
+      "bake",
+      "poach"
+    ],
+    "flavor_notes": "creamy, sweet, lactic, rich, mild",
+    "name_es": "Leche de Vaca"
+  },
+  "cod": {
+    "id": "cod",
+    "name": "cod",
+    "category": "seafood",
+    "compounds": [
+      "dimethyl_sulfide",
+      "hexanal",
+      "methional",
+      "trimethylamine"
+    ],
+    "cooking_methods": [
+      "bake",
+      "poach",
+      "pan-sear",
+      "steam",
+      "salt-cure"
+    ],
+    "flavor_notes": "mild, lean, flaky white fish, subtle marine sweetness",
+    "name_es": "Bacalao"
+  },
+  "clam": {
+    "id": "clam",
+    "name": "clam",
+    "category": "seafood",
+    "compounds": [
+      "dimethyl_sulfide",
+      "dimethyl_trisulfide",
+      "methional",
+      "trimethylamine"
+    ],
+    "cooking_methods": [
+      "steam",
+      "boil",
+      "sauté",
+      "chowder",
+      "grill"
+    ],
+    "flavor_notes": "briny, sweet, iodine, savory umami bivalve",
+    "name_es": "Almeja"
+  },
+  "plum": {
+    "id": "plum",
+    "name": "plum",
+    "category": "fruit",
+    "compounds": [
+      "benzaldehyde",
+      "gamma_decalactone",
+      "hexanal",
+      "linalool",
+      "malic_acid"
+    ],
+    "cooking_methods": [
+      "poach",
+      "bake",
+      "stew",
+      "jam",
+      "raw"
+    ],
+    "flavor_notes": "sweet, tart, stone fruit, floral, almond nuance",
+    "name_es": "Ciruela"
+  },
+  "blueberry": {
+    "id": "blueberry",
+    "name": "blueberry",
+    "category": "fruit",
+    "compounds": [
+      "citric_acid",
+      "hexanal",
+      "ionone",
+      "limonene",
+      "linalool"
+    ],
+    "cooking_methods": [
+      "bake",
+      "simmer",
+      "blend",
+      "sauce",
+      "raw"
+    ],
+    "flavor_notes": "sweet-tart, floral, woody-berry, juicy",
+    "name_es": "Arándano"
+  },
+  "sunflower_oil": {
+    "id": "sunflower_oil",
+    "name": "sunflower oil",
+    "category": "oil/fat",
+    "compounds": [
+      "hexanal",
+      "nonanal",
+      "octanal",
+      "trans_2_nonenal"
+    ],
+    "cooking_methods": [
+      "fry",
+      "sauté",
+      "bake",
+      "emulsify",
+      "dress"
+    ],
+    "flavor_notes": "light, nutty, clean neutral lipid, mild seed note",
+    "name_es": "Aceite de Girasol"
+  },
+  "cocoa_powder": {
+    "id": "cocoa_powder",
+    "name": "cocoa powder",
+    "category": "fermented",
+    "compounds": [
+      "acetylpyrazine",
+      "furfural",
+      "maltol",
+      "methylpyrazine",
+      "phenethyl_alcohol",
+      "vanillin"
+    ],
+    "cooking_methods": [
+      "bake",
+      "dust",
+      "whisk",
+      "infuse",
+      "beverage"
+    ],
+    "flavor_notes": "bitter, dark roast, earthy, nutty, concentrated chocolate",
+    "name_es": "Cacao en Polvo"
+  },
+  "brandy": {
+    "id": "brandy",
+    "name": "brandy",
+    "category": "fermented",
+    "compounds": [
+      "damascenone",
+      "ethyl_hexanoate",
+      "eugenol",
+      "vanillin",
+      "whiskey_lactone"
+    ],
+    "cooking_methods": [
+      "flambé",
+      "deglaze",
+      "sauce",
+      "poach",
+      "macerate"
+    ],
+    "flavor_notes": "fruity, warm, oak, dried grape, vanilla, aged spirit",
+    "name_es": "Brandy / Coñac"
+  },
+  "sherry": {
+    "id": "sherry",
+    "name": "sherry",
+    "category": "fermented",
+    "compounds": [
+      "acetoin",
+      "ethyl_acetate",
+      "sotolon",
+      "vanillin",
+      "whiskey_lactone"
+    ],
+    "cooking_methods": [
+      "deglaze",
+      "reduce",
+      "sauce",
+      "braise",
+      "marinate"
+    ],
+    "flavor_notes": "oxidized, nutty, dried fruit, saline, complex flor wine",
+    "name_es": "Jerez"
+  },
+  "gouda": {
+    "id": "gouda",
+    "name": "gouda",
+    "category": "dairy",
+    "compounds": [
+      "acetoin",
+      "butyric_acid",
+      "delta_decalactone",
+      "diacetyl",
+      "lactic_acid",
+      "methylpyrazine"
+    ],
+    "cooking_methods": [
+      "melt",
+      "slice",
+      "grate",
+      "bake",
+      "fondue"
+    ],
+    "flavor_notes": "creamy, buttery, nutty, caramel nuance, aged curd",
+    "name_es": "Queso Gouda"
+  },
+  "bitter_orange": {
+    "id": "bitter_orange",
+    "name": "bitter orange",
+    "category": "citrus",
+    "compounds": [
+      "citral",
+      "citric_acid",
+      "limonene",
+      "linalool",
+      "myrcene",
+      "octanal"
+    ],
+    "cooking_methods": [
+      "marinade",
+      "cure",
+      "marmalade",
+      "zest",
+      "braise"
+    ],
+    "flavor_notes": "tart, bitter, intensely aromatic, floral citrus peel",
+    "name_es": "Naranja Agria"
   }
 }
