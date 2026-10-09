@@ -88,7 +88,7 @@ Para garantizar la integridad científica del proyecto y cumplir con las directi
 flowchart TD
     subgraph DataScientia [1. Verdad Científica Empírica]
         D1[data/compounds.json: 82 moléculas volátiles]
-        D2[data/ingredients.json: 326 ingredientes clasificados]
+        D2[data/ingredients.json: 347 ingredientes clasificados]
         D1 --> CALC[Motor Determinista de Similitud]
         D2 --> CALC
         CALC --> RES["Cálculo Matemático: Jaccard + Ns + Score (0.0 a 1.0)"]
@@ -111,3 +111,15 @@ flowchart TD
 1. **La IA NUNCA inventa una afinidad**: El valor de `affinity_score` almacenado en `flavor_pairings` proviene del cálculo matemático sobre el dataset, no de un juicio arbitrario del LLM.
 2. **La IA NUNCA inventa compuestos compartidos**: El prompt que se envía al LLM incluye explícitamente la lista de moléculas volátiles compartidas provenientes de `data/ingredients.json`. La IA únicamente traduce esa evidencia físico-química en un párrafo gastronómico atractivo para el usuario.
 3. **Reproducibilidad Total**: Si se ejecuta el pipeline sin conexión a internet ni LLM (modo `--dry-run` o `offline`), el grafo de afinidades se genera idéntico en su totalidad a nivel cuantitativo.
+
+---
+
+## 5. Justificación Bromatológica Detallada por Matriz y Procesamiento
+
+Para aquellas matrices complejas, cortes anatómicos especializados o alimentos elaborados que requieren una deducción cinética y espectrométrica precisa (más allá de los registros botánicos directos de FlavorDB), se han generado monografías técnicas específicas:
+
+- **Cortes y Perfiles Vacunos:** [`docs/datos_carne.md`](./datos_carne.md) (diferenciación entre cortes magros, grasos y ricos en colágeno según cinética de cocción y volátiles Maillard/Strecker).
+- **Dulce de Leche:** [`docs/datos_ddl.md`](./datos_ddl.md) (catálisis alcalina de Maillard, caramelización y ciclación de lactonas lácteas).
+- **Salsa de Ostras:** [`docs/datos_salsa_ostras.md`](./datos_salsa_ostras.md) (hidrólisis de péptidos bivalvos, osmoprotectores marinos DMS/TMA y concentración caramelizada).
+- **Proteína de Soja Texturizada:** [`docs/datos_soja_texturizada.md`](./datos_soja_texturizada.md) (termocizallamiento en extrusor, cinética de lipoxigenasa y formación de red fibrilar).
+
