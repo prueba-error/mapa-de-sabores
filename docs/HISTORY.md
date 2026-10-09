@@ -60,7 +60,14 @@ Registro cronológico único de entregables mayores, decisiones técnicas acorda
 * **Tests y verificaciones:**
   * `ruff check scripts/ backend/`: 100% limpio.
   * `mypy --explicit-package-bases scripts/ backend/`: 0 errores en 35 archivos fuente.
-  * `pytest backend/tests/test_seed_pipeline.py backend/tests/test_llm_provider.py backend/tests/test_synergy.py`: 12/12 tests pasando.
-  * `npm --prefix frontend run build`: compilación de Vite sin errores.
+  * `pytest backend/tests/`: 19/19 tests pasando con PostgreSQL activo.
+  * `npm --prefix frontend run build`: compilación de producción de Vite limpia y verificada.
+* **Hito Final de Datos, Persistencia y Documentación Técnica (Cierre Sprint 2):**
+  * **Expansión y Catalogación del Dataset:** Ampliación a **360 ingredientes únicos** clasificados en 17 categorías y mapeados contra la biblioteca de 82 compuestos volátiles en `data/compounds.json`. Reconstrucción y ordenamiento alfabético de `catalogo_ingredientes.txt`.
+  * **Monografías Científicas y Bromatológicas:** Incorporación de documentos de sustento cromatográfico en `docs/`: `datos_carne.md` (cortes vacunos magros/grasos/colágeno), `datos_ddl.md` (dulce de leche, catálisis Maillard), `datos_salsa_ostras.md` (hidrólisis péptidos y volátiles marinos), `datos_soja_texturizada.md` (termoextrusión y lipoxigenasa) y `justificacion_evaluacion_sinergia.md` (matemática de evaluación $N \times N$, cobertura, celdas nulas y cálculo on-the-fly).
+  * **Ajuste de UX/UI en Spike Frontend:** Corrección del layout en `frontend/src/index.css` y `frontend/src/App.jsx` para evitar colapso de ancho del panel lateral en Flexbox (`flexShrink: 0`, `minWidth: 0`).
+  * **Persistencia Real a PostgreSQL:** Implementación en `scripts/seed_flavor_network.py` del flag `--persist` y la rutina asíncrona de guardado en base de datos.
+  * **Sembrado Exitoso de la Red:** Ejecución en PostgreSQL 16 persistiendo los 360 ingredientes, sincronizando 2.078 maridajes directos en `flavor_pairings` (incluyendo más del 70% de pares débiles/contrastes para exploración) y 204 ítems en `pairing_review_queue` auditables vía `scripts/curate.py`.
+
 
 
