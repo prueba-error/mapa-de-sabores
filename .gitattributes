@@ -1,8 +1,5 @@
-# Forzar terminación de línea CRLF para todos los archivos de texto en Windows
-* text=auto eol=crlf
-
-# Archivos de script POSIX / shell que requieren estrictamente LF
-*.sh text eol=lf
+# Forzar terminación de línea LF para todos los archivos de texto (estándar Linux / POSIX)
+* text=auto eol=lf
 
 # Archivos binarios que no deben modificarse
 *.png binary
