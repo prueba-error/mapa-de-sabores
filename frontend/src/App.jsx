@@ -71,7 +71,7 @@ export default function App() {
   return (
     <div style={{ display: 'flex', width: '100vw', height: '100vh', background: '#0F172A', color: '#F8FAFC', fontFamily: 'system-ui, sans-serif', overflow: 'hidden' }}>
       {/* Panel Lateral de Controles (Spike de Usabilidad) */}
-      <aside style={{ width: '340px', background: '#1E293B', borderRight: '1px solid #334155', padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px', zIndex: 10, overflowY: 'auto' }}>
+      <aside style={{ width: '340px', minWidth: '340px', flexShrink: 0, background: '#1E293B', borderRight: '1px solid #334155', padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px', zIndex: 10, overflowY: 'auto' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#38BDF8' }}>
             <Sparkles size={22} />
@@ -181,7 +181,7 @@ export default function App() {
       </aside>
 
       {/* Área del Canvas Interactivo con react-force-graph-2d */}
-      <main style={{ flex: 1, position: 'relative', height: '100%' }}>
+      <main style={{ flex: 1, minWidth: 0, position: 'relative', height: '100%', overflow: 'hidden' }}>
         <ForceGraph2D
           ref={fgRef}
           graphData={filteredData}
