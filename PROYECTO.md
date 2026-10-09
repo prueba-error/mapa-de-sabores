@@ -16,8 +16,8 @@ El proyecto resuelve el problema del maridaje e innovación culinaria mediante u
 
 ### Principales Pilares de Ingeniería
 
-1. **Certeza en el Core (Base Relacional Estable):** la red de sabores reside en PostgreSQL con índices compuestos bidireccionales. La estructura del grafo se define por datos curados y validados, garantizando consistencia, respuestas instantáneas (< 10ms) y cero alucinaciones en la navegación UI.
-2. **Pipeline de Datos Sintéticos Offline con Curación Humana:** un pipeline de ingeniería de prompts compila un dataset inicial de ~200-250 ingredientes y ~1.000-1.500 pares de afinidad, con una capa de validación automática, una **cola de revisión manual** para los pares dudosos y una auditoría aleatoria de una muestra de los pares aceptados.
+1. **Certeza en el Core (Base Relacional Estable y Verdad Empírica):** la red de sabores reside en PostgreSQL con índices compuestos bidireccionales. La afinidad del grafo se basa en **evidencia físico-química comprobable** (compuestos volátiles compartidos documentados en FlavorDB y Ahn et al., Nature 2011), garantizando consistencia, respuestas instantáneas (< 10ms) y cero alucinaciones en la determinación de pares.
+2. **Pipeline de Datos Empíricos con Cálculo Matemático y Curación:** un pipeline científico procesa un catálogo de **más de 330 ingredientes y 82 moléculas aromáticas**, calculando determinísticamente la similitud de Jaccard y recuento molecular ($N_s$). La IA se emplea exclusivamente para generar explicaciones culinarias fluidas (`ai_rationale`), con una capa de validación contra pares antagónicos, cola de revisión manual y auditoría aleatoria.
 3. **Capa de IA Desacoplada e Intercambiable:** un servicio backend agnóstico en FastAPI permite alternar entre proveedores cloud (Google Gemini, OpenAI) con fallback a texto pre-generado en base.
 4. **Interfaz React Estructurada en 3 Vistas:** experiencia de usuario modular dividida en tres pantallas principales (Explorar Grafo 2D, Ficha de Ingrediente y Laboratorio de Combinaciones) interconectadas mediante estado global compartido (Context API).
 
@@ -92,12 +92,13 @@ El detalle técnico completo de este flujo está en **[SPEC.md](./SPEC.md)**.
 ---
 
 ## 4. Dataset de Sabores y Pipeline Offline
+ 
+El dataset se construye a partir de evidencia científica comprobable proveniente de **FlavorDB y el estudio fundacional de Ahn et al. (Nature Scientific Reports, 2011)**:
 
-El dataset no se construye por relevamiento manual, sino mediante un pipeline en tres etapas:
-
-1. **Síntesis con IA:** un script en Python (`scripts/seed_flavor_network.py`) consulta en lote a un LLM mediante solicitudes estructuradas (JSON Mode con Pydantic), generando un score de afinidad (0.0 a 1.0) y una explicación culinaria por cada par de ingredientes evaluado.
-2. **Validación Automática:** cada par generado pasa por chequeos de rango, coherencia sintáctica y comparación contra una matriz curada de ~50 pares antagónicos conocidos (ej. _Pescado Blanco + Dulce de Leche_). Se descartan los pares con score < 0.15; los pares débiles restantes (0.15-0.45) se conservan a propósito para que el grafo también muestre qué combinaciones no funcionan. Los pares que no presentan señales de alerta se insertan directamente en `flavor_pairings`.
-3. **Curación Manual de Casos Dudosos:** los pares que sí disparan una alerta (por ejemplo, un score alto en un par listado como antagónico) no se descartan automáticamente: se enrutan a una cola de revisión (`pairing_review_queue`) donde el alumno, mediante un CLI simple (`scripts/curate.py --approve/--reject`), decide caso por caso si el par entra al grafo o se descarta. Adicionalmente, una muestra aleatoria del 5-10 % de los pares aceptados automáticamente se enruta a la misma cola (`flag_reason = random_audit`) para estimar la tasa de error del LLM. El detalle del funcionamiento de esta cola está en **[SPEC.md](./SPEC.md#2-pipeline-offline-y-origen-del-dataset-de-sabores)**.
+1. **Catálogo de Referencia Molecular (`data/`):** se compone de 82 compuestos químicos aromáticos volátiles y más de 330 ingredientes clasificados por categoría y perfil molecular.
+2. **Cálculo Determinista de Afinidad:** para cada par evaluado, se calcula matemáticamente su afinidad molecular combinando la similitud de Jaccard sobre las moléculas compartidas ($J(A, B)$) y el recuento absoluto de moléculas ($N_s$). La fórmula $S(A, B) = 0.5 \cdot J(A, B) + 0.5 \cdot \min(N_s, 6)/6$ asegura un rango determinista en $[0.00, 1.00]$.
+3. **Enriquecimiento Textual Asistido por IA:** el LLM no estima ni inventa números; recibe los hechos duros (ingredientes y moléculas volátiles que comparten) y redacta la explicación organoléptica en prosa fluida (`ai_rationale`).
+4. **Validación Automática y Filtro Antagónico:** los pares se filtran con un piso de score de 0.15 (descarte de pares inconexos) y se comparan contra una matriz de 50 pares incompatibles conocidos. Los pares con alerta se enrutan a la cola de curación manual (`pairing_review_queue`), mientras que los pares válidos se insertan en `flavor_pairings`. El detalle completo se documenta en **[JUSTIFICACION_TEORICA_FOOD_PAIRING.md](./docs/JUSTIFICACION_TEORICA_FOOD_PAIRING.md)** y **[SPEC.md](./SPEC.md)**.
 
 Este enfoque prioriza que ningún dato dudoso llegue al usuario final sin revisión, sin requerir la complejidad de un sistema de moderación multiusuario: hay un único rol de curador (el alumno), ejercido por línea de comandos.
 

@@ -1,1 +1,11 @@
+# Forzar terminación de línea LF para todos los archivos de texto (estándar Linux / POSIX)
 * text=auto eol=lf
+
+# Archivos binarios que no deben modificarse
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary
