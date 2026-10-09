@@ -1,6 +1,6 @@
 ================================================================================
                 MAPA DE SABORES - CATÁLOGO COMPLETO DE INGREDIENTES
-                Total de ingredientes catalogados: 347
+                Total de ingredientes catalogados: 349
 ================================================================================
 
 ## Carnes, Achuras y Proteínas (22 ingredientes)
@@ -879,7 +879,7 @@
     Notas sensoriales: pillowy, potato, dumpling, tender, Italian
     Compuestos clave : diacetyl, hexanal, maltol, methional, nonanal
 
-## Fermentados, Bebidas y Vinagres (27 ingredientes)
+## Fermentados, Bebidas y Vinagres (29 ingredientes)
 --------------------------------------------------------------------------------
  1. Aceto Balsámico [balsamic vinegar]
     Notas sensoriales: sweet, complex, syrupy, aged
@@ -887,42 +887,42 @@
  2. Black tea [black tea]
     Notas sensoriales: tannic, malty, floral — the oxidised-leaf aroma
     Compuestos clave : damascenone, geraniol, linalool, linalool_oxide, methional, phenylacetaldehyde
- 3. Café [coffee]
+ 3. Bourbon [bourbon]
+    Notas sensoriales: sweet corn, caramel, rich oak, vanilla, toasted wood
+    Compuestos clave : damascenone, ethyl_acetate, furfural, maltol, vanillin, whiskey_lactone
+ 4. Café [coffee]
     Notas sensoriales: bitter, roasty, complex
     Compuestos clave : 4vg, acetylpyrazine, furaneol, furfural, guaiacol, linalool, maltol, methylpyrazine, vanillin
- 4. Cerveza [beer]
+ 5. Cerveza [beer]
     Notas sensoriales: bitter, malty, hoppy
     Compuestos clave : 4vg, diacetyl, ethyl_acetate, isoamyl_acetate, linalool, myrcene
- 5. Chocolate [chocolate]
+ 6. Chocolate [chocolate]
     Notas sensoriales: rich, bitter, complex
     Compuestos clave : acetylpyrazine, furaneol, furfural, linalool, maltol, methylpyrazine, phenethyl_alcohol, vanillin
- 6. Gochujang [gochujang]
+ 7. Gochujang [gochujang]
     Notas sensoriales: sweet, spicy, funky, umami
     Compuestos clave : acetic_acid, acetylpyrazine, capsaicin, furaneol, maltol, methylpyrazine
- 7. Harissa [harissa]
+ 8. Harissa [harissa]
     Notas sensoriales: smoky, spicy, complex, North African
     Compuestos clave : capsaicin, cuminaldehyde, guaiacol, limonene, linalool, pinene
- 8. Kimchi [kimchi]
+ 9. Kimchi [kimchi]
     Notas sensoriales: sour, spicy, funky, complex
     Compuestos clave : acetic_acid, allyl_isothiocyanate, capsaicin, diallyl_disulfide, dimethyl_sulfide, lactic_acid
- 9. Kétchup [ketchup]
+10. Kétchup [ketchup]
     Notas sensoriales: sweet, tangy, tomato, umami
     Compuestos clave : acetic_acid, dimethyl_sulfide, furaneol, hexanal, maltol
-10. Mostaza de Dijón [Dijon mustard]
+11. Mostaza de Dijón [Dijon mustard]
     Notas sensoriales: sharp, creamy, tangy, complex
     Compuestos clave : acetic_acid, allyl_isothiocyanate, linalool, myrcene, pinene
-11. Nutritional yeast [nutritional yeast]
+12. Nutritional yeast [nutritional yeast]
     Notas sensoriales: nutty, cheesy, savory — the pyrazines parmesan gets from ageing
     Compuestos clave : acetylpyrazine, dimethyl_sulfide, maltol, methional, methylpyrazine, thiazole
-12. Pasta Miso [miso]
+13. Pasta Miso [miso]
     Notas sensoriales: salty, funky, sweet
     Compuestos clave : acetylpyrazine, dimethyl_sulfide, furaneol, methional, methylpyrazine, sotolon
-13. Pepinillos en Vinagre [pickles]
+14. Pepinillos en Vinagre [pickles]
     Notas sensoriales: sour, crunchy, briny, tangy
     Compuestos clave : acetic_acid, allyl_isothiocyanate, hexanal, lactic_acid, linalool
-14. Red wine [red wine]
-    Notas sensoriales: tannic, dark-fruited, oaky — rotundone gives the peppery reds their pepper
-    Compuestos clave : 4vg, damascenone, ethyl_acetate, ethyl_hexanoate, eugenol, guaiacol, ionone, linalool, phenethyl_alcohol, rotundone, tartaric_acid, vanillin, whiskey_lactone
 15. Rábano Picante [horseradish]
     Notas sensoriales: sharp, nasal heat, pungent, sinus-clearing
     Compuestos clave : acetic_acid, allyl_isothiocyanate, hexanal, nonanal
@@ -962,6 +962,12 @@
 27. Vino Blanco [white wine]
     Notas sensoriales: crisp, fruity, acidic, bright
     Compuestos clave : citral, damascenone, ethyl_acetate, geraniol, linalool, nonanal, tartaric_acid
+28. Vino Tinto [red wine]
+    Notas sensoriales: tannic, dark-fruited, oaky — rotundone gives the peppery reds their pepper
+    Compuestos clave : 4vg, damascenone, ethyl_acetate, ethyl_hexanoate, eugenol, guaiacol, ionone, linalool, phenethyl_alcohol, rotundone, tartaric_acid, vanillin, whiskey_lactone
+29. Whisky [whisky]
+    Notas sensoriales: smoky, oak, malty, vanilla, peaty, warm spirit
+    Compuestos clave : 4vg, diacetyl, eugenol, guaiacol, maltol, vanillin, whiskey_lactone
 
 ## Salsas y Caldos (25 ingredientes)
 --------------------------------------------------------------------------------

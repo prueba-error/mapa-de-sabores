@@ -6157,7 +6157,7 @@
       "marinate"
     ],
     "flavor_notes": "tannic, dark-fruited, oaky — rotundone gives the peppery reds their pepper",
-    "name_es": "Red wine"
+    "name_es": "Vino Tinto"
   },
   "seitan": {
     "id": "seitan",
@@ -7149,5 +7149,50 @@
     ],
     "flavor_notes": "nutty, earthy, starchy, roasted bean",
     "name_es": "Harina de Garbanzo"
+  },
+  "whisky": {
+    "id": "whisky",
+    "name": "whisky",
+    "category": "fermented",
+    "compounds": [
+      "4vg",
+      "diacetyl",
+      "eugenol",
+      "guaiacol",
+      "maltol",
+      "vanillin",
+      "whiskey_lactone"
+    ],
+    "cooking_methods": [
+      "flambé",
+      "deglaze",
+      "marinade",
+      "sauce",
+      "infuse"
+    ],
+    "flavor_notes": "smoky, oak, malty, vanilla, peaty, warm spirit",
+    "name_es": "Whisky"
+  },
+  "bourbon": {
+    "id": "bourbon",
+    "name": "bourbon",
+    "category": "fermented",
+    "compounds": [
+      "damascenone",
+      "ethyl_acetate",
+      "furfural",
+      "maltol",
+      "vanillin",
+      "whiskey_lactone"
+    ],
+    "cooking_methods": [
+      "glaze",
+      "deglaze",
+      "flambé",
+      "marinade",
+      "sauce"
+    ],
+    "flavor_notes": "sweet corn, caramel, rich oak, vanilla, toasted wood",
+    "name_es": "Bourbon"
   }
 }

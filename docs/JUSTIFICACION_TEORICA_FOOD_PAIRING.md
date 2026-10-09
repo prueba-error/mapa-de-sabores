@@ -88,7 +88,7 @@ Para garantizar la integridad científica del proyecto y cumplir con las directi
 flowchart TD
     subgraph DataScientia [1. Verdad Científica Empírica]
         D1[data/compounds.json: 82 moléculas volátiles]
-        D2[data/ingredients.json: 347 ingredientes clasificados]
+        D2[data/ingredients.json: 349 ingredientes clasificados]
         D1 --> CALC[Motor Determinista de Similitud]
         D2 --> CALC
         CALC --> RES["Cálculo Matemático: Jaccard + Ns + Score (0.0 a 1.0)"]
