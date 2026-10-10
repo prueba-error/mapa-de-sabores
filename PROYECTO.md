@@ -12,13 +12,13 @@
 
 **Mapa de Sabores** es un sistema web interactivo de descubrimiento gastronómico basado en una arquitectura híbrida de **Base de Datos Relacional + Inteligencia Artificial (IA)**.
 
-El proyecto resuelve el problema del maridaje e innovación culinaria mediante una representación en forma de **Grafo de Sabores** interactivo y dinámico. Permite a profesionales de la cocina, estudiantes de gastronomía y aficionados explorar combinaciones de ingredientes basadas en una afinidad culinaria estimada (generada por IA y curada, no medida químicamente), y recibir explicaciones organolépticas generadas por modelos de lenguaje (LLM).
+El proyecto resuelve el problema del maridaje e innovación culinaria mediante una representación en forma de **Grafo de Sabores** interactivo y dinámico. Permite a profesionales de la cocina, estudiantes de gastronomía y aficionados explorar combinaciones de ingredientes basadas en una afinidad culinaria respaldada por evidencia molecular comprobable y enriquecida por IA, y recibir explicaciones organolépticas de los mecanismos de maridaje generadas por modelos de lenguaje (LLM).
 
 ### Principales Pilares de Ingeniería
 
-1. **Certeza en el Core (Base Relacional Estable y Verdad Empírica):** la red de sabores reside en PostgreSQL con índices compuestos bidireccionales. La afinidad del grafo se basa en **evidencia físico-química comprobable** (compuestos volátiles compartidos documentados en FlavorDB y Ahn et al., Nature 2011), garantizando consistencia, respuestas instantáneas (< 10ms) y cero alucinaciones en la determinación de pares.
-2. **Pipeline de Datos Empíricos con Cálculo Matemático y Curación:** un pipeline científico procesa un catálogo de **más de 330 ingredientes y 82 moléculas aromáticas**, calculando determinísticamente la similitud de Jaccard y recuento molecular ($N_s$). La IA se emplea exclusivamente para generar explicaciones culinarias fluidas (`ai_rationale`), con una capa de validación contra pares antagónicos, cola de revisión manual y auditoría aleatoria.
-3. **Capa de IA Desacoplada e Intercambiable:** un servicio backend agnóstico en FastAPI permite alternar entre proveedores cloud (Google Gemini, OpenAI) con fallback a texto pre-generado en base.
+1. **Certeza en el Core (Base Relacional Estable y Verdad Empírica):** la red de sabores reside en PostgreSQL con índices compuestos bidireccionales. La afinidad del grafo se basa en **evidencia físico-química comprobable** (compuestos volátiles compartidos documentados en FlavorDB y Ahn et al., Nature 2011), garantizando consistencia, respuestas instantáneas (< 10ms) y cero alucinaciones en la determinación de la gran mayoría de los pares.
+2. **Sistema Experto Híbrido en Dos Etapas (Química + IA Flash):** un pipeline científico calcula determinísticamente la similitud de Jaccard y el recuento molecular ($N_s$). En una segunda etapa, un LLM actúa como auditor bibliográfico para rescatar maridajes clásicos de contraste (pares imposibles para la química, como Melón + Jamón Crudo) e incorporarlos al grafo, además de generar explicaciones culinarias fluidas (`ai_rationale`). Todo ello cuenta con una capa de validación contra pares antagónicos, cola de revisión manual y auditoría aleatoria.
+3. **Capa de IA Desacoplada e Intercambiable:** un servicio backend agnóstico en FastAPI permite alternar entre proveedores cloud (Google Gemini, OpenAI) con fallback a texto pre-generado en base, utilizando la IA tanto para el rescate en el pipeline offline como para explicaciones online bajo demanda.
 4. **Interfaz React Estructurada en 3 Vistas:** experiencia de usuario modular dividida en tres pantallas principales (Explorar Grafo 2D, Ficha de Ingrediente y Laboratorio de Combinaciones) interconectadas mediante estado global compartido (Context API).
 
 ---
@@ -34,7 +34,7 @@ El descubrimiento de combinaciones de ingredientes (maridaje o _flavor pairing_)
 * **Objetivo General:** desarrollar una aplicación web full-stack funcional que permita explorar redes de sabores e interacciones de ingredientes asistida por Inteligencia Artificial.
 * **Objetivos Específicos:**
   1. Diseñar un esquema relacional optimizado en PostgreSQL para modelar grafos bidireccionales de afinidad, con consultas de vecinos resueltas mediante índices compuestos.
-  2. Implementar un pipeline offline en Python para la generación de un dataset sintético de afinidades culinarias, con validación automática y curación manual de casos dudosos.
+  2. Implementar un pipeline offline en Python para la generación de un dataset híbrido de afinidades culinarias (determinista por GC-MS + rescate semántico por LLM), con validación automática y curación manual de casos dudosos.
   3. Crear una API REST en FastAPI con arquitectura limpia y abstracción del proveedor de LLM.
   4. Desarrollar una interfaz de usuario interactiva en React estructurada en 3 vistas principales utilizando `react-force-graph-2d`.
   5. Integrar autenticación JWT para áreas personalizadas de usuarios (guardar combinaciones favoritas).
