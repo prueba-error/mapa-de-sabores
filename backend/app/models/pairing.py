@@ -46,6 +46,12 @@ class FlavorPairing(Base):
         default="llm_synthesis",
         nullable=False,
     )
+    mechanism: Mapped[str] = mapped_column(
+        String(30),
+        server_default="molecular_harmony",
+        default="molecular_harmony",
+        nullable=False,
+    )
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         server_default=func.current_timestamp(),
