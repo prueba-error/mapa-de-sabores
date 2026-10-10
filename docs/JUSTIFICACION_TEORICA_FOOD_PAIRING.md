@@ -118,9 +118,6 @@ flowchart TD
 
 Para aquellas matrices complejas, cortes anatómicos especializados o alimentos elaborados que requieren una deducción cinética y espectrométrica precisa (más allá de los registros botánicos directos de FlavorDB), se han generado monografías técnicas específicas:
 
-- **Cortes y Perfiles Vacunos:** [`docs/datos_carne.md`](./datos_carne.md) (diferenciación entre cortes magros, grasos y ricos en colágeno según cinética de cocción y volátiles Maillard/Strecker).
-- **Dulce de Leche:** [`docs/datos_ddl.md`](./datos_ddl.md) (catálisis alcalina de Maillard, caramelización y ciclación de lactonas lácteas).
-- **Salsa de Ostras:** [`docs/datos_salsa_ostras.md`](./datos_salsa_ostras.md) (hidrólisis de péptidos bivalvos, osmoprotectores marinos DMS/TMA y concentración caramelizada).
-- **Proteína de Soja Texturizada:** [`docs/datos_soja_texturizada.md`](./datos_soja_texturizada.md) (termocizallamiento en extrusor, cinética de lipoxigenasa y formación de red fibrilar).
+- **Matrices e Ingredientes con Datos Deducidos:** [`docs/origen_datos_faltantes.md`](./origen_datos_faltantes.md) (documento consolidado que abarca cortes vacunos magros/grasos/colágeno, dulce de leche, salsa de ostras y proteína de soja texturizada).
 - **Evaluación de Sinergia NxN y Cobertura:** [`docs/justificacion_evaluacion_sinergia.md`](./justificacion_evaluacion_sinergia.md) (tratamiento matemático de pares débiles, celdas nulas, ingrediente discordante y cálculo on-the-fly).
 
