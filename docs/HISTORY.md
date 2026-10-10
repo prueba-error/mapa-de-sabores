@@ -71,3 +71,12 @@ Registro cronológico único de entregables mayores, decisiones técnicas acorda
 
 
 
+
+* **Hito de Refactorización de Arquitectura Híbrida (Revisión Editorial y Académica):**
+  * Consolidación de los documentos de sustento cromatográfico dispersos (`datos_carne.md`, `datos_ddl.md`, `datos_salsa_ostras.md`, `datos_soja_texturizada.md`) en un único archivo limpio `docs/origen_datos_faltantes.md` centrado en metodología.
+  * Corrección de datos empíricos en `data/compounds.json` e `data/ingredients.json` según directivas de revisión científica rigurosa (eliminación de marcadores sintéticos como ethyl_maltol, ajuste de compuestos clave de carnes crudas/cocidas y mejora de localizaciones al español).
+  * Recálculo determinista y sincronización en PostgreSQL mediante scripts de actualización idempotente con `seed_flavor_network.py --persist`, sumando nuevos cortes e iterando scores sin destruir el trabajo previo. El catálogo alcanzó los 364 ingredientes orgánicos integrados.
+  * Formalización del marco teórico de "Sistema Experto Híbrido en Dos Etapas":
+    * Se actualizaron `PROYECTO.md`, `PLAN.md` y `SPEC.md` para segmentar formalmente la **Etapa 1** (cálculo químico determinista por espectrometría GC-MS) de la futura **Etapa 2** (barrido de auditoría semántica y bibliográfica mediante LLM Flash en el Sprint 4 para rescatar contrastes fisiológicos consagrados con $S < 0.15$).
+    * Se amplió `docs/JUSTIFICACION_TEORICA_FOOD_PAIRING.md` detallando la "Paradoja Asiática" de Ahn et al., la ceguera de matriz, y el contraste fisiológico/trigeminal para dotar al proyecto de un paraguas epistemológico impecable de cara a la defensa académica.
+    * Se modificó el esquema DDL de PostgreSQL añadiendo la columna `mechanism` (`molecular_harmony`, `basic_taste_contrast`, `trigeminal_activation`) y habilitando el origen `source_type='culinary_contrast'`.
