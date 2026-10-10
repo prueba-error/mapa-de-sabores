@@ -291,7 +291,7 @@
     "id": "thiophene",
     "name": "thiophene",
     "category": "sulfur",
-    "description": "roasted, meaty"
+    "description": "sulfurous, roasted (marcador de alquiltiofenos en carne cocida y alliums)"
   },
   "allyl_isothiocyanate": {
     "id": "allyl_isothiocyanate",
@@ -303,7 +303,7 @@
     "id": "dimethyl_trisulfide",
     "name": "dimethyl trisulfide",
     "category": "sulfur",
-    "description": "cooked cabbage, savory, umami"
+    "description": "cooked cabbage, onion, savory, sulfurous"
   },
   "methyl_thioacetate": {
     "id": "methyl_thioacetate",
@@ -388,12 +388,6 @@
     "name": "maltol",
     "category": "furanone",
     "description": "caramel, cotton candy, toasty"
-  },
-  "ethyl_maltol": {
-    "id": "ethyl_maltol",
-    "name": "ethyl maltol",
-    "category": "furanone",
-    "description": "cotton candy, caramelized sugar"
   },
   "gamma_decalactone": {
     "id": "gamma_decalactone",
@@ -490,5 +484,17 @@
     "name": "rotundone",
     "category": "other",
     "description": "black pepper, spicy, woody"
+  },
+  "2_methyl_3_furanthiol": {
+    "id": "2_methyl_3_furanthiol",
+    "name": "2-methyl-3-furanthiol",
+    "category": "sulfur",
+    "description": "meaty, roasted, brothy"
+  },
+  "dipropyl_disulfide": {
+    "id": "dipropyl_disulfide",
+    "name": "dipropyl disulfide",
+    "category": "sulfur",
+    "description": "onion, cooked onion, sulfurous"
   }
 }

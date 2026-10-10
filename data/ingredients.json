@@ -4,6 +4,7 @@
     "name": "chicken",
     "category": "protein",
     "compounds": [
+      "2_methyl_3_furanthiol",
       "diacetyl",
       "hexanal",
       "methional",
@@ -27,7 +28,7 @@
     "name": "beef",
     "category": "protein",
     "compounds": [
-      "4vg",
+      "2_methyl_3_furanthiol",
       "diacetyl",
       "guaiacol",
       "hexanal",
@@ -51,6 +52,7 @@
     "name": "pork",
     "category": "protein",
     "compounds": [
+      "2_methyl_3_furanthiol",
       "diacetyl",
       "hexanal",
       "methional",
@@ -74,7 +76,7 @@
     "name": "lamb",
     "category": "protein",
     "compounds": [
-      "4vg",
+      "2_methyl_3_furanthiol",
       "cresol",
       "hexanal",
       "methional",
@@ -96,6 +98,7 @@
     "name": "duck",
     "category": "protein",
     "compounds": [
+      "2_methyl_3_furanthiol",
       "diacetyl",
       "gamma_decalactone",
       "hexanal",
@@ -119,6 +122,7 @@
     "name": "turkey",
     "category": "protein",
     "compounds": [
+      "2_methyl_3_furanthiol",
       "diacetyl",
       "hexanal",
       "methional",
@@ -1640,7 +1644,7 @@
       "paste"
     ],
     "flavor_notes": "citrus, ginger-like, floral",
-    "name_es": "Lemongrass"
+    "name_es": "Hierba Limón / Lemongrass"
   },
   "parsley": {
     "id": "parsley",
@@ -1732,8 +1736,6 @@
     "name": "clove",
     "category": "spice",
     "compounds": [
-      "acetylpyrazine",
-      "coumarin",
       "eugenol",
       "linalool",
       "pinene",
@@ -1840,7 +1842,6 @@
     "category": "spice",
     "compounds": [
       "acetoin",
-      "coumarin",
       "eugenol",
       "linalool",
       "maltol",
@@ -2123,8 +2124,8 @@
     "name": "onion powder",
     "category": "spice",
     "compounds": [
-      "diallyl_disulfide",
       "dimethyl_sulfide",
+      "dipropyl_disulfide",
       "hexanal",
       "methylpyrazine",
       "thiophene"
@@ -2349,7 +2350,6 @@
     "category": "fermented",
     "compounds": [
       "acetic_acid",
-      "allicin",
       "capsaicin",
       "hexanal",
       "lactic_acid"
@@ -2369,7 +2369,6 @@
     "category": "fermented",
     "compounds": [
       "acetic_acid",
-      "allicin",
       "capsaicin",
       "furaneol",
       "hexanal"
@@ -2386,7 +2385,7 @@
   "mayo": {
     "id": "mayo",
     "name": "mayonnaise",
-    "category": "dairy",
+    "category": "sauce",
     "compounds": [
       "acetic_acid",
       "diacetyl",
@@ -2534,9 +2533,9 @@
     "name": "onion",
     "category": "allium",
     "compounds": [
-      "diallyl_disulfide",
       "dimethyl_sulfide",
       "dimethyl_trisulfide",
+      "dipropyl_disulfide",
       "hexanal",
       "linalool",
       "thiophene"
@@ -2556,8 +2555,8 @@
     "name": "shallot",
     "category": "allium",
     "compounds": [
-      "diallyl_disulfide",
       "dimethyl_sulfide",
+      "dipropyl_disulfide",
       "hexanal",
       "linalool"
     ],
@@ -2568,15 +2567,15 @@
       "fry"
     ],
     "flavor_notes": "mild, sweet, refined",
-    "name_es": "Chalota"
+    "name_es": "Chalote"
   },
   "leek": {
     "id": "leek",
     "name": "leek",
     "category": "allium",
     "compounds": [
-      "diallyl_disulfide",
       "dimethyl_sulfide",
+      "dipropyl_disulfide",
       "hexanal",
       "linalool"
     ],
@@ -2594,8 +2593,8 @@
     "name": "green onion",
     "category": "allium",
     "compounds": [
-      "diallyl_disulfide",
       "dimethyl_sulfide",
+      "dipropyl_disulfide",
       "hexanal",
       "linalool",
       "pinene"
@@ -3385,7 +3384,7 @@
       "simmer"
     ],
     "flavor_notes": "starchy, creamy, plump, absorbent",
-    "name_es": "Arroz Carnaroli / Arborio"
+    "name_es": "Arroz Arborio"
   },
   "sticky_rice": {
     "id": "sticky_rice",
@@ -4400,7 +4399,6 @@
     "compounds": [
       "acetylpyrazine",
       "diacetyl",
-      "ethyl_maltol",
       "furaneol",
       "furfural",
       "maltol",
@@ -4983,7 +4981,6 @@
     "name": "marinara",
     "category": "sauce",
     "compounds": [
-      "allicin",
       "dimethyl_sulfide",
       "eugenol",
       "furaneol",
@@ -5196,6 +5193,7 @@
     "name": "chicken stock",
     "category": "sauce",
     "compounds": [
+      "2_methyl_3_furanthiol",
       "diacetyl",
       "dimethyl_sulfide",
       "hexanal",
@@ -5217,6 +5215,7 @@
     "name": "beef stock",
     "category": "sauce",
     "compounds": [
+      "2_methyl_3_furanthiol",
       "guaiacol",
       "hexanal",
       "methional",
@@ -5258,6 +5257,7 @@
     "name": "bone broth",
     "category": "sauce",
     "compounds": [
+      "2_methyl_3_furanthiol",
       "diacetyl",
       "dimethyl_sulfide",
       "hexanal",
@@ -5443,7 +5443,6 @@
     "category": "protein",
     "compounds": [
       "4vg",
-      "allicin",
       "cresol",
       "guaiacol",
       "hexanal",
@@ -5487,7 +5486,7 @@
     "name": "ground beef",
     "category": "protein",
     "compounds": [
-      "4vg",
+      "2_methyl_3_furanthiol",
       "diacetyl",
       "guaiacol",
       "hexanal",
@@ -5887,7 +5886,7 @@
       "blend"
     ],
     "flavor_notes": "sweet, smoky, silky, charred",
-    "name_es": "Pimiento Morron Asado"
+    "name_es": "Pimiento Morrón Asado"
   },
   "sun_dried_tomato": {
     "id": "sun_dried_tomato",
@@ -5928,7 +5927,7 @@
       "top"
     ],
     "flavor_notes": "crisp, watery, fresh, mild, crunchy",
-    "name_es": "Bean sprouts"
+    "name_es": "Brotes de Soja"
   },
   "water_chestnut": {
     "id": "water_chestnut",
@@ -5948,7 +5947,7 @@
       "can"
     ],
     "flavor_notes": "crunchy, sweet, stays crisp when cooked",
-    "name_es": "Water chestnut"
+    "name_es": "Castaña de Agua"
   },
   "bamboo_shoot": {
     "id": "bamboo_shoot",
@@ -5967,7 +5966,7 @@
       "pickle"
     ],
     "flavor_notes": "mild, crunchy, earthy, slightly sweet",
-    "name_es": "Bamboo shoot"
+    "name_es": "Brotes de Bambú"
   },
   "radicchio": {
     "id": "radicchio",
@@ -6006,7 +6005,7 @@
       "stuff"
     ],
     "flavor_notes": "bitter, crisp, elegant, boat-shaped leaves",
-    "name_es": "Endive"
+    "name_es": "Endibia"
   },
   "romaine": {
     "id": "romaine",
@@ -6026,7 +6025,7 @@
       "chop"
     ],
     "flavor_notes": "crisp, mild, crunchy, watery, sturdy",
-    "name_es": "Romaine lettuce"
+    "name_es": "Lechuga Romana"
   },
   "bay_leaf": {
     "id": "bay_leaf",
@@ -6047,7 +6046,7 @@
       "steep"
     ],
     "flavor_notes": "resinous, tea-like, subtly medicinal — a background note you notice when it is gone",
-    "name_es": "Bay leaf"
+    "name_es": "Laurel"
   },
   "marjoram": {
     "id": "marjoram",
@@ -6068,7 +6067,7 @@
       "roast"
     ],
     "flavor_notes": "sweeter and softer than oregano, floral-herbal",
-    "name_es": "Marjoram"
+    "name_es": "Mejorana"
   },
   "arugula": {
     "id": "arugula",
@@ -6087,7 +6086,7 @@
       "blend"
     ],
     "flavor_notes": "peppery, bitter, mustardy — the glucosinolate bite",
-    "name_es": "Arugula"
+    "name_es": "Rúcula"
   },
   "squid": {
     "id": "squid",
@@ -6108,7 +6107,7 @@
       "poach"
     ],
     "flavor_notes": "sweet, mild, briny — chewy unless cooked very fast or very slow",
-    "name_es": "Squid"
+    "name_es": "Calamar"
   },
   "black_tea": {
     "id": "black_tea",
@@ -6129,7 +6128,7 @@
       "braise"
     ],
     "flavor_notes": "tannic, malty, floral — the oxidised-leaf aroma",
-    "name_es": "Black tea"
+    "name_es": "Té Negro"
   },
   "red_wine": {
     "id": "red_wine",
@@ -6197,7 +6196,7 @@
       "simmer"
     ],
     "flavor_notes": "neutral and stringy when green — pulls like slow-cooked meat",
-    "name_es": "Young jackfruit"
+    "name_es": "Yaca (Jackfruit) Verde"
   },
   "halloumi": {
     "id": "halloumi",
@@ -6257,7 +6256,7 @@
       "stir"
     ],
     "flavor_notes": "nutty, cheesy, savory — the pyrazines parmesan gets from ageing",
-    "name_es": "Nutritional yeast"
+    "name_es": "Levadura Nutricional"
   },
   "cashew_cream": {
     "id": "cashew_cream",
@@ -6277,7 +6276,7 @@
       "thicken"
     ],
     "flavor_notes": "rich, neutral, silky — the plant answer to double cream",
-    "name_es": "Cashew cream"
+    "name_es": "Crema de Castañas de Cajú"
   },
   "oat_milk": {
     "id": "oat_milk",
@@ -6297,7 +6296,7 @@
       "bake"
     ],
     "flavor_notes": "cereal-sweet, creamy, faintly toasty",
-    "name_es": "Oat milk"
+    "name_es": "Leche de Avena"
   },
   "coconut_yogurt": {
     "id": "coconut_yogurt",
@@ -6317,7 +6316,7 @@
       "chill"
     ],
     "flavor_notes": "tangy, thick, coconut-rich — cultured without the cow",
-    "name_es": "Coconut yogurt"
+    "name_es": "Yogur de Coco"
   },
   "chervil": {
     "id": "chervil",
@@ -6337,7 +6336,7 @@
       "chiffonade"
     ],
     "flavor_notes": "delicate anise-parsley — added off the heat or it disappears",
-    "name_es": "Chervil"
+    "name_es": "Perifollo"
   },
   "savory": {
     "id": "savory",
@@ -6358,7 +6357,7 @@
       "infuse"
     ],
     "flavor_notes": "peppery and thyme-like, the classic bean herb",
-    "name_es": "Savory"
+    "name_es": "Ajedrea"
   },
   "shiso": {
     "id": "shiso",
@@ -6400,7 +6399,7 @@
       "stir-fry"
     ],
     "flavor_notes": "aniseed-forward and sturdier than sweet basil — survives the wok",
-    "name_es": "Thai basil"
+    "name_es": "Albahaca Tailandesa"
   },
   "lovage": {
     "id": "lovage",
@@ -6420,7 +6419,7 @@
       "raw"
     ],
     "flavor_notes": "celery amplified — a little goes a very long way",
-    "name_es": "Lovage"
+    "name_es": "Apio de Monte (Levístico)"
   },
   "yuzu": {
     "id": "yuzu",
@@ -6462,7 +6461,7 @@
       "roast"
     ],
     "flavor_notes": "orange with a raspberry edge — the anthocyanins bring their own note",
-    "name_es": "Blood orange"
+    "name_es": "Naranja Sanguina"
   },
   "mandarin": {
     "id": "mandarin",
@@ -6482,7 +6481,7 @@
       "candy"
     ],
     "flavor_notes": "sweet, low-acid, perfumed — the grape-like note is anthranilate",
-    "name_es": "Mandarin"
+    "name_es": "Mandarina"
   },
   "ghee": {
     "id": "ghee",
@@ -6521,7 +6520,7 @@
       "wok"
     ],
     "flavor_notes": "clean and faintly roasted, built for high heat",
-    "name_es": "Peanut oil"
+    "name_es": "Aceite de Maní"
   },
   "walnut_oil": {
     "id": "walnut_oil",
@@ -6540,7 +6539,7 @@
       "finish"
     ],
     "flavor_notes": "toasty and bitter-edged — a finishing oil, never a frying one",
-    "name_es": "Walnut oil"
+    "name_es": "Aceite de Nuez"
   },
   "duck_fat": {
     "id": "duck_fat",
@@ -6561,7 +6560,7 @@
       "baste"
     ],
     "flavor_notes": "savory and rich — what makes roast potatoes worth the trouble",
-    "name_es": "Duck fat"
+    "name_es": "Grasa de Pato"
   },
   "white_bean": {
     "id": "white_bean",
@@ -6581,7 +6580,7 @@
       "puree"
     ],
     "flavor_notes": "creamy, mild, thickens whatever it is cooked in",
-    "name_es": "White bean"
+    "name_es": "Poroto Blanco"
   },
   "kidney_bean": {
     "id": "kidney_bean",
@@ -6600,7 +6599,7 @@
       "mash"
     ],
     "flavor_notes": "meaty and earthy, holds its shape through a long cook",
-    "name_es": "Kidney bean"
+    "name_es": "Poroto Colorado / Rojo"
   },
   "fava_bean": {
     "id": "fava_bean",
@@ -6620,7 +6619,7 @@
       "raw"
     ],
     "flavor_notes": "green, grassy, faintly bitter — spring in a pod",
-    "name_es": "Fava bean"
+    "name_es": "Haba"
   },
   "molasses": {
     "id": "molasses",
@@ -6641,7 +6640,7 @@
       "stir"
     ],
     "flavor_notes": "bitter-sweet, smoky, mineral — sotolon gives it the burnt-sugar depth",
-    "name_es": "Molasses"
+    "name_es": "Melaza"
   },
   "date_syrup": {
     "id": "date_syrup",
@@ -6661,14 +6660,13 @@
       "stir"
     ],
     "flavor_notes": "caramel-raisin sweetness with none of the sharpness of sugar",
-    "name_es": "Date syrup"
+    "name_es": "Jarabe de Dátiles"
   },
   "agave": {
     "id": "agave",
     "name": "agave nectar",
     "category": "sweetener",
     "compounds": [
-      "ethyl_maltol",
       "furaneol",
       "maltol",
       "vanillin"
@@ -6680,7 +6678,7 @@
       "glaze"
     ],
     "flavor_notes": "clean and neutral, sweeter than sugar so less of it goes in",
-    "name_es": "Agave nectar"
+    "name_es": "Néctar de Agave"
   },
   "sardine": {
     "id": "sardine",
@@ -6729,7 +6727,7 @@
   "beef_liver": {
     "id": "beef_liver",
     "name": "beef liver",
-    "name_es": "Hígado de Res",
+    "name_es": "Hígado Vacuno",
     "category": "protein",
     "compounds": [
       "diacetyl",
@@ -6752,7 +6750,7 @@
   "beef_heart": {
     "id": "beef_heart",
     "name": "beef heart",
-    "name_es": "Corazón de Res",
+    "name_es": "Corazón Vacuno",
     "category": "protein",
     "compounds": [
       "diacetyl",
@@ -6775,7 +6773,7 @@
   "beef_kidney": {
     "id": "beef_kidney",
     "name": "beef kidney",
-    "name_es": "Riñón de Res",
+    "name_es": "Riñón Vacuno",
     "category": "protein",
     "compounds": [
       "cresol",
@@ -6801,7 +6799,6 @@
     "category": "protein",
     "compounds": [
       "4vg",
-      "allicin",
       "capsaicin",
       "diallyl_disulfide",
       "guaiacol",
@@ -6825,7 +6822,6 @@
     "category": "protein",
     "compounds": [
       "acetic_acid",
-      "allicin",
       "diacetyl",
       "diallyl_disulfide",
       "lactic_acid",
@@ -7425,5 +7421,90 @@
     ],
     "flavor_notes": "tart, bitter, intensely aromatic, floral citrus peel",
     "name_es": "Naranja Agria"
+  },
+  "beef_lean_steak": {
+    "id": "beef_lean_steak",
+    "name": "beef_lean_steak",
+    "category": "protein",
+    "compounds": [
+      "2_methyl_3_furanthiol",
+      "acetylpyrazine",
+      "hexanal",
+      "methional",
+      "methylpyrazine"
+    ],
+    "cooking_methods": [
+      "sear",
+      "grill",
+      "pan-fry",
+      "roast"
+    ],
+    "flavor_notes": "lean, savory, roasted crust, meaty",
+    "name_es": "Carne Vacuna Magra (Bife / Lomo)"
+  },
+  "beef_fatty_cut": {
+    "id": "beef_fatty_cut",
+    "name": "beef_fatty_cut",
+    "category": "protein",
+    "compounds": [
+      "delta_decalactone",
+      "gamma_decalactone",
+      "hexanal",
+      "nonanal",
+      "octanal"
+    ],
+    "cooking_methods": [
+      "grill",
+      "roast",
+      "smoke",
+      "sear"
+    ],
+    "flavor_notes": "rich, fatty, sweet tallow, buttery, meaty",
+    "name_es": "Carne Vacuna Grasa (Asado / Vacío)"
+  },
+  "beef_braised_collagen": {
+    "id": "beef_braised_collagen",
+    "name": "beef_braised_collagen",
+    "category": "protein",
+    "compounds": [
+      "2_methyl_3_furanthiol",
+      "dimethyl_sulfide",
+      "dimethyl_trisulfide",
+      "hexanal",
+      "methional"
+    ],
+    "cooking_methods": [
+      "braise",
+      "stew",
+      "simmer",
+      "roast"
+    ],
+    "flavor_notes": "deep, brothy, gelatinous, savory",
+    "name_es": "Carne Vacuna para Estofado (Osobuco / Garrón)"
+  },
+  "dulce_de_leche": {
+    "id": "dulce_de_leche",
+    "name": "dulce_de_leche",
+    "category": "dairy",
+    "compounds": [
+      "acetoin",
+      "acetylpyrazine",
+      "delta_decalactone",
+      "diacetyl",
+      "furaneol",
+      "furfural",
+      "gamma_decalactone",
+      "maltol",
+      "methylpyrazine"
+    ],
+    "cooking_methods": [
+      "spread",
+      "swirl",
+      "bake",
+      "melt",
+      "drizzle"
+    ],
+    "flavor_notes": "caramel, milky, toasty, sweet, creamy",
+    "name_es": "Dulce de Leche"
   }
 }
