@@ -66,14 +66,15 @@
 * **Tiempo reservado:** ~1 día para verificar que los contratos Pydantic del backend coincidan exactamente con lo que consume el frontend (punto típico de fricción entre piezas generadas por separado).
 * **Criterios de Aceptación (TDD):** pruebas unitarias en `pytest` para la matemática de sinergia (incluidos pares sin dato, cobertura y el caso N=2) y para el guardado/recuperación de favoritos.
 
-#### **Sprint 4 (Semanas 7-8) — Frontend 3 Vistas (Explorar, Ficha, Laboratorio), IA Online y Defensa**
-* **Objetivo:** construir la interfaz interactiva completa dividida en 3 vistas principales, integrar la IA en línea y preparar la defensa académica.
+#### **Sprint 4 (Semanas 7-8) — Frontend 3 Vistas, IA Online, Barrido de Contraste y Defensa**
+* **Objetivo:** construir la interfaz interactiva completa, integrar la IA en línea, realizar la auditoría híbrida para rescatar maridajes de contraste y preparar la defensa académica.
 * **Entregables:**
   * **Navbar & Navegación Modular:** Barra superior con pestañas (el estado compartido `LabContext` ya existe desde el Sprint 3).
   * **Vista 1 (Explorar Grafo):** Completar, sobre la base del Sprint 3, la visualización progresiva 2D con `react-force-graph-2d`, controles **Mejores / Todas / Peores**, slider de cantidad y botón **"Explorar extremos"**.
   * **Vista 2 (Ficha de Ingrediente):** Ficha sensorial con barras de `flavor_profile`, ranking de mejores/peores afinidades y **tabla comparativa de perfiles** para pares específicos.
   * **Vista 3 (Laboratorio de Combinaciones):** Constructor por **chips** interactivos, medidor de sinergia con indicador de cobertura, matriz cruzada $N \times N$ (celdas "sin dato") y alerta de ingrediente discordante.
-  * Endpoints `POST /api/v1/ai/explain-pairing` y `POST /api/v1/ai/suggest-replacement`, con presupuesto total de 8 s y fallback a `ai_rationale` guardado o mensaje genérico (campo `source`).
+  * **Barrido Híbrido LLM (Etapa 2):** Script de IA aditivo (ej. con Gemini 2.5 Flash) que audite 30-50 "pares imposibles" de contraste clásicos (con S < 0.15 inicial) contra la literatura, insertándolos con `source_type="culinary_contrast"` y asignándoles el mecanismo de maridaje correspondiente.
+  * Endpoints `POST /api/v1/ai/explain-pairing` y `POST /api/v1/ai/suggest-replacement`, con presupuesto total de 8 s y fallback a `ai_rationale` guardado o mensaje genérico (campo `source`). El explain de un par devuelve también el campo `mechanism`.
   * Suite de tests `pytest` + `Vitest` corriendo en verde localmente.
   * Memoria técnica final y preparación de la defensa ante el tribunal.
 * **Opcional (solo si sobra tiempo, no forma parte del Definition of Done):** endpoint `GET /api/v1/pairings/suggest-additions` y las dos listas correspondientes ("Para aumentar sinergia" / "Para experimentar") en la Vista 3, según la especificación ya resuelta en `SPEC.md`, Sección 3.2.1.

@@ -43,7 +43,9 @@ El descubrimiento de combinaciones de ingredientes (maridaje o _flavor pairing_)
 
 * **PostgreSQL vs. Neo4j:** se optó por PostgreSQL debido a que en una red de 300 a 1.000 ingredientes las consultas de 1 o 2 saltos (_hops_) no justifican la sobrecarga operativa y de memoria de un motor de grafos nativo como Neo4j. Mediante índices compuestos y ordenamiento de IDs (`ingredient_a_id < ingredient_b_id`), Postgres resuelve estas consultas de forma directa (sin recorridos recursivos) en **< 10ms**, con un costo operativo y de despliegue significativamente menor.
 
-* **Arquitectura Híbrida de IA:** la IA no actúa como la base de datos (evitando alucinaciones o respuestas lentas en navegación UI), sino como un potenciador en dos fases: compilación de dataset en pipeline offline (con curación humana) y generación de prosa culinaria en línea bajo demanda del usuario.
+* **Arquitectura Híbrida de IA en Dos Etapas:** la IA no actúa como una base de datos estocástica (evitando alucinaciones o respuestas lentas en navegación UI), sino que el sistema opera como un **Sistema Experto Híbrido**:
+  1. **Etapa 1 (Grafo Molecular Químico):** un motor determinista basado en espectrometría de masas (GC-MS) y similitud de Jaccard detecta armonías moleculares y puentes ocultos de manera instantánea.
+  2. **Etapa 2 (Auditor Bibliográfico Flash):** un LLM audita pares de bajo solapamiento molecular (S < 0.15) contra literatura culinaria consagrada (*The Flavor Bible*, *The Flavour Thesaurus*) para rescatar "clásicos de contraste" (ej. Melón + Jamón Crudo, Frutilla + Aceto). Además, tipifica el mecanismo organoléptico de cada enlace: *molecular_harmony*, *basic_taste_contrast* o *trigeminal_activation*.
 
 * **Curación Humana como Salvaguarda, no como Automatismo:** en lugar de confiar ciegamente en el score que devuelve el LLM, los pares que caen en una matriz de incompatibilidades conocidas se enrutan a una cola de revisión (`pairing_review_queue`) y solo entran al grafo público tras aprobación manual. Además, una muestra aleatoria del 5-10 % de los pares restantes también se revisa a mano, y la tasa de correcciones se informa en la memoria como medida de calidad del dataset. Los scores siguen siendo estimaciones de un LLM, no mediciones: la interfaz y la documentación los presentan como "afinidad estimada". Esto prioriza la corrección editorial sobre la cobertura automática total del dataset.
 
@@ -85,7 +87,7 @@ El sistema utiliza un patrón de **Arquitectura Multicapa Desacoplada**:
 1. **Carga Inicial del Grafo:** el cliente React solicita `GET /api/v1/graph`. FastAPI consulta PostgreSQL y retorna los nodos y enlaces activos (subgrafo paginado, ordenable por mayor o menor afinidad).
 2. **Exploración y Filtrado:** el usuario selecciona un nodo (ej: _Tomate_). El frontend resalta vecinos y solicita `GET /api/v1/ingredients/{id}/pairings`, pudiendo pedir el ranking de mejores o peores afinidades para ese ingrediente.
 3. **Evaluación de Sinergia en el Laboratorio:** al combinar varios ingredientes en la vista de Laboratorio, el frontend invoca `POST /api/v1/pairings/evaluate`, que calcula el índice de sinergia global como el promedio de `affinity_score` de los pares del grupo que tienen dato (e informa la cobertura, por ejemplo 4 de 6 pares), arma la matriz NxN de afinidades cruzadas, y señala como ingrediente discordante (solo con 3 o más ingredientes) al que tiene menor afinidad promedio contra el resto del grupo.
-4. **Explicación con IA (Online):** al presionar "¿Por qué combinan?", el frontend invoca `POST /api/v1/ai/explain-pairing`. FastAPI utiliza la interfaz `LLMProvider` para generar un párrafo descriptivo con tono gastronómico.
+4. **Explicación con IA (Online):** al presionar "¿Por qué combinan?", el frontend invoca `POST /api/v1/ai/explain-pairing`. FastAPI utiliza la interfaz `LLMProvider` para generar un párrafo descriptivo con tono gastronómico, además de devolver el **mecanismo del maridaje** (*armonía molecular, contraste, trigeminal*).
 
 El detalle técnico completo de este flujo está en **[SPEC.md](./SPEC.md)**.
 
@@ -93,12 +95,13 @@ El detalle técnico completo de este flujo está en **[SPEC.md](./SPEC.md)**.
 
 ## 4. Dataset de Sabores y Pipeline Offline
  
-El dataset se construye a partir de evidencia científica comprobable proveniente de **FlavorDB y el estudio fundacional de Ahn et al. (Nature Scientific Reports, 2011)**:
+El dataset se construye a partir de evidencia científica comprobable proveniente de **FlavorDB y el estudio fundacional de Ahn et al. (Nature Scientific Reports, 2011)** complementado por auditoría de IA:
 
 1. **Catálogo de Referencia Molecular (`data/`):** se compone de 82 compuestos químicos aromáticos volátiles y más de 330 ingredientes clasificados por categoría y perfil molecular.
-2. **Cálculo Determinista de Afinidad:** para cada par evaluado, se calcula matemáticamente su afinidad molecular combinando la similitud de Jaccard sobre las moléculas compartidas ($J(A, B)$) y el recuento absoluto de moléculas ($N_s$). La fórmula $S(A, B) = 0.5 \cdot J(A, B) + 0.5 \cdot \min(N_s, 6)/6$ asegura un rango determinista en $[0.00, 1.00]$.
-3. **Enriquecimiento Textual Asistido por IA:** el LLM no estima ni inventa números; recibe los hechos duros (ingredientes y moléculas volátiles que comparten) y redacta la explicación organoléptica en prosa fluida (`ai_rationale`).
-4. **Validación Automática y Filtro Antagónico:** los pares se filtran con un piso de score de 0.15 (descarte de pares inconexos) y se comparan contra una matriz de 50 pares incompatibles conocidos. Los pares con alerta se enrutan a la cola de curación manual (`pairing_review_queue`), mientras que los pares válidos se insertan en `flavor_pairings`. El detalle completo se documenta en **[JUSTIFICACION_TEORICA_FOOD_PAIRING.md](./docs/JUSTIFICACION_TEORICA_FOOD_PAIRING.md)** y **[SPEC.md](./SPEC.md)**.
+2. **Cálculo Determinista de Afinidad (Etapa 1):** para cada par evaluado, se calcula matemáticamente su afinidad molecular combinando la similitud de Jaccard sobre las moléculas compartidas ($J(A, B)$) y el recuento absoluto de moléculas ($N_s$). La fórmula $S(A, B) = 0.5 \cdot J(A, B) + 0.5 \cdot \min(N_s, 6)/6$ asegura un rango determinista en $[0.00, 1.00]$.
+3. **Auditoría Bibliográfica con LLM Flash (Etapa 2):** se realiza un barrido sobre pares descartados (S < 0.15) para rescatar combinaciones clásicas de contraste fisiológico (ej. acidez cortando grasa). Estos se incorporan al grafo marcados como `culinary_contrast` y se les asigna un `pairing_mechanism` (ej. *basic_taste_contrast*).
+4. **Enriquecimiento Textual Asistido por IA:** el LLM recibe los hechos duros (ingredientes y moléculas volátiles que comparten) y redacta la explicación organoléptica en prosa fluida (`ai_rationale`).
+5. **Validación Automática y Filtro Antagónico:** los pares son comparados contra una matriz de incompatibilidades conocidas. Los pares con alerta se enrutan a la cola de curación manual (`pairing_review_queue`). El detalle completo se documenta en **[JUSTIFICACION_TEORICA_FOOD_PAIRING.md](./docs/JUSTIFICACION_TEORICA_FOOD_PAIRING.md)** y **[SPEC.md](./SPEC.md)**.
 
 Este enfoque prioriza que ningún dato dudoso llegue al usuario final sin revisión, sin requerir la complejidad de un sistema de moderación multiusuario: hay un único rol de curador (el alumno), ejercido por línea de comandos.
 

@@ -31,7 +31,8 @@ CREATE TABLE flavor_pairings (
     ingredient_b_id INT NOT NULL REFERENCES ingredients(id) ON DELETE CASCADE,
     affinity_score NUMERIC(3,2) NOT NULL CHECK (affinity_score BETWEEN 0.00 AND 1.00),
     ai_rationale VARCHAR(300), -- Explicación prediseñada acotada a máx 300 caracteres
-    source_type VARCHAR(30) DEFAULT 'llm_synthesis', -- 'llm_synthesis', 'manual_review'
+    source_type VARCHAR(30) DEFAULT 'llm_synthesis', -- 'llm_synthesis', 'manual_review', 'culinary_contrast'
+    mechanism VARCHAR(30) DEFAULT 'molecular_harmony', -- 'molecular_harmony', 'basic_taste_contrast', 'trigeminal_activation'
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT chk_ordered_pair CHECK (ingredient_a_id < ingredient_b_id),
@@ -42,6 +43,7 @@ CREATE TABLE flavor_pairings (
 -- La búsqueda por ingredient_a_id la cubre el índice compuesto que crea uq_ingredient_pair (a, b).
 CREATE INDEX idx_pairings_b ON flavor_pairings(ingredient_b_id);
 CREATE INDEX idx_pairings_score ON flavor_pairings(affinity_score DESC);
+
 
 -- 4. Usuarios y Favoritos
 CREATE TABLE users (
@@ -119,19 +121,24 @@ WHERE p.ingredient_a_id = :ingredient_id OR p.ingredient_b_id = :ingredient_id
 4. **Matriz de Incompatibilidad Conocida:** listado curado de ~50 pares antagónicos (ej. _Pescado Blanco + Dulce de Leche_), usado como regla de alerta durante la validación.
  
 ### 2.2 Fases del Pipeline
- 
+
+**Etapa 1: Grafo Molecular (Determinista)**
 1. **Carga de Datasets Moleculares:** lectura de `data/compounds.json` e `data/ingredients.json`.
 2. **Perfiles Sensoriales:** generación determinista y validación Pydantic del `flavor_profile` de cada ingrediente sobre seis ejes fijos (`sweet`, `sour`, `salty`, `bitter`, `umami`, `aromatic`), persistido en `ingredients.flavor_profile`.
 3. **Selección de Pares Candidatos:** balance entre candidatos intra-categoría, cruces inter-categoría y la matriz de pares antagónicos. Deduplicación canónica `a < b`.
 4. **Evaluación Matemática:** cálculo determinista de afinidad mediante `calculate_molecular_affinity()`.
 5. **Enriquecimiento con IA (JSON Mode):** redacción del `ai_rationale` citando los compuestos químicos compartidos.
 6. **Validación Automática y Enrutamiento:**
-   * descarte directo de pares con score < 0.15 (ruido sin significancia culinaria);
+   * descarte inicial de pares con score < 0.15 (ruido molecular);
    * conservación de pares débiles entre 0.15 y 0.45 para el modo "Peores" y aristas rojas;
    * derivación a `pairing_review_queue` si el par pertenece a la matriz antagónica y supera 0.35, o para muestra aleatoria de auditoría (5-8%);
-   * inserción directa del resto en `flavor_pairings`.
+   * inserción directa del resto en `flavor_pairings` (con `mechanism='molecular_harmony'`).
 7. **Curación Manual:** el alumno revisa la cola con `scripts/curate.py --list` y decide cada caso (`--approve` / `--reject`).
-8. **Snapshot Previo:** `./scripts/backup.sh backup` antes de cada corrida masiva.
+
+**Etapa 2: Auditoría Bibliográfica (Híbrida)**
+8. **Barrido de Contraste con LLM Flash:** se evalúa una lista de pares clásicos que dieron S < 0.15 en la Etapa 1. El LLM valida su existencia en la literatura gastronómica e inserta los aprobados directamente en `flavor_pairings` con `source_type='culinary_contrast'` y un `mechanism` específico (`basic_taste_contrast` o `trigeminal_activation`), dándoles un score de afinidad semántica.
+
+9. **Snapshot Previo:** `./scripts/backup.sh backup` antes de cada corrida masiva.
 
 ### 2.3 Prompt Estructurado (JSON Mode)
 
@@ -183,7 +190,7 @@ WHERE p.ingredient_a_id = :ingredient_id OR p.ingredient_b_id = :ingredient_id
 Ambas reglas reutilizan `flavor_pairings.affinity_score` sin necesidad de una tabla o campo nuevo.
 
 ### 3.3 Inteligencia Artificial (`/api/v1/ai`)
-* `POST /api/v1/ai/explain-pairing` — genera (o recupera de fallback) una explicación en prosa para un par o grupo de ingredientes. La respuesta incluye `source: "llm" | "stored" | "generic"`. Fallbacks: para un par con dato, su `ai_rationale` guardado (`stored`); para un grupo de más de 2, los `ai_rationale` de los pares mejor y peor puntuados (`stored`); si no hay ningún par con dato, un mensaje genérico (`generic`).
+* `POST /api/v1/ai/explain-pairing` — genera (o recupera de fallback) una explicación en prosa para un par o grupo de ingredientes. La respuesta incluye `source: "llm" | "stored" | "generic"` y `mechanism: "molecular_harmony" | "basic_taste_contrast" | "trigeminal_activation"`. Fallbacks: para un par con dato, su `ai_rationale` y `mechanism` guardados (`stored`); para un grupo de más de 2, los `ai_rationale` de los pares mejor y peor puntuados (`stored`); si no hay ningún par con dato, un mensaje genérico (`generic`).
 * `POST /api/v1/ai/suggest-replacement` — sugiere un reemplazo para el ingrediente discordante detectado por `/pairings/evaluate`. No existe texto guardado equivalente, por lo que su fallback es un mensaje genérico (`source: "generic"`).
 
 ### 3.4 Favoritos (`/api/v1/users/me/favorites`)
@@ -242,7 +249,8 @@ Para los tres endpoints con lógica no trivial, de forma que no haya que inferir
 // Response
 {
   "explanation": "El tomate y la albahaca comparten notas frescas y aromáticas que se potencian mutuamente, un maridaje clásico de la cocina mediterránea.",
-  "source": "llm"
+  "source": "llm",
+  "mechanism": "molecular_harmony"
 }
 ```
 
