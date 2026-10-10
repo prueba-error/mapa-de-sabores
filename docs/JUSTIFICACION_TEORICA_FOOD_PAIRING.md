@@ -114,7 +114,48 @@ flowchart TD
 
 ---
 
-## 5. Justificación Bromatológica Detallada por Matriz y Procesamiento
+
+---
+
+## 5. El Límite del Reduccionismo Molecular y el Sistema Experto Híbrido
+
+A pesar de la robustez del modelo de Ahn et al., el _flavor pairing_ puramente basado en solapamiento de volátiles presenta una limitación conocida en la literatura gastronómica como la **ceguera de matriz y el contraste fisiológico**:
+
+1. **La Paradoja Asiática (Negative Food Pairing):** El mismo paper de Nature (2011) demostró que mientras la cocina occidental busca la armonía por similitud molecular (mismos volátiles), la cocina asiática busca la complejidad por disimilitud o contraste molecular.
+2. **Ceguera de Matriz (Gusto Básico y Trigeminal):** Los compuestos volátiles miden el aroma (olfato retronasal), pero la experiencia gastronómica incluye el gusto básico (dulce, salado, ácido, amargo, umami) y factores trigeminales (picor, astringencia, frescura, temperatura).
+3. **Los "Pares Imposibles":** Combinaciones consagradas como _Melón con Jamón Crudo_, _Frutillas con Aceto Balsámico_, _Queso Azul con Miel_, o _Cerdo con Manzana_ poseen un solapamiento molecular ínfimo (S < 0.15). Si el sistema dependiera únicamente de la química, estos clásicos serían descartados. Funcionan por **contraste fisiológico** (ej. la sal suprime el amargor y magnifica el dulzor, la acidez corta la grasa).
+
+### El Pipeline Híbrido en Dos Etapas
+
+Para resolver esta limitación epistemológica sin perder el rigor científico, **Mapa de Sabores** opera como un **Sistema Experto Híbrido**:
+
+```mermaid
+flowchart TD
+    subgraph Etapa1 [Etapa 1: Grafo Molecular Químico]
+        GCMS[Dataset de Volátiles GC-MS] --> JACCARD[Cálculo de Jaccard y Ns]
+        JACCARD --> THRESHOLD{S >= 0.15?}
+        THRESHOLD -- Sí --> HARMONY[Aristas: molecular_harmony]
+        THRESHOLD -- No --> DISCARD[Candidatos a Descarte]
+    end
+
+    subgraph Etapa2 [Etapa 2: Auditor Bibliográfico LLM]
+        DISCARD --> LLM_AUDIT[Auditoría Flash contra Literatura Culinaria]
+        LLM_AUDIT --> RESCUE{Es clásico de contraste?}
+        RESCUE -- Sí --> CONTRAST[Aristas: culinary_contrast]
+    end
+    
+    HARMONY --> GRAFO[(Grafo Enriquecido Total)]
+    CONTRAST --> GRAFO
+```
+
+1. **Fase Determinista (El Motor de Descubrimiento):** Encuentra armonías ocultas y puentes no intuitivos mediante evidencia físico-química (`source_type: llm_synthesis`, `mechanism: molecular_harmony`).
+2. **Fase Semántica (El Auditor Bibliográfico):** Un LLM de ejecución rápida (Flash) audita los candidatos descartados (S < 0.15) contra textos canónicos (_The Flavor Bible_, _The Flavour Thesaurus_) para rescatar aquellos que funcionan por contraste, inyectándolos al grafo con `source_type: culinary_contrast` y tipificando su mecanismo (`basic_taste_contrast` o `trigeminal_activation`).
+
+Esta arquitectura híbrida demuestra que la IA en este proyecto no reemplaza a la ciencia empírica, sino que **actúa como una capa semántica superior** que modela las variables organolépticas (gusto, tacto) que la cromatografía de gases no puede medir.
+
+---
+
+## 6. Justificación Bromatológica Detallada por Matriz y Procesamiento
 
 Para aquellas matrices complejas, cortes anatómicos especializados o alimentos elaborados que requieren una deducción cinética y espectrométrica precisa (más allá de los registros botánicos directos de FlavorDB), se han generado monografías técnicas específicas:
 
