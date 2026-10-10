@@ -19,8 +19,27 @@ from app.schemas.synergy import (
     EvaluatePairingsRequest,
     SynergyEvaluationResponse,
 )
+from app.schemas.ingredient import (
+    CategorySchema,
+    IngredientResponse,
+    IngredientDetailResponse,
+    IngredientPairingResponse,
+)
+from app.schemas.graph import (
+    GraphNode,
+    GraphEdge,
+    GraphResponse,
+)
+
+from app.schemas.favorite import (
+    FavoriteCombinationCreate,
+    FavoriteCombinationResponse,
+)
 
 __all__ = [
+    "FavoriteCombinationCreate",
+    "FavoriteCombinationResponse",
+
     "AIExplanationRequest",
     "AIExplanationResponse",
     "AIReplacementRequest",
@@ -36,4 +55,11 @@ __all__ = [
     "UserLoginRequest",
     "UserRegisterRequest",
     "UserResponse",
+    "CategorySchema",
+    "IngredientResponse",
+    "IngredientDetailResponse",
+    "IngredientPairingResponse",
+    "GraphNode",
+    "GraphEdge",
+    "GraphResponse",
 ]

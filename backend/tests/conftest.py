@@ -1,9 +1,12 @@
+import uuid
 from collections.abc import AsyncGenerator
 
 import pytest
 from app.config import get_settings
 from app.database import get_db
 from app.main import app
+from app.models.user import User
+from app.security import hash_password, create_access_token
 from httpx import ASGITransport, AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.pool import NullPool
@@ -24,13 +27,11 @@ test_session_factory = async_sessionmaker(
     autoflush=False,
 )
 
-
 @pytest.fixture
 async def db_session() -> AsyncGenerator[AsyncSession]:
     """Proporciona una sesión de base de datos aislada con rollback tras cada test."""
     async with test_session_factory() as session:
         yield session
-
 
 @pytest.fixture
 async def client(db_session: AsyncSession) -> AsyncGenerator[AsyncClient]:
@@ -44,3 +45,20 @@ async def client(db_session: AsyncSession) -> AsyncGenerator[AsyncClient]:
     async with AsyncClient(transport=transport, base_url="http://testserver") as ac:
         yield ac
     app.dependency_overrides.clear()
+
+@pytest.fixture
+async def normal_user(db_session: AsyncSession) -> User:
+    unique_email = f"user_{uuid.uuid4().hex[:8]}@example.com"
+    user = User(
+        email=unique_email,
+        hashed_password=hash_password("password"),
+        full_name="Test User"
+    )
+    db_session.add(user)
+    await db_session.commit()
+    await db_session.refresh(user)
+    return user
+
+@pytest.fixture
+def normal_user_token(normal_user: User) -> str:
+    return create_access_token({"sub": str(normal_user.id)})
